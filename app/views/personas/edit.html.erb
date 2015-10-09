@@ -1,0 +1,64 @@
+<h1>Editing persona</h1>
+
+<% form_for(@persona) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :enlace %><br />
+    <%= f.text_field :enlace %>
+  </p>
+  <p>
+    <%= f.label :paterno %><br />
+    <%= f.text_field :paterno %>
+  </p>
+  <p>
+    <%= f.label :materno %><br />
+    <%= f.text_field :materno %>
+  </p>
+  <p>
+    <%= f.label :nombre %><br />
+    <%= f.text_field :nombre %>
+  </p>
+  <p>
+    <%= f.label :curp %><br />
+    <%= f.text_field :curp %>
+  </p>
+  <p>
+    <%= f.label :rfc %><br />
+    <%= f.text_field :rfc %>
+  </p>
+  <p>
+    <%= f.label :telefono_celular %><br />
+    <%= f.text_field :telefono_celular %>
+  </p>
+  <p>
+    <%= f.label :telefono_casa %><br />
+    <%= f.text_field :telefono_casa %>
+  </p>
+  <p>
+    <%= f.label :telefono_trabajo %><br />
+    <%= f.text_field :telefono_trabajo %>
+  </p>
+  <p>
+    <%= f.label :email %><br />
+    <%= f.text_field :email %>
+  </p>
+  <p>
+    <%= f.label :direccion_casa %><br />
+    <%= f.text_field :direccion_casa %>
+  </p>
+  <p>
+    <%= f.label :direccion_trabajo %><br />
+    <%= f.text_field :direccion_trabajo %>
+  </p>
+  <p>
+    <%= f.label :fecha_nacimiento %><br />
+    <%= f.date_select :fecha_nacimiento %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @persona %> |
+<%= link_to 'Back', personas_path %>
