@@ -2,7 +2,7 @@ class PersonasController < ApplicationController
   # GET /personas
   # GET /personas.xml
   def index
-    @personas = Persona.all
+    @personas = Persona.find(:all)
 
     respond_to do |format|
       format.html # index.html.erb
