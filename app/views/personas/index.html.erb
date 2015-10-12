@@ -19,17 +19,10 @@
 
 <% @personas.each do |persona| %>
   <tr>
-    <td><%=h persona.enlace %></td>
+    
     <td><%=h persona.nombre_completo %></td>
-    <td><%=h persona.curp %></td>
-    <td><%=h persona.rfc %></td>
-    <td><%=h persona.telefono_celular %></td>
-    <td><%=h persona.telefono_casa %></td>
-    <td><%=h persona.telefono_trabajo %></td>
-    <td><%=h persona.email %></td>
-    <td><%=h persona.direccion_casa %></td>
-    <td><%=h persona.direccion_trabajo %></td>
-    <td><%=h persona.fecha_nacimiento %></td>
+    <td><%=h persona.per_curp %></td>
+    <td><%=h persona.per_rfc %></td>
     <td><%= link_to 'Show', persona %></td>
     <td><%= link_to 'Edit', edit_persona_path(persona) %></td>
     <td><%= link_to 'Destroy', persona, :confirm => 'Are you sure?', :method => :delete %></td>
