@@ -1,67 +1,23 @@
 <p>
-  <b>Enlace:</b>
-  <%=h @persona.enlace %>
+  <b>Id:</b>
+  <%=h @persona.id_persona %>
 </p>
 
 <p>
-  <b>Paterno:</b>
-  <%=h @persona.paterno %>
+  <b>Nombre completo:</b>
+  <%=h @persona.nombre_completo %>
 </p>
 
 <p>
-  <b>Materno:</b>
-  <%=h @persona.materno %>
+  <b>CURP:</b>
+  <%=h @persona.per_curp %>
 </p>
 
 <p>
-  <b>Nombre:</b>
-  <%=h @persona.nombre %>
+  <b>RFC:</b>
+  <%=h @persona.per_rfc %>
 </p>
 
-<p>
-  <b>Curp:</b>
-  <%=h @persona.curp %>
-</p>
-
-<p>
-  <b>Rfc:</b>
-  <%=h @persona.rfc %>
-</p>
-
-<p>
-  <b>Telefono celular:</b>
-  <%=h @persona.telefono_celular %>
-</p>
-
-<p>
-  <b>Telefono casa:</b>
-  <%=h @persona.telefono_casa %>
-</p>
-
-<p>
-  <b>Telefono trabajo:</b>
-  <%=h @persona.telefono_trabajo %>
-</p>
-
-<p>
-  <b>Email:</b>
-  <%=h @persona.email %>
-</p>
-
-<p>
-  <b>Direccion casa:</b>
-  <%=h @persona.direccion_casa %>
-</p>
-
-<p>
-  <b>Direccion trabajo:</b>
-  <%=h @persona.direccion_trabajo %>
-</p>
-
-<p>
-  <b>Fecha nacimiento:</b>
-  <%=h @persona.fecha_nacimiento %>
-</p>
 
 
 <%= link_to 'Edit', edit_persona_path(@persona) %> |
