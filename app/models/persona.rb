@@ -1,5 +1,5 @@
 class Persona <  ActiveResource::Base
-  self.site = "http://localhost:3001/"
+  self.site = "http://172.20.60.20:3001/"
   self.user = "user"
   self.password = "secret"
   self.element_name = "persona"

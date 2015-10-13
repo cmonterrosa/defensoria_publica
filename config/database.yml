@@ -18,10 +18,11 @@ development:
   adapter: mysql
   encoding: utf8
   reconnect: false
-  database: defensoria_publica_development
+  database: defensoria_publica_desarrollo
+  host: 172.20.60.55
   pool: 5
-  username: 
-  password:
+  username: fondoa
+  password: sigaFondoA
   socket: /var/run/mysqld/mysqld.sock
 
 # Warning: The database defined as "test" will be erased and
