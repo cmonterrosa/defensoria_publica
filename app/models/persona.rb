@@ -1,4 +1,5 @@
 class Persona < ActiveRecord::Base
+
   set_primary_key "id_persona"
   
 
