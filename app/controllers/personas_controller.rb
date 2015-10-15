@@ -7,7 +7,7 @@ class PersonasController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @personas }
-      format.json  { render :xml => @personas.to_json }
+      format.json { render :xml => @personas.to_json }
     end
   end
 
@@ -61,6 +61,8 @@ class PersonasController < ApplicationController
     @persona = Persona.find(params[:id])
 
     respond_to do |format|
+      #@persona.attributes = params[:persona] if params[:persona]
+      
       if @persona.update_attributes(params[:persona])
         format.html { redirect_to(@persona, :notice => 'Persona was successfully updated.') }
         format.xml  { head :ok }
