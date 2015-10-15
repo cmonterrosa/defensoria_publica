@@ -1,9 +1,8 @@
 class CreatePersonas < ActiveRecord::Migration
   def self.up
     ### Tabla con estructura igual a la que ocupa personas ###
-   ActiveRecord::Base.connection.execute <<EOS
-      #DROP TABLE IF EXISTS pr_persona;
-
+   ActiveRecord::Base.connection.execute("DROP TABLE IF EXISTS pr_persona;")
+    ActiveRecord::Base.connection.execute <<EOS
       CREATE TABLE `pr_persona` (
   `id_persona` char(36) COLLATE utf8_spanish2_ci NOT NULL COMMENT 'identificador unico de la persona',
   `per_paterno` varchar(100) COLLATE utf8_spanish2_ci DEFAULT NULL COMMENT 'apellido paterno',
