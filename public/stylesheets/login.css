@@ -1,0 +1,97 @@
+/* Hoja de estilo para login */
+
+@font-face {
+	font-family: "Nexa Light";
+	src: url('/fonts/NexaLight.otf');
+}
+
+@font-face {
+	font-family: "Nexa Bold";
+	font-weight: bold;
+	src: url('/fonts/NexaBold.otf');
+}
+
+
+body {
+    background-repeat: no-repeat;
+}
+
+table
+{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+td
+{
+    padding:2px;
+}
+
+.input {
+    border: 1px solid #006;
+    background: #ffc;
+}
+
+
+div.centered{
+    display:block;
+    position:absolute;
+    top: 5%;
+    width:100%;
+    height: 100%;
+  }
+
+
+/* INICIO DE SESION */
+
+.LineaHorizontal {
+    position:relative;
+    height: 0.07em;
+    background: #CB352E;
+    color: #CB352E;
+    overflow:hidden;
+    width:600%;
+    margin-left: -100%;
+    border:  none;
+}
+
+.TituloInicioSesion{
+    font-family: "Nexa Light";
+    font-size: 16px;
+    color: #CB352E;
+    height: 40px;
+    text-align: center;
+    vertical-align: center;
+}
+
+.TextBoxInicioSesion{
+    font-family: "Nexa Light";
+    width: 250px;
+    height: 33px;
+    text-align: center;
+    font-size: 12px;
+    border-style: solid;
+    border-color: #CB352E;
+}
+
+
+.BotonEntrar {
+	background-color: #CB352E;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family: "Nexa Light";
+	font-size:16px;
+	padding:10px 66px;
+	text-decoration: none;
+        text-transform: uppercase;
+}
+.BotonEntrar:hover {
+	background-color: #CB352E;
+}
+.BotonEntrar:active {
+	position:relative;
+	top:1px;
+}
+
+
