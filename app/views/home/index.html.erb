@@ -1,5 +1,1 @@
-<h3 align="center">Bienvenido al Sistema de Defensoría Pública</h3><br />
-<h4><%=current_user.nombre_completo%> | <%=link_to 'Cerrar sesión', :controller => "sessions", :action => "destroy"%> </h4>
-
-<br />
-<p><%=link_to 'Ir a listado de personas', :controller => "personas"%></p>
+<%=link_to "AUDIENCIAS", {:controller => "audiencias", :action => "new_or_edit"}, :class => "boton"%>
