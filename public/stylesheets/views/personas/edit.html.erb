@@ -1,0 +1,34 @@
+<h1>Editing persona</h1>
+
+<% form_for(@persona) do |f| %>
+  <%= f.error_messages %>
+
+ 
+  <p>
+    <%= f.label :per_paterno %><br />
+    <%= f.text_field :per_paterno %>
+  </p>
+  <p>
+    <%= f.label :per_materno %><br />
+    <%= f.text_field :per_materno %>
+  </p>
+  <p>
+    <%= f.label :per_nombre %><br />
+    <%= f.text_field :per_nombre %>
+  </p>
+  <p>
+    <%= f.label :per_curp %><br />
+    <%= f.text_field :per_curp %>
+  </p>
+  <p>
+    <%= f.label :per_rfc %><br />
+    <%= f.text_field :per_rfc %>
+  </p>
+  
+  <p>
+    <%= f.submit 'Actualizar' %>
+  </p>
+<% end %>
+
+<%= link_to 'Detalle', @persona %> |
+<%= link_to 'Atrás', personas_path %>

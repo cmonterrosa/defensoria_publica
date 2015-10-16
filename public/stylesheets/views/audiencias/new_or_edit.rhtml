@@ -1,0 +1,41 @@
+<div class="container">
+<% form_for :audiencia, @audiencia, :url => { :action => "save", :controller => "audiencias"}, :html => {:class => "formee"} do |f| -%>
+  <fieldset>
+    <legend>&nbsp;REGISTRO&nbsp;DE&nbsp;AUDIENCIA&nbsp;</legend>
+      <div class="grid-form">
+          <%= error_messages_for :audiencia %>
+      </div>
+
+      <div class="grid-form-login">
+        <div class="grid-8-12">
+          <label><b>ASUNTO: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-4-12"><%=f.text_field :asunto%></div>
+      </div>
+
+      <div class="grid-form-login">
+        <div class="grid-8-12">
+            <label><b>OBSERVACIONES: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-4-12"><%=f.text_field :observaciones%></div>
+      </div>
+
+      <div class="grid-12-12 clear"></div>
+
+      <div class="grid-form-login">
+        <input class="right" type="submit" title="GUARDAR" value="GUARDAR" />
+      </div>
+ </fieldset>
+<%end%>
+</div>
+
+<!-- Validaciones -->
+<script type="text/javascript">
+  var asunto = new LiveValidation( 'audencia_asunto', {onlyOnSubmit: true} );
+  asunto.add( Validate.Presence );
+</script>
+
+
+
+
+

@@ -1,0 +1,504 @@
+/* imagenes sin borde */
+a img {
+        border: 0;
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url(/opensans.woff);
+}
+
+@font-face {
+	font-family: "Nexa Light";
+	src: url('/NexaLight.otf');
+}
+
+@font-face {
+	font-family: "Nexa Bold";
+	font-weight: bold;
+	src: url('/NexaBold.otf');
+}
+
+.titulo {
+    font-size: 17px;
+    height: 36px;
+    font-family: "Nexa Bold";
+    text-align: center;
+    color: white;
+    background-color: #CB352E;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 16px;
+}
+
+.Session {font-size: 24px; font-weight: bold; font-family: Arial, Helvetica, sans-serif; color: #FFF; }
+/*.subtitulo {font-size: 14px; font-family: Verdana, Arial, Helvetica, sans-serif; color: #666666; }*/
+.subtitulo {
+    font-size: 14px;
+    height: 25px;
+    font-family: "Nexa Light";
+    color: black;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 16px;
+}
+
+.pregunta {font-size: 15px; font-family: "Nexa Light"; color: black; }
+.respuesta {font-size: 14px; font-family: "Nexa Light"; color: black; }
+.Estilo4 {font-size: 11px; font-weight: bold; font-family: Verdana, Arial, Helvetica, sans-serif; color: #666666; }
+.Estilo5 {font-size: 11px; font-weight: bold; font-family: Verdana, Arial, Helvetica, sans-serif; color: #333333; }
+.menu {font-size: 14px; ; font-family: Verdana, Geneva, sans-serif; color: #666666; }
+.text{
+    font-size:13px;
+    font-family:  Verdana, Geneva, sans-serif;
+    color: #333;
+    text-transform:uppercase;
+}
+body {
+	background-color: #E8E8E8;
+/*        font-family: "Open Sans";*/
+        font-family: 'Open Sans', sans-serif;
+        letter-spacing: 0.0525em;
+}
+
+h1{
+    font-size: 18px;
+    font-family: "Open Sans";
+    color: #F68934;
+}
+a {
+/*	font-family: "Open Sans";*/
+	font-size: 12px;
+	color: #000055;
+        font-family: "Open Sans";
+
+}
+a:visited {
+/*	color: #666;*/
+	text-decoration: none;
+}
+a:hover {
+	
+        color: #CC3300;
+	text-decoration: none;
+}
+a:active {
+	color: #666;
+	text-decoration: none;
+}
+a:link {
+	text-decoration: none;
+        font-family: "Nexa Light";
+}
+
+.Estilo11 {font-family: sans-serif; font-size: 10px;}
+.Estilo26 {font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 10px; color: #FFFFFF; font-weight: bold; }
+.Estilo12 {font-size: 16px; font-weight: bold; font-family: Arial, Helvetica, sans-serif; color: #666666; }
+
+.sesionesdiarias {font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 12px; color: #A80000;}
+
+
+.loginlabels {
+    font-family: "Trebuchet MS", sans-serif;
+    font-size: 12px; color: #FFFFFF;
+    font-weight: bold;
+}
+
+
+.loginlayout {
+    font-family: "Trebuchet MS", sans-serif;
+    font-size: 14px; color: #FFFFFF;
+    font-weight: bold;
+}
+
+.titulocalendario {
+    /*font-family: "Trebuchet MS", sans-serif;*/
+/*     font-family: "Nexa Bold";*/
+    font-family: 'Nexa Bold';
+    font-size: 18px; color: #CB352E;
+    text-decoration:none;
+    text-shadow:1px 1px 0px #ffffff;
+    text-align: center;
+}
+
+#scroll{
+    /*
+overflow: auto;
+width:950px;
+height: 200px;
+text-align: center;
+*/
+}
+
+#botones {
+	position:inherit;
+	width:300px;
+	height:40px;
+	z-index:1;
+	left: 0px;
+	top: 0px;
+}
+
+
+/*** NUEVO BOTON */
+
+a.boton {
+	-moz-box-shadow: 0px 1px 0px 0px #fff6af;
+	-webkit-box-shadow: 0px 1px 0px 0px #fff6af;
+	box-shadow: 0px 1px 0px 0px #fff6af;
+	background-color: #ffffff;
+	-moz-border-radius:1px;
+	-webkit-border-radius:1px;
+	border-radius:2px;
+	border:1px solid #CB352E;
+	display:inline-block;
+	cursor:pointer;
+	color: #CB352E;
+	font-family: "Nexa Light";
+        text-transform: uppercase;
+        text-align: center;
+	font-size:12px;
+        font-weight: bold;
+        padding:6px 22px;
+	text-decoration:none;
+	text-shadow:0px 0px 0px #ffee66;
+}
+
+a.boton_participantes {
+    	-moz-box-shadow: 0px 1px 0px 0px #fff6af;
+	-webkit-box-shadow: 0px 1px 0px 0px #fff6af;
+	box-shadow: 0px 1px 0px 0px #fff6af;
+	background-color: #ffffff;
+	-moz-border-radius:1px;
+	-webkit-border-radius:1px;
+	border-radius:2px;
+	border:1px solid #CB352E;
+	display:inline-block;
+	cursor:pointer;
+	color: #CB352E;
+	font-family: "Nexa Light";
+        text-transform: uppercase;
+        text-align: center;
+	font-size:13px;
+	padding:6px 22px;
+	text-decoration:none;
+	text-shadow:0px 0px 0px #ffee66;
+}
+
+a.boton:hover {
+	background-color:#CB352E;
+        color: #ffffff;
+}
+a.boton:active {
+	position:relative;
+	top:1px;
+}
+
+a.boton_participantes:hover {
+	background-color:#CB352E;
+        color: #ffffff;
+}
+a.boton_participantes:active {
+	position:relative;
+	top:1px;
+}
+
+
+/* notificaciones */
+
+.notice {
+        font-family: "Nexa Light";
+        font-size: 16px;
+        color: black;
+	background: #FFF6BF;
+	border-top: 2px solid #FFD324;
+	border-bottom: 2px solid #FFD324;
+	text-align: center;
+	margin: 10px auto;
+	padding: 18px 20px;
+	}
+
+  .error {
+        font-family: "Nexa Light";
+        font-size: 16px;
+	border-top: 0px solid red;
+	border-bottom: 0px solid;
+	text-align: center;
+	margin: 10px auto;
+	padding: 10px 20px;
+        color: red;
+	}
+
+/* css for timepicker */
+.ui-timepicker-div .ui-widget-header { margin-bottom: 8px; }
+.ui-timepicker-div dl { text-align: left; }
+.ui-timepicker-div dl dt { height: 25px; margin-bottom: -25px; }
+.ui-timepicker-div dl dd { margin: 0 10px 10px 65px; }
+.ui-timepicker-div td { font-size: 80%; }
+.ui-tpicker-grid-label { background: none; border: none; margin: 0; padding: 0; }
+/* agregado */
+.ui-widget { font-family: Trebuchet MS, Tahoma, Verdana, Arial, sans-serif; font-size: .9em; }
+
+
+/* Estilo para tabla con gradiente */
+
+table.table1{
+    font-family: 'Nexa Light';
+    font-size: 13px;
+    font-weight: bold;
+    line-height: 1.4em;
+    font-style: normal;
+    border-collapse:separate;
+}
+.table1 thead th{
+    padding:15px;
+    color:#fff;
+    text-shadow:1px 1px 1px #CB352E;
+    border:1px solid #CB352E;
+    border-bottom:3px solid #CB352E;
+/*    background-image: linear-gradient(bottom, rgb(133,29,10) 41%, rgb(112,51,10) 71%);
+    background-image: -o-linear-gradient(bottom, rgb(133,29,10) 41%, rgb(112,51,10) 71%);
+    background-image: -moz-linear-gradient(bottom, rgb(133,29,10) 41%, rgb(112,51,10) 71%);
+    background-image: -webkit-linear-gradient(bottom, rgb(133,29,10) 41%, rgb(112,51,10) 71%);
+    background-image: -ms-linear-gradient(bottom, rgb(133,29,10) 41%, rgb(112,51,10) 71%);
+    background-image: -webkit-gradient(
+	linear,
+	left bottom,
+	left top,
+	color-stop(0.41, rgb(133,29,10)),
+	color-stop(0.71, rgb(112,51,10))
+);*/
+    background-color: #CB352E;
+    border-top-left-radius:5px;
+    border-top-right-radius:5px;
+}
+
+.table1 thead th:empty{
+    background:transparent;
+    border:none;
+}
+
+.table1 tfoot td{
+    color: #4A0E08;
+    font-size:32px;
+    text-align:center;
+    padding:10px 0px;
+    text-shadow:1px 1px 1px #444;
+}
+.table1 tfoot th{
+    color:#666;
+}
+
+.table1 tbody td{
+    padding:10px;
+    text-align:center;
+    background-color:#EBEAD8;
+    border: 2px solid #E7EFE0;
+    -moz-border-radius:2px;
+    -webkit-border-radius:2px;
+    border-radius:2px;
+    color:#666;
+    text-shadow:1px 1px 1px #fff;
+}
+
+/* Estilo para checkbox*/
+
+.regular-checkbox {
+    -webkit-appearance: none;
+    background-color: #fafafa;
+    border: 1px solid #cacece;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05);
+    padding: 9px;
+    border-radius: 3px;
+    display: inline-block;
+    position: relative;
+}
+
+/* Firma de Invitaciones */
+  table.firmaInvitacion { background-color: #ffffff; font-size:20px; border:10px solid #d33934;-webkit-border-radius:13px;-moz-border-radius:13px;-ms-border-radius:13px;-o-border-radius:13px;border-radius:13px; }
+  table.firmaInvitacion td, table.firmaInvitacoin th { border-bottom:1px dotted black;padding:5px; }
+
+
+.ultima_conexion {
+    font-size: 11pt;
+    color: darkcyan;
+    padding-top: 10px;
+    padding-bottom: 3px;
+    font-family: "Nexa Light";
+    text-transform: uppercase
+}
+
+/* Menu principal con colores */
+.imagehover {
+    /*font-family: Verdana, Geneva, sans-serif;*/
+    font-family: Andale Mono, monospace;
+    color: orange;
+    font-size: 16px;
+    /*color: #666666;*/
+    font-weight: bold;
+}
+
+.imagehover a {
+ /*font-family: Verdana, Geneva, sans-serif;*/
+ font-family: Andale Mono, monospace;
+ font-size: 16px;
+ /*color: #666666;*/
+ color: navy;
+ font-weight: bold;
+}
+.imagehover a:hover {
+color: #ffffff;
+color: red;
+/*background-color:#d33934;*/
+}
+
+
+/* Paginate */
+.digg_pagination {
+    background: #EFF8FB;
+    cursor: default;
+    padding: 0.5em;
+}
+.digg_pagination a, .digg_pagination span, .digg_pagination em {
+    padding: 0.2em 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+}
+.digg_pagination .disabled {
+    color: #999999;
+    border: 1px solid #dddddd;
+}
+.digg_pagination .current {
+    font-style: normal;
+    font-weight: bold;
+    background: #ffec64;
+    color: navy;
+    border: 1px solid #2e6ab1;
+}
+.digg_pagination a {
+    text-decoration: none;
+    color: #105cb6;
+    border: 1px solid #9aafe5;
+}
+.digg_pagination a:hover, .digg_pagination a:focus {
+    color: #000033;
+    border-color: #000033;
+}
+.digg_pagination .page_info {
+    background: #ffec64;
+    color: navy;
+    padding: 0.4em 0.6em;
+    width: 27em;
+    margin-bottom: 0.6em;
+    text-align: center;
+}
+.digg_pagination .page_info b {
+    color: #000033;
+    background: #6aa6ed;
+    padding: 0.1em 0.25em;
+}
+.digg_pagination:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+* html .digg_pagination { height: 1%; }
+*:first-child + html .digg_pagination { overflow: hidden; }
+.apple_pagination {
+    background: #f1f1f1;
+    border: 1px solid #e5e5e5;
+    text-align: center;
+    padding: 1em;
+    cursor: default;
+}
+.apple_pagination a, .apple_pagination span { padding: 0.2em 0.3em; }
+.apple_pagination .disabled { color: #aaaaaa; }
+.apple_pagination .current {
+    font-style: normal;
+    font-weight: bold;
+    background-color: #bebebe;
+    display: inline-block;
+    width: 1.4em;
+    height: 1.4em;
+    line-height: 1.5;
+    -moz-border-radius: 1em;
+    -webkit-border-radius: 1em;
+    border-radius: 1em;
+    text-shadow: rgba(255, 255, 255, 0.8) 1px 1px 1px;
+}
+.apple_pagination a {
+    text-decoration: none;
+    color: black;
+}
+.apple_pagination a:hover, .apple_pagination a:focus { text-decoration: underline; }
+
+.flickr_pagination {
+    text-align: center;
+    padding: 0.3em;
+    cursor: default;
+}
+.flickr_pagination a, .flickr_pagination span, .flickr_pagination em {
+    padding: 0.2em 0.5em;
+}
+.flickr_pagination .disabled {
+    color: #aaaaaa;
+}
+.flickr_pagination .current {
+    font-style: normal;
+    font-weight: bold;
+    color: #ff0084;
+}
+.flickr_pagination a {
+    border: 1px solid #dddddd;
+    color: #0063dc;
+    text-decoration: none;
+}
+.flickr_pagination a:hover, .flickr_pagination a:focus {
+    border-color: #003366;
+    background: #0063dc;
+    color: white;
+}
+.flickr_pagination .page_info {
+    color: #aaaaaa;
+    padding-top: 0.8em;
+}
+.flickr_pagination .previous_page, .flickr_pagination .next_page { border-width: 2px; }
+.flickr_pagination .previous_page { margin-right: 1em; }
+.flickr_pagination .next_page {  margin-left: 1em; }
+
+
+/* Botones de admitir y guardar */
+
+.admitir {
+    font-family: "Trebuchet MS", sans-serif;
+    font-size: 18px;
+    background-color: #CC3300;
+    color: white;
+    border: 2px solid #dddddd;
+    font-weight: bold;
+
+}
+
+.admitir a {
+    font-family: "Trebuchet MS", sans-serif;
+    font-size: 18px;
+    background-color: orange;
+    color: white;
+    border: 2px solid #dddddd;
+    font-weight: bold;
+}
+
+
+.watermark {
+    position: absolute;
+    opacity: 0.25;
+    font-size: 5em;
+    width: 100%;
+    text-align: center;
+    z-index: 1000;
+}
