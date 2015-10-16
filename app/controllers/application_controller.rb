@@ -7,4 +7,5 @@ class ApplicationController < ActionController::Base
   include AuthenticatedSystem
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password
+  layout 'content', :except => [:sessions]
 end
