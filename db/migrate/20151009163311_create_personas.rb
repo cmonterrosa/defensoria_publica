@@ -1,9 +1,10 @@
 class CreatePersonas < ActiveRecord::Migration
   def self.up
     ### Tabla con estructura igual a la que ocupa personas ###
-   ActiveRecord::Base.connection.execute("DROP TABLE IF EXISTS pr_persona;")
+    ActiveRecord::Base.connection.execute("DROP TABLE IF EXISTS personas;")
+    ActiveRecord::Base.connection.execute("DROP TABLE IF EXISTS pr_persona;")
     ActiveRecord::Base.connection.execute <<EOS
-      CREATE TABLE `pr_persona` (
+      CREATE TABLE `personas` (
   `id_persona` char(36) COLLATE utf8_spanish2_ci NOT NULL COMMENT 'identificador unico de la persona',
   `per_paterno` varchar(100) COLLATE utf8_spanish2_ci DEFAULT NULL COMMENT 'apellido paterno',
   `per_materno` varchar(100) COLLATE utf8_spanish2_ci DEFAULT NULL COMMENT 'apellido materno',
@@ -22,10 +23,13 @@ class CreatePersonas < ActiveRecord::Migration
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci COMMENT='personas que realizan tramite en la institucion';
 
 EOS
+
+add_index :personas, :per_curp, :name => "personas_per_curp"
+
 end
 
   def self.down
-      ActiveRecord::Base.connection.execute("DROP TABLE IF EXISTS 'pr_persona';")
+      ActiveRecord::Base.connection.execute("DROP TABLE IF EXISTS 'personas';")
   end
 end
 

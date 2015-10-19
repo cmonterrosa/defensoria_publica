@@ -1,6 +1,6 @@
 class Persona < ActiveRecord::Base
   include UUIDHelper
-  set_table_name "pr_persona"
+  #set_table_name "pr_persona"
   set_primary_key "id_persona"
   
   def nombre_completo
