@@ -1,23 +1,51 @@
 <div class="container">
-<% form_for :audiencia, @audiencia, :url => { :action => "save", :controller => "audiencias"}, :html => {:class => "formee"} do |f| -%>
+<% form_for :audiencia, @audiencia, :url => { :action => "save", :controller => "audiencias", :id => @audiencia}, :html => {:class => "formee"} do |f| -%>
   <fieldset>
     <legend>&nbsp;REGISTRO&nbsp;DE&nbsp;AUDIENCIA&nbsp;</legend>
       <div class="grid-form">
           <%= error_messages_for :audiencia %>
       </div>
 
-      <div class="grid-form-login">
-        <div class="grid-8-12">
-          <label><b>ASUNTO: </b><em class="formee-req">*</em></label>
+      <div class="grid-4-12">
+        <div class="grid-6-12">
+          <label><b>FECHA/HORA DE LA SOLICITUD: </b><em class="formee-req">*</em></label>
         </div>
-        <div class="grid-4-12"><%=f.text_field :asunto%></div>
+        <div class="grid-6-12"><%=f.text_field :fechahora_solicitud%></div>
       </div>
 
-      <div class="grid-form-login">
-        <div class="grid-8-12">
+       
+
+       <div class="grid-8-12">
+          <div class="grid-4-12">
+            <label><b>CURP: </b><em class="formee-req">*</em></label>
+          </div>
+          <div class="grid-4-12"><%=text_field :persona, :per_curp%></div>
+       </div>
+
+      <div class="grid-12-12"><img alt="spinner" id="spinner" src="/images/loading_spinner.gif" style="display:none;" /></div>
+
+      <div id="datos_personales"></div>
+
+
+      <div class="grid-12-12">
+        <div class="grid-2-12">
+          <label><b>PROCEDENCIA: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-10-12"><%=f.text_field :procedencia%></div>
+      </div>
+
+      <div class="grid-12-12">
+        <div class="grid-2-12">
+          <label><b>ASUNTO: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-10-12"><%=f.text_field :asunto%></div>
+      </div>
+
+      <div class="grid-12-12">
+        <div class="grid-2-12">
             <label><b>OBSERVACIONES: </b><em class="formee-req">*</em></label>
         </div>
-        <div class="grid-4-12"><%=f.text_field :observaciones%></div>
+        <div class="grid-10-12"><%=f.text_field :observaciones%></div>
       </div>
 
       <div class="grid-12-12 clear"></div>
@@ -35,6 +63,17 @@
   asunto.add( Validate.Presence );
 </script>
 
+
+<%= observe_field 'persona_per_curp',
+    :on => "change",
+    :before => "Element.show('spinner')",
+    :success => "Element.hide('spinner')",
+    :url => {:controller => 'audiencias',
+    :action => 'get_datos_personales'},
+    :update => 'datos_personales',
+    :with => "persona_per_curp"%>
+
+    
 
 
 

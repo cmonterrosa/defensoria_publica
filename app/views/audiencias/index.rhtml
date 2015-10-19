@@ -1,0 +1,28 @@
+<div class="titulocalendario">
+  <p>Listado de audencias</p>
+</div>
+
+<!-- contenido -->
+<div id="divlista">
+    <table width="75%" border="0" cellspacing="0" cellpadding="0" class="tablakolaval" style="BORDER-RIGHT: #cccccc 1px solid; BORDER-TOP: #cccccc 1px solid; BORDER-LEFT: #cccccc 1px solid; BORDER-BOTTOM: #cccccc 1px solid">
+    <tr>
+       <td style="vertical-align: middle;">Nombre completo</td>
+       <td style="vertical-align: middle;">Asunto</td>
+       <td style="vertical-align: middle;" colspan="2">&nbsp;</td>
+    </tr>
+    <%@audiencias.each do |a|%>
+    <tr>
+     <td style="vertical-align: middle;"><%=(a.persona) ? a.persona.nombre_completo : "--"%></td>
+     <td style="vertical-align: middle;"><%=(a.asunto) ? a.asunto : "--"%></td>
+     <td style="vertical-align: middle;"><%=link_to "Detalle", {:action => "show", :id => a}, :class => 'boton'  -%></td>
+     <td style="vertical-align: middle;"><%=link_to "Eliminar", {:action => "destroy", :id => a}, :class => 'boton'  -%></td>
+    </tr>
+    <%end%>
+  </table>
+</div>
+
+
+<br /><%=link_to "NUEVA AUDIENCIA", {:action => "new_or_edit"}, :class => 'boton'  -%>
+
+
+
