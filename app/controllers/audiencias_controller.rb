@@ -1,5 +1,6 @@
 class AudienciasController < ApplicationController
   before_filter :login_required
+#  layout :set_layout
 
   def index
     @audiencias = Audiencia.find :all
@@ -24,6 +25,29 @@ class AudienciasController < ApplicationController
     @audiencia = Audiencia.find(params[:id])
   end
 
+    def print
+      if (@audiencia = Audiencia.find(params[:id])) && (@audiencia.turno)
+         param=Hash.new {|k, v| k[v] = {:tipo=>"",:valor=>""}}
+         #-- Parametros
+         param["APP_URL"]={:tipo=>"String", :valor=>RAILS_ROOT}
+         param["P_TURNO"]=(@audiencia.turno)? {:tipo=>"String", :valor=>@audiencia.turno} :  {:tipo=>"String", :valor=>"--"}
+         param["P_SOLICITANTE"]=(@audiencia.persona) ? {:tipo=>"String", :valor=>@audiencia.persona.nombre_completo} : {:tipo=>"String", :valor=> "------"}
+         param["P_FECHA"]= (@audiencia.fechahora_solicitud) ? {:tipo=>"String", :valor=>"#{@audiencia.fechahora_solicitud.strftime('%d DE %B DE %Y').upcase}"}: {:tipo=>"String", :valor=>""}
+         param["P_OBSERVACIONES"]={:tipo=>"String", :valor=>clean_string(@audiencia.observaciones)}
+         param["P_PROCEDENCIA"]={:tipo=>"String", :valor=>clean_string(@audiencia.procedencia)}
+         param["P_ASUNTO"]={:tipo=>"String", :valor=>clean_string(@audiencia.asunto)}
+         if File.exists?(REPORTS_DIR + "/ficha_atencion.jasper")
+           send_doc_jdbc("ficha_atencion", "ficha_atencion", param, output_type = 'pdf')
+         else
+           flash[:error] = "archivo de reporte no existe"
+           redirect_to :controller => "home"
+        end
+      else
+        flash[:error] = "Error de parámetros"
+        redirect_to :controller => "home"
+    end
+ end
+
   def destroy
     @audiencia = Audiencia.find(params[:id])
     if @audiencia.destroy
@@ -42,5 +66,10 @@ class AudienciasController < ApplicationController
      return render(:partial => 'datos_personales', :layout => false) if request.xhr?
   end
 
+private
+
+#  def set_layout
+#    (action_name == 'print')? 'pdf' : 'content'
+#  end
 
 end
