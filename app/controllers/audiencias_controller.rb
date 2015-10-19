@@ -8,6 +8,7 @@ class AudienciasController < ApplicationController
 
   def new_or_edit
       @audiencia = (params[:id])? Audiencia.find(params[:id]) : Audiencia.new
+      @persona = @audiencia.persona
   end
 
   def save
