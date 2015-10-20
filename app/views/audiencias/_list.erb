@@ -1,19 +1,26 @@
-<div class="titulocalendario">
-  <p>Listado de audencias del día: <%=Time.now.strftime("%d de %B de %Y")%></p>
-</div>
+<% form_tag :action => "search", :method => 'get' do %>
+  <p>
+    <%= text_field_tag :search, params[:search], :limit => 60, :placeholder => "Escriba el nombre del solicitante" %>
+    <%= submit_tag "Buscar", :name => nil %>
+  </p>
+<% end %>
+
+
 
 <!-- contenido -->
 <div id="divlista">
-    <table width="75%" border="0" cellspacing="0" cellpadding="0" class="tablakolaval" style="BORDER-RIGHT: #cccccc 1px solid; BORDER-TOP: #cccccc 1px solid; BORDER-LEFT: #cccccc 1px solid; BORDER-BOTTOM: #cccccc 1px solid">
+    <table width="85%" border="0" cellspacing="0" cellpadding="0" class="tablakolaval" style="BORDER-RIGHT: #cccccc 1px solid; BORDER-TOP: #cccccc 1px solid; BORDER-LEFT: #cccccc 1px solid; BORDER-BOTTOM: #cccccc 1px solid">
     <tr>
-        <td style="vertical-align: middle;">Turno</td>
+       <td style="vertical-align: middle;">Fecha</td>
+       <td style="vertical-align: middle;">Turno</td>
        <td style="vertical-align: middle;">Nombre completo</td>
        <td style="vertical-align: middle;">Asunto</td>
        <td style="vertical-align: middle;" colspan="2">&nbsp;</td>
     </tr>
     <%@audiencias.each do |a|%>
     <tr>
-      <td style="vertical-align: middle;"><%=a.turno%></td>
+      <td style="vertical-align: middle;"> <%=a.fecha.strftime("%d de %B de %Y")%></td>
+     <td style="vertical-align: middle;"><%=a.turno%></td>
      <td style="vertical-align: middle;"><%=(a.persona) ? a.persona.nombre_completo : "--"%></td>
      <td style="vertical-align: middle;"><%=(a.asunto) ? a.asunto : "--"%></td>
      <td style="vertical-align: middle;"><%=link_to "Imprimir", {:action => "print", :id =>a}, :class => 'boton'  -%></td>

@@ -4,6 +4,12 @@ class AudienciasController < ApplicationController
 
   def index
     @audiencias = Audiencia.find(:all, :conditions => ["fecha = ?", Time.now.strftime("%Y/%m/%d")])
+    render :partial => "list", :layout => "content"
+  end
+
+  def search
+    @audiencias = Audiencia.search(params[:search])
+    render :partial => "list", :layout => "content"
   end
 
   def new_or_edit

@@ -13,5 +13,11 @@ class Audiencia < ActiveRecord::Base
     self.turno ||= (maximo && maximo > 0)? maximo + 1 : 1
   end
 
-  
+  def self.search(search)
+    if search
+      find(:all, :joins => "a, personas p", :select => "a.* ", :conditions => ['BINARY a.persona_id= BINARY p.id_persona AND  CONCAT(p.per_nombre, \' \' , p.per_paterno, \' \' , p.per_materno) LIKE ?', "%#{search}%"])
+    else
+      find(:all)
+    end
+  end
 end
