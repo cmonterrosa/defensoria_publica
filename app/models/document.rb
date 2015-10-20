@@ -33,17 +33,20 @@ class Document
 
   def self.generate_report_jdbc(report_design, output_type, report_params)
        report_design << '.jasper' if !report_design.match(/\.jasper$/)
-       interface_classpath=RAILS_ROOT+"/app/jasper/bin"
        if OS.windows?   #=> true or false
+          interface_classpath=RAILS_ROOT+"\\app\\jasper\\bin"
           mode = "w+b" #windows requires binary mode
-          Dir.foreach(RAILS_ROOT+"/app/jasper/lib") do |file|
-            interface_classpath << ";#{RAILS_ROOT}/app/jasper/lib/" + file if (file != '.' and file != '..' and file.match(/.jar/))
-          end
+          report_url="#{RAILS_ROOT}\\app\\reports\\#{report_design}"
+          Dir.foreach(RAILS_ROOT+"\\app\\jasper\\lib") do |file|
+            interface_classpath << ";#{RAILS_ROOT}\\app\\jasper\\lib\\" + file if (file != '.' and file != '..' and file.match(/.jar/))
+         end
        else
+         interface_classpath=RAILS_ROOT+"/app/jasper/bin"
          mode = "w+"
-          Dir.foreach(RAILS_ROOT+"/app/jasper/lib") do |file|
+         report_url="#{RAILS_ROOT}/app/reports/#{report_design}"
+         Dir.foreach(RAILS_ROOT+"/app/jasper/lib") do |file|
             interface_classpath << ":#{RAILS_ROOT}/app/jasper/lib/" + file if (file != '.' and file != '..' and file.match(/.jar/))
-          end
+         end
         end
         results=nil
         config = YAML.load_file(File.join(RAILS_ROOT, 'config', 'database.yml'))[RAILS_ENV]
@@ -57,8 +60,8 @@ class Document
         end
 
         jdbc_url= "jdbc:#{config['adapter']}://#{host}:#{port}/#{database}"
-        exec = "java -Djava.awt.headless=true -cp \"#{interface_classpath}\" XmlJasperInterface -Duser.language=es -Duser.region=MX -o#{output_type} -f#{RAILS_ROOT}/app/reports/#{report_design} #{report_params} -d\"#{jdbc_driver}\" -u\"#{jdbc_url}\" -n\"#{username}\" -p\"#{password}\""
-	     puts exec
+        exec = "java -Djava.awt.headless=true -cp \"#{interface_classpath}\" XmlJasperInterface -Duser.language=es -Duser.region=MX -o#{output_type} -f#{report_url} #{report_params} -d\"#{jdbc_driver}\" -u\"#{jdbc_url}\" -n\"#{username}\" -p\"#{password}\""
+	      puts exec
        IO.popen(exec, "r") do |pipe|
 	        results = pipe.read
 	        pipe.close
