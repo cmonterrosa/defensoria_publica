@@ -1,22 +1,24 @@
 <div class="titulocalendario">
-  <p>Listado de audencias</p>
+  <p>Listado de audencias del día: <%=Time.now.strftime("%d de %B de %Y")%></p>
 </div>
 
 <!-- contenido -->
 <div id="divlista">
     <table width="75%" border="0" cellspacing="0" cellpadding="0" class="tablakolaval" style="BORDER-RIGHT: #cccccc 1px solid; BORDER-TOP: #cccccc 1px solid; BORDER-LEFT: #cccccc 1px solid; BORDER-BOTTOM: #cccccc 1px solid">
     <tr>
+        <td style="vertical-align: middle;">Turno</td>
        <td style="vertical-align: middle;">Nombre completo</td>
        <td style="vertical-align: middle;">Asunto</td>
        <td style="vertical-align: middle;" colspan="2">&nbsp;</td>
     </tr>
     <%@audiencias.each do |a|%>
     <tr>
+      <td style="vertical-align: middle;"><%=a.turno%></td>
      <td style="vertical-align: middle;"><%=(a.persona) ? a.persona.nombre_completo : "--"%></td>
      <td style="vertical-align: middle;"><%=(a.asunto) ? a.asunto : "--"%></td>
      <td style="vertical-align: middle;"><%=link_to "Imprimir", {:action => "print", :id =>a}, :class => 'boton'  -%></td>
      <td style="vertical-align: middle;"><%=link_to "Detalle", {:action => "show", :id => a}, :class => 'boton'  -%></td>
-     <td style="vertical-align: middle;"><%=link_to "Eliminar", {:action => "destroy", :id => a}, :class => 'boton'  -%></td>
+     <td style="vertical-align: middle;"><%=link_to "Eliminar", {:action => "destroy", :id => a}, :confirm => '¿Desea eliminar el registro?', :class => 'boton'  -%></td>
     </tr>
     <%end%>
   </table>

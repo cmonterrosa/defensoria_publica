@@ -3,11 +3,12 @@ class AudienciasController < ApplicationController
 #  layout :set_layout
 
   def index
-    @audiencias = Audiencia.find :all
+    @audiencias = Audiencia.find(:all, :conditions => ["fecha = ?", Time.now.strftime("%Y/%m/%d")])
   end
 
   def new_or_edit
       @audiencia = (params[:id])? Audiencia.find(params[:id]) : Audiencia.new
+      @audiencia.fecha ||= Time.now.strftime("%Y/%m/%d")
       @persona = @audiencia.persona
   end
 
@@ -33,7 +34,7 @@ class AudienciasController < ApplicationController
          param["APP_URL"]={:tipo=>"String", :valor=>RAILS_ROOT}
          param["P_TURNO"]=(@audiencia.turno)? {:tipo=>"String", :valor=>@audiencia.turno} :  {:tipo=>"String", :valor=>"--"}
          param["P_SOLICITANTE"]=(@audiencia.persona) ? {:tipo=>"String", :valor=>@audiencia.persona.nombre_completo} : {:tipo=>"String", :valor=> "------"}
-         param["P_FECHA"]= (@audiencia.fechahora_solicitud) ? {:tipo=>"String", :valor=>"#{@audiencia.fechahora_solicitud.strftime('%d DE %B DE %Y').upcase}"}: {:tipo=>"String", :valor=>""}
+         param["P_FECHA"]= (@audiencia.fecha) ? {:tipo=>"String", :valor=>"#{@audiencia.fecha.strftime('%d DE %B DE %Y').upcase}"}: {:tipo=>"String", :valor=>""}
          param["P_OBSERVACIONES"]={:tipo=>"String", :valor=>clean_string(@audiencia.observaciones)}
          param["P_PROCEDENCIA"]={:tipo=>"String", :valor=>clean_string(@audiencia.procedencia)}
          param["P_ASUNTO"]={:tipo=>"String", :valor=>clean_string(@audiencia.asunto)}
