@@ -1,19 +1,23 @@
 #Dir.getwd
+require 'rubygems'
+require 'os'
+
+
 class Document
   include RbConfig
   def self.generate_report_xml(ds_data, report_design, output_type, select_criteria, report_params)
        report_design << '.jasper' if !report_design.match(/\.jasper$/)
        interface_classpath=RAILS_ROOT+"/app/jasper/bin"
-       case CONFIG['host']
-        when /mswin32/
+       
+       if OS.windows?   #=> true or false
           mode = "w+b" #windows requires binary mode
           Dir.foreach(RAILS_ROOT+"/app/jasper/lib") do |file|
-          interface_classpath << ";#{RAILS_ROOT}/app/jasper/lib/" + file if (file != '.' and file != '..' and file.match(/.jar/))
-        end
-        else
+            interface_classpath << ";#{RAILS_ROOT}/app/jasper/lib/" + file if (file != '.' and file != '..' and file.match(/.jar/))
+          end
+       else
          mode = "w+"
           Dir.foreach(RAILS_ROOT+"/app/jasper/lib") do |file|
-          interface_classpath << ":#{RAILS_ROOT}/app/jasper/lib/" + file if (file != '.' and file != '..' and file.match(/.jar/))
+            interface_classpath << ":#{RAILS_ROOT}/app/jasper/lib/" + file if (file != '.' and file != '..' and file.match(/.jar/))
           end
         end
         result=nil
@@ -30,20 +34,17 @@ class Document
   def self.generate_report_jdbc(report_design, output_type, report_params)
        report_design << '.jasper' if !report_design.match(/\.jasper$/)
        interface_classpath=RAILS_ROOT+"/app/jasper/bin"
-       case CONFIG['host']
-        when /mswin32/
+       if OS.windows?   #=> true or false
           mode = "w+b" #windows requires binary mode
           Dir.foreach(RAILS_ROOT+"/app/jasper/lib") do |file|
-          interface_classpath << ";#{RAILS_ROOT}/app/jasper/lib/" + file if (file != '.' and file != '..' and file.match(/.jar/))
-        end
-        else
+            interface_classpath << ";#{RAILS_ROOT}/app/jasper/lib/" + file if (file != '.' and file != '..' and file.match(/.jar/))
+          end
+       else
          mode = "w+"
-          #ENV["LC_CTYPE"] = "es_MX.ISO8859-1"
           Dir.foreach(RAILS_ROOT+"/app/jasper/lib") do |file|
-          interface_classpath << ":#{RAILS_ROOT}/app/jasper/lib/" + file if (file != '.' and file != '..' and file.match(/.jar/))
+            interface_classpath << ":#{RAILS_ROOT}/app/jasper/lib/" + file if (file != '.' and file != '..' and file.match(/.jar/))
           end
         end
-
         results=nil
         config = YAML.load_file(File.join(RAILS_ROOT, 'config', 'database.yml'))[RAILS_ENV]
         host, database, username, password, port = config['host'], config['database'], config['username'], config['password'], config['port']
