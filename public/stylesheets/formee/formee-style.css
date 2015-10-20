@@ -229,7 +229,7 @@ form .formee-txt:focus, .formee input[type="text"]:focus, .formee input[type="pa
 
 /* form buttons */
 .formee-button, .formee input[type="submit"], .formee input[type="button"], .formee input[type="reset"] {
- font-size: 1.4em;
+  font-size: 1.6em;
   line-height: 1.4em;
   font-weight: bolder;
   text-transform: uppercase;

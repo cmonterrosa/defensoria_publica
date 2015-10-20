@@ -7,18 +7,18 @@ a img {
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 400;
-  src: url(/opensans.woff);
+  src: url(/fonts/opensans.woff);
 }
 
 @font-face {
 	font-family: "Nexa Light";
-	src: url('/NexaLight.otf');
+	src: url('/fonts/NexaLight.otf');
 }
 
 @font-face {
 	font-family: "Nexa Bold";
 	font-weight: bold;
-	src: url('/NexaBold.otf');
+	src: url('/fonts/NexaBold.otf');
 }
 
 .titulo {
