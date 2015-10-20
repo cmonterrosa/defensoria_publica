@@ -3,8 +3,9 @@
 
 /* Action New_or_edit, controller audiencias */
 $(function() {
-    $j('#audiencia_fechahora_solicitud').datetimepicker({
+    $j('#audiencia_fecha').datepicker({
         dayOfWeekStart : 1,
+        buttonImage: "/images/calendar.gif",
         lang:'es'
     });
 });
