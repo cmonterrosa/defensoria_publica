@@ -1,3 +1,8 @@
 *.log
 *.exe
 database.yml
+db/schema.rb
+test/fixtures/calidads.yml
+test/unit/calidad_test.rb
+db/schema.rb
+app/jasper/lib/mysql-connector-java-5.1.37-bin.jar
