@@ -1,3 +1,9 @@
+######################################
+# Controlador que hace operaciones basicas de las audiencias
+# u orientaciones que los defensores dan al publico en general
+######################################
+
+
 class AudienciasController < ApplicationController
   before_filter :login_required
 #  layout :set_layout
@@ -19,22 +25,22 @@ class AudienciasController < ApplicationController
   end
 
   def save
-    @audiencia = (params[:id])? Audiencia.find(params[:id]) : Audiencia.new
-    @audiencia.update_attributes(params[:audiencia])
-    @audiencia.persona = (params[:persona] && params[:persona][:per_curp]) ? Persona.find(:first, :conditions => ["per_curp =  ?", params[:persona][:per_curp]]) : nil
-    @audiencia.persona ||= Persona.new(params[:persona])
-    if @audiencia.save && @audiencia.persona.save
-      flash[:notice] = "Audiencia registrada correctamente"
-      redirect_to :controller => "audiencias"
-    end
+      @audiencia = (params[:id])? Audiencia.find(params[:id]) : Audiencia.new
+      @audiencia.update_attributes(params[:audiencia])
+      @audiencia.persona = (params[:persona] && params[:persona][:per_curp]) ? Persona.find(:first, :conditions => ["per_curp =  ?", params[:persona][:per_curp]]) : nil
+      @audiencia.persona ||= Persona.new(params[:persona])
+      if @audiencia.save && @audiencia.persona.save
+        flash[:notice] = "Audiencia registrada correctamente"
+        redirect_to :controller => "audiencias"
+      end
   end
 
   def show
-    @audiencia = Audiencia.find(params[:id])
+      @audiencia = Audiencia.find(params[:id])
   end
 
     def print
-      if (@audiencia = Audiencia.find(params[:id])) && (@audiencia.turno)
+        if (@audiencia = Audiencia.find(params[:id])) && (@audiencia.turno)
          param=Hash.new {|k, v| k[v] = {:tipo=>"",:valor=>""}}
          #-- Parametros
          param["APP_URL"]={:tipo=>"String", :valor=>RAILS_ROOT}
