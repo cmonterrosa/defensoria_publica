@@ -1,0 +1,26 @@
+.search form {
+                width:500px;
+                margin:50px auto;
+}
+.search input{
+                padding:8px 15px;
+                background:rgba(50, 50, 50, 0.2);
+                border:0px solid #dbdbdb;
+                font-size: 12px;
+                width: 50%;
+}
+.search input[type=submit] {
+                position:relative;
+                padding:6px 15px;
+                left:-8px;
+                border:2px solid #207cca;
+                background-color:#207cca;
+                color:#fafafa;
+                font-size: 12px;
+                width: 15%;
+}
+.search input[type=submit]:hover  {
+                background-color:#fafafa;
+                color:#207cca;
+                width: 15%;
+}
