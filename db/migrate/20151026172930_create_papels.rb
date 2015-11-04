@@ -1,7 +1,7 @@
 class CreatePapels < ActiveRecord::Migration
   def self.up
     create_table :papels do |t|
-      t.column :descripcion, :limit => 40
+      t.column :descripcion, :string, :limit => 40
     end
 
     Papel.create(:descripcion => "VICTIMA")  unless Papel.exists?(:descripcion => "VICTIMA")

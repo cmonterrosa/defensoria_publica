@@ -1,3 +1,8 @@
+######################################
+# Modelo interno de materias
+# 
+######################################
+
 class Materia < ActiveRecord::Base
-  has_many :tipo_juicios
+  
 end

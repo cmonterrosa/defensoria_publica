@@ -1,0 +1,75 @@
+<div class="container">
+<% form_for :defensor, @defensor, :url => { :action => "save", :controller => "defensores", :id => @defensor}, :html => {:class => "formee"} do |f| -%>
+  <fieldset>
+    <legend>&nbsp;REGISTRO&nbsp;DE&nbsp;DEFENSORES&nbsp;</legend>
+      <div class="grid-12-12">
+          <%= error_messages_for :defensor %>
+      </div>
+
+      
+       <div class="grid-8-12">
+          <div class="grid-4-12">
+            <label><b>CURP: </b><em class="formee-req">*</em></label>
+          </div>
+          <div class="grid-4-12"><%=text_field :persona, :per_curp%></div>
+       </div>
+
+      <div class="grid-12-12"><img alt="spinner" id="spinner" src="/images/loading_spinner.gif" style="display:none;" /></div>
+
+      <div id="datos_personales"></div>
+
+
+      <div class="grid-6-12">
+        <div class="grid-4-12">
+          <label><b>MUNICIPIO: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-8-12">
+          <%= f.select(:municipio_id, @municipios.collect {|p| [ p.nombre, p.id ] }, { :include_blank => true })%>
+        </div>
+       </div>
+
+      <div class="grid-6-12">
+        <div class="grid-4-12">
+          <label><b>¿ACTIVO?: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-8-12">
+                  <span class="InputGroup">
+                   <label class="uper">SI <%= f.radio_button :activo, "SI", :checked => @defensor.activo %></label>&nbsp;&nbsp;
+                   <label class="uper">NO <%= f.radio_button :activo, "NO", :checked => @defensor.activo == false %></label>
+                  </span>
+       </div>
+      </div>
+      
+
+      
+      <div class="grid-12-12 clear"></div>
+
+      <div class="grid-form-login">
+        <input class="right" type="submit" title="GUARDAR" value="GUARDAR" />
+      </div>
+ </fieldset>
+<%end%>
+</div>
+
+<!-- Validaciones -->
+<script type="text/javascript">
+  var adscripcion = new LiveValidation( 'tramite_adscripcion', {onlyOnSubmit: true} );
+  adscripcion.add( Validate.Presence );
+</script>
+
+
+<%= observe_field 'persona_per_curp',
+    :on => "change",
+    :before => "Element.show('spinner')",
+    :success => "Element.hide('spinner')",
+    :url => {:controller => 'audiencias',
+    :action => 'get_datos_personales',
+    :controller => 'audiencias'},
+    :update => 'datos_personales',
+    :with => "persona_per_curp"%>
+
+
+
+
+
+
