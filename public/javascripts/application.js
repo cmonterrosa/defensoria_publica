@@ -5,7 +5,8 @@
 $(function() {
     $j('#audiencia_fecha').datepicker({
         dayOfWeekStart : 1,
-        buttonImage: "/images/calendar.gif",
+        buttonImage: "/images/icons/calendar.gif",
         lang:'es'
     });
 });
+
