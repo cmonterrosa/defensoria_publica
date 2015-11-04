@@ -1,0 +1,39 @@
+<% form_tag({:action => "search"}, {:class => "search"}) do -%>
+  <p>
+    <%= text_field_tag :search, params[:search], :limit => 60, :placeholder => "Escriba el número único de caso o carpeta de investigación" %>
+    <%= submit_tag "Buscar", :name => nil %>
+  </p>
+<% end %>
+
+
+
+<!-- contenido -->
+<div id="divlista">
+    <table width="85%" border="0" cellspacing="0" cellpadding="0" class="tablakolaval" style="BORDER-RIGHT: #cccccc 1px solid; BORDER-TOP: #cccccc 1px solid; BORDER-LEFT: #cccccc 1px solid; BORDER-BOTTOM: #cccccc 1px solid">
+    <tr>
+       <td style="vertical-align: middle;">Fecha/hora atención</td>
+       <td style="vertical-align: middle;">NUC</td>
+       <td style="vertical-align: middle;">Carpeta de investigación</td>
+       <td style="vertical-align: middle;">Causa Penal</td>
+       <td style="vertical-align: middle;">Defensor</td>
+       <td style="vertical-align: middle;" colspan="2">&nbsp;</td>
+    </tr>
+    <%@tramites.each do |t|%>
+    <tr>
+     <td style="vertical-align: middle;"> <%=t.fechahora_atencion.strftime("%d de %B de %Y")%></td>
+     <td style="vertical-align: middle;"><%=t.nuc%></td>
+     <td style="vertical-align: middle;"><%=t.carpeta_investigacion%></td>
+     <td style="vertical-align: middle;"><%=t.causa_penal%></td>
+     <td style="vertical-align: middle;"><%=(t.defensor && t.defensor.persona) ? t.defensor.persona.nombre_completo : "--"%></td>
+     <td style="vertical-align: middle;"><%=link_to "Menú", {:action => "menu", :id => t}, :class => 'boton'  -%></td>
+     <td style="vertical-align: middle;"><%=link_to "Eliminar", {:action => "destroy", :id => t}, :confirm => '¿Desea eliminar el registro?', :class => 'boton'  -%></td>
+    </tr>
+    <%end%>
+  </table>
+</div>
+
+
+<br /><%=link_to "REGISTRAR NUEVO TRAMITE", {:action => "new_or_edit"}, :class => 'boton'  -%>
+
+
+
