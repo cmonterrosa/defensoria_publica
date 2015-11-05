@@ -10,3 +10,19 @@ $(function() {
     });
 });
 
+$(function() {
+    $j('#ausencia_inicio').datetimepicker({
+        dayOfWeekStart : 1,
+        buttonImage: "/images/icons/calendar.gif",
+        lang:'es'
+    });
+});
+
+$(function() {
+    $j('#ausencia_fin').datetimepicker({
+        dayOfWeekStart : 1,
+        buttonImage: "/images/icons/calendar.gif",
+        lang:'es'
+    });
+});
+

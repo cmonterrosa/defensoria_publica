@@ -19,7 +19,7 @@
     <tr>
       <td style="vertical-align: middle;"><%=(d.persona) ? d.persona.nombre_completo : "--"%></td>
      <td style="vertical-align: middle;"><%=(d.municipio) ? d.municipio.nombre : "--"%></td>
-     <td style="vertical-align: middle;"><%=link_to "Ausencias y Guardias", {:action => "movimientos", :id =>d}, :class => 'boton'  -%></td>
+     <td style="vertical-align: middle;"><%=link_to "Ausencias", {:controller => 'ausencias', :p =>d.persona}, :class => 'boton'  -%></td>
      <td style="vertical-align: middle;"><%=link_to "Editar", {:action => "new_or_edit", :id => d}, :class => 'boton'  -%></td>
      <td style="vertical-align: middle;"><%=link_to "Eliminar", {:action => "destroy", :id => d}, :confirm => '¿Desea eliminar el registro?', :class => 'boton'  -%></td>
     </tr>
