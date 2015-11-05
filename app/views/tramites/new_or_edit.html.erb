@@ -7,28 +7,20 @@
       </div>
 
     <div class="grid-6-12">
-        <div class="grid-6-12">
+        <div class="grid-4-12">
           <label><b>NÚMERO ÚNICO DE CASO: </b><em class="formee-req">*</em></label>
         </div>
-        <div class="grid-6-12"><%=f.text_field :nuc%></div>
+        <div class="grid-8-12"><%=f.text_field :nuc%></div>
       </div>
 
       <div class="grid-6-12">
-        <div class="grid-6-12">
+        <div class="grid-4-12">
           <label><b>CARPETA DE INVESTIGACIÓN: </b><em class="formee-req">*</em></label>
         </div>
-        <div class="grid-6-12"><%=f.text_field :carpeta_investigacion%></div>
+        <div class="grid-8-12"><%=f.text_field :carpeta_investigacion%></div>
       </div>
 
-
-      
-      <div class="grid-12-12"><img alt="spinner" id="spinner" src="/images/loading_spinner.gif" style="display:none;" /></div>
-
-      <div id="datos_tramite"></div>
-
-
-      
-      <div class="grid-12-12">
+    <div class="grid-12-12">
         <div class="grid-4-12">
             <label><b>DEFENSOR PÚBLICO: </b><em class="formee-req">*</em></label>
         </div>
@@ -36,6 +28,9 @@
           <%= f.select(:defensor_id, @defensores.collect {|p| [ p.persona.nombre_completo, p.id ] }, { :include_blank => true })%>
         </div>
       </div>
+
+      <div class="grid-12-12"><img alt="spinner" id="spinner" src="/images/loading_spinner.gif" style="display:none;" /></div>
+      <div id="datos_tramite"></div>
 
       <div class="grid-12-12 clear"></div>
 
@@ -71,7 +66,7 @@
     :action => 'get_datos_tramite'},
     :update => 'datos_tramite',
     :with => "tramite_carpeta_investigacion"
-%>#
+%>
 
 
 
