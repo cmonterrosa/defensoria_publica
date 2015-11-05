@@ -1,0 +1,35 @@
+<%unless @persona%>
+  <% form_tag({:action => "search"}, {:class => "search"}) do -%>
+    <p>
+      <%= text_field_tag :search, params[:search], :limit => 90, :placeholder => "Escriba el nombre de la persona" %>
+      <%= submit_tag "Buscar", :name => nil %>
+    </p>
+  <% end %>
+<%end%>
+
+<!-- contenido -->
+<div id="divlista">
+    <table width="85%" border="0" cellspacing="0" cellpadding="0" class="tablakolaval" style="BORDER-RIGHT: #cccccc 1px solid; BORDER-TOP: #cccccc 1px solid; BORDER-LEFT: #cccccc 1px solid; BORDER-BOTTOM: #cccccc 1px solid">
+    <tr>
+      <td style="vertical-align: middle;">&nbsp;</td>
+       <td style="vertical-align: middle;">Inicio</td>
+       <td style="vertical-align: middle;">Fin</td>
+       <td style="vertical-align: middle;">Motivo</td>
+       <td style="vertical-align: middle;" colspan="2">&nbsp;</td>
+    </tr>
+    <%@ausencias.each do |a|%>
+    <tr>
+      <td style="vertical-align: middle;"> <%=(!@persona)? a.persona.nombre_completo : ''%></td>
+      <td style="vertical-align: middle;"> <%=a.inicio.strftime("%d de %B de %Y - %H:%M")%></td>
+      <td style="vertical-align: middle;"> <%=a.fin.strftime("%d de %B de %Y- %H:%M")%></td>
+      <td style="vertical-align: middle;"><%=(a.motivo_ausencia) ? a.motivo_ausencia.descripcion : ''%></td>
+      <td style="vertical-align: middle;"><%=link_to "Editar", {:action => "new_or_edit", :id =>a, :p =>a.persona}, :class => 'boton'  -%></td>
+      <td style="vertical-align: middle;"><%=link_to "Detalle", {:action => "show", :id => a}, :class => 'boton'  -%></td>
+      <td style="vertical-align: middle;"><%=link_to "Eliminar", {:action => "destroy", :id => a, :p => @persona}, :confirm => '¿Desea eliminar el registro?', :class => 'boton'  -%></td>
+    </tr>
+    <%end%>
+  </table>
+</div>
+
+
+<br /><%=link_to "NUEVA AUSENCIA", {:action => "new_or_edit", :p => @persona}, :class => 'boton'  -%>

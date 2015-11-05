@@ -1,0 +1,84 @@
+<div class="container">
+<% form_for :ausencia, @ausencia, :url => { :action => "save", :controller => "ausencias", :id => @ausencia, :p => @persona}, :html => {:class => "formee"} do |f| -%>
+  <fieldset>
+    <legend>&nbsp;REGISTRO&nbsp;DE&nbsp;AUSENCIA&nbsp;</legend>
+      <div class="grid-form">
+          <%= error_messages_for :audiencia %>
+      </div>
+
+      <div class="grid-4-12">
+        <div class="grid-6-12">
+          <label><b>INICIO: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-6-12"><%=f.text_field :inicio%></div>
+      </div>
+
+      <div class="grid-4-12">
+        <div class="grid-6-12">
+          <label><b>FIN: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-6-12"><%=f.text_field :fin%></div>
+      </div>
+
+       
+       <div class="grid-8-12">
+          <div class="grid-4-12">
+            <label><b>CURP: </b><em class="formee-req">*</em></label>
+          </div>
+          <div class="grid-4-12"><%=text_field :persona, :per_curp%></div>
+       </div>
+
+      <div class="grid-4-12">
+        <div class="grid-4-12">
+          <label><b>MOTIVO: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-8-12">
+          <%= f.select(:motivo_ausencia_id, @motivos_ausencias.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true })%>
+        </div>
+      </div>
+
+      <div class="grid-12-12"><img alt="spinner" id="spinner" src="/images/loading_spinner.gif" style="display:none;" /></div>
+
+      <div id="datos_personales">
+        <%if @persona%>
+            <%=render :partial => "audiencias/datos_personales"%>
+        <%end%>
+      </div>
+
+      <div class="grid-12-12">
+        <div class="grid-2-12">
+            <label><b>OBSERVACIONES: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-10-12"><%=f.text_area :observaciones, :limit => 140%></div>
+      </div>
+
+      <div class="grid-12-12 clear"></div>
+
+      <div class="grid-form-login">
+        <input class="right" type="submit" title="GUARDAR" value="GUARDAR" />
+      </div>
+ </fieldset>
+<%end%>
+</div>
+
+<!-- Validaciones -->
+<script type="text/javascript">
+  var motivo = new LiveValidation( 'ausencia_motivo_ausencia_id', {onlyOnSubmit: true} );
+  motivo.add( Validate.Presence );
+</script>
+
+
+<%= observe_field 'persona_per_curp',
+    :on => "change",
+    :before => "Element.show('spinner')",
+    :success => "Element.hide('spinner')",
+    :url => {:controller => 'audiencias',
+    :action => 'get_datos_personales'},
+    :update => 'datos_personales',
+    :with => "persona_per_curp"%>
+
+    
+
+
+
+

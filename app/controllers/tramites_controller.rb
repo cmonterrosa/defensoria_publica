@@ -46,7 +46,7 @@ class TramitesController < ApplicationController
         @tramite ||= (params[:tramite][:carpeta_investigacion] && params[:tramite][:carpeta_investigacion].size >= 4)?  Tramite.find_by_carpeta_investigacion(params[:tramite][:carpeta_investigacion]) : nil
         @tramite ||= Tramite.new
       end
-      if params[:tramite][:nuc].size > 2 && params[:tramite][:carpeta_investigacion].size > 2
+      if params[:tramite][:nuc].size > 1 && params[:tramite][:carpeta_investigacion].size > 1 && params[:tramite][:defensor_id].size > 0
         return render(:partial => 'datos_tramite', :layout => false ) if request.xhr?
       else
         render :text =>""
