@@ -4,4 +4,5 @@
 ################################
 
 class Papel < ActiveRecord::Base
+  has_many :participantes
 end
