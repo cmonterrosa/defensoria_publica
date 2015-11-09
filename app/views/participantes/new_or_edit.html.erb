@@ -1,0 +1,157 @@
+<div class="container">
+<% form_for :participante, @participante, :url => { :action => "save", :controller => "participantes", :id => @participante, :t => @tramite}, :html => {:class => "formee"} do |f| -%>
+  <fieldset>
+    <legend>&nbsp;REGISTRO&nbsp;DE&nbsp;PARTICIPANTES&nbsp;</legend>
+      <div class="grid-12-12">
+          <%= error_messages_for :participante %>
+      </div>
+
+      <div class="grid-8-12">
+          <div class="grid-4-12">
+            <label><b>CURP: </b><em class="formee-req">*</em></label>
+          </div>
+          <div class="grid-4-12"><%=text_field :persona, :per_curp%></div>
+       </div>
+
+      <div class="grid-12-12"><img alt="spinner" id="spinner" src="/images/loading_spinner.gif" style="display:none;" /></div>
+
+      <div id="datos_personales"></div>
+
+      <div class="grid-6-12">
+        <div class="grid-4-12">
+          <label><b>CALIDAD: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-8-12">
+          <%= f.select(:calidad_id, @calidads.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true })%>
+        </div>
+       </div>
+
+
+      <div class="grid-6-12">
+        <div class="grid-4-12">
+          <label><b>PAPEL QUE DESEMPEÑA: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-8-12">
+          <%= f.select(:papel_id, @papels.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true })%>
+        </div>
+       </div>
+
+
+      <div class="grid-6-12">
+        <div class="grid-6-12">
+          <label><b>FECHAHORA DE CAPTURA: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-6-12"><%=f.text_field :fechahora_captura%></div>
+      </div>
+
+      <div class="grid-6-12">
+        <div class="grid-6-12">
+          <label><b>FECHAHORA DE PUESTA A DISPOSICIÓN: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-6-12"><%=f.text_field :fechahora_puesta_a_disposicion%></div>
+      </div>
+
+      <div class="grid-6-12">
+        <div class="grid-6-12">
+          <label><b>FECHAHORA DE LIBERTAD: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-6-12"><%=f.text_field :fechahora_libertad%></div>
+      </div>
+
+        <div class="grid-6-12">
+        <div class="grid-4-12">
+          <label><b>ZONA/ENTORNO: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-8-12">
+          <%= f.select(:entorno_id, @entornos.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true })%>
+        </div>
+      </div>
+
+
+      <div class="grid-6-12">
+        <div class="grid-8-12">
+          <label><b>¿SE ENCUENTRA PRIVADO DE SU LIBERTAD?: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-4-12">
+                  <span class="InputGroup">
+                   <label class="uper">SI <%= f.radio_button :privado_libertad, "SI", :checked => @participante.privado_libertad %></label>&nbsp;&nbsp;
+                   <label class="uper">NO <%= f.radio_button :privado_libertad, "NO", :checked => @participante.privado_libertad == false %></label>
+                  </span>
+        </div>
+      </div>
+
+    <div class="grid-6-12">
+        <div class="grid-8-12">
+          <label><b>¿SE ENCUENTRA LIBRE A TRAVES DE MEDIDA CAUTELAR?: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-4-12">
+                  <span class="InputGroup">
+                   <label class="uper">SI <%= f.radio_button :libre_atraves_medida_cautelar, "SI", :checked => @participante.libre_atraves_medida_cautelar %></label>&nbsp;&nbsp;
+                   <label class="uper">NO <%= f.radio_button :libre_atraves_medida_cautelar, "NO", :checked => @participante.libre_atraves_medida_cautelar == false %></label>
+                  </span>
+        </div>
+      </div>
+
+      <div class="grid-6-12">
+        <div class="grid-8-12">
+          <label><b>¿SE ENCUENTRA LIBRE A TRAVES DE SUSPENSIÓN CONDICIONAL DEL PROCESO?: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-4-12">
+                  <span class="InputGroup">
+                   <label class="uper">SI <%= f.radio_button :libre_suspension_condicional_proceso, "SI", :checked => @participante.libre_suspension_condicional_proceso %></label>&nbsp;&nbsp;
+                   <label class="uper">NO <%= f.radio_button :libre_suspension_condicional_proceso, "NO", :checked => @participante.libre_suspension_condicional_proceso == false %></label>
+                  </span>
+        </div>
+      </div>
+
+       <div class="grid-6-12">
+        <div class="grid-4-12">
+          <label><b>GRADO DE MARGINACIÓN: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-8-12">
+          <%= f.select(:marginacion_id, @marginacions.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true })%>
+        </div>
+       </div>
+
+      
+
+        <div class="grid-12-12">
+        <div class="grid-4-12">
+          <label><b>OBSERVACIONES: </b></label>
+        </div>
+        <div class="grid-8-12">
+          <%= f.text_area(:observaciones)%>
+        </div>
+       </div>
+
+      <div class="grid-12-12 clear"></div>
+
+      <div class="grid-form-login">
+        <input class="right" type="submit" title="GUARDAR" value="GUARDAR" />
+      </div>
+ </fieldset>
+<%end%>
+</div>
+
+<!-- Validaciones -->
+<script type="text/javascript">
+  var papel = new LiveValidation( 'participante_papel_id', {onlyOnSubmit: true} );
+  papel.add( Validate.Presence );
+</script>
+
+
+<%= observe_field 'persona_per_curp',
+    :on => "change",
+    :before => "Element.show('spinner')",
+    :success => "Element.hide('spinner')",
+    :url => {:controller => 'audiencias',
+    :action => 'get_datos_personales',
+    :controller => 'audiencias'},
+    :update => 'datos_personales',
+    :with => "persona_per_curp"%>
+
+
+
+
+
+

@@ -3,7 +3,7 @@ class CreateParticipantes < ActiveRecord::Migration
     create_table :participantes do |t|
       t.string :persona_id, :limit => 36
       t.integer :entorno_id
-      t.integer :grado_marginacion_id
+      t.integer :marginacion_id
       t.integer :calidad_id
       t.integer :papel_id
       t.boolean :privado_libertad
