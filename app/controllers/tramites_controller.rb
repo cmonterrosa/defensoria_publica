@@ -12,6 +12,11 @@ class TramitesController < ApplicationController
   end
 
   def menu
+    begin
+      @tramite =  Tramite.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+        redirect_to  :action => "index"
+    end
   end
 
   def new_or_edit
