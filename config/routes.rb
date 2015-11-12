@@ -6,6 +6,12 @@ ActionController::Routing::Routes.draw do |map|
   map.activate '/activate/:activation_code',:controller=>'users',:action=>'activate'
   map.resources :users
   
+  #--- new users only from admin --
+#  map.connect 'users/:new_from_admin', :controller => 'users', :action => 'new'
+  map.connect 'users/:save', :controller => 'users', :action => 'save'
+
+  map.myaccount '/myaccount',:controller=>'home', :action=>'myaccount'
+
   map.resource :session
   map.resources :adscripcions
   map.resources :personas

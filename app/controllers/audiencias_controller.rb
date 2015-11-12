@@ -5,7 +5,7 @@
 
 
 class AudienciasController < ApplicationController
-  before_filter :login_required
+  before_filter :login_required, :except => 'get_datos_personales'
 #  layout :set_layout
 
   def index

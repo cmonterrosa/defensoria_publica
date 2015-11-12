@@ -1,3 +1,6 @@
+<!-- arbol -->
+<h3><%=link_to 'INICIO', {:controller => "home", :action => "index"}, :class => "arbol"-%> >> TRAMITES</h3>
+
 <% form_tag({:action => "search"}, {:class => "search"}) do -%>
   <p>
     <%= text_field_tag :search, params[:search], :limit => 60, :placeholder => "Escriba el número único de caso o carpeta de investigación" %>
@@ -24,9 +27,13 @@
      <td style="vertical-align: middle;"><%=t.nuc%></td>
      <td style="vertical-align: middle;"><%=t.carpeta_investigacion%></td>
      <td style="vertical-align: middle;"><%=t.causa_penal%></td>
-     <td style="vertical-align: middle;"><%=(t.defensor && t.defensor.persona) ? t.defensor.persona.nombre_completo : "--"%></td>
-     <td style="vertical-align: middle;"><%=link_to "Menú", {:action => "menu", :id => t}, :class => 'boton'  -%></td>
-     <td style="vertical-align: middle;"><%=link_to "Eliminar", {:action => "destroy", :id => t}, :confirm => '¿Desea eliminar el registro?', :class => 'boton'  -%></td>
+     <%if t.defensor_id.nil?%>
+        <td style="vertical-align: middle;"><%=link_to "ASIGNAR DEFENSOR", {:action => "new_or_edit", :id => t}, :class => 'boton'  -%></td>
+     <%else%>
+        <td><%=h (t.defensor && t.defensor.persona)? t.defensor.persona.nombre_completo : "--"%></td>
+     <%end%>
+     <td style="vertical-align: middle;"><%=link_to "MENU", {:action => "menu", :id => t}, :class => 'boton'  -%></td>
+     <td style="vertical-align: middle;"><%=link_to "ELIMINAR", {:action => "destroy", :id => t}, :confirm => '¿Desea eliminar el registro?', :class => 'boton'  -%></td>
     </tr>
     <%end%>
   </table>

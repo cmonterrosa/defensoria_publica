@@ -206,3 +206,27 @@ label:before {
     text-align: center;
     padding: 0 10px;
 }
+
+/* Estructura de arbol en menu */
+
+.arbol{
+  font-size: 1.17em;
+  -webkit-margin-before: 1em;
+  -webkit-margin-after: 1em;
+  -webkit-margin-start: 0px;
+  -webkit-margin-end: 0px;
+  font-weight: bold;
+  color: #f4911c;
+  font-family: 'Open Sans';
+}
+
+.arbol a{
+   font-size: 1.17em;
+  -webkit-margin-before: 1em;
+  -webkit-margin-after: 1em;
+  -webkit-margin-start: 0px;
+  -webkit-margin-end: 0px;
+  font-weight: bold;
+  color: #cd0a0a;
+  font-family: 'Open Sans';
+}

@@ -1,0 +1,33 @@
+<!-- arbol -->
+<h3><%=link_to 'INICIO', {:controller => "home", :action => "index"}, :class => "arbol"-%> >> <%=link_to 'ADMINISTRACION', {:controller => "admin", :action => "index"}, :class => "arbol"-%> >> ROLES </h3>
+
+
+<% form_tag({:action => "roles_search"}, {:class => "search"}) do -%>
+  <p>
+    <%= text_field_tag :search, params[:search], :limit => 90, :placeholder => "Escriba el nombre del rol" %>
+    <%= submit_tag "Buscar", :name => nil %>
+  </p>
+<% end %>
+
+
+<!-- contenido -->
+<div id="divlista">
+    <table width="60%" border="0" cellspacing="0" cellpadding="0" class="tablakolaval" style="BORDER-RIGHT: #cccccc 1px solid; BORDER-TOP: #cccccc 1px solid; BORDER-LEFT: #cccccc 1px solid; BORDER-BOTTOM: #cccccc 1px solid">
+    <tr>
+       <td style="vertical-align: middle;">Prioridad</td>
+       <td style="vertical-align: middle;">Descripción</td>
+       <td style="vertical-align: middle;">Acciones</td>
+    </tr>
+    <%@roles.each do |role|%>
+    <tr>
+     <td style="vertical-align: middle;"><%=role.prioridad%></td>
+     <td style="vertical-align: middle;"><%=role.descripcion%></td>
+     <td style="vertical-align: middle;"><%=link_to "EDITAR", {:action => "role_new_or_edit", :id => role}, :class => 'boton'  -%></td>
+     <td style="vertical-align: middle;"><%=link_to "USUARIOS", {:action => "users_by_role", :id => role}, :class => 'boton'  -%></td>
+    </tr>
+    <%end%>
+  </table>
+</div>
+
+
+<br /><%=link_to "NUEVO ROL", {:action => "role_new_or_edit", :controller => "admin"}, :class => 'boton'  -%>

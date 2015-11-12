@@ -2,9 +2,11 @@
 # Controlador que hace operaciones basicas y conecta el tramite
 # con todos los demas modelos y elementos
 ######################################
-
+ 
 class TramitesController < ApplicationController
-  before_filter :login_required
+  require_role :defensor
+  require_role :jefedefensor, :for => :asignar
+
   
   def index
     @tramites = Tramite.find(:all)
@@ -36,6 +38,7 @@ class TramitesController < ApplicationController
       redirect_to :controller => "tramites"
     else
       @defensores = Defensor.find(:all, :conditions => ["activo = ?", true])
+      @fiscalias = Fiscalia.find(:all, :conditions => ["activa = ?", true])
       render :action => "new_or_edit"
     end
   end
@@ -50,6 +53,7 @@ class TramitesController < ApplicationController
         @tramite = (params[:tramite][:nuc] && params[:tramite][:nuc].size >= 4)?  Tramite.find_by_nuc(params[:tramite][:nuc]) : nil
         @tramite ||= (params[:tramite][:carpeta_investigacion] && params[:tramite][:carpeta_investigacion].size >= 4)?  Tramite.find_by_carpeta_investigacion(params[:tramite][:carpeta_investigacion]) : nil
         @tramite ||= Tramite.new
+        @fiscalias = Fiscalia.find(:all, :conditions => ["activa = ?", true])
       end
       if params[:tramite][:nuc].size > 1 && params[:tramite][:carpeta_investigacion].size > 1 && params[:tramite][:defensor_id].size > 0
         return render(:partial => 'datos_tramite', :layout => false ) if request.xhr?
@@ -59,9 +63,9 @@ class TramitesController < ApplicationController
     end
 
    def destroy
-    @tramite = Tramite.find(params[:id])
-    (@tramite && @tramite.destroy) ? flash[:notice] = "Registro eliminado correctamente" : flash[:error] = "Registro no se pudo eliminar, verifique"
-    redirect_to :action => "index"
-    end
+      @tramite = Tramite.find(params[:id])
+      (@tramite && @tramite.destroy) ? flash[:notice] = "Registro eliminado correctamente" : flash[:error] = "Registro no se pudo eliminar, verifique"
+      redirect_to :action => "index"
+   end
 
 end

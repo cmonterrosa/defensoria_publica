@@ -4,8 +4,8 @@ class CreateEntornos < ActiveRecord::Migration
     	t.column :descripcion, :string, :limit => 40	      
     end
 
-    Entorno.create(:descripcion => "RURAL")  unless Papel.exists?(:descripcion => "RURAL")
-    Entorno.create(:descripcion => "URBANO")  unless Papel.exists?(:descripcion => "URBANO")
+    Entorno.create(:descripcion => "RURAL")  unless Entorno.exists?(:descripcion => "RURAL")
+    Entorno.create(:descripcion => "URBANO")  unless Entorno.exists?(:descripcion => "URBANO")
 
   end
 

@@ -26,3 +26,30 @@ $(function() {
     });
 });
 
+/* Action New or edit, controller participantes */
+
+$(function() {
+    $j('#participante_fechahora_captura').datetimepicker({
+        dayOfWeekStart : 1,
+        buttonImage: "/images/icons/calendar.gif",
+        lang:'es'
+    });
+});
+
+$(function() {
+    $j('#participante_fechahora_libertad').datetimepicker({
+        dayOfWeekStart : 1,
+        buttonImage: "/images/icons/calendar.gif",
+        lang:'es'
+    });
+});
+
+
+$(function() {
+    $j('#participante_fechahora_puesta_a_disposicion').datetimepicker({
+        dayOfWeekStart : 1,
+        buttonImage: "/images/icons/calendar.gif",
+        lang:'es'
+    });
+});
+

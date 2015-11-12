@@ -23,11 +23,13 @@ $j(document).ready(function() {
 </script>
 
 <div class="grid-12-12">
-          <div class="grid-4-12">
-            <label><b>FISCALIA: </b><em class="formee-req">*</em></label>
-          </div>
-          <div class="grid-8-12"><%=text_field :tramite, :fiscalia%></div>
- </div>
+        <div class="grid-4-12">
+            <label><b>UNIDAD DE ATENCIÓN DE LA FISCALIA: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-8-12">
+          <%= select :tramite, :fiscalia_id, @fiscalias.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true }%>
+        </div>
+</div>
 
  <div class="grid-4-12">
         <div class="grid-6-12">
@@ -49,13 +51,6 @@ $j(document).ready(function() {
         </div>
         <div class="grid-6-12"><%=text_field  :tramite, :fechahora_atencion%></div>
   </div>
-
-  <div class="grid-12-12">
-        <div class="grid-4-12">
-          <label><b>CAUSA PENAL: </b><em class="formee-req">*</em></label>
-        </div>
-        <div class="grid-8-12"><%=text_area  :tramite, :causa_penal%></div>
-   </div>
 
    <div class="grid-12-12">
         <div class="grid-4-12">

@@ -1,0 +1,51 @@
+<!-- arbol -->
+<h3><%=link_to 'INICIO', {:controller => "home", :action => "index"}, :class => "arbol"-%> >> MI CUENTA </h3>
+
+<div id="divlista" width="60%">
+  <table width="85%" border="0" cellspacing="0" cellpadding="0" class="tablakolaval" style="BORDER-RIGHT: #cccccc 1px solid; BORDER-TOP: #cccccc 1px solid; BORDER-LEFT: #cccccc 1px solid; BORDER-BOTTOM: #cccccc 1px solid">
+     <tr>
+      <td colspan="2">
+        Datos generales
+      </td>
+     </tr>
+
+     <tr>
+       <td style="vertical-align: middle;"><b>Nombre:</b></td>
+       <td style="vertical-align: middle;"><%=(@user.persona)? @user.persona.nombre_completo : '--'%></td>
+    </tr>
+
+    <tr>
+       <td style="vertical-align: middle;"><b>Correo electrónico:</b></td>
+       <td style="vertical-align: middle;"><%=@user.email%></td>
+    </tr>
+
+    
+    <tr>
+      <td style="vertical-align: middle;"><b>Fecha de registro:</b></td>
+      <td style="vertical-align: middle;"><%=@user.created_at.strftime("%d-%m-%Y")%></td>
+    </tr>
+
+    <tr>
+      <td style="vertical-align: middle;"><b>Ultima conexión:</b></td>
+      <td style="vertical-align: middle;"><%=@user.last_login.strftime("%d-%m-%Y - %H:%M:%S")%></td>
+    </tr>
+  </table>
+  <br /><br />
+
+  
+  <table border="0" cellspacing="0" cellpadding="0" class="tablakolaval" style="BORDER-RIGHT: #cccccc 1px solid; BORDER-TOP: #cccccc 1px solid; BORDER-LEFT: #cccccc 1px solid; BORDER-BOTTOM: #cccccc 1px solid;width: 50%;margin: auto;">
+     <tr>
+      <td>
+        Perfiles a los que pertene
+      </td>
+     </tr>
+     
+     <%@user.roles.each do |role|%>
+       <tr align="center">
+         <td style="vertical-align: middle;"><%=role.descripcion%></td>
+       </tr>
+     <%end%>
+
+  </table>
+</div>
+

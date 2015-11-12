@@ -7,6 +7,7 @@ class CreateCalidads < ActiveRecord::Migration
     #Se agregan los datos del catálog de calidad 
     Calidad.create(:descripcion=>"DETENIDO") unless Calidad.find_by_descripcion("DETENIDO")
     Calidad.create(:descripcion=>"IMPUTADO") unless Calidad.find_by_descripcion("IMPUTADO")
+    Calidad.create(:descripcion=>"ACUSADO") unless Calidad.find_by_descripcion("ACUSADO")
     
   end
 

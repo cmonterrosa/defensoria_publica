@@ -4,7 +4,8 @@
 ######################################
 
 class DefensoresController < ApplicationController
-  before_filter :login_required
+  require_role :defensor
+  require_role :admin, :for => :destroy
 
   def index
       @defensores = Defensor.find(:all)
@@ -37,7 +38,7 @@ class DefensoresController < ApplicationController
          @municipios = Municipio.chiapas.all
          render :action => "new_or_edit"
       end
-      end
+    end
 
   def destroy
     @defensor = Defensor.find(params[:id])

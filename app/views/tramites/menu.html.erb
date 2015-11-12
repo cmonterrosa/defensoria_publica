@@ -1,0 +1,21 @@
+<!-- arbol -->
+<h3><%=link_to 'INICIO', {:controller => "home", :action => "index"}, :class => "arbol"-%> >> <%=link_to 'TRAMITES', {:controller => "tramites", :action => "index"}, :class => "arbol"-%> >> MENU DEL TRÁMITE</h3>
+
+
+<table>
+  <tr><th>NUC :<%=@tramite.nuc%></th></tr>
+  <tr><th>Carpeta de investigación: <%=@tramite.carpeta_investigacion%></th></tr>
+  <tr><th>&nbsp;</th></tr>
+</table>
+
+
+
+<%=link_to "PARTICIPANTES", {:controller => "participantes", :action => "index", :t => @tramite}, :class => "boton"%> |
+<%=link_to "AUDIENCIAS", {:controller => "audiencias_oralidad", :action => "index", :t => @tramite}, :class => "boton"%> |
+<%=link_to "PROMOCIONES", {:controller => "promociones", :action => "index", :t => @tramite}, :class => "boton"%> |
+<%=link_to "AMPAROS", {:controller => "amparos", :action => "index", :t => @tramite}, :class => "boton"%>
+<%=link_to "RECURSOS", {:controller => "recursos", :action => "index"}, :class => "boton"%>
+<%=link_to "SENTENCIAS", {:controller => "sentencias", :action => "index"}, :class => "boton"%>
+
+
+

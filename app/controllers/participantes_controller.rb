@@ -5,7 +5,7 @@
 
 class ParticipantesController < ApplicationController
 
-  before_filter :login_required
+  require_role :defensor, :for_all_except => :show
 
   def index
       @tramite = Tramite.find(params[:t]) if params[:t]
@@ -24,7 +24,7 @@ class ParticipantesController < ApplicationController
       @tramite = Tramite.find(params[:t]) if params[:t]
       @persona = @participante.persona
       @calidads= Calidad.all
-      @papels = Papel.all
+      @tipo_participantes = TipoParticipante.all
       @entornos = Entorno.all
       @marginacions = Marginacion.all
   end
@@ -43,7 +43,7 @@ class ParticipantesController < ApplicationController
           flash[:notice] = "Participante registrado correctamente"
           redirect_to :controller => "participantes", :t => @tramite
         else
-          @papels = Papel.all
+          @tipo_participantes = TipoParticipante.all
           @entornos = Entorno.all
           @calidads= Calidad.all
           @marginacions = Marginacion.all

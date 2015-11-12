@@ -99,7 +99,7 @@ padding:2px;
       <div class="main_area">
           <div class="logo_wrap">
               <p class="logo_pad" style="margin:0;">
-                  <h3>SISTEMA DE LA DEFENSORÍA PÚBLICA</h3>
+                  <h3><%=link_to 'SISTEMA DE LA DEFENSORIA PÚBLICA',{:controller => "home"}, :title => "INICIO", :class => "arbol"%></h3>
                   <!--
                    <=link_to image_tag("kolaval/logo-menu_small.jpg", :border => 0, :alt => "Poder Judicial del Estado de Chiapas"), {:controller => "home" }, :title => "INICIO"%>
                   -->
@@ -108,7 +108,7 @@ padding:2px;
           <div class="navarea_wrap">
               <div class="nav_wrap">
                 <ul>
-                  <li class="TextBoxMenu"><%=link_to 'INICIO',  {:controller => "home", :action => "index"}, :title => "Página de inicio"%></li>
+                  <li class="TextBoxMenu"><%=link_to 'MI CUENTA',  {:controller => "home", :action => "myaccount"}, :title => "Datos de mi cuenta"%></li>
                   <li>&nbsp;&nbsp;</li>
                   <li class="TextBoxMenu"> <%=link_to 'CERRAR SESIÓN', {:action => "destroy", :controller=>"sessions"}, :title => "¿Desea salir del sistema?"%></li>
                 </ul>

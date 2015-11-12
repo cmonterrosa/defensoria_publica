@@ -14,9 +14,12 @@ class CreateUsers < ActiveRecord::Migration
       t.string   :activation_code,           :limit => 40
       t.datetime :activated_at
       t.datetime :last_login
+      t.string :last_ip, :limit => "15"
+      t.boolean :activo
 
     end
-    add_index :users, :persona_id, :name => "id_persona", :unique => true
+    add_index :users, :persona_id, :name => "user_persona", :unique => true
+    add_index :users, [:persona_id, :activo],  :name => "user_persona_activo"
     add_index :users, :login, :unique => true
   end
 

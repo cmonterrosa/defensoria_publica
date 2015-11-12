@@ -1,0 +1,50 @@
+<div class="container">
+<% form_for :role, @role, :url => { :action => "role_save", :controller => "admin", :id => @role}, :html => {:class => "formee"} do |f| -%>
+  <fieldset>
+    <legend>&nbsp;REGISTRO&nbsp;DE&nbsp;ROL&nbsp;</legend>
+      <div class="grid-form">
+          <%= error_messages_for :role %>
+      </div>
+
+      <div class="grid-6-12">
+        <div class="grid-4-12">
+            <label><b>CLAVE: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-8-12"><%=f.text_field :name, :limit => 60%></div>
+      </div>
+
+      <div class="grid-6-12">
+        <div class="grid-4-12">
+            <label><b>DESCRIPCION: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-8-12"><%=f.text_field :descripcion, :onBlur=>"javascript:{this.value = this.value.toUpperCase(); }",  :limit => 60%></div>
+      </div>
+
+      <div class="grid-6-12">
+        <div class="grid-4-12">
+            <label><b>PRIORIDAD: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-8-12"><%= f.select :prioridad, (1..25) %></div>
+      </div>
+
+      <div class="grid-12-12 clear"></div>
+
+      <div class="grid-form-login">
+        <input class="right" type="submit" title="GUARDAR" value="GUARDAR" />
+      </div>
+ </fieldset>
+<%end%>
+</div>
+
+<!-- Validaciones -->
+<script type="text/javascript">
+  var name = new LiveValidation( 'role_name', {onlyOnSubmit: true} );
+   var descripcion = new LiveValidation( 'role_descripcion', {onlyOnSubmit: true} );
+  name.add( Validate.Presence );
+  descripcion.add( Validate.Presence );
+</script>
+
+
+
+
+

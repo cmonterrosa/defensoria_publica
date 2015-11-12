@@ -1,3 +1,7 @@
+<!-- arbol -->
+<h3><%=link_to 'INICIO', {:controller => "home", :action => "index"}, :class => "arbol"-%> >> ORIENTACIONES </h3>
+
+
 <% form_tag({:action => "search"}, {:class => "search"}) do -%>
   <p>
     <%= text_field_tag :search, params[:search], :limit => 90, :placeholder => "Escriba el nombre del solicitante" %>
