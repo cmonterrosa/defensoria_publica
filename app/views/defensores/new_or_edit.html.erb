@@ -7,17 +7,20 @@
       </div>
 
       
-       <div class="grid-8-12">
+       <div class="grid-12-12">
           <div class="grid-4-12">
-            <label><b>CURP: </b><em class="formee-req">*</em></label>
+            <label><b>CURP O NOMBRE COMPLETO: </b><em class="formee-req">*</em></label>
           </div>
-          <div class="grid-4-12"><%=text_field :persona, :per_curp%></div>
+          <div class="grid-4-12"><%=text_field :persona, :per_curp, :placeholder => "Escriba la CURP o el nombre completo"%></div>
        </div>
 
       <div class="grid-12-12"><img alt="spinner" id="spinner" src="/images/loading_spinner.gif" style="display:none;" /></div>
 
-      <div id="datos_personales"></div>
-
+      <div id="datos_personales">
+        <%if @persona%>
+            <%=render :partial => "home/datos_personales"%>
+        <%end%>
+      </div>
 
       <div class="grid-6-12">
         <div class="grid-4-12">
@@ -64,7 +67,7 @@
     :success => "Element.hide('spinner')",
     :url => {:controller => 'audiencias',
     :action => 'get_datos_personales',
-    :controller => 'audiencias'},
+    :controller => 'home'},
     :update => 'datos_personales',
     :with => "persona_per_curp"%>
 

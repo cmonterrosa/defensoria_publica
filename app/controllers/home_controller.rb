@@ -23,4 +23,26 @@ class HomeController < ApplicationController
     def myaccount
       @user = current_user
     end
-end
+
+    def get_datos_personales
+      @persona ||= Persona.new
+      if params[:persona_per_curp] && params[:persona_per_curp].size >= 6
+        if @persona = Persona.find(:first, :conditions => ["per_curp like ?", "#{params[:persona_per_curp]}%"])
+          return render(:partial => 'datos_personales', :layout => false) if request.xhr?
+        else
+          if @personas = Persona.search(params[:persona_per_curp])
+            if @personas.empty?
+                      return render(:partial => 'datos_personales', :layout => false) if request.xhr?
+                  else
+                      return render(:partial => 'seleccion_persona', :layout => false) if request.xhr?
+                  end
+              else
+                  return render(:partial => 'datos_personales', :layout => false) if request.xhr?
+            end
+        end
+        else
+            @persona = Persona.find(params[:persona_id]) if (params[:persona_id] && params[:persona_id].size == 36)
+            return render(:partial => 'datos_personales', :layout => false) if request.xhr?
+        end
+      end
+  end

@@ -23,7 +23,7 @@
        
        <div class="grid-8-12">
           <div class="grid-4-12">
-            <label><b>CURP: </b><em class="formee-req">*</em></label>
+            <label><b>CURP O NOMBRE COMPLETO: </b><em class="formee-req">*</em></label>
           </div>
           <div class="grid-4-12"><%=text_field :persona, :per_curp%></div>
        </div>
@@ -41,13 +41,13 @@
 
       <div id="datos_personales">
         <%if @persona%>
-            <%=render :partial => "audiencias/datos_personales"%>
+            <%=render :partial => "home/datos_personales"%>
         <%end%>
       </div>
 
       <div class="grid-12-12">
         <div class="grid-2-12">
-            <label><b>OBSERVACIONES: </b><em class="formee-req">*</em></label>
+            <label><b>OBSERVACIONES: </b></label>
         </div>
         <div class="grid-10-12"><%=f.text_area :observaciones, :limit => 140%></div>
       </div>
@@ -72,7 +72,7 @@
     :on => "change",
     :before => "Element.show('spinner')",
     :success => "Element.hide('spinner')",
-    :url => {:controller => 'audiencias',
+    :url => {:controller => 'home',
     :action => 'get_datos_personales'},
     :update => 'datos_personales',
     :with => "persona_per_curp"%>

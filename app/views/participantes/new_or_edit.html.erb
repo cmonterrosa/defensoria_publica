@@ -1,3 +1,7 @@
+<!-- arbol -->
+<h3><%=link_to 'INICIO', {:controller => "home", :action => "index"}, :class => "arbol"-%> >> <%=link_to 'TRAMITES', {:controller => "tramites", :action => "index"}, :class => "arbol"-%> >> <%=link_to 'MENU', {:controller => "tramites", :action => "menu", :id => @tramite}, :class => "arbol"-%> >> <%=link_to 'PARTICIPANTES', {:controller => "participantes", :action => "index", :t => @tramite}, :class => "arbol"-%> >> NUEVO </h3>
+
+
 <div class="container">
 <% form_for :participante, @participante, :url => { :action => "save", :controller => "participantes", :id => @participante, :t => @tramite}, :html => {:class => "formee"} do |f| -%>
   <fieldset>
@@ -8,10 +12,10 @@
 
 
       <div class="grid-8-12">
-          <div class="grid-4-12">
-            <label><b>CURP: </b><em class="formee-req">*</em></label>
+          <div class="grid-6-12">
+            <label><b>CURP O NOMBRE COMPLETO: </b><em class="formee-req">*</em></label>
           </div>
-          <div class="grid-4-12"><%=text_field :persona, :per_curp%></div>
+          <div class="grid-6-12"><%=text_field :persona, :per_curp%></div>
        </div>
 
       <div class="grid-12-12"><img alt="spinner" id="spinner" src="/images/loading_spinner.gif" style="display:none;" /></div>
@@ -144,9 +148,8 @@
     :on => "change",
     :before => "Element.show('spinner')",
     :success => "Element.hide('spinner')",
-    :url => {:controller => 'audiencias',
-    :action => 'get_datos_personales',
-    :controller => 'audiencias'},
+    :url => {:action => 'get_datos_personales',
+    :controller => 'home'},
     :update => 'datos_personales',
     :with => "persona_per_curp"%>
 

@@ -27,11 +27,17 @@ class AudienciasController < ApplicationController
   def save
       @audiencia = (params[:id])? Audiencia.find(params[:id]) : Audiencia.new
       @audiencia.update_attributes(params[:audiencia])
-      @audiencia.persona = (params[:persona] && params[:persona][:per_curp]) ? Persona.find(:first, :conditions => ["per_curp =  ?", params[:persona][:per_curp]]) : nil
+      if params[:persona]
+        @audiencia.persona = (params[:persona][:id_persona] && params[:persona][:id_persona].size > 0)? Persona.find(params[:persona][:id_persona]) : nil
+        @audiencia.persona ||= (params[:persona][:per_curp] && params[:persona][:per_curp].size > 0) ? Persona.find(:first, :conditions => ["per_curp =  ?", params[:persona][:per_curp]]) : nil
+      end
       @audiencia.persona ||= Persona.new(params[:persona])
       if @audiencia.save && @audiencia.persona.save
         flash[:notice] = "Audiencia registrada correctamente"
         redirect_to :controller => "audiencias"
+      else
+        flash[:error] = "Registro no válido"
+        render :action => "new_or_edit"
       end
   end
 
@@ -72,13 +78,7 @@ class AudienciasController < ApplicationController
     redirect_to :action => "index"
   end
 
-  def get_datos_personales
-     if params[:persona_per_curp].size >= 15
-      @persona = Persona.find(:first, :conditions => ["per_curp like ?", "#{params[:persona_per_curp]}%"])
-      @persona ||= Persona.new
-     end
-     return render(:partial => 'datos_personales', :layout => false) if request.xhr?
-  end
+  
 
 private
 

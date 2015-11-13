@@ -14,13 +14,13 @@
 <div id="divlista">
     <table width="85%" border="0" cellspacing="0" cellpadding="0" class="tablakolaval" style="BORDER-RIGHT: #cccccc 1px solid; BORDER-TOP: #cccccc 1px solid; BORDER-LEFT: #cccccc 1px solid; BORDER-BOTTOM: #cccccc 1px solid">
     <tr>
-      <td style="vertical-align: middle;">Papel</td>
+      <td style="vertical-align: middle;">Tipo</td>
        <td style="vertical-align: middle;">Nombre completo</td>
        <td style="vertical-align: middle;" colspan="4">&nbsp;</td>
     </tr>
     <%@participantes.each do |p|%>
     <tr>
-      <td style="vertical-align: middle;"><%=(p.papel) ? p.papel.descripcion : "--"%></td>
+      <td style="vertical-align: middle;"><%=(p.tipo_participante) ? p.tipo_participante.descripcion : "--"%></td>
       <td style="vertical-align: middle;"><%=(p.persona) ? p.persona.nombre_completo : "--"%></td>
       <td style="vertical-align: middle;"><%=link_to "Detalle", {:action => "show", :p =>p.persona}, :class => 'boton'  -%></td>
      <td style="vertical-align: middle;"><%=link_to "Editar", {:action => "new_or_edit", :id => p}, :class => 'boton'  -%></td>

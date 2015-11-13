@@ -1,6 +1,6 @@
      <div class="grid-6-12">
         <div class="grid-4-12">
-          <label><b>RFC: </b><em class="formee-req">*</em></label>
+          <label><b>RFC: </b></label>
         </div>
         <div class="grid-8-12"><%=text_field :persona, :per_rfc%></div>
       </div>
@@ -23,5 +23,7 @@
         <div class="grid-4-12">
           <label><b>NOMBRE: </b><em class="formee-req">*</em></label>
         </div>
-        <div class="grid-8-12"><%=text_field :persona, :per_nombre%></div>
+        <div class="grid-8-12"><%=text_field :persona, :per_nombre%>
+            <div><%=hidden_field :persona, :id_persona%></div>
+        </div>
       </div>

@@ -1,0 +1,18 @@
+ <div class="grid-6-12">
+        <div class="grid-4-12">
+          <label><b>SELECCIONE UNA PERSONA: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-8-12">
+          <%= select(:persona, :id, @personas.collect {|p| [ p.nombre_curp, p.id ] }, { :include_blank => true })%>
+        </div>
+ </div>
+
+
+<%= observe_field 'persona_id',
+    :on => "change",
+    :before => "Element.show('spinner')",
+    :success => "Element.hide('spinner')",
+    :url => {:controller => 'home',
+    :action => 'get_datos_personales'},
+    :update => 'datos_personales',
+    :with => "persona_id"%>
