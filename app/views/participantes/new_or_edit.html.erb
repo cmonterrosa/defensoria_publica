@@ -139,8 +139,10 @@
 
 <!-- Validaciones -->
 <script type="text/javascript">
-  var papel = new LiveValidation( 'participante_papel_id', {onlyOnSubmit: true} );
-  papel.add( Validate.Presence );
+  var per_curp = new LiveValidation( 'persona_per_curp', {onlyOnSubmit: true} );
+  var tipo_participante = new LiveValidation( 'participante_tipo_participante_id', {onlyOnSubmit: true} );
+  per_curp.add( Validate.Presence );
+  tipo_participante.add( Validate.Presence );
 </script>
 
 
