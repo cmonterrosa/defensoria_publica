@@ -48,4 +48,15 @@ class DefensoresController < ApplicationController
     (@defensor && @defensor.destroy) ? flash[:notice] = "Registro eliminado correctamente" : flash[:error] = "Registro no se pudo eliminar, verifique"
     redirect_to :action => "index"
   end
+
+  def list_tramites
+    begin
+      @defensor = Defensor.find(params[:id])
+      @tramites =  Tramite.find(:all, :conditions => ["defensor_id = ?", @defensor]).paginate(:page => params[:page], :per_page => 25)
+    rescue ActiveRecord::RecordNotFound
+        redirect_to  :action => "index", :controller => "defensores"
+    end
+      
+  end
+
 end

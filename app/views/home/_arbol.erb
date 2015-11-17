@@ -6,9 +6,24 @@
 <h3>
   <%=h link_to 'INICIO', "/", :class => "arbol", :title => "INICIO"-%> >>
   <%=  case params[:controller]
+            when 'home'
+                case controller.action_name
+                  when 'myaccount'
+                    title = 'MI CUENTA'
+                    (link_to title.upcase, {:controller => params[:controller], :action => "myaccount"}, :class => "arbol", :title => title.upcase)
+              end
             when 'defensores'
                 title = 'DEFENSORES PÚBLICOS'
-                (link_to title.upcase, {:controller => params[:controller], :action => "index"}, :class => "arbol", :title => title.upcase)
+                case controller.action_name
+                  when 'list_tramites'
+                    if @defensor && @defensor.persona
+                      (link_to 'TRAMITES', {:controller => 'tramites', :action => "index"}, :class => "arbol", :title => 'tramites') <<
+                       " >> " + raw(link_to title.upcase, {:controller => params[:controller], :action => "index"}, :class => "arbol", :title => title.upcase) <<
+                      " >> " + raw(link_to @defensor.persona.nombre_completo.upcase, {:controller => params[:controller], :action => controller.action_name, :id => @defensor }, :class => "arbol", :title => 'TRAMITES DEL DEFENSOR')
+                    end
+                else
+                    (link_to title.upcase, {:controller => params[:controller], :action => "index"}, :class => "arbol", :title => title.upcase)
+                end
              when 'admin'
                 title = 'ADMINISTRACIÓN'
                 (link_to title.upcase, {:controller => params[:controller], :action => "index"}, :class => "arbol", :title => title.upcase)
@@ -38,7 +53,7 @@
    <!-- Si lleva parametro de persona -->
     <%if (params[:p] && params[:p].size == 36)%>
           <%if persona = Persona.find(params[:p])%>
-               >> <%=h (persona.nombre_completo)%>
+               >> <%=h (persona.nombre_completo).upcase%>
           <%end%>
      <%end%>
 
