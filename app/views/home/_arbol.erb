@@ -14,14 +14,14 @@
                 (link_to title.upcase, {:controller => params[:controller], :action => "index"}, :class => "arbol", :title => title.upcase)
             when 'participantes'
                 case controller.action_name
-                    when 'index', 'new_or_edit'
+                    when 'index', 'new_or_edit', 'show'
                         raw(link_to ' TRAMITES ', {:controller => 'tramites', :action => "index"}, :class => "arbol") <<
                         ">> " +  raw(link_to ' MENU ', {:controller => 'tramites', :action => "menu", :id => @tramite}, :class => "arbol") <<
                         ">> " +  raw(link_to ' PARTICIPANTES ', {:controller => 'participantes', :action => "index", :t => @tramite}, :class => "arbol")
                 end
             when 'amparos'
                 case controller.action_name
-                    when 'index', 'new_or_edit'
+                    when 'index', 'new_or_edit', 'show'
                         raw(link_to ' TRAMITES ', {:controller => 'tramites', :action => "index"}, :class => "arbol") <<
                         ">> " +  raw(link_to ' MENU ', {:controller => 'tramites', :action => "menu", :id => @tramite}, :class => "arbol") <<
                         ">> " +  raw(link_to ' AMPAROS ', {:controller => 'amparos', :action => "index", :t => @tramite}, :class => "arbol")
