@@ -19,6 +19,14 @@
                         ">> " +  raw(link_to ' MENU ', {:controller => 'tramites', :action => "menu", :id => @tramite}, :class => "arbol") <<
                         ">> " +  raw(link_to ' PARTICIPANTES ', {:controller => 'participantes', :action => "index", :t => @tramite}, :class => "arbol")
                 end
+            when 'amparos'
+                case controller.action_name
+                    when 'index', 'new_or_edit'
+                        raw(link_to ' TRAMITES ', {:controller => 'tramites', :action => "index"}, :class => "arbol") <<
+                        ">> " +  raw(link_to ' MENU ', {:controller => 'tramites', :action => "menu", :id => @tramite}, :class => "arbol") <<
+                        ">> " +  raw(link_to ' AMPAROS ', {:controller => 'amparos', :action => "index", :t => @tramite}, :class => "arbol")
+                end
+
             when 'audiencias'
                 title = 'ORIENTACIONES AL PÚBLICO'
                 (link_to title.upcase, {:controller => params[:controller], :action => "index"}, :class => "arbol", :title => title.upcase)
@@ -53,6 +61,11 @@
             when "role_new_or_edit"
                 " >>"  + raw(link_to ' ROLES', {:controller => 'admin', :action => 'roles_index'}, :class => 'arbol') +
                 " >> NUEVO"
+            when "users_by_role"
+                " >>"  + raw(link_to ' ROLES', {:controller => 'admin', :action => 'roles_index'}, :class => 'arbol') +
+                if @role
+                  " >> #{@role.name}"
+                end
             end
        %>
        
