@@ -5,17 +5,27 @@
 -->
 <h3>
   <%=h link_to 'INICIO', "/", :class => "arbol", :title => "INICIO"-%> >>
-  <%case params[:controller]
-      when 'defensores'
-        title = 'DEFENSORES PÚBLICOS'
-      when 'admin'
-        title = 'ADMINISTRACIÓN'
-      else
-        title = params[:controller]
-      end
-  %>
-
-  <%=h link_to title.upcase, {:controller => params[:controller], :action => "index"}, :class => "arbol"-%>
+  <%=  case params[:controller]
+            when 'defensores'
+                title = 'DEFENSORES PÚBLICOS'
+                (link_to title.upcase, {:controller => params[:controller], :action => "index"}, :class => "arbol", :title => title.upcase)
+             when 'admin'
+                title = 'ADMINISTRACIÓN'
+                (link_to title.upcase, {:controller => params[:controller], :action => "index"}, :class => "arbol", :title => title.upcase)
+            when 'participantes'
+                case controller.action_name
+                    when 'index', 'new_or_edit'
+                        raw(link_to ' TRAMITES ', {:controller => 'tramites', :action => "index"}, :class => "arbol") <<
+                        ">> " +  raw(link_to ' MENU ', {:controller => 'tramites', :action => "menu", :id => @tramite}, :class => "arbol") <<
+                        ">> " +  raw(link_to ' PARTICIPANTES ', {:controller => 'participantes', :action => "index", :t => @tramite}, :class => "arbol")
+                end
+            when 'audiencias'
+                title = 'ORIENTACIONES AL PÚBLICO'
+                (link_to title.upcase, {:controller => params[:controller], :action => "index"}, :class => "arbol", :title => title.upcase)
+            else
+                (link_to params[:controller].upcase, {:controller => params[:controller], :action => "index"}, :class => "arbol", :title => params[:controller])
+          end
+    %>
 
    <!-- Si lleva parametro de persona -->
     <%if (params[:p] && params[:p].size == 36)%>
@@ -24,21 +34,26 @@
           <%end%>
      <%end%>
 
-
-  <%if controller.action_name == 'new_or_edit'%>
-          >> NUEVO
-    <%elsif controller.action_name == 'menu' %>
-          >> MENU
-    <%elsif controller.action_name == 'destroy' %>
-          >> ELIMINAR
-    <%elsif controller.action_name == 'print'%>
-          >> IMPRIMIR
-    <%elsif controller.action_name == 'roles_index' %>
-          >> <%=h link_to 'ROLES', {:controller => 'admin', :action => 'roles_index'}, :class => 'arbol'-%>
-    <%elsif controller.action_name == 'users_index' %>
-          >> <%=h link_to 'USUARIOS', {:controller => 'admin', :action => 'users_index'}, :class => 'arbol'-%>
-     <%elsif controller.action_name == 'role_new_or_edit' %>
-          >> <%=h link_to 'ROLES', {:controller => 'admin', :action => 'roles_index'}, :class => 'arbol'-%>
-          >> NUEVO
-    <%end%>
+      <!-- acciones -->
+      <%=case controller.action_name
+            when 'new_or_edit'
+              " >> NUEVO O EDITAR"
+            when "menu"
+              " >> MENU"
+            when "destroy"
+              " >> ELIMINAR"
+            when "print"
+              " >> IMPRIMIR"
+            when "show"
+              " >> DETALLE"
+            when "roles_index"
+                " >>" + raw(link_to ' ROLES', {:controller => 'admin', :action => 'roles_index'}, :class => 'arbol')
+            when  "users_index"
+                " >>" + raw(link_to ' USUARIOS', {:controller => 'admin', :action => 'users_index'}, :class => 'arbol')
+            when "role_new_or_edit"
+                " >>"  + raw(link_to ' ROLES', {:controller => 'admin', :action => 'roles_index'}, :class => 'arbol') +
+                " >> NUEVO"
+            end
+       %>
+       
 </h3>

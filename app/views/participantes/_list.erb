@@ -1,6 +1,4 @@
-<!-- arbol -->
-<h3><%=link_to 'INICIO', {:controller => "home", :action => "index"}, :class => "arbol"-%> >> <%=link_to 'TRAMITES', {:controller => "tramites", :action => "index"}, :class => "arbol"-%> >> <%=link_to 'MENU', {:controller => "tramites", :action => "menu", :id => @tramite}, :class => "arbol"-%> >> PARTICIPANTES DEL TRÁMITE</h3>
-
+<%=render :partial => "home/arbol"%>
 
 <% form_tag({:action => "search", :t => @tramite}, {:class => "search"}) do -%>
   <p>

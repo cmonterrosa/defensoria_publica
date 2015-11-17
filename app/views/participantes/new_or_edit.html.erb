@@ -1,5 +1,4 @@
-<!-- arbol -->
-<h3><%=link_to 'INICIO', {:controller => "home", :action => "index"}, :class => "arbol"-%> >> <%=link_to 'TRAMITES', {:controller => "tramites", :action => "index"}, :class => "arbol"-%> >> <%=link_to 'MENU', {:controller => "tramites", :action => "menu", :id => @tramite}, :class => "arbol"-%> >> <%=link_to 'PARTICIPANTES', {:controller => "participantes", :action => "index", :t => @tramite}, :class => "arbol"-%> >> NUEVO </h3>
+<%=render :partial =>"home/arbol"%>
 
 
 <div class="container">

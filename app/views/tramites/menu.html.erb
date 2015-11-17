@@ -1,12 +1,6 @@
 <%=render :partial => "home/arbol"%>
 
-
-<table>
-  <tr><th>NUC :<%=@tramite.nuc%></th></tr>
-  <tr><th>Carpeta de investigación: <%=@tramite.carpeta_investigacion%></th></tr>
-  <tr><th>&nbsp;</th></tr>
-</table>
-
+<%=render :partial => "encabezado"%>
 
 
 <%=link_to "PARTICIPANTES", {:controller => "participantes", :action => "index", :t => @tramite}, :class => "boton"%> |
