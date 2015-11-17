@@ -1,0 +1,44 @@
+<!--
+  ####################################################
+  # ESTE PARTIAL SE ENCARGA DE GENERAR LAS LIGAS EN ESTRUCTURA DE ARBOL  #
+  # ##################################################
+-->
+<h3>
+  <%=h link_to 'INICIO', "/", :class => "arbol", :title => "INICIO"-%> >>
+  <%case params[:controller]
+      when 'defensores'
+        title = 'DEFENSORES PÚBLICOS'
+      when 'admin'
+        title = 'ADMINISTRACIÓN'
+      else
+        title = params[:controller]
+      end
+  %>
+
+  <%=h link_to title.upcase, {:controller => params[:controller], :action => "index"}, :class => "arbol"-%>
+
+   <!-- Si lleva parametro de persona -->
+    <%if (params[:p] && params[:p].size == 36)%>
+          <%if persona = Persona.find(params[:p])%>
+               >> <%=h (persona.nombre_completo)%>
+          <%end%>
+     <%end%>
+
+
+  <%if controller.action_name == 'new_or_edit'%>
+          >> NUEVO
+    <%elsif controller.action_name == 'menu' %>
+          >> MENU
+    <%elsif controller.action_name == 'destroy' %>
+          >> ELIMINAR
+    <%elsif controller.action_name == 'print'%>
+          >> IMPRIMIR
+    <%elsif controller.action_name == 'roles_index' %>
+          >> <%=h link_to 'ROLES', {:controller => 'admin', :action => 'roles_index'}, :class => 'arbol'-%>
+    <%elsif controller.action_name == 'users_index' %>
+          >> <%=h link_to 'USUARIOS', {:controller => 'admin', :action => 'users_index'}, :class => 'arbol'-%>
+     <%elsif controller.action_name == 'role_new_or_edit' %>
+          >> <%=h link_to 'ROLES', {:controller => 'admin', :action => 'roles_index'}, :class => 'arbol'-%>
+          >> NUEVO
+    <%end%>
+</h3>

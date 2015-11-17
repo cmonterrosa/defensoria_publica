@@ -1,3 +1,5 @@
+<%=render :partial => "home/arbol"%>
+
 <div class="container">
 <% form_for :ausencia, @ausencia, :url => { :action => "save", :controller => "ausencias", :id => @ausencia, :p => @persona}, :html => {:class => "formee"} do |f| -%>
   <fieldset>

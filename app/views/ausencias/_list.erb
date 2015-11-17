@@ -1,3 +1,5 @@
+<%=render :partial => "home/arbol"%>
+
 <%unless @persona%>
   <% form_tag({:action => "search"}, {:class => "search"}) do -%>
     <p>
@@ -30,6 +32,21 @@
     <%end%>
   </table>
 </div>
+
+
+<br />
+<table>
+    <tr align="center" >
+      <td colspan="5" style="padding: 0;">
+        <div class="digg_pagination">
+          <div class="page_info">
+            <%= page_entries_info @ausencias %>
+          </div>
+          <%= will_paginate @ausencias %>
+        </div>
+      </td>
+    </tr>
+</table>
 
 
 <br /><%=link_to "NUEVA AUSENCIA", {:action => "new_or_edit", :p => @persona}, :class => 'boton'  -%>
