@@ -107,20 +107,18 @@ end
 
   def show_roles
     @roles = Role.find(:all)
-#    @token = generate_token
   end
 
-  def show_users
-    if current_user.has_role?("adminusuarios")
-      @defensores = Role.find_by_name("defensor").active_users
-      @usuarios = User.find(:all, :order => "login") if current_user.has_role?("admin")
-      @usuarios ||= (@especialistas + @convenios).sort{|a,b| a.nombre_completo <=> b.nombre_completo}
-    else
-      @usuarios = User.find(:all,  :order => "login") if (params[:token] && params[:token]  == 'all' )
-      @usuarios ||= User.find(:all, :conditions => ["activo = ?", true], :order => "login")
+  def enable_disable_user
+    begin
+      @user = User.find(params[:id])
+      (@user.activo) ? @user.update_attributes!(:activo => false) : @user.update_attributes!(:activo => true)
+      @mensaje = @user.activo ? "Usuario habilitado" : "Usuario deshabilitado"
+      flash[:notice] = @mensaje
+      redirect_to :action => "users_index"
+    rescue ActiveRecord::RecordNotFound
+        redirect_to  :action => "index"
     end
-    @usuarios = @usuarios.paginate(:page => params[:page], :per_page => 25)
-#    @token = generate_token
   end
 
 end

@@ -8,13 +8,13 @@ class DefensoresController < ApplicationController
   require_role :admin, :for => :destroy
 
   def index
-      @defensores = Defensor.find(:all)
+      @defensores = Defensor.find(:all).paginate(:page => params[:page], :per_page => 25)
       @municipios = Municipio.chiapas.all
       render :partial => "list", :layout => "content"
   end
 
   def search
-    @defensores = Defensor.search(params[:search])
+    @defensores = Defensor.search(params[:search]).paginate(:page => params[:page], :per_page => 25)
     render :partial => "list", :layout => "content"
   end
 

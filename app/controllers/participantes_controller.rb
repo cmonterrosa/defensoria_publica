@@ -9,13 +9,13 @@ class ParticipantesController < ApplicationController
 
   def index
       @tramite = Tramite.find(params[:t]) if params[:t]
-      @participantes = @tramite.participantes if @tramite
+      @participantes = @tramite.participantes.paginate(:page => params[:page], :per_page => 25) if @tramite
       render :partial => "list", :layout => "content"
   end
 
   def search
     @tramite = Tramite.find(params[:t]) if params[:t]
-    @participantes = Participante.search(params[:search], @tramite)
+    @participantes = Participante.search(params[:search], @tramite).paginate(:page => params[:page], :per_page => 25)
     render :partial => "list", :layout => "content"
   end
 

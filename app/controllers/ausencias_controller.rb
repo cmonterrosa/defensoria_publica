@@ -8,13 +8,13 @@ class AusenciasController < ApplicationController
   
   def index
     @persona = Persona.find(params[:p]) if params[:p]
-    @ausencias = Ausencia.find(:all, :conditions => ["persona_id = ?", @persona.id]) if @persona
-    @ausencias ||= Ausencia.find(:all)
+    @ausencias = Ausencia.find(:all, :conditions => ["persona_id = ?", @persona.id]).paginate(:page => params[:page], :per_page => 25) if @persona
+    @ausencias ||= Ausencia.find(:all).paginate(:page => params[:page], :per_page => 25)
     render :partial => "list", :layout => "content"
   end
 
   def search
-    @ausencias = Ausencia.search(params[:search])
+    @ausencias = Ausencia.search(params[:search]).paginate(:page => params[:page], :per_page => 25)
     render :partial => "list", :layout => "content"
   end
 

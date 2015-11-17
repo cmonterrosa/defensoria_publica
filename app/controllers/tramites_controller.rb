@@ -9,7 +9,7 @@ class TramitesController < ApplicationController
 
   
   def index
-    @tramites = Tramite.find(:all)
+    @tramites = Tramite.find(:all).paginate(:page => params[:page], :per_page => 25)
     render :partial => "list", :layout => "content"
   end
 
@@ -44,7 +44,7 @@ class TramitesController < ApplicationController
   end
 
   def search
-    @tramites = Tramite.search(params[:search])
+    @tramites = Tramite.search(params[:search]).paginate(:page => params[:page], :per_page => 25)
     render :partial => "list", :layout => "content"
   end
 
