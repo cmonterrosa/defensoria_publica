@@ -15,4 +15,5 @@ class Catalogo < ActiveRecord::Base
   named_scope :idiomas, :conditions => {:fk_id_catalogos => 54}
   named_scope :escolaridades, :conditions => {:fk_id_catalogos => 23}
   named_scope :tipos_amparos, :conditions => {:fk_id_catalogos => 263}
+  named_scope :sentido_resolucion_amparo, :conditions => {:fk_id_catalogos => 264}
 end

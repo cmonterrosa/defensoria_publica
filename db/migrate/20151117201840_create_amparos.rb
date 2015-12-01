@@ -7,11 +7,15 @@ class CreateAmparos < ActiveRecord::Migration
       t.column :descripcion, :string, :limit => 100
       t.column :observaciones, :string, :limit => 120
       t.column :user_id, :integer
+      t.column :num_amparo, :string, :limit => 40
+      t.column :sentido_resolucion_id, :integer
       t.timestamps
     end
 
    add_index :amparos, [:tramite_id], :name => "amparos_tramite"
    add_index :amparos, [:fecha], :name => "amparos_fecha"
+   add_index :amparos, [:num_amparo], :name => "amparos_numamparo"
+
   end
 
   def self.down
