@@ -29,7 +29,7 @@ class ParticipantesController < ApplicationController
       @marginacions = Marginacion.all
   end
 
-   def save
+  def save
       @tramite = (params[:t])? Tramite.find(params[:t]) : nil
       @participante = (params[:id])? Participante.find(params[:id]) : Participante.new
       @participante.update_attributes(params[:participante])
@@ -52,7 +52,41 @@ class ParticipantesController < ApplicationController
           @marginacions = Marginacion.all
           render :action => "new_or_edit"
         end
-     end
+  end
+
+  def get_campos_especificos
+    if params[:tipo_participante]
+      @tipo_participantes = TipoParticipante.all
+      @edo_civil = Catalogo.estados_civiles.all 
+      @escolaridades = Catalogo.escolaridades.all
+      @relacion_victima = Catalogo.relacion_victima.all
+      @calidads= Calidad.all
+      @participante= (params[:id])? Participante.find(params[:id]) : Participante.new
+      @marginacions = Marginacion.all
+      @entornos = Entorno.all
+  
+
+      case TipoParticipante.find(params[:tipo_participante]).clave
+        when "MINP"
+          render :partial => "ministerio_publico", :layout => false 
+        when "DEFE"
+          render :partial => "defensor", :layout => false 
+        when "PERI"
+          render :partial => "perito", :layout => false 
+        when "POLI"
+          render :partial => "policia", :layout => false 
+        when "VICT"
+          render :partial => "victima", :layout => false   
+        when "ACU"
+          render :partial => "acusado", :layout => false 
+        when "TEST"
+          render :partial => "testigo", :layout => false 
+        when "DEFI"
+          render :partial => "defensor", :layout => false 
+      end
+    else
+    end
+  end
 
   def destroy
     @participante = Participante.find(params[:id])

@@ -5,6 +5,8 @@
 
 class Tramite < ActiveRecord::Base
   has_and_belongs_to_many :participantes
+  has_many :amparos
+  has_many :promocions
   belongs_to :defensor
   belongs_to :fiscalia
 

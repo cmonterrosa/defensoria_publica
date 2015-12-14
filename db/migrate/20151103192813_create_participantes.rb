@@ -13,6 +13,22 @@ class CreateParticipantes < ActiveRecord::Migration
       t.datetime :fechahora_puesta_a_disposicion
       t.datetime :fechahora_libertad
       t.string :observaciones
+      t.string :institucion_laboral
+      t.integer :estado_civil_id
+      t.integer :cedula_profesional
+      t.integer :numero_credencial
+      t.string :especialidad
+      t.integer :escolaridad_id
+      t.string :ocupacion 
+      t.boolean :tiene_antecedentes_penales
+      t.string :antecedentes_penales_delito 
+      t.integer :num_hijos
+      t.boolean :tiene_padecimiento
+      t.string :padecimiento_detalle
+      t.integer :relacion_victima_id
+
+      
+
       t.timestamps
     end
 

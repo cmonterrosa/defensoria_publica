@@ -16,4 +16,7 @@ class Catalogo < ActiveRecord::Base
   named_scope :escolaridades, :conditions => {:fk_id_catalogos => 23}
   named_scope :tipos_amparos, :conditions => {:fk_id_catalogos => 263}
   named_scope :sentido_resolucion_amparo, :conditions => {:fk_id_catalogos => 264}
+  named_scope :estados_civiles, :conditions => {:fk_id_catalogos => 26}
+  named_scope :relacion_victima, :conditions => {:fk_id_catalogos => 189}
+
 end

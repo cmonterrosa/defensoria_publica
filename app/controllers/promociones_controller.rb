@@ -9,8 +9,15 @@ class PromocionesController < ApplicationController
 
   def search
     @tramite = Tramite.find(params[:t]) if params[:t]
-    @amparos = Amparo.search(params[:search], @tramite).paginate(:page => params[:page], :per_page => 25)
+    @promociones = Promocion.search(params[:search], @tramite).paginate(:page => params[:page], :per_page => 25)
     render :partial => "list", :layout => "content"
+  end
+
+  def new_or_edit
+      @amparo= (params[:id])? Amparo.find(params[:id]) : Amparo.new
+      @tramite = Tramite.find(params[:t]) if params[:t]
+      @tipo_amparos= TipoAmparo.all
+      @resoluciones_amparos = Catalogo.sentido_resolucion_amparo.all 
   end
 
 end

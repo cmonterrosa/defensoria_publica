@@ -12,7 +12,7 @@ class CreateTipoParticipantes < ActiveRecord::Migration
     TipoParticipante.create(:clave => "DEFI", :descripcion => "Defensor investigador") unless TipoParticipante.exists?(:clave => "DEFI")
     TipoParticipante.create(:clave => "TEST", :descripcion => "Testigo") unless TipoParticipante.exists?(:clave => "TEST")
     TipoParticipante.create(:clave => "VICT", :descripcion => "Víctima") unless TipoParticipante.exists?(:clave => "VICT")
-    TipoParticipante.create(:clave => "OFEN", :descripcion => "Ofendido") unless TipoParticipante.exists?(:clave => "OFEN")
+    TipoParticipante.create(:clave => "ACU", :descripcion => "Acusado") unless TipoParticipante.exists?(:clave => "ACU")
 
     add_index :tipo_participantes, :clave, :name => "tipo_participantes_clave"
   end

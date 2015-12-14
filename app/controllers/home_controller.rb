@@ -28,16 +28,17 @@ class HomeController < ApplicationController
       @persona ||= Persona.new
       if params[:persona_per_curp] && params[:persona_per_curp].size >= 6
         if @persona = Persona.find(:first, :conditions => ["per_curp like ?", "#{params[:persona_per_curp]}%"])
+          @contacto = @persona.contactos.first 
           return render(:partial => 'datos_personales', :layout => false) if request.xhr?
         else
           if @personas = Persona.search(params[:persona_per_curp])
             if @personas.empty?
-                      return render(:partial => 'datos_personales', :layout => false) if request.xhr?
-                  else
-                      return render(:partial => 'seleccion_persona', :layout => false) if request.xhr?
-                  end
-              else
-                  return render(:partial => 'datos_personales', :layout => false) if request.xhr?
+              return render(:partial => 'datos_personales', :layout => false) if request.xhr?
+            else
+              return render(:partial => 'seleccion_persona', :layout => false) if request.xhr?
+            end
+            else
+              return render(:partial => 'datos_personales', :layout => false) if request.xhr?
             end
         end
         else
