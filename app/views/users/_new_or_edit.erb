@@ -5,7 +5,7 @@
     <legend>&nbsp;REGISTRO&nbsp;DE&nbsp;USUARIO</legend>
       <div class="grid-12-12">
           <% @user.password = @user.password_confirmation = nil %>
-          <%= error_messages_for :user %>
+          
       </div>
 
 
@@ -91,11 +91,13 @@
     :on => "change",
     :before => "Element.show('spinner')",
     :success => "Element.hide('spinner')",
-    :url => {:controller => 'audiencias',
+    :url => {:action => 'get_datos_personales',
     :action => 'get_datos_personales',
-    :controller => 'audiencias'},
+    :controller => 'home'},
     :update => 'datos_personales',
     :with => "persona_per_curp"%>
+    
+
 
 
 

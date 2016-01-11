@@ -6,31 +6,40 @@ class UsersController < ApplicationController
   # render new.rhtml
   def new
     @user = User.new
+    @persona = @user.persona
     #@personas = Persona.find(:all, :order => "per_nombre, per_paterno, per_materno")
     render :partial => "new_or_edit", :layout => "content"
   end
 
-     def save
-      logout_keeping_session!
-      @user = User.new(params[:user])
-      @user.persona = (params[:persona] && params[:persona][:per_curp]) ? Persona.find(:first, :conditions => ["per_curp =  ?", params[:persona][:per_curp]]) : nil
-      @user.persona ||= Persona.new(params[:persona])
-      @user.activo = (params[:user] && params[:user][:activo] == 'SI') ? true : false
-      success = @user && @user.save
-      if success && @user.errors.empty?
-        redirect_back_or_default('/')
-        flash[:notice] = "Thanks for signing up!  We're sending you an email with your activation code."
+  def save
+    logout_keeping_session!
+    @user = User.new(params[:user])
+    @user.update_attributes(params[:user])
+    if params[:persona]
+      @user.persona = (params[:persona][:id_persona] && params[:persona][:id_persona].size > 0)? Persona.find(params[:persona][:id_persona]) : nil
+      @user.persona ||= (params[:persona][:per_curp] && params[:persona][:per_curp].size > 0) ? Persona.find(:first, :conditions => ["per_curp =  ?", params[:persona][:per_curp]]) : nil
+    end    
+    @user.persona ||= Persona.new(params[:persona])
+    @user.activo = (params[:user] && params[:user][:activo] == 'SI') ? true : false
+    success = @user && @user.save
+    if success && @user.errors.empty?
+      redirect_back_or_default('/')
+      flash[:notice] = "Thanks for signing up!  We're sending you an email with your activation code."
     else
-        flash[:error]  = "We couldn't set up that account, sorry.  Please try again, or contact an admin (link is above)."
-        render :action => 'new'
+      #flash[:error]  = "We couldn't set up that account, sorry.  Please try again, or contact an admin (link is above)."
+      render :action => 'new_or_edit'
     end
-    end
+  end
  
   def create
     logout_keeping_session!
     @user = User.new(params[:user])
-    @user.persona = (params[:persona] && params[:persona][:per_curp]) ? Persona.find(:first, :conditions => ["per_curp =  ?", params[:persona][:per_curp]]) : nil
-    @user.persona ||= Persona.new(params[:persona])
+    @user.update_attributes(params[:user])
+    if params[:persona]
+      @user.persona = (params[:persona][:id_persona] && params[:persona][:id_persona].size > 0)? Persona.find(params[:persona][:id_persona]) : nil
+      @user.persona ||= (params[:persona][:per_curp] && params[:persona][:per_curp].size > 0) ? Persona.find(:first, :conditions => ["per_curp =  ?", params[:persona][:per_curp]]) : nil
+    end    
+    @user.persona ||= Persona.new(params[:persona])    
     @user.activo = (params[:user] && params[:user][:activo] == 'SI') ? true : false
     success = @user && @user.save
     if success && @user.errors.empty?
