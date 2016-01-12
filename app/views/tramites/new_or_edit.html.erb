@@ -8,7 +8,7 @@
           <%= error_messages_for :tramite %>
       </div>
 
-    <div class="grid-6-12">
+      <div class="grid-6-12">
         <div class="grid-4-12">
           <label><b>NÚMERO ÚNICO DE CASO: </b><em class="formee-req">*</em></label>
         </div>
@@ -29,21 +29,21 @@
         <div class="grid-8-12"><%=f.text_field :carpeta_investigacion%></div>
       </div>
 
-     <div class="grid-6-12">
+      <div class="grid-6-12">
         <div class="grid-4-12">
           <label><b>CAUSA PENAL: </b><em class="formee-req">*</em></label>
         </div>
         <div class="grid-8-12"><%=f.text_field :causa_penal%></div>
       </div>
 
-    <div class="grid-12-12">
+      <div class="grid-12-12">
         <div class="grid-4-12">
             <label><b>DEFENSOR PÚBLICO: </b><em class="formee-req">*</em></label>
         </div>
         <div class="grid-8-12">
           <%= f.select(:defensor_id, @defensores.collect {|p| [ p.persona.nombre_completo, p.id ] }, { :include_blank => true })%>
         </div>
-     </div>
+      </div>
 
       <div class="grid-12-12"><img alt="spinner" id="spinner" src="/images/loading_spinner.gif" style="display:none;" /></div>
       <div id="datos_tramite"></div>
