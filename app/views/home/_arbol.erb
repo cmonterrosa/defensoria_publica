@@ -34,6 +34,7 @@
                         ">> " +  raw(link_to ' MENU ', {:controller => 'tramites', :action => "menu", :id => @tramite}, :class => "arbol") <<
                         ">> " +  raw(link_to ' PARTICIPANTES ', {:controller => 'participantes', :action => "index", :t => @tramite}, :class => "arbol")
                 end
+
             when 'amparos'
                 case controller.action_name
                     when 'index', 'new_or_edit', 'show'
@@ -41,6 +42,10 @@
                         ">> " +  raw(link_to ' MENU ', {:controller => 'tramites', :action => "menu", :id => @tramite}, :class => "arbol") <<
                         ">> " +  raw(link_to ' AMPAROS ', {:controller => 'amparos', :action => "index", :t => @tramite}, :class => "arbol")
                 end
+
+            when 'audiencias_orales'
+                title = 'AUDIENCIAS'
+                (link_to title.upcase, {:controller => params[:controller], :action => "index", :t => @tramite}, :class => "arbol", :title => title.upcase)
 
             when 'audiencias'
                 title = 'ORIENTACIONES AL PÚBLICO'

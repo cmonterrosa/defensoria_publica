@@ -1,0 +1,73 @@
+<%=render :partial => "home/arbol"%>
+
+<div class="container">
+<% form_for :audiencia, @audiencia, :url => { :action => "save", :controller => "audiencias_orales", :id => @audiencia, :t => @tramite}, :html => {:class => "formee"} do |f| -%>
+  <fieldset>
+    <legend>&nbsp;REGISTRO&nbsp;DE&nbsp;AUDIENCIA&nbsp;</legend>
+      <div class="grid-form">
+          <%= error_messages_for :audiencia %>
+      </div>
+
+     <div class="grid-12-12">
+        <div class="grid-6-12">
+          <label><b>TIPO DE AUDIENCIA: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-6-12">
+          <%= f.select(:tipo_audiencia_id, @tipos_audiencias.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true })%>
+        </div>
+       </div>
+
+      <div class="grid-4-12">
+        <div class="grid-6-12">
+          <label><b>FECHA DE LA SOLICITUD: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-6-12"><%=f.text_field :fecha%></div>
+      </div>
+
+      <div class="grid-4-12">
+        <div class="grid-6-12">
+          <label><b>HORA: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-6-12"><%=f.select :hora, (0..23)%></div>
+      </div>
+
+      <div class="grid-4-12">
+        <div class="grid-6-12">
+          <label><b>MINUTOS: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-6-12"><%=f.select :minutos, (00..59)%></div>
+      </div>
+
+      <div class="grid-12-12">
+        <div class="grid-2-12">
+          <label><b>DESCRIPCION: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-10-12"><%=f.text_area :descripcion%></div>
+      </div>
+
+      <div class="grid-12-12">
+        <div class="grid-2-12">
+          <label><b>OBSERVACIONES: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-10-12"><%=f.text_area :observaciones%></div>
+      </div>
+
+      <div class="grid-12-12">
+        <input class="right" type="submit" title="GUARDAR" value="GUARDAR" />
+      </div>
+ </fieldset>
+<%end%>
+</div>
+
+<!-- Validaciones -->
+<script type="text/javascript">
+  var tipo_audiencia_id = new LiveValidation( 'audiencia_tipo_audiencia_id', {onlyOnSubmit: true} );
+  tipo_audiencia_id.add( Validate.Presence );
+</script>
+
+
+
+
+
+
+

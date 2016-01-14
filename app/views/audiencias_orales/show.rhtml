@@ -1,0 +1,31 @@
+<%=render :partial => "home/arbol"%>
+
+<p>
+  <b>Fecha/hora:</b>
+  <%=h (@audiencia.start_at) ? @audiencia.start_at.strftime("%d de %B de %Y / %H:%M hrs") : nil%>
+</p>
+
+<p>
+  <b>Tipo de audiencia:</b>
+  <%=h (@audiencia.tipo_audiencia)? @audiencia.tipo_audiencia.descripcion : "" %>
+</p>
+
+<p>
+  <b>Descripción:</b>
+  <%=h @audiencia.descripcion %>
+</p>
+
+<p>
+  <b>Observaciones:</b>
+  <%=h @audiencia.observaciones %>
+</p>
+
+
+<%= link_to 'Editar',  {:action => "new_or_edit", :id => @audiencia, :t => @tramite }, :class => "boton"%> |
+<%= link_to 'Atrás', {:action => "index", :t => @tramite},  :class => "boton" %>
+
+
+
+
+
+

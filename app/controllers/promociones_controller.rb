@@ -19,5 +19,4 @@ class PromocionesController < ApplicationController
       @tipo_amparos= TipoAmparo.all
       @resoluciones_amparos = Catalogo.sentido_resolucion_amparo.all 
   end
-
 end
