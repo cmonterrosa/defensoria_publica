@@ -36,7 +36,7 @@
     <label><b>ZONA/ENTORNO: </b><em class="formee-req">*</em></label>
   </div>
   <div class="grid-8-12">
-    <%= select(:entorno_id, @entornos.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true })%>
+    <%= select(:participante, :entorno_id, @entornos.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true })%>
   </div>
 </div>
 
@@ -103,6 +103,6 @@
     <label><b>GRADO DE MARGINACIÓN: </b><em class="formee-req">*</em></label>
   </div>
   <div class="grid-8-12">
-    <%= select(:marginacion_id, @marginacions.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true })%>
+    <%= select(:participante, :marginacion_id, @marginacions.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true })%>
   </div>
 </div>

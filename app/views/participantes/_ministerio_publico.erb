@@ -7,18 +7,18 @@
 
 <div class="grid-6-12">
   <div class="grid-6-12">
-    <label><b>OCUPACIÓN: </b><em class="formee-req">*</em></label>
-  </div>
-  <div class="grid-6-12"><%=text_field :participante, :fechahora_captura%></div>
-</div>
-
-<div class="grid-6-12">
-  <div class="grid-6-12">
     <label><b>ESTADO CIVIL: </b><em class="formee-req">*</em></label>
   </div>
   <div class="grid-6-12">
     <%=select(:participante, :estado_civil_id, @edo_civil.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true })%>
   </div>
+</div>
+
+<div class="grid-6-12">
+  <div class="grid-6-12">
+    <label><b>OCUPACIÓN: </b><em class="formee-req">*</em></label>
+  </div>
+  <div class="grid-6-12"><%=text_field :participante, :fechahora_captura%></div>
 </div>
 
 <div class="grid-6-12">
