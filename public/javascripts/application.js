@@ -53,3 +53,15 @@ $(function() {
     });
 });
 
+/* Action New or edit, controller amparos */
+$(function() {
+    $j('#amparo_fecha').datetimepicker({
+        dayOfWeekStart : 1,
+        buttonImage: "/images/icons/calendar.gif",
+        lang:'es'
+    });
+});
+
+
+
+
