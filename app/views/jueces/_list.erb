@@ -1,0 +1,49 @@
+<%=render :partial => "home/arbol"%>
+
+<% form_tag({:action => "search"}, {:class => "search"}) do -%>
+  <p>
+    <%= text_field_tag :search, params[:search], :limit => 90, :placeholder => "Escriba el nombre del juez" %>
+    <%= submit_tag "Buscar", :name => nil %>
+  </p>
+<% end %>
+
+
+
+<!-- contenido -->
+<div id="divlista">
+    <table width="95%" border="0" cellspacing="0" cellpadding="0" class="tablakolaval" style="BORDER-RIGHT: #cccccc 1px solid; BORDER-TOP: #cccccc 1px solid; BORDER-LEFT: #cccccc 1px solid; BORDER-BOTTOM: #cccccc 1px solid">
+    <tr>
+       <td style="vertical-align: middle;">Nombre completo</td>
+       <td style="vertical-align: middle;">Órgano al que pertenece</td>
+       <td style="vertical-align: middle;" colspan="2">&nbsp;</td>
+    </tr>
+    <%@jueces.each do |j|%>
+    <tr>
+      <td style="vertical-align: middle;"><%=(j.persona) ? j.persona.nombre_completo : "--"%></td>
+     <td style="vertical-align: middle;"><%=(j.organo) ? j.organo.descripcion : "--"%></td>
+     <td style="vertical-align: middle;"><%=link_to "Editar", {:action => "new_or_edit", :id => j}, :class => 'boton'  -%></td>
+     <td style="vertical-align: middle;"><%=link_to "Eliminar", {:action => "destroy", :id => j}, :confirm => '¿Desea eliminar el registro?', :class => 'boton'  -%></td>
+    </tr>
+    <%end%>
+  </table>
+</div>
+
+<br />
+<table>
+    <tr align="center" >
+      <td colspan="5" style="padding: 0;">
+        <div class="digg_pagination">
+          <div class="page_info">
+            <%= page_entries_info @jueces %>
+          </div>
+          <%= will_paginate @jueces %>
+        </div>
+      </td>
+    </tr>
+</table>
+
+
+<br /><%=link_to "NUEVO JUEZ", {:action => "new_or_edit"}, :class => 'boton'  -%>
+
+
+

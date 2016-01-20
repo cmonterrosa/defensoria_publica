@@ -1,0 +1,88 @@
+<%=render :partial => "home/arbol"%>
+
+<div class="container">
+<% form_for :juez, @juez, :url => { :action => "save", :controller => "jueces", :id => @juez}, :html => {:class => "formee"} do |f| -%>
+  <fieldset>
+    <legend>&nbsp;REGISTRO&nbsp;DE&nbsp;JUECES&nbsp;</legend>
+      <div class="grid-12-12">
+          <%= error_messages_for :juez %>
+      </div>
+
+      <div class="grid-12-12">
+          <div class="grid-4-12">
+            <label><b>CURP O NOMBRE COMPLETO: </b><em class="formee-req">*</em></label>
+          </div>
+          <div class="grid-4-12"><%=text_field :persona, :per_curp, :placeholder => "Escriba la CURP o el nombre completo"%></div>
+      </div>
+
+      <div class="grid-12-12"><img alt="spinner" id="spinner" src="/images/loading_spinner.gif" style="display:none;" /></div>
+
+      <div id="datos_personales">
+        <%if @persona%>
+            <%=render :partial => "home/datos_personales"%>
+        <%end%>
+      </div>
+
+      <div class="grid-12-12">
+        <div class="grid-4-12">
+          <label><b>ÓRGANO AL QUE PERTENECE: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-8-12">
+          <%= f.select(:organo_id, @organos.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true })%>
+        </div>
+       </div>
+
+      <div class="grid-6-12">
+        <div class="grid-4-12">
+          <label><b>¿ACTIVO?: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-8-12">
+                  <span class="InputGroup">
+                   <label class="uper">SI <%= f.radio_button :activo, "SI", :checked => @juez.activo %></label>&nbsp;&nbsp;
+                   <label class="uper">NO <%= f.radio_button :activo, "NO", :checked => @juez.activo == false %></label>
+                  </span>
+       </div>
+      </div>
+
+      <div class="grid-6-12">
+        <div class="grid-4-12">
+          <label><b>OBSERVACIONES: </b></label>
+        </div>
+        <div class="grid-8-12">
+          <%=f.text_area :observaciones, :size => "85x5"%>
+        </div>
+       </div>
+      
+      <div class="grid-12-12 clear"></div>
+
+      <div class="grid-form-login">
+        <input class="right" type="submit" title="GUARDAR" value="GUARDAR" />
+      </div>
+ </fieldset>
+<%end%>
+</div>
+
+<!-- Validaciones -->
+<script type="text/javascript">
+  var per_curp = new LiveValidation( 'persona_per_curp', {onlyOnSubmit: true} );
+  var juzgado = new LiveValidation( 'juez_juzgado_id', {onlyOnSubmit: true} );
+  per_curp.add( Validate.Presence );
+  juzgado.add( Validate.Presence );
+</script>
+
+
+<%= observe_field 'persona_per_curp',
+    :on => "change",
+    :before => "Element.show('spinner')",
+    :success => "Element.hide('spinner')",
+    :url => {:controller => 'audiencias',
+    :action => 'get_datos_personales',
+    :controller => 'home'},
+    :update => 'datos_personales',
+    :with => "persona_per_curp"%>
+
+
+
+
+
+
