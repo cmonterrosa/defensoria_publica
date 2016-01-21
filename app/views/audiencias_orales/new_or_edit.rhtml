@@ -9,11 +9,29 @@
       </div>
 
      <div class="grid-12-12">
-        <div class="grid-6-12">
+        <div class="grid-4-12">
           <label><b>TIPO DE AUDIENCIA: </b><em class="formee-req">*</em></label>
         </div>
-        <div class="grid-6-12">
-          <%= f.select(:tipo_audiencia_id, @tipos_audiencias.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true })%>
+        <div class="grid-8-12">
+          <%= f.select(:tipo_audiencia_id, @tipos_audiencias.collect {|t| [ t.descripcion, t.id ] }, { :include_blank => true })%>
+        </div>
+       </div>
+
+      <div class="grid-12-12">
+        <div class="grid-4-12">
+          <label><b>JUZGADO: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-8-12">
+          <%= f.select(:organo_id, @organos.collect {|o| [ o.descripcion, o.id ] }, { :include_blank => true })%>
+        </div>
+       </div>
+
+        <div class="grid-12-12">
+        <div class="grid-4-12">
+          <label><b>JUEZ: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-8-12">
+          <%= f.select(:juez_id, @jueces.collect {|j| [ j.persona.nombre_completo, j.id ] }, { :include_blank => true })%>
         </div>
        </div>
 

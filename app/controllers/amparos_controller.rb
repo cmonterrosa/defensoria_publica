@@ -1,3 +1,8 @@
+######################################
+# Controlador que administra a los amparos de cada trámite
+#
+######################################
+
 class AmparosController < ApplicationController
 	require_role :defensor, :for_all_except => :show
 

@@ -1,0 +1,84 @@
+<%=render :partial => "home/arbol"%>
+
+<div class="container">
+<% form_for :tramite, @tramite, :url => { :action => "save", :id => @tramite}, :html => {:class => "formee", :id => "new_tramite"} do |f| -%>
+  <fieldset>
+    <legend>&nbsp;REGISTRO&nbsp;DE&nbsp;TRAMITE&nbsp;</legend>
+      <div class="grid-12-12">
+          <%= error_messages_for :tramite %>
+      </div>
+
+    <div class="grid-6-12">
+        <div class="grid-4-12">
+          <label><b>NÚMERO ÚNICO DE CASO: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-8-12"><%=f.text_field :nuc%></div>
+      </div>
+
+      <div class="grid-6-12">
+        <div class="grid-4-12">
+          <label><b>REGISTRO DE ATENCIÓN: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-8-12"><%=f.text_field :registro_atencion%></div>
+      </div>
+
+      <div class="grid-6-12">
+        <div class="grid-4-12">
+          <label><b>CARPETA DE INVESTIGACIÓN: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-8-12"><%=f.text_field :carpeta_investigacion%></div>
+      </div>
+
+     <div class="grid-6-12">
+        <div class="grid-4-12">
+          <label><b>CAUSA PENAL: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-8-12"><%=f.text_field :causa_penal%></div>
+      </div>
+
+     
+      <%=render :partial => "tramites/datos_tramite"%>
+
+      <div class="grid-12-12 clear"></div>
+
+      <div class="grid-form-login">
+        <input class="right" type="submit" title="GUARDAR" value="GUARDAR" />
+      </div>
+ </fieldset>
+<%end%>
+</div>
+
+
+<%= observe_form('new_tramite', :update => "datos_tramite",
+                          :on => "change",
+                          :loading => "Element.show('spinner')",
+                          :complete => "Element.hide('spinner')",
+                          :url => {:action => :get_datos_tramite})%>
+
+
+<%#= observe_field :tramite_nuc,
+    :on => "change",
+    :before => "Element.show('spinner')",
+    :success => "Element.hide('spinner')",
+    :url => {:controller => 'tramites',
+    :action => 'get_datos_tramite'},
+    :update => 'datos_tramite',
+    :with => "tramite_nuc"%>
+
+<%#= observe_field :tramite_carpeta_investigacion,
+    :on => "change",
+    :before => "Element.show('spinner')",
+    :success => "Element.hide('spinner')",
+    :url => {:controller => 'tramites',
+    :action => 'get_datos_tramite'},
+    :update => 'datos_tramite',
+    :with => "tramite_carpeta_investigacion"
+%>
+
+
+
+
+
+
+
+

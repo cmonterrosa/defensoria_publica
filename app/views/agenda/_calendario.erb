@@ -1,0 +1,23 @@
+<div class="titulocalendario">
+  <%=h(@title)%>
+</div>
+
+<div id="calendar">
+  <h2 id="month">
+    <%= link_to "<", {:month => (@date.beginning_of_month-1).strftime("%Y-%m")}, :class => "flecha_calendario" -%>
+    <%=h @date.strftime("%B DE %Y").upcase %>
+    <%= link_to ">", {:month => (@date.end_of_month+1).strftime("%Y-%m")}, :class => "flecha_calendario" -%>
+  </h2>
+  <% calendar_for @audiencias, :year => @date.year, :month => @date.month do |calendar| %>
+    <%= calendar.head('DOMINGO', 'LUNES', 'MARTES', 'MIÉRCOLES', 'JUEVES', 'VIERNES', 'SÁBADO') %>
+    <% calendar.day(:day_method => :start_at) do |date, audiencias| %>
+       <%=(date.month == @date.month && habil?(date)) ? (link_to date.day, {:action => "daily_show", :controller => "agenda", :year => date.year, :month=> date.month, :day => date.day, :origin => params[:controller]}, {:title => date.strftime("%d de %B de %Y"), :class => "titulocalendario"}) : date.day %>
+        <!-- audiencias por dia -->
+        <ul>
+            <%if audiencias.size > 0%>
+                <li><%=  audiencias.size%> audiencias</li>
+            <%end%>
+        </ul>
+     <% end %>
+  <% end %>
+</div><br/>

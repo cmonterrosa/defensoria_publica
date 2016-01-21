@@ -210,23 +210,33 @@ label:before {
 /* Estructura de arbol en menu */
 
 .arbol{
-  font-size: 1.17em;
+  font-size: 16px;
   -webkit-margin-before: 1em;
   -webkit-margin-after: 1em;
   -webkit-margin-start: 0px;
   -webkit-margin-end: 0px;
   font-weight: bold;
   color: #f4911c;
-  font-family: 'Open Sans';
+  font-family: 'Nexa Bold';
 }
 
 .arbol a{
-   font-size: 1.17em;
+   font-size: 16px;
   -webkit-margin-before: 1em;
   -webkit-margin-after: 1em;
   -webkit-margin-start: 0px;
   -webkit-margin-end: 0px;
   font-weight: bold;
   color: #cd0a0a;
-  font-family: 'Open Sans';
+  font-family: 'Nexa Bold';
+}
+
+.audiencia_calendario{
+  color: #CB352E;
+  font-family: 'Nexa Bold';
+}
+
+.audiencia_calendario a{
+  color: #CB352E;
+  font-family: 'Nexa Bold';
 }

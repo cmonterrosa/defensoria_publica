@@ -20,6 +20,8 @@ class AudienciasOralesController < ApplicationController
   def new_or_edit
       @audiencia = (params[:id])? AudienciaOral.find(params[:id]) : AudienciaOral.new
       @tipos_audiencias = TipoAudiencia.all
+      @organos = Organo.all
+      @jueces = Juez.find(:all, :conditions => ["activo = ?", true])
       @audiencia.fecha ||= Time.now.strftime("%Y/%m/%d")
       @tramite = @audiencia.tramite if @audiencia
       @tramite ||= Tramite.find(params[:t]) if params[:t]
