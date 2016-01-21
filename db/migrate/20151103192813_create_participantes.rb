@@ -26,6 +26,7 @@ class CreateParticipantes < ActiveRecord::Migration
       t.boolean :tiene_padecimiento
       t.string :padecimiento_detalle
       t.integer :relacion_victima_id
+      t.integer :edad 
 
       
 
