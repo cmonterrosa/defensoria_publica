@@ -1,5 +1,7 @@
 <!-- arbol -->
 <h3><%=link_to 'INICIO', {:controller => "home", :action => "index"}, :class => "arbol"-%> >> ADMINISTRACION </h3>
 
-<%=link_to "USUARIOS", {:controller => "admin", :action => "users_index"}, :class => "boton"%> | <%=link_to "ROLES", {:controller => "admin", :action => "roles_index"}, :class => "boton"%>
+<%=link_to "USUARIOS", {:controller => "admin", :action => "users_index"}, :class => "boton"%> |
+<%=link_to "ROLES", {:controller => "admin", :action => "roles_index"}, :class => "boton"%> |
+<%=link_to "JUECES", {:controller => "jueces", :action => "index"}, :class => "boton"%>
 

@@ -1,0 +1,82 @@
+<script type="text/javascript">
+		$j(document).ready(function() {
+			/*
+			 *  Simple image gallery. Uses default settings
+			 */
+
+			$j('.fancybox').fancybox();
+               });
+</script>
+
+<div class="titulocalendario">
+  <%=render :partial => "home/arbol"%>
+  <p>
+    TODOS LOS JUZGADOS
+  </p>
+  <p>
+    <%=link_to "<", {:action => "daily_show", :day => @before.day, :month => @before.month, :year => @before.year, :origin => @origin, :type => @type}, :class => "flecha_calendario"-%>&nbsp;
+      <%=day_of_the_week(@fecha.strftime("%u").to_i)%>, <%=(@fecha.strftime("%d de %B de %Y")).upcase%>&nbsp;
+    <%=link_to ">", {:action => "daily_show", :day => @after.day, :month => @after.month, :year => @after.year, :origin => @origin, :type => @type}, :class => "flecha_calendario"-%>
+  </p>
+</div>
+
+
+<img alt="spinner" id="spinner" src="/images/loading_spinner.gif" style="display:none;" />
+<div id="calendario">
+
+  <p>
+    <%= link_to image_tag("icons/actualizar.jpg", :border =>0) , {:action => "daily_show",          :day => @fecha.day, :month => @fecha.month, :year => @fecha.year, :origin => @origin, :type => @type}, :title => "Recargar"%>
+  </p>
+
+  <div class="ultima_conexion">
+    Ultima actualización: <%=Time.now.strftime("%H:%M:%S")%>
+  </div><br />
+
+<!-- From monday to friday -->
+  <%if habil?(@fecha) && !@organos.empty?%>
+   <table class="table1" border=1 width=90% style='table-layout:fixed'>
+      <thead>
+          <tr>
+              <th>HORARIO</th>
+              <%@organos.each do |organo|%>
+                <th scope="col" abbr="Starter"><%=h organo.descripcion%></th>
+              <%end%>
+          </tr>
+      </thead>
+
+      <tbody>
+      <!-- horarios -->
+      <%@horarios.each do |horario|%>
+      <tr>
+          <th scope="row"><%=h (horario.hora_completa) ? (horario.hora_completa.upcase) : "--"%></th>
+              <%@organos.each do |organo|%>
+                  <%audiencia = AudienciaOral.find(:first, :conditions => ["fecha = ? AND hora = ? AND minutos = ? AND organo_id = ? ", @fecha, horario.hora, horario.minutos, organo.id])%>
+                   <%if audiencia%>
+                     <%estilo =" background-color: darkorange; opacity: 0.30; text-align: center;"%>
+
+                    <%@backgrounds_colors = colors_to_days%>
+                            <%estilo ||= !(audiencia.cancel == nil || audiencia.cancel == 0)? "background-color: #F8FB53; text-decoration: line-through; color: white;" : "background-color:  #{@backgrounds_colors[audiencia.tipoaudiencia_id - 1]}"%>
+                          <td class="audiencia_calendario">
+                            <%=link_to audiencia.descripcion_detallada, {:action => 'show_window', :controller => 'audiencias_orales', :id => audiencia},  :title => "Detalle", :class => "fancybox fancybox.iframe"%>
+                        </td>
+                    <%else%>
+                        <td>&nbsp;</td>
+                 <%end%>
+              <%end%>
+          </tr>
+        <%end%>
+      </tbody>
+    </table>
+
+
+  <%else%>
+      <div class="titulocalendario">
+          <p style="font-size: 18px; text-align: center;"> ES UN DIA NO LABORABLE</p>
+      </div>
+  <%end%>
+</div>
+
+<div id="error"></div>
+
+
+

@@ -1,7 +1,7 @@
 <!--
-  ####################################################
-  # ESTE PARTIAL SE ENCARGA DE GENERAR LAS LIGAS EN ESTRUCTURA DE ARBOL  #
-  # ##################################################
+  #########################################################################
+  # ESTE PARTIAL SE ENCARGA DE GENERAR LAS LIGAS EN ESTRUCTURA DE ARBOL                                                       #
+  # ########################################################################
 -->
 <h3>
   <%=h link_to 'INICIO', "/", :class => "arbol", :title => "INICIO"-%> >>
@@ -13,7 +13,7 @@
                     (link_to title.upcase, {:controller => params[:controller], :action => "myaccount"}, :class => "arbol", :title => title.upcase)
               end
             when 'defensores'
-                title = 'DEFENSORES PÚBLICOS'
+                title = 'DEFENSORES PÚBLICOS '
                 case controller.action_name
                   when 'list_tramites'
                     if @defensor && @defensor.persona
@@ -25,7 +25,7 @@
                     (link_to title.upcase, {:controller => params[:controller], :action => "index"}, :class => "arbol", :title => title.upcase)
                 end
              when 'admin'
-                title = 'ADMINISTRACIÓN'
+                title = 'ADMINISTRACIÓN '
                 (link_to title.upcase, {:controller => params[:controller], :action => "index"}, :class => "arbol", :title => title.upcase)
             when 'participantes'
                 case controller.action_name
@@ -43,12 +43,22 @@
                         ">> " +  raw(link_to ' AMPAROS ', {:controller => 'amparos', :action => "index", :t => @tramite}, :class => "arbol")
                 end
 
+            when 'agenda'
+                title = 'AGENDA DE AUDIENCIAS '
+                case controller.action_name
+                  when 'daily_show'
+                        raw(link_to  title, {:controller => params[:controller], :action => "index"}, :class => "arbol") <<
+                        ">> " + (link_to 'DIARIA', {:controller => params[:controller], :action => "index", :day => @fecha.day, :month => @fecha.month, :year => @fecha.year}, :class => "arbol", :title => 'AGENDA DIARIA')
+                  else
+                       (link_to title.upcase, {:controller => params[:controller], :action => "index"}, :class => "arbol", :title => title.upcase)
+                end
+
             when 'audiencias_orales'
                 title = 'AUDIENCIAS'
                 (link_to title.upcase, {:controller => params[:controller], :action => "index", :t => @tramite}, :class => "arbol", :title => title.upcase)
 
             when 'audiencias'
-                title = 'ORIENTACIONES AL PÚBLICO'
+                title = 'ORIENTACIONES AL PÚBLICO '
                 (link_to title.upcase, {:controller => params[:controller], :action => "index"}, :class => "arbol", :title => title.upcase)
             else
                 (link_to params[:controller].upcase, {:controller => params[:controller], :action => "index"}, :class => "arbol", :title => params[:controller])

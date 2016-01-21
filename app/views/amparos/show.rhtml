@@ -1,0 +1,27 @@
+<%=render :partial => "home/arbol"%>
+
+<p>
+  <b>Fecha:</b>
+  <%=h (@amparo.fecha) ? @amparo.fecha.strftime('%d-%m-%Y') : nil%>
+</p>
+
+<p>
+  <b>Descripción:</b>
+  <%=h @amparo.descripcion %>
+</p>
+
+<p>
+  <b>Observaciones:</b>
+  <%=h @amparo.observaciones %>
+</p>
+
+
+<%= link_to 'Editar',  {:action => "new_or_edit", :id => @amparo, :t => @tramite }, :class => "boton"%> |
+<%= link_to 'Atrás', {:action => "index", :t => @tramite},  :class => "boton" %>
+
+
+
+
+
+
+

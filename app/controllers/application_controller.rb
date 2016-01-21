@@ -15,4 +15,13 @@ class ApplicationController < ActionController::Base
   def clean_string(string)
     (string) ? (return string.to_s.gsub(/\$/, '\$').gsub(/\"/, '\"')) : (return "")
   end
+
+  def habil?(date=Time.now)
+    habil = false
+    if ((1..5)===date.wday)
+      habil = true
+    end
+    return habil
+  end
+
 end
