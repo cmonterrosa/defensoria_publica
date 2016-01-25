@@ -53,6 +53,7 @@ $(function() {
     });
 });
 
+
 /* Action New_or_edit, controller amparos */
 $(function() {
     $j('#amparo_fecha').datepicker({
@@ -61,4 +62,3 @@ $(function() {
         lang:'es'
     });
 });
-
