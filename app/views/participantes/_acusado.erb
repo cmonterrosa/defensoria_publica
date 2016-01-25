@@ -42,6 +42,29 @@
 
 <div class="grid-6-12">
   <div class="grid-6-12">
+    <label><b>ESTADO CIVIL: </b><em class="formee-req">*</em></label>
+  </div>
+  <div class="grid-6-12">
+    <%=select(:participante, :estado_civil_id, @edo_civil.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true })%>
+  </div>
+</div>
+
+<div class="grid-6-12">
+  <div class="grid-6-12">
+    <label><b>OCUPACIÓN: </b><em class="formee-req">*</em></label>
+  </div>
+  <div class="grid-6-12"><%=text_field :participante, :ocupacion%></div>
+</div>
+
+<div class="grid-6-12">
+  <div class="grid-6-12">
+    <label><b>EDAD: </b><em class="formee-req">*</em></label>
+  </div>
+  <div class="grid-6-12"><%=text_field :participante, :edad%></div>
+</div>
+
+<div class="grid-6-12">
+  <div class="grid-6-12">
     <label><b>FECHAHORA DE CAPTURA: </b><em class="formee-req">*</em></label>
   </div>
   <div class="grid-6-12"><%=text_field :participante, :fechahora_captura%></div>
@@ -67,8 +90,8 @@
   </div>
   <div class="grid-4-12">
     <span class="InputGroup">
-     <label class="uper">SI <%= radio_button :privado_libertad, "SI", :checked => @rivado_libertad %></label>&nbsp;&nbsp;
-     <label class="uper">NO <%= radio_button :privado_libertad, "NO", :checked => @rivado_libertad == false %></label>
+     <label class="uper">SI <%= radio_button :participante, :privado_libertad, "SI", :checked => @privado_libertad %></label>&nbsp;&nbsp;
+     <label class="uper">NO <%= radio_button :participante, :privado_libertad, "NO", :checked => @privado_libertad == false %></label>
     </span>
   </div>
 </div>
@@ -79,8 +102,8 @@
   </div>
   <div class="grid-4-12">
     <span class="InputGroup">
-      <label class="uper">SI <%= radio_button :libre_atraves_medida_cautelar, "SI", :checked => @participante.libre_atraves_medida_cautelar %></label>&nbsp;&nbsp;
-      <label class="uper">NO <%= radio_button :libre_atraves_medida_cautelar, "NO", :checked => @participante.libre_atraves_medida_cautelar == false %></label>
+      <label class="uper">SI <%= radio_button :participante, :libre_atraves_medida_cautelar, "SI", :checked => @participante.libre_atraves_medida_cautelar %></label>&nbsp;&nbsp;
+      <label class="uper">NO <%= radio_button :participante, :libre_atraves_medida_cautelar, "NO", :checked => @participante.libre_atraves_medida_cautelar == false %></label>
     </span>
   </div>
 </div>
@@ -92,8 +115,8 @@
   </div>
   <div class="grid-4-12">
     <span class="InputGroup">
-      <label class="uper">SI <%= radio_button :libre_suspension_condicional_proceso, "SI", :checked => @participante.libre_suspension_condicional_proceso %></label>&nbsp;&nbsp;
-      <label class="uper">NO <%= radio_button :libre_suspension_condicional_proceso, "NO", :checked => @participante.libre_suspension_condicional_proceso == false %></label>
+      <label class="uper">SI <%= radio_button :participante, :libre_suspension_condicional_proceso, "SI", :checked => @participante.libre_suspension_condicional_proceso %></label>&nbsp;&nbsp;
+      <label class="uper">NO <%= radio_button :participante, :libre_suspension_condicional_proceso, "NO", :checked => @participante.libre_suspension_condicional_proceso == false %></label>
     </span>
   </div>
 </div>
@@ -105,4 +128,11 @@
   <div class="grid-8-12">
     <%= select(:participante, :marginacion_id, @marginacions.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true })%>
   </div>
+</div>
+
+<div class="grid-6-12">
+  <div class="grid-6-12">
+  <label><b>ANTECEDENTES PENALES: </b><em class="formee-req">*</em></label>
+  </div>
+  <div class="grid-6-12"><%=text_field :participante, :antecedentes_penales_delito%></div>
 </div>
