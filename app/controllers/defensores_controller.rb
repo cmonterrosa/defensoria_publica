@@ -30,7 +30,14 @@ class DefensoresController < ApplicationController
       if params[:persona]
         @defensor.persona = (params[:persona][:id_persona] && params[:persona][:id_persona].size > 0)? Persona.find(params[:persona][:id_persona]) : nil
         @defensor.persona ||= (params[:persona][:per_curp] && params[:persona][:per_curp].size > 0) ? Persona.find(:first, :conditions => ["per_curp =  ?", params[:persona][:per_curp]]) : nil
-      end
+         if params[:contacto]
+            #@defensor.persona.contactos.delete_all
+            @defensor.persona.contactos.telefono_celular.create(:con_parametro => params[:contacto][:telefono_celular], :con_usu_modi => current_user.persona.id) if   params[:contacto][:telefono_celular] &&  params[:contacto][:telefono_celular].size > 0
+            @defensor.persona.contactos.telefono_casa.create(:con_parametro => params[:contacto][:telefono_casa], :con_usu_modi => current_user.persona.id) if  params[:contacto] [:telefono_casa] &&  params[:contacto] [:telefono_casa].size > 0
+            @defensor.persona.contactos.direccion.create(:con_parametro => params[:contacto][:direccion], :con_usu_modi => current_user.persona.id) if  params[:contacto][:direccion] &&  params[:contacto][:direccion].size > 0
+            @defensor.persona.contactos.correo_electronico.create(:con_parametro => params[:contacto][:correo_electronico], :con_usu_modi => current_user.persona.id) if  params[:contacto][:correo_electronico] &&  params[:contacto][:correo_electronico].size > 0
+         end
+     end
       @defensor.persona ||= Persona.new(params[:persona])
       @defensor.activo = (params[:defensor] && params[:defensor][:activo] == 'SI') ? true : false
       if @defensor.valid? && @defensor.persona.valid?
