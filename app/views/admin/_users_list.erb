@@ -21,10 +21,10 @@
       </tr>
     <%@users.each do |user|%>
       <tr>
-        <td style="vertical-align: middle;"><%=h(user.login)%></td>
-        <td style="vertical-align: middle;"><%=h(user.persona)? user.persona.nombre_completo : ''%></td>
-        <td style="vertical-align: middle;"><%=h(user.last_login)? user.last_login.strftime("%d de %B de %Y - %H:%M:%S") : "Sin conexión"%></td>
-        <td  style="vertical-align: middle;"><%=h user.last_ip%></td>
+        <td style="vertical-align: middle;"><%=h (user.login)%></td>
+        <td style="vertical-align: middle;"><%=h (user.persona)? user.persona.nombre_completo : ''%></td>
+        <td style="vertical-align: middle;"><%=h (!user.last_login.nil?)? user.last_login.strftime("%d de %B de %Y - %H:%M:%S") : "Sin conexión"%></td>
+        <td  style="vertical-align: middle;"><%=h (user.last_ip)? (user.last_ip) : ' '%></td>
         <%if current_user.has_role?(:admin)%>
 
             <td style="vertical-align: middle;">
