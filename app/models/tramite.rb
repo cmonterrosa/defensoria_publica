@@ -14,7 +14,7 @@ class Tramite < ActiveRecord::Base
   #validates_uniqueness_of :nuc
 
 
-   def self.search(search, user)
+   def self.search(search, user=nil)
      user_condition = (user) ? "solicitante_id = #{user.id} AND " : ''
     if search
       find(:all, :conditions => ["#{user_condition} carpeta_investigacion LIKE ? OR nuc LIKE ?", "%#{search}%", "%#{search}%"], :order => "created_at DESC")
