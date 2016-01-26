@@ -26,7 +26,17 @@
                 end
              when 'admin'
                 title = 'ADMINISTRACIÓN '
-                (link_to title.upcase, {:controller => params[:controller], :action => "index"}, :class => "arbol", :title => title.upcase)
+                case controller.action_name
+                    when 'roles_by_user'
+                        raw(link_to title.upcase, {:controller => params[:controller], :action => "index"}, :class => "arbol", :title => title.upcase) <<
+                        ">> " +  raw(link_to ' USUARIOS ', {:controller => 'admin', :action => "users_index"}, :class => "arbol") <<
+                        if @user
+                          ">> " +  raw(link_to  @user.nombre_completo, {:controller => 'admin', :action => "roles_by_user", :id => @user}, :class => "arbol")
+                        end
+                else
+                      (link_to title.upcase, {:controller => params[:controller], :action => "index"}, :class => "arbol", :title => title.upcase)
+                end
+
             when 'participantes'
                 case controller.action_name
                     when 'index', 'new_or_edit', 'show'

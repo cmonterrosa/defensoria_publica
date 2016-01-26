@@ -1,10 +1,10 @@
-######################################
-# Controlador que hace administra, elimina roles y usuarios
+##############################################
+# Controlador que hace administra la aplicación
 #
-######################################
+##############################################
 
 class AdminController < ApplicationController
-  #require_role :admin
+  require_role :admin
 
   def index
   end
@@ -71,23 +71,54 @@ class AdminController < ApplicationController
     end
   end
 
+  ##########################################
+  #        Administracion de Roles y Usuarios
+  #
+  ##########################################
   
-  #------- Administracion de Usuarios ---------
   def users_by_role
     @role = Role.find(params[:id])
     @users = @role.no_users
   end
 
+ def roles_by_user
+   @user = User.find(params[:id])
+   @roles = @user.roles
+   @roles_no_incluidos = Role.find(:all, :conditions => ["id NOT IN (?)", @roles.map{|i|i.id}])
+ end
+
   def add_user
-  @role = Role.find(params[:role])
-  @role.users << User.find(params[:user][:user_id])
-  if @role.save
-    flash[:notice] = "Usuario agregado correctamente"
-  else
-    flash[:error] = "El usuario no fue agregado, verifique"
+    @role = Role.find(params[:role])
+    @role.users << User.find(params[:user][:user_id])
+    if @role.save
+      flash[:notice] = "Usuario agregado correctamente"
+    else
+      flash[:error] = "El usuario no fue agregado, verifique"
+    end
+    redirect_to :action => "users_by_role", :id => @role
   end
-  redirect_to :action => "users_by_role", :id => @role
-end
+
+    def add_role_to_user
+    @user = User.find(params[:user])
+    @user.roles << Role.find(params[:role][:role_id])
+    if @user.save
+      flash[:notice] = "Perfil agregado correctamente al usuario"
+    else
+      flash[:error] = "El perfil no fue agregado al usuario"
+    end
+      redirect_to :action => "roles_by_user", :id => @user
+  end
+
+    def delete_role_to_user
+      @user = User.find(params[:id])
+      @role = Role.find(params[:role])
+      if @user.roles.delete(@role)
+        flash[:notice] = "Perfil removido correctamente al usuario"
+      else
+        flash[:error] = "El perfil no fue removido al usuario"
+      end
+        redirect_to :action => "roles_by_user", :id => @user
+    end
 
   def new_user
     @users = Role.find(params[:id]).active_users

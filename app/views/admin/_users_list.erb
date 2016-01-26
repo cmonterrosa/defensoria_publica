@@ -11,7 +11,7 @@
 
 <!-- contenido -->
 <div id="divlista">
-    <table width="80%" border="0" cellspacing="0" cellpadding="0" class="tablakolaval" style="BORDER-RIGHT: #cccccc 1px solid; BORDER-TOP: #cccccc 1px solid; BORDER-LEFT: #cccccc 1px solid; BORDER-BOTTOM: #cccccc 1px solid">
+    <table width="90%" border="0" cellspacing="0" cellpadding="0" class="tablakolaval" style="BORDER-RIGHT: #cccccc 1px solid; BORDER-TOP: #cccccc 1px solid; BORDER-LEFT: #cccccc 1px solid; BORDER-BOTTOM: #cccccc 1px solid">
       <tr>
         <td style="vertical-align: middle;">Login</td>
         <td style="vertical-align: middle;">Nombre</td>
@@ -26,6 +26,11 @@
         <td style="vertical-align: middle;"><%=h(user.last_login)? user.last_login.strftime("%d de %B de %Y - %H:%M:%S") : "Sin conexión"%></td>
         <td  style="vertical-align: middle;"><%=h user.last_ip%></td>
         <%if current_user.has_role?(:admin)%>
+
+            <td style="vertical-align: middle;">
+                <%=link_to "Roles", {:action => "roles_by_user", :id => user}, {:title => "Perfiles a los que pertenece", :class => "boton"}%>
+            </td>
+
             <td  style="vertical-align: middle;">
                 <%=h (user.activo) ?  (link_to 'DESHABILITAR',          { :action => "enable_disable_user", :controller => "admin", :id => user}, {:title => "DESHABILITAR", :class => 'boton'}, :confirm => '¿Esta seguro que desea deshabilitar al usuario?', :method => :post)  :
                                                   (link_to 'HABILITAR USUARIO', { :action => "enable_disable_user", :controller => "admin", :id => user}, {:title => "HABILITAR",       :class => 'boton'}, :confirm => '¿Esta seguro que desea habiliar al usuario?',        :method => :post) %>
