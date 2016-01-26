@@ -1,0 +1,75 @@
+<div class="grid-6-12">
+  <div class="grid-6-12">
+    <label><b>EDAD: </b><em class="formee-req">*</em></label>
+  </div>
+  <div class="grid-6-12"><%=text_field :participante, :edad%></div>
+</div>
+
+<div class="grid-6-12">
+  <div class="grid-6-12">
+    <label><b>ESTADO CIVIL: </b><em class="formee-req">*</em></label>
+  </div>
+  <div class="grid-6-12">
+    <%=select(:participante, :estado_civil_id, @edo_civil.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true })%>
+  </div>
+</div>
+
+<div class="grid-6-12">
+  <div class="grid-6-12">
+    <label><b>LUGAR DE TRABAJO: </b><em class="formee-req">*</em></label>
+  </div>
+  <div class="grid-6-12"><%=text_field :participante, :fechahora_captura%></div>
+</div>
+
+<div class="grid-6-12">
+  <div class="grid-6-12">
+    <label><b>NÚMERO DE CREDENCIAL: </b><em class="formee-req">*</em></label>
+  </div>
+  <div class="grid-6-12"><%=text_field :participante, :numero_credencial%></div>
+</div>
+
+<div class="grid-6-12">
+  <div class="grid-6-12">
+    <label><b>TIEMPO QUE TIENE DE TRABAJAR COMO POLICÍA: </b><em class="formee-req">*</em></label>
+  </div>
+  <div class="grid-6-12"><%=text_field :participante, :fechahora_captura%></div>
+</div>
+
+<div class="grid-6-12">
+  <div class="grid-6-12">
+    <label><b>EXPERIENCIA QUE TIENE EN EL SISTEMA ACUSATORIO: </b><em class="formee-req">*</em></label>
+  </div>
+  <div class="grid-6-12"><%=text_field :participante, :fechahora_captura%></div>
+</div>
+
+<div class="grid-6-12">
+  <div class="grid-6-12">
+    <label><b>GRADO DE ESTUDIOS: </b></label>
+  </div>
+  <div class="grid-6-12">
+  <%=select(:participante, :escolaridad_id, @escolaridades.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true })%>
+  </div>
+</div>
+
+<div class="grid-6-12">
+  <div class="grid-6-12">
+    <label><b>TIENE ALGÚN PADECIMIENTO: </b><em class="formee-req">*</em></label>
+  </div>
+  <div class="grid-6-12"><%=text_field :participante, :padecimiento_detalle%></div>
+</div>
+
+<div class="grid-6-12">
+  <div class="grid-6-12">
+  <label><b>ANTECEDENTES PENALES: </b><em class="formee-req">*</em></label>
+  </div>
+  <div class="grid-6-12"><%=text_field :participante, :antecedentes_penales_delito%></div>
+</div>
+
+<div class="grid-6-12">
+  <div class="grid-6-12">
+  <label><b>ALGUNA RELACIÓN CON LA VÍCTIMA: </b><em class="formee-req">*</em></label>
+  </div>
+  <div class="grid-6-12">
+    <%=select(:participante, :relacion_victima_id, @relacion_victima.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true })%>
+  </div>
+</div>
