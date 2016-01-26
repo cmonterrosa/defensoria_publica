@@ -1,5 +1,7 @@
 <%=render :partial => "home/arbol"%>
 
+<%=render :partial => "tramites/encabezado"%>
+
 <% form_tag({:action => "search", :t => @tramite}, {:class => "search"}) do -%>
   <p>
     <%= text_field_tag :search, params[:search], :limit => 90, :placeholder => "Escriba el tipo de audiencia" %>
