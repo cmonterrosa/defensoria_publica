@@ -16,20 +16,19 @@
 
 <div class="grid-6-12">
   <div class="grid-6-12">
+    <label><b>OCUPACIÓN: </b><em class="formee-req">*</em></label>
+  </div>
+  <div class="grid-6-12"><%=text_field :participante, :ocupacion%></div>
+</div>
+
+<div class="grid-6-12">
+  <div class="grid-6-12">
     <label><b>GRADO DE ESTUDIOS: </b></label>
   </div>
   <div class="grid-6-12">
   <%=select(:participante, :escolaridad_id, @escolaridades.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true })%>
   </div>
 </div>
-
-<div class="grid-6-12">
-  <div class="grid-6-12">
-  <label><b>CÉDULA PROFESIONAL: </b><em class="formee-req">*</em></label>
-  </div>
-  <div class="grid-6-12"><%=text_field :participante, :cedula_profesional%></div>
-</div>
-
 
 <div class="grid-6-12">
   <div class="grid-6-12">
@@ -40,23 +39,9 @@
 
 <div class="grid-6-12">
   <div class="grid-6-12">
-  <label><b>ESPECIALIDAD: </b><em class="formee-req">*</em></label>
-  </div>
-  <div class="grid-6-12"><%=text_field :participante, :especialidad%></div>
-</div>
-
-
-<div class="grid-6-12">
-  <div class="grid-6-12">
   <label><b>ALGUNA RELACIÓN CON LA VÍCTIMA: </b><em class="formee-req">*</em></label>
   </div>
   <div class="grid-6-12">
     <%=select(:participante, :relacion_victima_id, @relacion_victima.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true })%>
   </div>
 </div>
-
-<script type="text/javascript">
-  var tipo_participante = new LiveValidation( 'participante_tipo_participante_id', {onlyOnSubmit: true} );
-  tipo_participante.add( Validate.Presence );
-</script>
-
