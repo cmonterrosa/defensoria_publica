@@ -36,9 +36,13 @@
 </div>
 
 
-<div class="grid-6-12">
-  <div class="grid-4-12">
-    <label><b>TELÉFONO CASA: </b><em class="formee-req">*</em></label>
-  </div>
-  <div class="grid-8-12"><%=text_field :contacto, :con_parametro%></div>
-</div>
+<!-- Datos de contacto -->
+<%if @persona%>
+      <%@telefono_celular = @persona.get_datos_contacto('telefono_celular')%>
+      <%@telefono_casa = @persona.get_datos_contacto('telefono_casa')%>
+      <%@direccion = @persona.get_datos_contacto('direccion')%>
+      <%@correo_electronico = @persona.get_datos_contacto('correo_electronico')%>
+<%end%>
+
+<%=render :partial => "home/datos_contacto"%>
+

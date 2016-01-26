@@ -26,9 +26,10 @@ class HomeController < ApplicationController
 
     def get_datos_personales
       @persona ||= Persona.new
+      #@contacto ||= Contacto.new
       if params[:persona_per_curp] && params[:persona_per_curp].size >= 6
         if @persona = Persona.find(:first, :conditions => ["per_curp like ?", "#{params[:persona_per_curp]}%"])
-          @contacto = @persona.contactos.first 
+          @contacto = Contacto.find(:first, :conditions => ["fk_persona = ?", @persona.id]) if @persona
           return render(:partial => 'datos_personales', :layout => false) if request.xhr?
         else
           if @personas = Persona.search(params[:persona_per_curp])

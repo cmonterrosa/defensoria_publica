@@ -2,28 +2,28 @@
   <div class="grid-4-12">
     <label><b>TELEFONO CELULAR: </b></label>
   </div>
-  <div class="grid-8-12"><%=text_field :contacto, :telefono_celular%></div>
+  <div class="grid-8-12"><%=text_field :contacto, :telefono_celular, :value => @telefono_celular%></div>
 </div>
 
 <div class="grid-6-12">
   <div class="grid-4-12">
     <label><b>TELEFONO CASA: </b></label>
   </div>
-  <div class="grid-8-12"><%=text_field :contacto, :telefono_casa%></div>
+  <div class="grid-8-12"><%=text_field :contacto, :telefono_casa, :value => @telefono_casa%></div>
 </div>
 
 <div class="grid-6-12">
   <div class="grid-4-12">
     <label><b>EMAIL: </b></label>
   </div>
-  <div class="grid-8-12"><%=text_field :contacto, :correo_electronico%></div>
+  <div class="grid-8-12"><%=text_field :contacto, :correo_electronico, :value => @correo_electronico%></div>
 </div>
 
 <div class="grid-6-12">
   <div class="grid-4-12">
     <label><b>DIRECCIÓN: </b></label>
   </div>
-  <div class="grid-8-12"><%=text_field :contacto, :direccion%>
+  <div class="grid-8-12"><%=text_field :contacto, :direccion, :value => @direccion%>
       <div><%=hidden_field :persona, :id_persona%></div>
   </div>
 </div>
