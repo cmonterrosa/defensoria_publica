@@ -1,7 +1,7 @@
-######################################
+##########################################
 # Controlador que hace operaciones basicas y conecta el tramite
 # con todos los demas modelos y elementos
-######################################
+##########################################
  
 class TramitesController < ApplicationController
   require_role :defensor
@@ -9,7 +9,8 @@ class TramitesController < ApplicationController
 
   
   def index
-    @tramites = Tramite.find(:all).paginate(:page => params[:page], :per_page => 25)
+    @tramites = Tramite.find(:all, :conditions => ["defensor_id = ?", current_user.id]).paginate(:page => params[:page], :per_page => 25)
+    @tramites = Tramite.find(:all).paginate(:page => params[:page], :per_page => 25) if current_user.has_role?(:admin)
     render :partial => "list", :layout => "content"
   end
 
@@ -26,7 +27,8 @@ class TramitesController < ApplicationController
     @tramite.fechahora_atencion ||= Time.now.strftime("%Y/%m/%d")
     @tramite.fechahora_asistencia ||= Time.now.strftime("%Y/%m/%d")
     @tramite.fechahora_recepcion ||= Time.now.strftime("%Y/%m/%d")
-    @defensores = Defensor.find(:all, :conditions => ["activo = ?", true])
+    @defensores = Defensor.find(:all, :conditions => ["activo = ? AND id = ?", true, current_user.id])
+    @defensores = Defensor.find(:all, :conditions => ["activo = ?", true]) if current_user.has_role?(:admin)
   end
 
   def save
@@ -37,13 +39,15 @@ class TramitesController < ApplicationController
       flash[:notice] = "Trámite registrado correctamente"
       redirect_to :controller => "tramites"
     else
-      @defensores = Defensor.find(:all, :conditions => ["activo = ?", true])
+      @defensores = Defensor.find(:all, :conditions => ["activo = ? AND id = ?", true, current_user.id])
+      @defensores = Defensor.find(:all, :conditions => ["activo = ?", true]) if current_user.has_role?(:admin)
       @fiscalias = Fiscalia.find(:all, :conditions => ["activa = ?", true])
       render :action => "new_or_edit"
     end
   end
 
   def search
+
     @tramites = Tramite.search(params[:search]).paginate(:page => params[:page], :per_page => 25)
     render :partial => "list", :layout => "content"
   end
