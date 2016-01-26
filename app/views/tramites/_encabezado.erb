@@ -1,11 +1,35 @@
-<table class="tablakolaval" style="width: 60%">
+<style type="text/css">
+.encabezado {
+    -moz-box-shadow: 0px 1px 0px 0px #fff6af;
+    -webkit-box-shadow: 0px 1px 0px 0px #fff6af;
+    box-shadow: 0px 1px 0px 0px #fff6af;
+    background-color: #ffffff;
+    -moz-border-radius: 1px;
+    -webkit-border-radius: 1px;
+    border-radius: 2px;
+    border: 1px solid #CB352E;
+    cursor: pointer;
+    font-family: "Nexa Light";
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 13px;
+    padding: 6px 22px;
+    text-decoration: none;
+    text-shadow: 0px 0px 0px #ffee66;
+    width: 90%;
+    margin: auto;
+    }
+</style>
+
+
+<table class="encabezado" style="width: 60%" style=" background-color: #FFF6BF; ">
   <tr>
-    <th><b>REGISTRO DE ATENCIÓN :</b><%=@tramite.registro_atencion%></th>
-    <th><b>CARPETA DE INVESTIGACIÓN:</b> <%=@tramite.carpeta_investigacion%></th>
+    <td><b>REGISTRO DE ATENCIÓN :</b><%=h @tramite.registro_atencion%></td>
+    <td><b>CARPETA DE INVESTIGACIÓN:</b> <%=h @tramite.carpeta_investigacion%></td>
   </tr>
   <tr>
-    <th>CAUSA PENAL: <%=@tramite.carpeta_investigacion%></th>
-    <th>NUC :<%=@tramite.nuc%></th>
+    <td><b>CAUSA PENAL: </b><%=h @tramite.carpeta_investigacion%></td>
+    <td><b>NUC: </b><%=h @tramite.nuc%></td>
   </tr>
-  <tr><th>&nbsp;</th></tr>
 </table>
+<br />

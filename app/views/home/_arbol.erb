@@ -55,7 +55,15 @@
 
             when 'audiencias_orales'
                 title = 'AUDIENCIAS'
-                (link_to title.upcase, {:controller => params[:controller], :action => "index", :t => @tramite}, :class => "arbol", :title => title.upcase)
+                raw(link_to ' TRAMITES ', {:controller => 'tramites', :action => "index"}, :class => "arbol") <<
+                ">> " +  raw(link_to ' MENU ', {:controller => 'tramites', :action => "menu", :id => @tramite}, :class => "arbol") <<
+                ">> " + (link_to title.upcase, {:controller => params[:controller], :action => "index", :t => @tramite}, :class => "arbol", :title => title.upcase)
+
+            when 'promociones'
+                title = 'PROMOCIONES'
+                raw(link_to ' TRAMITES ', {:controller => 'tramites', :action => "index"}, :class => "arbol") <<
+                ">> " +  raw(link_to ' MENU ', {:controller => 'tramites', :action => "menu", :id => @tramite}, :class => "arbol") <<
+                ">> " +  (link_to title.upcase, {:controller => params[:controller], :action => "index", :t => @tramite}, :class => "arbol", :title => title.upcase)
 
             when 'audiencias'
                 title = 'ORIENTACIONES AL PÚBLICO '
