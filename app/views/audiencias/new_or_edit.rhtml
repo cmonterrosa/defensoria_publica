@@ -8,11 +8,29 @@
           <%= error_messages_for :audiencia %>
       </div>
 
-      <div class="grid-4-12">
+      <div class="grid-6-12">
         <div class="grid-6-12">
           <label><b>FECHA DE LA SOLICITUD: </b><em class="formee-req">*</em></label>
         </div>
         <div class="grid-6-12"><%=f.text_field :fecha%></div>
+      </div>
+
+      <div class="grid-6-12">
+        <div class="grid-4-12">
+          <label><b>MATERIA: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-8-12">
+          <%= f.select(:materia_id, @materias.collect {|m| [ m.descripcion, m.id ] }, { :include_blank => true })%>
+        </div>
+       </div>
+
+       <div class="grid-12-12">
+        <div class="grid-4-12">
+            <label><b>DEFENSOR PÚBLICO: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-8-12">
+          <%= f.select(:defensor_id, @defensores.collect {|p| [ p.persona.nombre_completo, p.id ] }, { :include_blank => true })%>
+        </div>
       </div>
 
        

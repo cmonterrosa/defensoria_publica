@@ -27,6 +27,7 @@
      <td style="vertical-align: middle;"><%=(a.asunto) ? a.asunto : "--"%></td>
      <td style="vertical-align: middle;"><%=link_to "Imprimir", {:action => "print", :id =>a}, :class => 'boton'  -%></td>
      <td style="vertical-align: middle;"><%=link_to "Detalle", {:action => "show", :id => a}, :class => 'boton'  -%></td>
+     <td style="vertical-align: middle;"><%=link_to "Editar", {:action => "new_or_edit", :id => a}, :class => 'boton'  -%></td>
      <td style="vertical-align: middle;"><%=link_to "Eliminar", {:action => "destroy", :id => a}, :confirm => '¿Desea eliminar el registro?', :class => 'boton'  -%></td>
     </tr>
     <%end%>

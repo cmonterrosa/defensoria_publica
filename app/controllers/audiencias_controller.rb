@@ -21,6 +21,8 @@ class AudienciasController < ApplicationController
   def new_or_edit
       @audiencia = (params[:id])? Audiencia.find(params[:id]) : Audiencia.new
       @audiencia.fecha ||= Time.now.strftime("%Y/%m/%d")
+      @materias = Catalogo.materias.all
+      @defensores = Defensor.find(:all, :conditions => ["activo = ?", true])
       @persona = @audiencia.persona
   end
 
