@@ -14,7 +14,7 @@ class PromocionesController < ApplicationController
   end
 
   def new_or_edit
-      @amparo= (params[:id])? Amparo.find(params[:id]) : Amparo.new
+      @amparo= (params[:id])? Amparo.find(params[:id]) : Promocion.new
       @tramite = Tramite.find(params[:t]) if params[:t]
       @tipo_amparos= TipoAmparo.all
       @resoluciones_amparos = Catalogo.sentido_resolucion_amparo.all 
