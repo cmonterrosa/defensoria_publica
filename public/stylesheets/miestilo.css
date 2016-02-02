@@ -58,8 +58,8 @@ a img {
     text-transform:uppercase;
 }
 body {
-	background-color: #E8E8E8;
-/*        font-family: "Open Sans";*/
+	/* background-color: #E8E8E8;*/
+        /* font-family: "Open Sans";*/
         font-family: 'Open Sans', sans-serif;
         letter-spacing: 0.0525em;
 }

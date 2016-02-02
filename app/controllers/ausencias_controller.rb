@@ -1,7 +1,7 @@
-######################################
+##########################################
 # Controlador que hace registra, edita y elimina
 # ausencias del personal
-######################################
+##########################################
 
 class AusenciasController < ApplicationController
    before_filter :login_required
@@ -47,6 +47,11 @@ class AusenciasController < ApplicationController
       flash[:error] = "No se pudo eliminar, verifique"
     end
     redirect_to :action => "index", :p => params[:p]
+  end
+
+  def show
+    @ausencia = Ausencia.find(params[:id])
+    @persona = @ausencia.persona if @ausencia
   end
 
   

@@ -1,4 +1,7 @@
-    <%=  javascript_include_tag :defaults%>
+   <%=  javascript_include_tag :defaults%>
+
+   <%= stylesheet_link_tag "content"%>
+   <%= stylesheet_link_tag "miestilo"%>
    
     <!-- Burbujas de descripcion -->
    <%= javascript_include_tag 'prototype'%>
@@ -12,28 +15,34 @@
     <!-- Paginate -->
     <%= stylesheet_link_tag "paginate/style.css" %>
 
-    
-
     <!-- Add mousewheel plugin (this is optional) -->
     <%=javascript_include_tag "fancybox/jquery.mousewheel-3.0.6.pack.js"%>
 
     <!-- Add fancyBox main JS and CSS files -->
     <%=javascript_include_tag "fancybox/jquery.fancybox.js?v=2.1.0"%>
     
-
-        <!-- Live Validation -->
+    <!-- Live Validation -->
     <%=javascript_include_tag "livevalidation/livevalidation_standalone.js" %>
     
     <%=javascript_include_tag "formee/formee.js" %>
 
-   
-  
-     <script type="text/javascript">
-      var $j = jQuery.noConflict();
+   <!-- Estilo de tablas del proyecto -->
+    <%= stylesheet_link_tag "tabla_dp.css" %>
+
+    <!-- Estilo de tablas del calendario -->
+    <%= stylesheet_link_tag "calendario.css" %>
+
+    <!-- formee -->
+    <%= stylesheet_link_tag "formee/formee-structure.css" %>
+    <%= stylesheet_link_tag "formee/formee-style.css" %>
+    <%=javascript_include_tag "formee/formee.js" %>
+
+      <script type="text/javascript">
+        var $j = jQuery.noConflict();
      </script>
 
+
+    <%=render :partial => "layouts/notificaciones_acciones"%>
      
-
-
      <!-- contenido -->
      <%=yield%>
