@@ -8,6 +8,7 @@ class CreateAudienciaOrals < ActiveRecord::Migration
       t.column :tipo_audiencia_id, :integer
       t.column :organo_id, :integer
       t.column :juez_id, :integer
+      t.column :defensor_id, :integer
       t.column :sala, :string, :limit => 20
       t.column :sentencia_dictada, :string
       t.column :descripcion, :string, :limit => 100
