@@ -18,9 +18,10 @@
     <!-- Notificaciones de mensajes -->
     <%= stylesheet_link_tag "notificaciones"%>
 
+
     <!-- apis para datepicker de calendario -->
     <%= stylesheet_link_tag "jquery-ui.css"%>
-    <%= javascript_include_tag "jquery.min", "jquery-ui.min", "application" %>
+    <%= javascript_include_tag "jquery-1.8.1.min.js", "jquery-ui.min", "application" %>
     <%=javascript_include_tag "datetimepicker"%>
     <%=javascript_include_tag "datepicker_es"%>
 
@@ -67,7 +68,7 @@
       <!-- Estilo de tablas del calendario -->
      <%= stylesheet_link_tag "calendario.css" %>
 
-   <script type="text/javascript">
+    <script type="text/javascript">
       window.onload=function(){enableTooltips()};
       // this allows jquery to be called along with scriptaculous and YUI without any conflicts
       // the only difference is all jquery functions should be called with $j instead of $
