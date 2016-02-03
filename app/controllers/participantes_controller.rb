@@ -72,12 +72,13 @@ class ParticipantesController < ApplicationController
       @participante= (params[:id])? Participante.find(params[:id]) : Participante.new
       @marginacions = Marginacion.all
       @entornos = Entorno.all
+      @particular = (@participante.particular) ? "SI" : "NO"
   
 
       case TipoParticipante.find(params[:tipo_participante]).clave
         when "MINP"
           render :partial => "ministerio_publico", :layout => false 
-        when "DEFE"
+        when "DEPU"
           render :partial => "defensor", :layout => false 
         when "PERI"
           render :partial => "perito", :layout => false 
@@ -89,8 +90,8 @@ class ParticipantesController < ApplicationController
           render :partial => "acusado", :layout => false 
         when "TEST"
           render :partial => "testigo", :layout => false 
-        when "DEFI"
-          render :partial => "defensor", :layout => false 
+        when "DEPR"
+          render :partial => "defensor_privado", :layout => false
       end
     else
     end

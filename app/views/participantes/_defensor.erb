@@ -1,3 +1,23 @@
+<div class="grid-6-12">
+  <div class="grid-6-12">
+    <label><b>DEFENSOR: </b><em class="formee-req">*</em></label>
+  </div>
+  <div class="grid-6-12">
+    <%=select(:defensor, :identificadores, @defensores.collect {|d| [ d.persona.nombre_completo, d.id ] }, { :include_blank => true })%>
+  </div>
+</div>
+
+<div class="grid-6-12">
+  <div class="grid-8-12">
+    <label><b>¿ES PRIVADO O PARTICULAR?: </b></label>
+  </div>
+  <div class="grid-4-12">
+    <span class="InputGroup">
+     <label class="uper">SI <%= radio_button :participante, :particular, "SI", :checked => @particular %></label>&nbsp;&nbsp;
+     <label class="uper">NO <%= radio_button :participante, :particular, "NO", :checked => @particular == false %></label>
+    </span>
+  </div>
+</div>
 
 <div class="grid-6-12">
   <div class="grid-6-12">
@@ -11,6 +31,13 @@
     <label><b>CÉDULA PROFESIONAL: </b><em class="formee-req">*</em></label>
   </div>
   <div class="grid-6-12"><%=text_field :participante, :cedula_profesional%></div>
+</div>
+
+<div class="grid-6-12">
+  <div class="grid-6-12">
+    <label><b>ESPECIALIDAD: </b><em class="formee-req">*</em></label>
+  </div>
+  <div class="grid-6-12"><%=text_field :participante, :especialidad%></div>
 </div>
 
 <div class="grid-6-12">

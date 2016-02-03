@@ -1,5 +1,9 @@
 <%=render :partial => "home/arbol"%>
 
+<!-- Relaciones entre participantes -->
+<%=link_to "RELACION ENTRE PARTICIPANTES", {:controller => "participantes", :action => "relacion", :t => @tramite}, :class => "boton", :title => "RELACION ENTRE PARTICIPANTES"%> <br />
+
+
 <%=render :partial => "tramites/encabezado"%>
 
 <% form_tag({:action => "search", :t => @tramite}, {:class => "search"}) do -%>
