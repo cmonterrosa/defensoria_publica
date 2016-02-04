@@ -12,7 +12,7 @@
 
       <div class="grid-8-12">
         <div class="grid-6-12">
-          <label><b>CURP O NOMBRE COMPLETO: </b><em class="formee-req">*</em></label>
+          <label id="curp_busqueda"><b>CURP O NOMBRE COMPLETO: </b><em class="formee-req">*</em></label>
         </div>
         <div class="grid-6-12"><%=text_field :persona, :per_curp%></div>
       </div>
@@ -21,14 +21,17 @@
 
       <div id="datos_personales"></div>
 
-       <div class="grid-6-12">
+
+      <div id="tipo_participante">
+       <div class="grid-12-12">
         <div class="grid-4-12">
           <label><b>TIPO DE PARTICIPANTE: </b><em class="formee-req">*</em></label>
         </div>
         <div class="grid-8-12">
           <%= f.select(:tipo_participante_id, @tipo_participantes.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true })%>
         </div>
-       </div>              
+       </div>
+      </div>
 
 
     <div id="datos_especificos"></div>  

@@ -36,6 +36,19 @@
 </div>
 
 
+<script type="text/javascript">
+    if(document.getElementById("persona_per_curp").style.display == "none")
+    {
+      document.getElementById("persona_per_curp").style.display= "inline";
+      document.getElementById("curp_busqueda").style.display= "inline";
+    }
+    else
+    {
+        document.getElementById("persona_per_curp").style.display= "none";
+        document.getElementById("curp_busqueda").style.display= "none";
+    }
+</script>
+
 <!-- Datos de contacto -->
 <%if @persona%>
       <%@telefono_celular = @persona.get_datos_contacto('telefono_celular')%>

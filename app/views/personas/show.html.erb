@@ -1,27 +1,33 @@
-<p>
-  <b>Id:</b>
-  <%=h @persona.id_persona %>
-</p>
+<%=render :partial => "home/arbol"%>
 
-<p>
-  <b>Nombre completo:</b>
-  <%=h @persona.nombre_completo %>
-</p>
+<%if @ausencia && @persona%>
 
-<p>
-  <b>CURP:</b>
-  <%=h @persona.per_curp %>
-</p>
+    <p>
+      <b>Nombre completo:</b>
+      <%=h @persona.nombre_completo %>
+    </p>
 
-<p>
-  <b>RFC:</b>
-  <%=h @persona.per_rfc %>
-</p>
+    <p>
+      <b>CURP:</b>
+      <%=h @persona.per_curp %>
+    </p>
 
 
+    <p>
+      <b>Inicio:</b>
+      <%=h (@ausencia.inicio)? @ausencia.inicio.strftime("%de de %B de %Y - %H:%M"): '---'%>
+    </p>
 
-<%= link_to 'Edit', edit_persona_path(@persona) %> |
-<%= link_to 'Back', personas_path %>
+     <p>
+      <b>Fin:</b>
+      <%=h (@ausencia.fin)? @ausencia.fin.strftime("%de de %B de %Y - %H:%M") : '---'%>
+    </p>
+
+<%end%>
+
+
+<%= link_to 'Editar', edit_ausencia_path(@ausencia) %> |
+<%= link_to 'Atras', ausencia_path %>
 
 
 

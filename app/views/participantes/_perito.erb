@@ -1,8 +1,21 @@
 <div class="grid-6-12">
-  <div class="grid-6-12">
-    <label><b>EDAD: </b><em class="formee-req">*</em></label>
+  <div class="grid-8-12">
+    <label><b>¿ES PRIVADO O PARTICULAR?: </b></label>
   </div>
-  <div class="grid-6-12"><%=text_field :participante, :edad%></div>
+  <div class="grid-4-12">
+    <span class="InputGroup">
+     <label class="uper">SI <%= radio_button :participante, :particular, "SI", :checked => @particular %></label>&nbsp;&nbsp;
+     <label class="uper">NO <%= radio_button :participante, :particular, "NO", :checked => @particular == false %></label>
+    </span>
+  </div>
+</div>
+
+
+<div class="grid-6-12">
+  <div class="grid-6-12">
+    <label><b>FECHA DE NACIMIENTO: </b><em class="formee-req">*</em></label>
+  </div>
+  <div class="grid-6-12"><%=text_field :participante, :fecha_nac%></div>
 </div>
 
 <div class="grid-6-12">

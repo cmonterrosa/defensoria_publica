@@ -26,10 +26,9 @@ class CreateParticipantes < ActiveRecord::Migration
       t.boolean :tiene_padecimiento
       t.string :padecimiento_detalle
       t.integer :relacion_victima_id
-      t.integer :edad 
-
-      
-
+      t.datetime :fecha_nac
+      t.boolean :particular
+      t.boolean :es_de_turno
       t.timestamps
     end
 

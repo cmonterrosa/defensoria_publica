@@ -53,18 +53,17 @@ class TramitesController < ApplicationController
   end
 
     def get_datos_tramite
-      if params[:tramite]
-        @tramite = (params[:tramite][:nuc] && params[:tramite][:nuc].size >= 4)?  Tramite.find_by_nuc(params[:tramite][:nuc]) : nil
-        @tramite ||= (params[:tramite][:carpeta_investigacion] && params[:tramite][:carpeta_investigacion].size >= 4)?  Tramite.find_by_carpeta_investigacion(params[:tramite][:carpeta_investigacion]) : nil
+        if params[:tramite]
+        @tramite = (params[:tramite][:nuc] && params[:tramite][:nuc].size >= 3)?  Tramite.find_by_nuc(params[:tramite][:nuc]) : nil
+        @tramite ||= (params[:tramite][:carpeta_investigacion] && params[:tramite][:carpeta_investigacion].size >= 3)?  Tramite.find_by_carpeta_investigacion(params[:tramite][:carpeta_investigacion]) : nil
+        @tramite ||= (params[:tramite][:causa_penal] && params[:tramite][:causa_penal].size >= 3)?  Tramite.find_by_causa_penal(params[:tramite][:causa_penal]) : nil
+        @tramite ||= (params[:tramite][:registro_atencion] && params[:tramite][:registro_atencion].size >= 3)?  Tramite.find_by_registro_atencion(params[:tramite][:registro_atencion]) : nil
         @tramite ||= Tramite.new
         @fiscalias = Fiscalia.find(:all, :conditions => ["activa = ?", true])
-      end
-      if params[:tramite][:nuc].size > 1 && params[:tramite][:carpeta_investigacion].size > 1 && params[:tramite][:defensor_id].size > 0
+        end
         return render(:partial => 'datos_tramite', :layout => false ) if request.xhr?
-      else
-        render :text =>""
-      end
-    end
+     end
+   
 
    def destroy
       @tramite = Tramite.find(params[:id])

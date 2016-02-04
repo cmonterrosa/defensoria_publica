@@ -1,8 +1,19 @@
+<script type="text/javascript">
+$j(document).ready(function() {
+
+       $j('#participante_fecha_nac').datepicker({
+          dayOfWeekStart : 1,
+          buttonImage: "/images/icons/calendar.gif",
+          lang:'es'
+        });
+});
+</script>
+
 <div class="grid-6-12">
   <div class="grid-6-12">
-    <label><b>EDAD: </b><em class="formee-req">*</em></label>
+    <label><b>FECHA DE NACIMIENTO: </b><em class="formee-req">*</em></label>
   </div>
-  <div class="grid-6-12"><%=text_field :participante, :edad%></div>
+  <div class="grid-6-12"><%=text_field :participante, :fecha_nac%></div>
 </div>
 
 <div class="grid-6-12">
