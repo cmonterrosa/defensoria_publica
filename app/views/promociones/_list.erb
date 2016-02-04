@@ -16,15 +16,16 @@
     <tr>
       <td style="vertical-align: middle;">Fecha</td>
       <td style="vertical-align: middle;">Tipo de promoción</td>
-      <td style="vertical-align: middle;">Número de promoción</td>
-      <td style="vertical-align: middle;">Estatus</td>
+      <td style="vertical-align: middle;">Título</td>
+      <td style="vertical-align: middle;">Contestación</td>
       <td style="vertical-align: middle;" colspan="4">&nbsp;</td>
     </tr>
     <%@promociones.each do |p|%>
     <tr>
-      <td style="vertical-align: middle;"><%=(p.tipo_amparo) ? p.fecha : "--"%></td>
-      <td style="vertical-align: middle;"><%=(p.tipo_amparo) ? p.tipo_amparo.descripcion : "--"%></td>
-      <td style="vertical-align: middle;"><%=p.num_amparo %></td>
+      <td style="vertical-align: middle;"><%=(p.fecha) ? p.fecha : "--"%></td>
+      <td style="vertical-align: middle;"><%=(p.tipo_promocion) ? p.tipo_promocion.descripcion : "--"%></td>
+      <td style="vertical-align: middle;"><%=p.titulo %></td>
+      <td style="vertical-align: middle;"><%=p.contestacion %></td>
       <td style="vertical-align: middle;"><%=link_to "Editar", {:action => "new_or_edit", :id => p}, :class => 'boton'  -%></td>
       <td style="vertical-align: middle;"><%=link_to "Eliminar", {:action => "destroy", :id => p, :t => @tramite}, :confirm => '¿Desea eliminar el registro?', :class => 'boton'  -%></td>
     </tr>
