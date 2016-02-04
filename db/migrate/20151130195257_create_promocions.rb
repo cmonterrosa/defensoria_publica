@@ -2,8 +2,11 @@ class CreatePromocions < ActiveRecord::Migration
   def self.up
     create_table :promocions do |t|
     	t.column :tramite_id, :integer
-    	t.column :fecha, :date 
-    	t.status :tipo_promocion, :integer
+      t.column :fecha, :date 
+      t.column :titulo, :string
+    	t.column :descripcion, :string
+      t.status :tipo_promocion, :integer
+      t.column :resolucion, :contestacion_id    	
 
       t.timestamps
     end
