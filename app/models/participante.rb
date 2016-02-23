@@ -12,7 +12,7 @@ class Participante < ActiveRecord::Base
  belongs_to :tipo_participante
  has_and_belongs_to_many :tramites
 
-  validates_presence_of :persona_id, :message => "- Debe vincularse a una persona"
+  #validates_presence_of :persona_id, :message => "- Debe vincularse a una persona"
   
 
   def self.search(search,tramite)

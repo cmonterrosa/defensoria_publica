@@ -42,12 +42,26 @@ $j(document).ready(function() {
 </div>
 
 
-<div class="grid-6-12">
+
   <div class="grid-6-12">
-  <label><b>ANTECEDENTES PENALES: </b><em class="formee-req">*</em></label>
-  </div>
-  <div class="grid-6-12"><%=text_field :participante, :antecedentes_penales_delito%></div>
-</div>
+        <div class="grid-4-12">
+          <label><b>¿TIENE ANTECEDENTES PENALES?: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-8-12">
+                  <span class="InputGroup" id="tiene_antecedentes">
+                      <label class="uper">SI <%= radio_button :participante, :tiene_antecedentes_penales, "SI", :checked => @participante.tiene_antecedentes_penales %></label>&nbsp;&nbsp;
+                      <label class="uper">NO <%= radio_button :participante, :tiene_antecedentes_penales, "NO", :checked => @participante.tiene_antecedentes_penales == false %></label>
+                  </span>
+       </div>
+      </div>
+
+    <div class="grid-6-12">
+      <div class="grid-6-12">
+        <label><b>DELITO POR EL CUAL TIENE ANTECEDENTES PENALES: </b><em class="formee-req">*</em></label>
+      </div>
+      <div class="grid-6-12"><%=text_field :participante, :antecedentes_penales_delito%></div>
+    </div>
+
 
 <div class="grid-6-12">
   <div class="grid-6-12">
@@ -66,8 +80,10 @@ $j(document).ready(function() {
   </div>
 </div>
 
+
+
 <script type="text/javascript">
-  var tipo_participante = new LiveValidation( 'participante_tipo_participante_id', {onlyOnSubmit: true} );
-  tipo_participante.add( Validate.Presence );
-</script>
+  var fecha_nac = new LiveValidation( 'participante_fecha_nac' );
+  fecha_nac.add( Validate.Presence );
+ </script>
 

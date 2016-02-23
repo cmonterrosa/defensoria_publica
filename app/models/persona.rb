@@ -13,7 +13,7 @@ class Persona < ActiveRecord::Base
 #  validates_format_of :per_curp, :with => /\A[A-Z][AEIOUX][A-Z]{2}[0-9]{2}[0-1][0-9][0-3][0-9][MH][A-Z][BCDFGHJKLMNÑPQRSTVWXYZ]{4}[0-9A-Z][0-9]\z/,
 #    :allow_blank => true, :message => "Formato inválido"
 
-  before_save :validates_curp
+  before_save :validates_curp, :if => "self.per_curp != nil"
 
   def validates_curp
     if self.per_curp && self.per_curp.size == 18
