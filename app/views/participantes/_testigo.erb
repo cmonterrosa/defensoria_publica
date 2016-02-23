@@ -1,8 +1,12 @@
 <div class="grid-6-12">
   <div class="grid-6-12">
-    <label><b>EDAD: </b><em class="formee-req">*</em></label>
+    <label><b>FECHA DE NACIMIENTO: </b><em class="formee-req">*</em></label>
   </div>
-  <div class="grid-6-12"><%=text_field :participante, :edad%></div>
+  <div class="grid-6-12">
+    <span class="datetime">
+      <%=date_select :participante, :fecha_nac, :order => [:day, :month, :year], :start_year => 1910%>
+    </span>  
+  </div>
 </div>
 
 <div class="grid-6-12">
@@ -28,6 +32,13 @@
   <div class="grid-6-12">
   <%=select(:participante, :escolaridad_id, @escolaridades.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true })%>
   </div>
+</div>
+
+<div class="grid-6-12">
+  <div class="grid-6-12">
+    <label><b>TIENE ALGÚN PADECIMIENTO: </b><em class="formee-req">*</em></label>
+  </div>
+  <div class="grid-6-12"><%=text_field :participante, :padecimiento_detalle%></div>
 </div>
 
 <div class="grid-6-12">
