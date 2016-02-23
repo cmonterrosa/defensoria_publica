@@ -1,7 +1,9 @@
 <%=render :partial => "home/arbol"%>
 
 <!-- Relaciones entre participantes -->
-<%=link_to "RELACION ENTRE PARTICIPANTES", {:controller => "participantes", :action => "relacion", :t => @tramite}, :class => "boton", :title => "RELACION ENTRE PARTICIPANTES"%> <br />
+<p>
+  <%=link_to "RELACION ENTRE PARTICIPANTES", {:controller => "participantes", :action => "relacion", :t => @tramite}, :class => "boton", :title => "RELACION ENTRE PARTICIPANTES"%>
+</p>
 
 
 <%=render :partial => "tramites/encabezado"%>
