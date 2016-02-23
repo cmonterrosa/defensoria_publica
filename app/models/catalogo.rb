@@ -18,5 +18,14 @@ class Catalogo < ActiveRecord::Base
   named_scope :sentido_resolucion_amparo, :conditions => {:fk_id_catalogos => 264}
   named_scope :estados_civiles, :conditions => {:fk_id_catalogos => 26}
   named_scope :relacion_victima, :conditions => {:fk_id_catalogos => 189}
+  named_scope :estatus_audiencia, :conditions => {:fk_id_catalogos => 30}
+  named_scope :tipo_audiencia, :conditions => {:fk_id_catalogos => 100}
+  named_scope :caracter_audiencia, :conditions => {:fk_id_catalogos => 236}
+  named_scope :institucion_solicitante, :conditions => {:fk_id_catalogos => 237}
+  named_scope :motivos_cancelar_audiencia, :conditions => {:fk_id_catalogos => 275}
+  named_scope :motivos_diferir_audiencia, :conditions => {:fk_id_catalogos => 276}
+  named_scope :motivos_reagendar_audiencia, :conditions => {:fk_id_catalogos => 277}
+  named_scope :motivos_suspender_audiencia, :conditions => {:fk_id_catalogos => 278}
+
 
 end

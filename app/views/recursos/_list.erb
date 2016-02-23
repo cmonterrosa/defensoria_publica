@@ -15,17 +15,13 @@
     <table width="85%" border="0" cellspacing="0" cellpadding="0" class="tablakolaval" style="BORDER-RIGHT: #cccccc 1px solid; BORDER-TOP: #cccccc 1px solid; BORDER-LEFT: #cccccc 1px solid; BORDER-BOTTOM: #cccccc 1px solid">
     <tr>
       <td style="vertical-align: middle;">Fecha</td>
-      <td style="vertical-align: middle;">Tipo de promoción</td>
-      <td style="vertical-align: middle;">Título</td>
-      <td style="vertical-align: middle;">Contestación</td>
+      <td style="vertical-align: middle;">Tipo de recurso</td>
       <td style="vertical-align: middle;" colspan="4">&nbsp;</td>
     </tr>
-    <%@promociones.each do |p|%>
+    <%@recursos.each do |p|%>
     <tr>
-      <td style="vertical-align: middle;"><%=(p.fecha) ? p.fecha : "--"%></td>
-      <td style="vertical-align: middle;"><%=(p.tipo_promocion) ? p.tipo_promocion.descripcion : "--"%></td>
-      <td style="vertical-align: middle;"><%=p.titulo %></td>
-      <td style="vertical-align: middle;"><%=p.contestacion %></td>
+      <td style="vertical-align: middle;"><%=(p.tipo_recurso) ? p.fecha : "--"%></td>
+      <td style="vertical-align: middle;"><%=(p.tipo_recurso) ? p.tipo_recurso.descripcion : "--"%></td>
       <td style="vertical-align: middle;"><%=link_to "Editar", {:action => "new_or_edit", :id => p}, :class => 'boton'  -%></td>
       <td style="vertical-align: middle;"><%=link_to "Eliminar", {:action => "destroy", :id => p, :t => @tramite}, :confirm => '¿Desea eliminar el registro?', :class => 'boton'  -%></td>
     </tr>
