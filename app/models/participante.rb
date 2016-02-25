@@ -4,13 +4,16 @@
 ######################################
 
 class Participante < ActiveRecord::Base
+ belongs_to :tramite
  belongs_to :persona
  belongs_to :calidad
  belongs_to :entorno
  belongs_to :marginacion
  belongs_to :papel
  belongs_to :tipo_participante
- has_and_belongs_to_many :tramites
+ has_many :relacions
+
+  validates_presence_of :tramite_id, :message => "- Debe vincularse a un tramite"
 
   #validates_presence_of :persona_id, :message => "- Debe vincularse a una persona"
   
