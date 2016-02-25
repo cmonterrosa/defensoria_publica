@@ -62,3 +62,12 @@ $(function() {
         lang:'es'
     });
 });
+
+
+/* Habilita descripcion del delito si tiene antecedentes penales */
+function enable_descripcion_delito(){
+    if (document.getElementById("participante_tiene_antecedentes_penales_si").checked == true)
+        {document.getElementById("descripcion_delito").style.display = "inline";}
+    else
+        {document.getElementById("descripcion_delito").style.display = "none";}
+  }
