@@ -8,6 +8,8 @@ class Tramite < ActiveRecord::Base
   has_many :amparos
   has_many :promocions
   has_many :audiencia_orals
+  has_many :recursos
+  has_many :sentencias
   belongs_to :defensor
   belongs_to :fiscalia
 
