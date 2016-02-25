@@ -6,7 +6,7 @@ class CreatePromocions < ActiveRecord::Migration
       t.column :titulo, :string
     	t.column :descripcion, :string
       t.status :tipo_promocion, :integer
-      t.column :resolucion, :contestacion_id    	
+      t.column :contestacion_id, :integer    	
 
       t.timestamps
     end
