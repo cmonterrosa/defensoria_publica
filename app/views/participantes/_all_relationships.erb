@@ -1,0 +1,44 @@
+<!-- Muestra las relaciones de parentesco que tiene el participante con los demas -->
+
+<%if @participante%>
+    <%@relaciones_participante_principal = Relacion.find(:all, :conditions => ["participante_id = ?", @participante.id])%>
+      <%@relaciones_participante_secundario = Relacion.find(:all, :conditions => ["segundo_participante_id = ?", @participante.id])%>
+
+
+    <%if !@relaciones_participante_principal.empty?%>
+      <table class="tabla_dp" style="width: 80%; margin:auto;">
+        <tr>
+          <td>Participante</td>
+          <td>Parentesco</td>
+           <td>&nbsp;</td>
+        </tr>
+      <%@relaciones_participante_principal.each do |relacion|%>
+        <tr>
+          <td><%=h (relacion.segundo_participante && relacion.segundo_participante.persona ) ? relacion.segundo_participante.persona.nombre_completo : ''%></td>
+          <td><%=h relacion.parentesco.descripcion%></td>
+          <td><%=h link_to "Eliminar", {:action => "destroy_relationship", :id => relacion}, :confirm => "¿Esta seguro que desea eliminar el registro?",  :class => "boton"%></td>
+        </tr>
+       <%end%>
+      </table><br />
+    <%end%>
+
+      <%if !@relaciones_participante_secundario.empty?%>
+      <table class="tabla_dp" style="width: 80%; margin:auto;">
+        <tr>
+          <td>Participante</td>
+          <td>Parentesco</td>
+           <td>&nbsp;</td>
+        </tr>
+      <%@relaciones_participante_secundario.each do |relacion|%>
+        <tr>
+          <td><%=h (relacion.participante && relacion.participante.persona ) ? relacion.participante.persona.nombre_completo : ''%></td>
+          <td><%=h relacion.parentesco.descripcion%></td>
+          <td><%=h link_to "Eliminar", {:action => "destroy_relationship", :id => relacion}, :confirm => "¿Esta seguro que desea eliminar el registro?",  :class => "boton"%></td>
+        </tr>
+      <%end%>
+      </table><br />
+    <%end%>
+
+
+
+<%end%>

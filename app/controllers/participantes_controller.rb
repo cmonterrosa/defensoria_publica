@@ -47,11 +47,12 @@ class ParticipantesController < ApplicationController
       end
       
       @participante.persona ||= Persona.new(params[:persona])
+      @participante.tramite ||= @tramite
       @participante.privado_libertad = (params[:participante] && params[:participante][:privado_libertad] == 'SI') ? true : false
       @participante.libre_atraves_medida_cautelar = (params[:participante] && params[:participante][:libre_atraves_medida_cautelar] == 'SI') ? true : false
       @participante.libre_suspension_condicional_proceso = (params[:participante] && params[:participante][:libre_suspension_condicional_proceso] == 'SI') ? true : false
         if @tramite && @participante.valid? && @participante.persona.valid?
-          @participante.save && (@tramite.participantes << @participante) && @participante.persona.save
+          @participante.save && @participante.tramite.save &&  @participante.persona.save
           flash[:notice] = "Participante registrado correctamente"
           redirect_to :controller => "participantes", :t => @tramite
         else
@@ -68,7 +69,6 @@ class ParticipantesController < ApplicationController
       @tipo_participantes = TipoParticipante.all
       @edo_civil = Catalogo.estados_civiles.all 
       @escolaridades = Catalogo.escolaridades.all
-      @relacion_victima = Catalogo.relacion_victima.all
       @calidads= Calidad.all
       @participante= (params[:id])? Participante.find(params[:id]) : Participante.new
       @marginacions = Marginacion.all
@@ -104,8 +104,51 @@ class ParticipantesController < ApplicationController
     redirect_to :action => "index", :t => params[:t]
   end
 
-  def relacion
+
+  ###########################################
+  # Relaciones de parentesco entre participantes
+  #
+  ###########################################
+
+  def relationships
     @participante = (params[:id])? Participante.find(params[:id]) : nil
+    @tramite = @participante.tramite if @participante
+    @participantes = Participante.find(:all, :conditions => ["tramite_id = ? AND id not in (?)", @participante.tramite_id, @participante.id]) if @participante
+    @relacion = Relacion.new
+    @relaciones = Catalogo.parentesco.all
+    render :partial => "relationships", :layout => "content"
+  end
+
+  def destroy_relationship
+    @relacion = Relacion.find(params[:id])
+    @participante = @relacion.participante
+    if @relacion.destroy
+      flash[:notice] = "Registro eliminado correctamente"
+      redirect_to :action => "relationships", :id => @participante
+    else
+      flash[:error] = "Registro no se pudo eliminar"
+      render :action =>"relationships"
+    end
+  end
+
+
+  def save_relationships
+   if @participante = Participante.find(params[:id])
+      @segundo_participante = Participante.find(params[:relacion][:segundo_participante_id]) if @participante && params[:relacion][:segundo_participante_id]
+      if @segundo_participante && !params[:relaciones].empty?
+          params[:relaciones].each_key do |k|
+              if (Relacion.create(:participante_id => @participante.id, :segundo_participante_id => @segundo_participante.id, :parentesco_id => k.to_i) unless Relacion.count(:id, :conditions => ["participante_id = ? AND segundo_participante_id = ? AND parentesco_id = ?", @participante.id, @segundo_participante.id, k.to_i]) > 0)
+                flash[:notice] = "Parentesco guardado correctamente"
+              end
+          end
+      else
+        flash[:warning] = "Se requiere seleccionar al participante y al menos un parentesco"
+      end
+        redirect_to :action => "relationships", :id => @participante
+    else
+      flash[:error] = "No se encontro participante, contacte al administrador"
+      redirect_to :controller => "home"
+    end
   end
 
 end

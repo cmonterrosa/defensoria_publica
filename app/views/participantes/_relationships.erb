@@ -1,0 +1,50 @@
+<%=render :partial => "home/arbol"%>
+
+<%=render :partial => "all_relationships"%>
+
+<div class="container">
+<% form_for :relacion, @relacion, :url => { :action => "save_relationships", :controller => "participantes", :id => @participante, :t => @tramite}, :html => {:class => "formee"} do |f| -%>
+  <fieldset>
+    <legend>RELACION&nbsp;CON&nbsp;OTROS&nbsp;PARTICIPANTES</legend>
+      <div class="grid-12-12">
+          <%= error_messages_for :participante %>
+      </div>
+
+     <!-- participantes -->
+    <div id="participantes_combo" class="grid-6-12">
+      <label>Seleccione al otro participante: <em class="formee-req">*</em></label>
+      <fieldset style="padding: 5px 5px 5px 5px;">
+          <div class="grid-6-12">
+              <%=select(:relacion, :segundo_participante_id, @participantes.collect {|p| [ p.persona.nombre_completo, p.id ] }, { :include_blank => true })%>
+        </div>
+      </fieldset>
+    </div>
+
+     <!-- participantes -->
+    <div id="participantes" class="grid-6-12">
+      <label>Seleccione el tipo de parentesco: <em class="formee-req">*</em></label>
+      <fieldset style="padding: 3px 3px 3px 3px; text-align: left;">
+        <div id="programas" class="checkbox" >
+          <% @relaciones.each do |r| %>
+            <%= check_box_tag "relaciones[#{r.id}]", r.descripcion%>&nbsp;<%= r.descripcion %><br />
+          <% end %>
+        </div>
+      </fieldset>
+    </div>
+
+
+    <div class="grid-12-12 clear"></div>
+    
+    <div class="grid-12-12">
+      <input class="right" type="submit" title="AGREGAR" value="AGREGAR" />
+    </div>
+
+ </fieldset>
+<%end%>
+</div>
+
+
+
+
+
+
