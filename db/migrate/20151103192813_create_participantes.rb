@@ -1,6 +1,7 @@
 class CreateParticipantes < ActiveRecord::Migration
   def self.up
     create_table :participantes do |t|
+      t.integer :tramite_id
       t.string :persona_id, :limit => 36
       t.integer :tipo_participante_id
       t.integer :entorno_id
@@ -25,32 +26,21 @@ class CreateParticipantes < ActiveRecord::Migration
       t.integer :num_hijos
       t.boolean :tiene_padecimiento
       t.string :padecimiento_detalle
-      t.integer :relacion_victima_id
       t.datetime :fecha_nac
       t.boolean :particular
       t.boolean :es_de_turno
       t.timestamps
     end
 
+    add_index :participantes, :tramite_id, :name => "participantes_tramite"
     add_index :participantes, :persona_id, :name => "participantes_persona"
     add_index :participantes, [:persona_id, :calidad_id], :name => "participantes_persona_calidad"
     add_index :participantes, [:persona_id, :tipo_participante_id], :name => "participantes_persona_tipo_participante"
     
-
-    ### Tabla de muchos a muchos ####
-    create_table :participantes_tramites, :id => false do |t|
-      t.integer :participante_id
-      t.integer :tramite_id
-    end
-
-    add_index "participantes_tramites", "participante_id"
-    add_index "participantes_tramites", "tramite_id"
-
-  end
+end
 
   def self.down
     drop_table :participantes
-    drop_table :participantes_tramites
   end
 end
 
