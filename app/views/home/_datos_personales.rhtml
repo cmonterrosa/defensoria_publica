@@ -2,35 +2,35 @@
   <div class="grid-4-12">
     <label><b>RFC: </b></label>
   </div>
-  <div class="grid-8-12"><%=text_field :persona, :per_rfc%></div>
+  <div class="grid-8-12"><%=text_field :persona, :per_rfc,  :onBlur=>"javascript:{this.value = this.value.toUpperCase(); }"%></div>
 </div>
 
 <div class="grid-6-12">
   <div class="grid-4-12">
     <label><b>CURP: </b></label>
   </div>
-  <div class="grid-8-12"><%=text_field :persona, :per_curp%></div>
+  <div class="grid-8-12"><%=text_field :persona, :per_curp,  :onBlur=>"javascript:{this.value = this.value.toUpperCase(); }"%></div>
 </div>
 
 <div class="grid-6-12">
   <div class="grid-4-12">
     <label><b>APELLIDO PATERNO: </b><em class="formee-req">*</em></label>
   </div>
-  <div class="grid-8-12"><%=text_field :persona, :per_paterno%></div>
+  <div class="grid-8-12"><%=text_field :persona, :per_paterno,  :onBlur=>"javascript:{this.value = this.value.toUpperCase(); }"%></div>
 </div>
 
 <div class="grid-6-12">
   <div class="grid-4-12">
     <label><b>APELLIDO MATERNO: </b><em class="formee-req">*</em></label>
   </div>
-  <div class="grid-8-12"><%=text_field :persona, :per_materno%></div>
+  <div class="grid-8-12"><%=text_field :persona, :per_materno,  :onBlur=>"javascript:{this.value = this.value.toUpperCase(); }"%></div>
 </div>
 
 <div class="grid-6-12">
   <div class="grid-4-12">
     <label><b>NOMBRE: </b><em class="formee-req">*</em></label>
   </div>
-  <div class="grid-8-12"><%=text_field :persona, :per_nombre%>
+  <div class="grid-8-12"><%=text_field :persona, :per_nombre,  :onBlur=>"javascript:{this.value = this.value.toUpperCase(); }"%>
       <div><%=hidden_field :persona, :id_persona%></div>
   </div>
 </div>
@@ -58,4 +58,14 @@
 <%end%>
 
 <%=render :partial => "home/datos_contacto"%>
+
+<!-- Validaciones -->
+<script type="text/javascript">
+  var paterno = new LiveValidation( 'persona_per_paterno' );
+  var materno = new LiveValidation( 'persona_per_paterno' );
+  var nombre = new LiveValidation( 'persona_per_nombre' );
+  paterno.add( Validate.Presence );
+  materno.add( Validate.Presence );
+  nombre.add( Validate.Presence );
+</script>
 
