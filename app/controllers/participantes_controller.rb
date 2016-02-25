@@ -137,7 +137,7 @@ class ParticipantesController < ApplicationController
       @segundo_participante = Participante.find(params[:relacion][:segundo_participante_id]) if @participante && params[:relacion][:segundo_participante_id]
       if @segundo_participante && !params[:relaciones].empty?
           params[:relaciones].each_key do |k|
-              if (Relacion.create(:participante_id => @participante.id, :segundo_participante_id => @segundo_participante.id, :parentesco_id => k.to_i) unless Relacion.count(:id, :conditions => ["participante_id = ? AND segundo_participante_id = ? AND parentesco_id = ?", @participante.id, @segundo_participante.id, k.to_i]) > 0)
+              if (Relacion.create(:participante_id => @participante.id, :segundo_participante_id => @segundo_participante.id, :parentesco_id => k.to_i) unless Relacion.count(:id, :conditions => ["(participante_id = ? OR segundo_participante_id = ? )AND parentesco_id = ?", @participante.id, @segundo_participante.id, k.to_i]) > 0)
                 flash[:notice] = "Parentesco guardado correctamente"
               end
           end
