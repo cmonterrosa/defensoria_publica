@@ -3,11 +3,10 @@ class CreatePromocions < ActiveRecord::Migration
     create_table :promocions do |t|
     	t.column :tramite_id, :integer
       t.column :fecha, :date 
-      t.column :titulo, :string
+      t.column :titulo, :string, :limit => 120
     	t.column :descripcion, :string
-      t.status :tipo_promocion, :integer
+      t.column :tipo_promocion, :integer
       t.column :contestacion_id, :integer    	
-
       t.timestamps
     end
 
