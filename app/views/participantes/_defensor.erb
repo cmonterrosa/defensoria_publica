@@ -1,9 +1,11 @@
-<div class="grid-6-12">
-  <div class="grid-6-12">
-    <label><b>DEFENSOR: </b><em class="formee-req">*</em></label>
-  </div>
-  <div class="grid-6-12">
-    <%=select(:defensor, :identificadores, @defensores.collect {|d| [ d.persona.nombre_completo, d.id ] }, { :include_blank => true })%>
+
+
+<div class="grid-12-12">
+  <div class="grid-4-12">
+    <label><b>DEFENSOR PÚBLICO: </b><em class="formee-req">*</em></label>
+    </div>
+    <div class="grid-8-12">
+      <%=select(:participante, :defensor_id, @defensores.collect {|p| [ p.persona.nombre_completo, p.id ] }, { :include_blank => true })%>
   </div>
 </div>
 

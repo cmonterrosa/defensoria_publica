@@ -23,12 +23,14 @@
     <%@promociones.each do |p|%>
     <tr>
       <td style="vertical-align: middle;"><%=(p.fecha) ? p.fecha : "--"%></td>
-      <td style="vertical-align: middle;"><%=(p.tipo_promocion) ? p.tipo_promocion.descripcion : "--"%></td>
+      <td style="vertical-align: middle;"><%=(p.tipo_promocion_id) ? p.tipo_promocion.descripcion : "--"%></td>
       <td style="vertical-align: middle;"><%=p.titulo %></td>
-      <td style="vertical-align: middle;"><%=p.contestacion %></td>
+      <td style="vertical-align: middle;"><%=p.contestacion.descripcion %></td>
       <td style="vertical-align: middle;"><%=link_to "Editar", {:action => "new_or_edit", :id => p}, :class => 'boton'  -%></td>
       <td style="vertical-align: middle;"><%=link_to "Eliminar", {:action => "destroy", :id => p, :t => @tramite}, :confirm => '¿Desea eliminar el registro?', :class => 'boton'  -%></td>
     </tr>
     <%end%>
   </table>
 </div>
+
+<br /><%=link_to "NUEVA PROMOCIÓN", {:action => "new_or_edit", :t => @tramite}, :class => 'boton'  -%>

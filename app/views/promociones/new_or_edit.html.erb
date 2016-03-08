@@ -1,0 +1,64 @@
+<%=render :partial => "home/arbol"%>
+
+<div class="container">
+<% form_for :promocion, @promocion, :url => { :action => "save", :controller => "promociones", :id => @promocion, :t => @tramite}, :html => {:class => "formee"} do |f| -%>
+  <fieldset>
+    <legend>&nbsp;REGISTRO&nbsp;DE&nbsp;PROMOCIONES&nbsp;</legend>
+      <div class="grid-12-12">
+          <%= error_messages_for :promocion %>
+      </div>
+
+      <div class="grid-6-12">
+        <div class="grid-6-12">
+          <label><b>FECHA: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-6-12">
+          <%=f.text_field :fecha%>
+        </div>
+      </div>
+
+      <div class="grid-6-12">
+        <div class="grid-4-12">
+          <label><b>TÍTULO: </b></label>
+        </div>
+        <div class="grid-8-12">
+          <%= f.text_field(:titulo)%>
+        </div>
+      </div>
+
+      <div class="grid-6-12">
+        <div class="grid-6-12">
+          <label><b>TIPO DE PROMOCION: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-6-12">
+          <%= f.select(:tipo_promocion_id, @tipo_promocions.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true })%>
+        </div>
+      </div>
+
+      <div class="grid-6-12">
+        <div class="grid-4-12">
+          <label><b>DESCRIPCIÓN: </b></label>
+        </div>
+        <div class="grid-8-12">
+          <%= f.text_area(:descripcion)%>
+        </div>
+      </div>
+
+      <div class="grid-6-12">
+        <div class="grid-6-12">
+          <label><b>CONTESTACIÓN: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-6-12">
+          <%= f.select(:contestacion_id, @contestacion.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true })%>
+        </div>
+      </div>
+
+      
+      <div class="grid-12-12 clear"></div>
+
+      <div class="grid-form-login">
+        <input class="right" type="submit" title="GUARDAR" value="GUARDAR" />
+      </div>
+ </fieldset>
+<%end%>
+</div>

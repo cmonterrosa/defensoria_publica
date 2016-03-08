@@ -16,7 +16,22 @@ class PromocionesController < ApplicationController
   def new_or_edit
       @amparo= (params[:id])? Amparo.find(params[:id]) : Promocion.new
       @tramite = Tramite.find(params[:t]) if params[:t]
-      @tipo_amparos= TipoAmparo.all
-      @resoluciones_amparos = Catalogo.sentido_resolucion_amparo.all 
+      @tipo_promocions= TipoPromocion.all
+      @contestacion = Contestacion.all 
+  end
+
+  def save
+    @tramite = (params[:t])? Tramite.find(params[:t]) : nil
+    @promocion = (params[:id])? Promocion.find(params[:id]) : Promocion.new
+    @promocion.update_attributes(params[:promocion])
+    @promocion.tramite = @tramite
+      
+    if @tramite && @promocion.valid? 
+      @promocion.save  
+      flash[:notice] = "Promoción registrada correctamente"
+      redirect_to :controller => "promociones", :t => @tramite
+    else
+      render :action => "new_or_edit"
+    end
   end
 end

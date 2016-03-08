@@ -77,7 +77,9 @@ class ParticipantesController < ApplicationController
   
 
       case TipoParticipante.find(params[:tipo_participante]).clave
-        when "MINP"
+        when "MPTU"
+          render :partial => "ministerio_publico", :layout => false 
+        when "MPTR"
           render :partial => "ministerio_publico", :layout => false 
         when "DEPU"
           render :partial => "defensor", :layout => false 

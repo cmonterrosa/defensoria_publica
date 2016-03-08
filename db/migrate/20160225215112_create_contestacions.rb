@@ -6,9 +6,9 @@ class CreateContestacions < ActiveRecord::Migration
       t.timestamps
     end
 
-    Contestacion.create(:clave => "esper", :descripcion => "En espera") unless TipoAmparo.exists?(:clave => "liso")
-    Contestacion.create(:clave => "apro", :descripcion => "Aprobada") unless TipoAmparo.exists?(:clave => "llano")
-    Contestacion.create(:clave => "rchzd", :descripcion => "Rechazada") unless TipoAmparo.exists?(:clave => "dire")
+    Contestacion.create(:clave => "esper", :descripcion => "En espera") unless Contestacion.exists?(:clave => "esper")
+    Contestacion.create(:clave => "apro", :descripcion => "Aprobada") unless Contestacion.exists?(:clave => "apro")
+    Contestacion.create(:clave => "rchzd", :descripcion => "Rechazada") unless Contestacion.exists?(:clave => "rchzd")
 
   end
 

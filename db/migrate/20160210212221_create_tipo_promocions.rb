@@ -6,8 +6,8 @@ class CreateTipoPromocions < ActiveRecord::Migration
       t.timestamps
     end
 
-    TipoPromocion.create(:clave => "susp", :descripcion => "SOLICITUD DE SUSPENSIÓN") unless TipoAmparo.exists?(:clave => "apel")
-    TipoPromocion.create(:clave => "audi", :descripcion => "SOLICITUD DE AUDIENCIA") unless TipoAmparo.exists?(:clave => "rev")
+    TipoPromocion.create(:clave => "susp", :descripcion => "SOLICITUD DE SUSPENSIÓN") unless TipoPromocion.exists?(:clave => "susp")
+    TipoPromocion.create(:clave => "audi", :descripcion => "SOLICITUD DE AUDIENCIA") unless TipoPromocion.exists?(:clave => "uadi")
   end
 
   def self.down

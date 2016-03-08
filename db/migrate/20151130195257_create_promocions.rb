@@ -5,7 +5,7 @@ class CreatePromocions < ActiveRecord::Migration
       t.column :fecha, :date 
       t.column :titulo, :string, :limit => 120
     	t.column :descripcion, :string
-      t.column :tipo_promocion, :integer
+      t.column :tipo_promocion_id, :integer
       t.column :contestacion_id, :integer    	
       t.timestamps
     end
