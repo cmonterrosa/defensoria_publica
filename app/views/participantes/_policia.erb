@@ -29,12 +29,22 @@ $j(document).ready(function() {
   </div>
 </div>
 
-<div class="grid-6-12">
-  <div class="grid-6-12">
-    <label><b>LUGAR DE TRABAJO: </b><em class="formee-req">*</em></label>
-  </div>
-  <div class="grid-6-12"><%=text_field :participante, :fechahora_captura%></div>
-</div>
+
+      <div class="grid-6-12">
+        <div class="grid-4-12">
+          <label><b>CORPORACIÓN A LA QUE PERTENECE: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-8-12">
+          <%= select(:participante, :corporacion_policiaca_id, @corporaciones_policiacas.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true })%>
+        </div>
+       </div>
+
+    <div class="grid-6-12">
+        <div class="grid-6-12">
+          <label><b>LUGAR DE TRABAJO: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-6-12"><%=text_field :participante, :fechahora_captura%></div>
+    </div>
 
 <div class="grid-6-12">
   <div class="grid-6-12">
@@ -42,6 +52,8 @@ $j(document).ready(function() {
   </div>
   <div class="grid-6-12"><%=text_field :participante, :numero_credencial%></div>
 </div>
+
+
 
 <div class="grid-6-12">
   <div class="grid-6-12">

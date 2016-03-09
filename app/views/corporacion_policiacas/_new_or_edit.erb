@@ -1,0 +1,72 @@
+<%=render :partial => "home/arbol"%>
+
+
+<div class="container">
+
+ <% form_for :corporacion_policiaca, @corporacion_policiaca, :url => { :action => "create",  :id => @corporacion_policiaca}, :html => {:class => "formee"} do |f| -%>
+  <fieldset>
+    <legend>&nbsp;REGISTRO&nbsp;DE&nbsp;CORPORACION&nbsp;POLICIACA</legend>
+
+       <div class="grid-12-12">
+        <div class="grid-2-12">
+          <label><b>TIPO: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-10-12">
+          <%= f.select(:tipo_corporacion_policiaca_id, @tipos_corporaciones.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true })%>
+        </div>
+       </div>
+
+    <div class="grid-6-12">
+          <div class="grid-4-12">
+            <label><b>CLAVE: </b><em class="formee-req">*</em></label>
+          </div>
+          <div class="grid-4-12"><%=f.text_field  :clave%></div>
+       </div>
+
+       <div class="grid-6-12">
+        <div class="grid-4-12">
+          <label><b>DESCRIPCION: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-8-12">
+          <%=f.text_area  :descripcion%>
+        </div>
+       </div>
+
+      <div class="grid-6-12">
+        <div class="grid-4-12">
+          <label><b>DIRECCIÓN: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-8-12">
+          <%= f.text_area :direccion %>
+        </div>
+       </div>
+
+    <div class="grid-6-12">
+        <div class="grid-4-12">
+          <label><b>TELEFONOS: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-8-12">
+          <%= f.text_field :telefonos %>
+        </div>
+       </div>
+
+      <div class="grid-12-12 clear"></div>
+
+      <div class="grid-form-login">
+        <input class="right" type="submit" title="GUARDAR" value="GUARDAR" />
+      </div>
+ </fieldset>
+<%end%>
+</div>
+
+
+<!-- Validaciones -->
+<script type="text/javascript">
+  var clave = new LiveValidation( 'corporacion_policiaca_clave', {onlyOnSubmit: true} );
+  var descripcion = new LiveValidation( 'corporacion_policiaca_descripcion', {onlyOnSubmit: true} );
+  clave.add( Validate.Presence );
+  descripcion.add( Validate.Presence );
+</script>
+
+
+<%= link_to 'Atrás', corporacion_policiacas_path, :class => "boton" %>

@@ -1,0 +1,27 @@
+<%=render :partial => "home/arbol"%>
+
+<% form_tag({:action => "search"}, {:class => "search"}) do -%>
+  <p>
+    <%= text_field_tag :search, params[:search], :limit => 90, :placeholder => "Escriba el nombre del defensor" %>
+    <%= submit_tag "Buscar", :name => nil %>
+  </p>
+<% end %>
+
+
+<!-- contenido -->
+<div id="divlista">
+ <table width="85%" border="0" cellspacing="0" cellpadding="0" class="tablakolaval" style="BORDER-RIGHT: #cccccc 1px solid; BORDER-TOP: #cccccc 1px solid; BORDER-LEFT: #cccccc 1px solid; BORDER-BOTTOM: #cccccc 1px solid">
+  <% @corporacion_policiacas.each do |corporacion_policiaca| %>
+    <tr>
+      <td><%=h  corporacion_policiaca.descripcion%></td>
+      <td><%= link_to 'Mostrar', corporacion_policiaca, :class => "boton" %></td>
+      <td><%= link_to 'Editar', edit_corporacion_policiaca_path(corporacion_policiaca), :class => "boton" %></td>
+      <td><%= link_to 'Eliminar', corporacion_policiaca, :confirm => '¿Esta seguro?', :method => :delete, :class => "boton" %></td>
+    </tr>
+  <% end %>
+</table>
+</div>
+
+<br />
+
+<%= link_to 'NUEVA CORPORACION POLICIACA', new_corporacion_policiaca_path, :class => "boton" %>

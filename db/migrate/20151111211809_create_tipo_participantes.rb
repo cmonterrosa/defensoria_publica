@@ -7,8 +7,10 @@ class CreateTipoParticipantes < ActiveRecord::Migration
 
     TipoParticipante.create(:clave => "ASEJ", :descripcion => "Asesor Jurídico") unless TipoParticipante.exists?(:clave => "ASEJ")
     TipoParticipante.create(:clave => "MINP", :descripcion => "Ministerio público") unless TipoParticipante.exists?(:clave => "MINP")
+    TipoParticipante.create(:clave => "DEPU", :descripcion => "Defensor público") unless TipoParticipante.exists?(:clave => "DEPU")
     TipoParticipante.create(:clave => "DEPR", :descripcion => "Defensor privado") unless TipoParticipante.exists?(:clave => "DEPR")
-    TipoParticipante.create(:clave => "PERI", :descripcion => "Perito") unless TipoParticipante.exists?(:clave => "PERI")
+    TipoParticipante.create(:clave => "PERO", :descripcion => "Perito Oficial") unless TipoParticipante.exists?(:clave => "PERO")
+    TipoParticipante.create(:clave => "PERP", :descripcion => "Perito Privado") unless TipoParticipante.exists?(:clave => "PERP")
     TipoParticipante.create(:clave => "POLI", :descripcion => "Policia") unless TipoParticipante.exists?(:clave => "POLI")
     TipoParticipante.create(:clave => "TEST", :descripcion => "Testigo") unless TipoParticipante.exists?(:clave => "TEST")
     TipoParticipante.create(:clave => "VICT", :descripcion => "Víctima") unless TipoParticipante.exists?(:clave => "VICT")

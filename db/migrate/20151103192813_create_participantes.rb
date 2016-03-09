@@ -29,6 +29,7 @@ class CreateParticipantes < ActiveRecord::Migration
       t.datetime :fecha_nac
       t.boolean :particular
       t.boolean :es_de_turno
+      t.integer :corporacion_policiaca_id
       t.timestamps
     end
 

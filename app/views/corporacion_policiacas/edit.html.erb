@@ -1,0 +1,12 @@
+<h1>Editing corporacion_policiaca</h1>
+
+<% form_for(@corporacion_policiaca) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @corporacion_policiaca %> |
+<%= link_to 'Back', corporacion_policiacas_path %>
