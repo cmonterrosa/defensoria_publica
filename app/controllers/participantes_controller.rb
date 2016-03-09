@@ -74,8 +74,7 @@ class ParticipantesController < ApplicationController
       @marginacions = Marginacion.all
       @entornos = Entorno.all
       @particular = (@participante.particular) ? "SI" : "NO"
-  
-
+      
       case TipoParticipante.find(params[:tipo_participante]).clave
         when "MPTU"
           render :partial => "ministerio_publico", :layout => false 
@@ -86,6 +85,7 @@ class ParticipantesController < ApplicationController
         when "PERI"
           render :partial => "perito", :layout => false 
         when "POLI"
+          @corporaciones_policiacas = CorporacionPoliciaca.all
           render :partial => "policia", :layout => false 
         when "VICT"
           render :partial => "victima", :layout => false   
