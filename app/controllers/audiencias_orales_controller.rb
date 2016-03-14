@@ -22,8 +22,10 @@ class AudienciasOralesController < ApplicationController
       @tipos_audiencias = TipoAudiencia.all
       @organos = Organo.all
       @jueces = Juez.find(:all, :conditions => ["activo = ?", true])
-      if current_user.has_role?(:defensor)
-       @defensores = Defensor.find(:all, :conditions => ["persona_id = ?", current_user.persona.id]) if current_user.persona
+      if current_user.has_role?(:admin)
+          @defensores ||= Defensor.find(:all, :conditions => ["activo = ?", true])
+      elsif current_user.has_role?(:defensor)
+        @defensores = Defensor.find(:all, :conditions => ["persona_id = ?", current_user.persona.id]) if current_user.persona
       end
       @defensores ||= Defensor.find(:all, :conditions => ["activo = ?", true])
       @audiencia.fecha ||= Time.now.strftime("%Y/%m/%d")
