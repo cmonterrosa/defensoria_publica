@@ -27,6 +27,17 @@
 </div>
 
 <div class="grid-6-12">
+  <div class="grid-6-12">
+    <label><b>FECHA DE NACIMIENTO: </b><em class="formee-req">*</em></label>
+  </div>
+  <div class="grid-6-12">
+    <span class="datetime">
+      <%=date_select :persona, :per_nacimiento, :order => [:day, :month, :year], :start_year => 1910%>
+    </span>  
+  </div>
+</div>
+
+<div class="grid-6-12">
   <div class="grid-4-12">
     <label><b>NOMBRE: </b><em class="formee-req">*</em></label>
   </div>
