@@ -26,6 +26,7 @@ class User < ActiveRecord::Base
   include Authentication::ByCookieToken
 
   belongs_to :persona, :foreign_key => "persona_id"
+  has_many :modificacions
 
   validates_presence_of     :login
   validates_presence_of     :persona_id

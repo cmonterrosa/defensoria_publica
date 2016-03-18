@@ -33,9 +33,11 @@ class TramitesController < ApplicationController
 
   def save
     @tramite = (params[:id])? Tramite.find(params[:id]) : Tramite.new
+    @tramite.init_journal(current_user)
     @tramite.update_attributes(params[:tramite])
     if @tramite.valid?
       @tramite.save
+      #@tramite.crear_modificaciones
       flash[:notice] = "Trámite registrado correctamente"
       redirect_to :controller => "tramites"
     else

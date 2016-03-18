@@ -1,0 +1,15 @@
+class CreateModificacions < ActiveRecord::Migration
+  def self.up
+    create_table :modificacions do |t|
+      t.column :id_objeto, :integer
+      t.column :clase, :string, :limit => 30
+      t.column :user_id, :integer
+      t.timestamps
+    end
+    add_index :modificacions, [:user_id], :name => "modificacions_user"
+  end
+
+  def self.down
+    drop_table :modificacions
+  end
+end
