@@ -31,9 +31,8 @@ class Tramite < ActiveRecord::Base
 
 
   def init_journal(user)
-    @current_journal ||= Modificacion.new(:id_objeto => self.id, :user_id => user.id, :clase => self.class.to_s)
+    @current_journal ||= Modificacion.new(:id_objeto => self.id, :user_id => user.id, :clase => self.class.to_s) if user
     @issue_before_change = self.clone
-    #@issue_before_change.status = self.status
     @current_journal
   end
 
@@ -46,7 +45,6 @@ class Tramite < ActiveRecord::Base
       (Tramite.column_names - %w(id updated_at created_at)).each {|c|
         before = @issue_before_change.send(c)
         after = send(c)
-        #after = self["#{c}"]
         next if before == after || (before.blank? && after.blank?)
         @current_journal.modificacion_detalles << ModificacionDetalle.new(
                                                       :tipo => c.class.to_s,
@@ -56,7 +54,6 @@ class Tramite < ActiveRecord::Base
       }
 
       begin
-        puts("=> Trying to save")
         if @current_journal.save
           # reset current journal
           init_journal @current_journal.user
