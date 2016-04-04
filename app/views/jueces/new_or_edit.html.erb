@@ -64,8 +64,8 @@
 
 <!-- Validaciones -->
 <script type="text/javascript">
-  var per_curp = new LiveValidation( 'persona_per_curp', {onlyOnSubmit: true} );
-  var juzgado = new LiveValidation( 'juez_juzgado_id', {onlyOnSubmit: true} );
+  var per_curp = new LiveValidation( 'persona_per_curp');
+  var juzgado = new LiveValidation( 'juez_juzgado_id');
   per_curp.add( Validate.Presence );
   juzgado.add( Validate.Presence );
 </script>
@@ -73,6 +73,7 @@
 
 <%= observe_field 'persona_per_curp',
     :on => "change",
+    :frequency => 0.25,
     :before => "Element.show('spinner')",
     :success => "Element.hide('spinner')",
     :url => {:controller => 'audiencias',
