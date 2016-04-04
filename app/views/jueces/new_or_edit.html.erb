@@ -72,8 +72,6 @@
 
 
 <%= observe_field 'persona_per_curp',
-    :on => "change",
-    :frequency => 0.25,
     :before => "Element.show('spinner')",
     :success => "Element.hide('spinner')",
     :url => {:controller => 'audiencias',
