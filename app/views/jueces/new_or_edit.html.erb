@@ -58,6 +58,8 @@
       <div class="grid-form-login">
         <input class="right" type="submit" title="GUARDAR" value="GUARDAR" />
       </div>
+
+      
  </fieldset>
 <%end%>
 </div>
@@ -65,10 +67,20 @@
 <!-- Validaciones -->
 <script type="text/javascript">
   var per_curp = new LiveValidation( 'persona_per_curp');
-  var juzgado = new LiveValidation( 'juez_juzgado_id');
+  var juzgado = new LiveValidation( 'juez_organo_id');
   per_curp.add( Validate.Presence );
   juzgado.add( Validate.Presence );
 </script>
+
+
+<%= observe_field 'persona_per_curp',
+    :before => "Element.show('spinner')",
+    :success => "Element.hide('spinner')",
+    :url => {:controller => 'audiencias',
+    :action => 'get_datos_personales',
+    :controller => 'home'},
+    :update => 'datos_personales',
+    :with => "persona_per_curp"%>
 
 
 <%= observe_field 'persona_per_curp',
