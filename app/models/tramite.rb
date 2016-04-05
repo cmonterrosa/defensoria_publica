@@ -11,6 +11,7 @@ class Tramite < ActiveRecord::Base
   has_many :audiencia_orals
   has_many :recursos
   has_many :sentencias
+  has_many :modificacions, :foreign_key =>"id_objeto"
   belongs_to :defensor
   belongs_to :fiscalia
 

@@ -16,7 +16,15 @@ class TramitesController < ApplicationController
 
   def menu
     begin
-      @tramite =  Tramite.find(params[:id])
+        @tramite =  Tramite.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+        redirect_to  :action => "index"
+    end
+  end
+
+   def history
+    begin
+        @tramite =  Tramite.find(params[:id])
     rescue ActiveRecord::RecordNotFound
         redirect_to  :action => "index"
     end
@@ -49,7 +57,6 @@ class TramitesController < ApplicationController
   end
 
   def search
-
     @tramites = Tramite.search(params[:search]).paginate(:page => params[:page], :per_page => 25)
     render :partial => "list", :layout => "content"
   end

@@ -1,3 +1,8 @@
+####################################################
+# Modelo que guarda detalle de cada campo modificado en los modelos especificados
+#
+####################################################
+
 class ModificacionDetalle < ActiveRecord::Base
   belongs_to :modificacion
   before_save :check_id
@@ -13,10 +18,29 @@ class ModificacionDetalle < ActiveRecord::Base
      end
   end
   
- def descripcion_campo(campo)
+ def field_comment(field)
     (self.class.find_by_sql("SELECT a.COLUMN_COMMENT AS comment
     FROM information_schema.COLUMNS a
     WHERE a.TABLE_NAME = '#{self.class.table_name}' AND
-   a.COLUMN_NAME='#{campo}';").first.comment) if campo
+   a.COLUMN_NAME='#{field}';").first.comment) if field
  end
+
+ def valor_anterior
+  if self.campo =~ /\w+id$/
+     row = eval("#{self.campo.gsub("_id", "").camelize}.find(#{self.old_value})")
+     (row && row.persona) ? row.persona.nombre_completo : self.old_value
+  else
+    return self.old_value
+  end
+ end
+
+ def valor_nuevo
+   if self.campo =~ /\w+id$/
+     row = eval("#{self.campo.gsub("_id", "").camelize}.find(#{self.value})")
+     (row && row.persona) ? row.persona.nombre_completo : self.value
+  else
+    return self.value
+  end
+ end
+
 end

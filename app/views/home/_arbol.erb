@@ -112,6 +112,8 @@
               " >> IMPRIMIR"
             when "show"
               " >> DETALLE"
+             when "history"
+              " >> HISTORICO"
             when "roles_index"
                 " >>" + raw(link_to ' ROLES', {:controller => 'admin', :action => 'roles_index'}, :class => 'arbol')
             when  "users_index"

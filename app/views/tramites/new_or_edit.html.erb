@@ -1,6 +1,16 @@
 <%=render :partial => "home/arbol"%>
 
 <div class="container">
+
+   <div class="formee-msg-info">
+    <h3>Información importante</h3>
+    <ul>
+      <li>Los campos marcados con <em class="formee-req">*</em> son obligatorios.</li>
+    </ul>
+    <ul><li>&nbsp;</li></ul>
+  </div>
+
+
 <% form_for :tramite, @tramite, :url => { :action => "save", :controller => "tramites", :id => @tramite}, :html => {:class => "formee", :id => "new_tramite"} do |f| -%>
   <fieldset>
     <legend>&nbsp;REGISTRO&nbsp;DE&nbsp;TRAMITE&nbsp;</legend>
@@ -10,28 +20,28 @@
 
       <div class="grid-6-12">
         <div class="grid-4-12">
-          <label><b>NÚMERO ÚNICO DE CASO: </b><em class="formee-req">*</em></label>
+          <label><b>NÚMERO ÚNICO DE CASO: </b></label>
         </div>
         <div class="grid-8-12"><%=f.text_field :nuc%></div>
       </div>
 
       <div class="grid-6-12">
         <div class="grid-4-12">
-          <label><b>REGISTRO DE ATENCIÓN: </b><em class="formee-req">*</em></label>
+          <label><b>REGISTRO DE ATENCIÓN: </b></label>
         </div>
         <div class="grid-8-12"><%=f.text_field :registro_atencion%></div>
       </div>
 
       <div class="grid-6-12">
         <div class="grid-4-12">
-          <label><b>CARPETA DE INVESTIGACIÓN: </b><em class="formee-req">*</em></label>
+          <label><b>CARPETA DE INVESTIGACIÓN: </b></label>
         </div>
         <div class="grid-8-12"><%=f.text_field :carpeta_investigacion%></div>
       </div>
 
       <div class="grid-6-12">
         <div class="grid-4-12">
-          <label><b>CAUSA PENAL: </b><em class="formee-req">*</em></label>
+          <label><b>CAUSA PENAL: </b></label>
         </div>
         <div class="grid-8-12"><%=f.text_field :causa_penal%></div>
       </div>
