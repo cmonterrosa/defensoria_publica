@@ -1,5 +1,6 @@
 <%=render :partial =>"home/arbol"%>
 
+<%= error_messages_for :participante %>
 
 <div class="container">
 <% form_for :participante, @participante, :url => { :action => "save", :controller => "participantes", :id => @participante, :t => @tramite}, :html => {:class => "formee"} do |f| -%>
@@ -9,18 +10,22 @@
           <%= error_messages_for :participante %>
       </div>
 
-
       <div class="grid-8-12">
         <div class="grid-6-12">
           <label id="curp_busqueda"><b>CURP O NOMBRE COMPLETO: </b><em class="formee-req">*</em></label>
         </div>
-        <div class="grid-4-12"><%=text_field :persona, :per_curp%></div>
+        <div class="grid-4-12"><%=  text_field :persona, :per_curp%></div>
         <div class="grid-2-12"><%= link_to image_tag("icons/actualizar.jpg", :size => "24x24", :border =>0) , {:action => "new_or_edit"}, :title => "Recargar"%></div>
       </div>
 
       <div class="grid-12-12"><img alt="spinner" id="spinner" src="/images/loading_spinner.gif" style="display:none;" /></div>
 
-      <div id="datos_personales"></div>
+
+      <div id="datos_personales">
+        <%if @participante%>
+          <% render :partial => "home/datos_personales"%>
+        <%end%>
+      </div>
 
 
       <div id="tipo_participante">
