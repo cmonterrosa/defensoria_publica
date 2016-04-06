@@ -42,6 +42,8 @@ class Tramite < ActiveRecord::Base
   # Llamado despues de guadar
   def crear_modificaciones
     if @current_journal
+       @current_journal.id_objeto ||= self.id
+       @current_journal.is_created = (Modificacion.exists?(['clase = ? AND id_objeto = ? AND is_created = ?', @current_journal.clase, @current_journal.id_objeto, true ])) ? false : true
       # attributes changes
       (Tramite.column_names - %w(id updated_at created_at)).each {|c|
         before = @issue_before_change.send(c)

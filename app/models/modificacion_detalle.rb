@@ -28,18 +28,22 @@ class ModificacionDetalle < ActiveRecord::Base
  def valor_anterior
   if self.campo =~ /\w+id$/
      row = eval("#{self.campo.gsub("_id", "").camelize}.find(#{self.old_value})")
-     (row && row.persona) ? row.persona.nombre_completo : self.old_value
+     va = (row && row.persona) ? row.persona.nombre_completo : nil
+     va ||= (row && row.descripcion) ? row.descripcion : self.old_value
+     return va
   else
-    return self.old_value
+      return self.old_value
   end
  end
 
  def valor_nuevo
    if self.campo =~ /\w+id$/
      row = eval("#{self.campo.gsub("_id", "").camelize}.find(#{self.value})")
-     (row && row.persona) ? row.persona.nombre_completo : self.value
+     vn = (row && row.persona) ? row.persona.nombre_completo : nil
+     vn ||= (row && row.descripcion) ? row.descripcion : self.value
+     return vn
   else
-    return self.value
+      return self.value
   end
  end
 
