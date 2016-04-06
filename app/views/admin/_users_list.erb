@@ -31,6 +31,10 @@
                 <%=link_to "Roles", {:action => "roles_by_user", :id => user}, {:title => "Perfiles a los que pertenece", :class => "boton"}%>
             </td>
 
+            <td style="vertical-align: middle;">
+                <%=link_to "Editar", {:controller => "users", :action => "new_or_edit", :id => user}, {:title => "Perfiles a los que pertenece", :class => "boton"}%>
+            </td>
+
             <td  style="vertical-align: middle;">
                 <%=h (user.activo) ?  (link_to 'DESHABILITAR',          { :action => "enable_disable_user", :controller => "admin", :id => user}, {:title => "DESHABILITAR", :class => 'boton'}, :confirm => '¿Esta seguro que desea deshabilitar al usuario?', :method => :post)  :
                                                   (link_to 'HABILITAR USUARIO', { :action => "enable_disable_user", :controller => "admin", :id => user}, {:title => "HABILITAR",       :class => 'boton'}, :confirm => '¿Esta seguro que desea habiliar al usuario?',        :method => :post) %>
