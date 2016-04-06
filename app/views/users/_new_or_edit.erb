@@ -1,3 +1,6 @@
+<%=render :partial => "home/arbol"%>
+
+
 <div class="container">
 
  <% form_for :user, @user, :url => { :action => "create", :controller => "users", :id => @user}, :html => {:class => "formee"} do |f| -%>
@@ -5,20 +8,26 @@
     <legend>&nbsp;REGISTRO&nbsp;DE&nbsp;USUARIO</legend>
       <div class="grid-12-12">
           <% @user.password = @user.password_confirmation = nil %>
-          
       </div>
 
-
-       <div class="grid-8-12">
+     <div class="grid-12-12">
           <div class="grid-4-12">
-            <label><b>CURP: </b><em class="formee-req">*</em></label>
+            <label><b>CURP O NOMBRE COMPLETO: </b><em class="formee-req">*</em></label>
           </div>
-          <div class="grid-4-12"><%=text_field :persona, :per_curp%></div>
-       </div>
+          <%if @persona%>
+              <div class="grid-4-12"><%=text_field :persona, :per_curp, :value => @per_curp%></div>
+           <%else%>
+              <div class="grid-4-12"><%=text_field :persona, :per_curp, :placeholder => "Escriba la CURP o el nombre completo"%></div>
+          <%end%>
+      </div>
 
       <div class="grid-12-12"><img alt="spinner" id="spinner" src="/images/loading_spinner.gif" style="display:none;" /></div>
 
-      <div id="datos_personales"></div>
+      <div id="datos_personales">
+        <%if @persona%>
+            <%=render :partial => "home/datos_personales"%>
+        <%end%>
+      </div>
 
 
       <div class="grid-6-12">
@@ -69,8 +78,6 @@
        </div>
       </div>
 
-
-
       <div class="grid-12-12 clear"></div>
 
       <div class="grid-form-login">
@@ -83,7 +90,9 @@
 <!-- Validaciones -->
 <script type="text/javascript">
   var email = new LiveValidation( 'user_email', {onlyOnSubmit: true} );
+  var per_curp = new LiveValidation( 'persona_per_curp', {onlyOnSubmit: true} );
   email.add( Validate.Presence );
+   per_curp.add( Validate.Presence );
 </script>
 
 

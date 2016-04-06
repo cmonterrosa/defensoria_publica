@@ -29,6 +29,7 @@
 
      <td style="vertical-align: middle;"><%=link_to "Detalle", {:action => "show", :p =>p.persona}, :class => 'boton'  -%></td>
      <td style="vertical-align: middle;"><%=link_to "Editar", {:action => "new_or_edit", :id => p}, :class => 'boton'  -%></td>
+     <td style="vertical-align: middle;"><%=link_to "Histórico", {:action => "history", :id => p, :p =>p.persona}, :class => 'boton'  -%></td>
      <td style="vertical-align: middle;"><%=link_to "Eliminar", {:action => "destroy", :id => p, :t => @tramite}, :confirm => '¿Desea eliminar el registro?', :class => 'boton'  -%></td>
     </tr>
     <%end%>
@@ -36,7 +37,7 @@
 </div>
 
 
-<br /><%=link_to "NUEVO PARTICIPANTE", {:action => "new_or_edit", :t => @tramite}, :class => 'boton'  -%>
+<br /><%=link_to " + NUEVO PARTICIPANTE", {:action => "new_or_edit", :t => @tramite}, :class => 'boton'  -%>
 
 
 

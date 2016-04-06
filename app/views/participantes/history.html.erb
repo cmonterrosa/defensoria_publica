@@ -1,8 +1,9 @@
 <%=render :partial => "home/arbol"%>
 
+
 <table class="tabla_dp" style="margin: auto;">
   <tr>
-    <th colspan="5" style="text-align: center;">MODIFICACIONES EN TRAMITES</th>
+    <th colspan="5" style="text-align: center;">MODIFICACIONES EN PARTICIPANTE</th>
   </tr>
   <tr>
     <td>Modificado por:</td>
@@ -12,8 +13,8 @@
     <td>Nuevo valor</td>
   </tr>
 
-  <%@tramite.modificacions.each do |row|%>
-  
+  <%@participante.modificacions.each do |row|%>
+
         <% row.modificacion_detalles.each do |detail|%>
           <tr>
             <td><%=h (row.user_id) ? User.find(row.user_id).nombre_completo : ''%></td>
@@ -23,8 +24,6 @@
             <td><%=h detail.valor_nuevo%></td>
          </tr>
         <%end%>
-  
+
 <%end%>
 </table>
-
-
