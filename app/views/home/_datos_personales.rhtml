@@ -46,8 +46,8 @@
   </div>
 </div>
 
-
-<script type="text/javascript">
+<%unless @persona%>
+  <script type="text/javascript">
     if(document.getElementById("persona_per_curp").style.display == "none")
     {
       document.getElementById("persona_per_curp").style.display= "inline";
@@ -58,7 +58,9 @@
         document.getElementById("persona_per_curp").style.display= "none";
         document.getElementById("curp_busqueda").style.display= "none";
     }
-</script>
+  </script>
+<%end%>
+
 
 <!-- Datos de contacto -->
 <%if @persona%>
