@@ -9,7 +9,8 @@ class TramitesController < ApplicationController
 
   
   def index
-    @tramites = Tramite.find(:all, :conditions => ["defensor_id = ?", current_user.id]).paginate(:page => params[:page], :per_page => 25)
+    @defensor = Defensor.find(:first, :conditions => ["persona_id = ?", current_user.persona.id]) if current_user
+    @tramites = Tramite.find(:all, :conditions => ["defensor_id = ?", @defensor.id]).paginate(:page => params[:page], :per_page => 25) if @defensor
     @tramites = Tramite.find(:all).paginate(:page => params[:page], :per_page => 25) if current_user.has_role?(:admin)
     render :partial => "list", :layout => "content"
   end
