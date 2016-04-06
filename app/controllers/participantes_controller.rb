@@ -37,7 +37,7 @@ class ParticipantesController < ApplicationController
         @participante.persona = (params[:persona][:id_persona] && params[:persona][:id_persona].size > 0)? Persona.find(params[:persona][:id_persona]) : nil
         @participante.persona ||= (params[:persona][:per_curp] && params[:persona][:per_curp].size > 0) ? Persona.find(:first, :conditions => ["per_curp =  ?", params[:persona][:per_curp]]) : nil
         ## Si no existe vamos a crear el objeto persona ##
-        @participante.persona ||= Persona.new(:per_nombre => params[:persona][:per_nombre], :per_paterno => params[:persona][:per_paterno], :per_materno => params[:persona][:per_materno])
+        @participante.persona ||= Persona.new(:per_nombre => params[:persona][:per_nombre], :per_paterno => params[:persona][:per_paterno], :per_materno => params[:persona][:per_materno], :per_nacimiento => params[:persona][:per_nacimiento])
         if params[:contacto]
             @participante.persona.set_datos_contacto('telefono_celular', :con_parametro => params[:contacto][:telefono_celular], :con_usu_modi => current_user.persona.id) if params[:contacto][:telefono_celular] &&  params[:contacto][:telefono_celular].size > 0
             @participante.persona.set_datos_contacto('telefono_casa', :con_parametro => params[:contacto][:telefono_casa], :con_usu_modi => current_user.persona.id) if params[:contacto][:telefono_casa] &&  params[:contacto][:telefono_casa].size > 0
