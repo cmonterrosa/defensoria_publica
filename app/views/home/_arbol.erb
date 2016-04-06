@@ -43,11 +43,11 @@
                         raw(link_to ' TRAMITES ', {:controller => 'tramites', :action => "index"}, :class => "arbol") <<
                         ">> " +  raw(link_to ' MENU ', {:controller => 'tramites', :action => "menu", :id => @tramite}, :class => "arbol") <<
                         ">> " +  raw(link_to ' PARTICIPANTES ', {:controller => 'participantes', :action => "index", :t => @tramite}, :class => "arbol")
-                    when 'relationships'
+                    when 'relationships', 'history'
                         raw(link_to ' TRAMITES ', {:controller => 'tramites', :action => "index"}, :class => "arbol") <<
                         ">> " +  raw(link_to ' MENU ', {:controller => 'tramites', :action => "menu", :id => @tramite}, :class => "arbol") <<
                         ">> " +  raw(link_to ' PARTICIPANTES ', {:controller => 'participantes', :action => "index", :t => @tramite}, :class => "arbol") << 
-                        ">> " +  raw(link_to  @participante.persona.nombre_completo, {:controller => 'participantes', :action => "relationships", :id => @participante}, :class => "arbol")
+                        ">> " +  raw(link_to  @participante.persona.nombre_completo, {:controller => 'participantes', :action => controller.action_name , :id => @participante}, :class => "arbol")
                 end
 
             when 'amparos'
@@ -88,6 +88,16 @@
             when 'audiencias'
                 title = 'ORIENTACIONES AL PÚBLICO '
                 (link_to title.upcase, {:controller => params[:controller], :action => "index"}, :class => "arbol", :title => title.upcase)
+
+            when 'tramites'
+                title = 'TRAMITES'
+                raw(link_to ' TRAMITES ', {:controller => 'tramites', :action => "index"}, :class => "arbol") <<
+                case controller.action_name
+                  when 'menu'
+                    ""
+                else
+                  ">> " +  raw(link_to ' MENU ', {:controller => 'tramites', :action => "menu", :id => @tramite}, :class => "arbol")
+                end
             else
                 (link_to params[:controller].upcase, {:controller => params[:controller], :action => "index"}, :class => "arbol", :title => params[:controller])
           end
@@ -108,12 +118,12 @@
               " >> MENU"
             when "destroy"
               " >> ELIMINAR"
+            when "history"
+              " >> REGISTRO DE MOVIMIENTOS"
             when "print"
               " >> IMPRIMIR"
             when "show"
               " >> DETALLE"
-             when "history"
-              " >> HISTORICO"
             when "roles_index"
                 " >>" + raw(link_to ' ROLES', {:controller => 'admin', :action => 'roles_index'}, :class => 'arbol')
             when  "users_index"
