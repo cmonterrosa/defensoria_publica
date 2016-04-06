@@ -2,11 +2,16 @@ class UsersController < ApplicationController
   # Be sure to include AuthenticationSystem in Application Controller instead
   include AuthenticatedSystem
   
-
   # render new.rhtml
+
   def new
-    @user = User.new
+    redirect_to :action => "new_or_edit"
+  end
+
+  def new_or_edit
+    @user = (params[:id])? User.find(params[:id]) : User.new
     @persona = @user.persona
+    @per_curp = @persona.per_curp if @persona
     #@personas = Persona.find(:all, :order => "per_nombre, per_paterno, per_materno")
     render :partial => "new_or_edit", :layout => "content"
   end
@@ -27,13 +32,13 @@ class UsersController < ApplicationController
       flash[:notice] = "Thanks for signing up!  We're sending you an email with your activation code."
     else
       #flash[:error]  = "We couldn't set up that account, sorry.  Please try again, or contact an admin (link is above)."
-      render :action => 'new_or_edit'
+      render :action => 'new'
     end
   end
  
   def create
-    logout_keeping_session!
-    @user = User.new(params[:user])
+    #logout_keeping_session!
+    @user = (params[:id])? User.find(params[:id]) :  User.new(params[:user])
     @user.update_attributes(params[:user])
     if params[:persona]
       @user.persona = (params[:persona][:id_persona] && params[:persona][:id_persona].size > 0)? Persona.find(params[:persona][:id_persona]) : nil
@@ -43,8 +48,9 @@ class UsersController < ApplicationController
     @user.activo = (params[:user] && params[:user][:activo] == 'SI') ? true : false
     success = @user && @user.save
     if success && @user.errors.empty?
-      redirect_back_or_default('/')
-      flash[:notice] = "Thanks for signing up!  We're sending you an email with your activation code."
+      #redirect_back_or_default('/')
+      redirect_to :action => "users_index", :controller => "admin"
+      flash[:notice] = "Usuario guardado correctamente"
     else
       flash[:error]  = "We couldn't set up that account, sorry.  Please try again, or contact an admin (link is above)."
       render :action => 'new'
