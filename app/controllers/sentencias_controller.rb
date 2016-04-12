@@ -20,13 +20,13 @@ class SentenciasController < ApplicationController
 
   def save
     @tramite = (params[:t])? Tramite.find(params[:t]) : nil
-    @sentencia = (params[:id])? Recurso.find(params[:id]) : Sentencia.new
+    @sentencia = (params[:id])? Sentencia.find(params[:id]) : Sentencia.new
     @sentencia.update_attributes(params[:sentencia])
     @sentencia.tramite = @tramite
       
-    if @tramite && @recurso.valid? 
+    if @tramite && @sentencia.valid? 
       @sentencia.save  
-      flash[:notice] = "Sentencia registrado correctamente"
+      flash[:notice] = "Sentencia registrada correctamente"
       redirect_to :controller => "sentencias", :t => @tramite
     else
       render :action => "new_or_edit"

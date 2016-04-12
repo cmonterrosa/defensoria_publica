@@ -6,8 +6,8 @@ class CreateTipoRecursos < ActiveRecord::Migration
       t.timestamps
     end
 
-    TipoRecurso.create(:clave => "apel", :descripcion => "APELACIÓN") unless TipoAmparo.exists?(:clave => "apel")
-    TipoRecurso.create(:clave => "rev", :descripcion => "REVOCACIÓN") unless TipoAmparo.exists?(:clave => "rev")
+    TipoRecurso.create(:clave => "apel", :descripcion => "APELACIÓN") unless TipoRecurso.exists?(:clave => "apel")
+    TipoRecurso.create(:clave => "rev", :descripcion => "REVOCACIÓN") unless TipoRecurso.exists?(:clave => "rev")
     
   end
 

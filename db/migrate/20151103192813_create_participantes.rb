@@ -26,10 +26,11 @@ class CreateParticipantes < ActiveRecord::Migration
       t.integer :num_hijos
       t.boolean :tiene_padecimiento
       t.string :padecimiento_detalle
-      t.datetime :fecha_nac
-      t.boolean :particular
-      t.boolean :es_de_turno
       t.integer :corporacion_policiaca_id
+      t.string :experiencia_nsjp, :limit => 20
+      t.string :expericencia_puesto, :limit => 20
+      t.integer :municipio_laboral
+      t.string :cursos, :limit => 200
       t.timestamps
     end
 
