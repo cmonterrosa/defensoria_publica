@@ -1,0 +1,68 @@
+<%=render :partial => "home/arbol"%>
+
+<div class="container">
+<% form_for :sentencia, @sentencia, :url => { :action => "save", :controller => "sentencias", :id => @sentencia, :t => @tramite}, :html => {:class => "formee"} do |f| -%>
+  <fieldset>
+    <legend>&nbsp;REGISTRO&nbsp;DE&nbsp;SENTENCIAS&nbsp;</legend>
+      <div class="grid-12-12">
+          <%= error_messages_for :promocion %>
+      </div>
+
+      <div class="grid-6-12">
+        <div class="grid-6-12">
+          <label><b>FECHA: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-6-12">
+          <%=f.text_field :fecha%>
+        </div>
+      </div>
+
+      <div class="grid-6-12">
+        <div class="grid-6-12">
+          <label><b>TIPO DE SENTENCIA: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-6-12">
+          <%= f.select(:tipo_sentencia_id, @tiposentencia.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true })%>
+        </div>
+      </div>
+     
+
+    <div class="grid-6-12">
+      <div class="grid-6-12">
+        <label><b>¿PROCEDIMIENTO ABREVIADO?: </b><em class="formee-req">*</em></label>
+      </div>
+      <div class="grid-4-12">
+        <span class="InputGroup">
+          <label class="uper">SI <%= f.radio_button :procedimiento_abreviado, "SI", :checked => @procedimiento_abreviado %></label>&nbsp;&nbsp;
+          <label class="uper">NO <%= f.radio_button :procedimiento_abreviado, "NO", :checked => @procedimiento_abreviado == false %></label>
+        </span>
+      </div>
+    </div>
+
+      <div class="grid-6-12">
+        <div class="grid-4-12">
+          <label><b>BENEFICIOS: </b></label>
+        </div>
+        <div class="grid-8-12">
+          <%= f.text_area(:beneficios)%>
+        </div>
+      </div>
+
+      <div class="grid-6-12">
+        <div class="grid-4-12">
+          <label><b>OBSERVACIONES: </b></label>
+        </div>
+        <div class="grid-8-12">
+          <%= f.text_area(:observaciones)%>
+        </div>
+      </div>
+
+            
+      <div class="grid-12-12 clear"></div>
+
+      <div class="grid-form-login">
+        <input class="right" type="submit" title="GUARDAR" value="GUARDAR" />
+      </div>
+ </fieldset>
+<%end%>
+</div>

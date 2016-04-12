@@ -63,6 +63,32 @@ $(function() {
     });
 });
 
+/* Action New_or_edit, controller promocion */
+$(function() {
+    $j('#promocion_fecha').datepicker({
+        dayOfWeekStart : 1,
+        buttonImage: "/images/icons/calendar.gif",
+        lang:'es'
+    });
+});
+
+/* Action New_or_edit, controller recurso */
+$(function() {
+    $j('#recurso_fecha').datepicker({
+        dayOfWeekStart : 1,
+        buttonImage: "/images/icons/calendar.gif",
+        lang:'es'
+    });
+});
+
+/* Action New_or_edit, controller sentencia */
+$(function() {
+    $j('#sentencia_fecha').datepicker({
+        dayOfWeekStart : 1,
+        buttonImage: "/images/icons/calendar.gif",
+        lang:'es'
+    });
+});
 
 /* Habilita descripcion del delito si tiene antecedentes penales */
 function enable_descripcion_delito(){

@@ -15,13 +15,13 @@
     <table width="85%" border="0" cellspacing="0" cellpadding="0" class="tablakolaval" style="BORDER-RIGHT: #cccccc 1px solid; BORDER-TOP: #cccccc 1px solid; BORDER-LEFT: #cccccc 1px solid; BORDER-BOTTOM: #cccccc 1px solid">
     <tr>
       <td style="vertical-align: middle;">Fecha</td>
-      <td style="vertical-align: middle;">Tipo de recurso</td>
+      <td style="vertical-align: middle;">Tipo de sentencia</td>
       <td style="vertical-align: middle;" colspan="4">&nbsp;</td>
     </tr>
-    <%@recursos.each do |p|%>
+    <%@sentencias.each do |p|%>
     <tr>
       <td style="vertical-align: middle;"><%=(p.tipo_recurso) ? p.fecha : "--"%></td>
-      <td style="vertical-align: middle;"><%=(p.tipo_recurso) ? p.tipo_recurso.descripcion : "--"%></td>
+      <td style="vertical-align: middle;"><%=(p.tipo_recurso) ? p.tipo_sentencia.descripcion : "--"%></td>
       <td style="vertical-align: middle;"><%=link_to "Editar", {:action => "new_or_edit", :id => p}, :class => 'boton'  -%></td>
       <td style="vertical-align: middle;"><%=link_to "Eliminar", {:action => "destroy", :id => p, :t => @tramite}, :confirm => '¿Desea eliminar el registro?', :class => 'boton'  -%></td>
     </tr>
@@ -29,4 +29,4 @@
   </table>
 </div>
 
-<br /><%=link_to "NUEVO RECURSO", {:action => "new_or_edit", :t => @tramite}, :class => 'boton'  -%>
+<br /><%=link_to "NUEVA SENTENCIA", {:action => "new_or_edit", :t => @tramite}, :class => 'boton'  -%>

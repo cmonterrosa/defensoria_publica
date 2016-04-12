@@ -43,7 +43,9 @@ $j(document).ready(function() {
         <div class="grid-6-12">
           <label><b>MUNICIPIO DE TRABAJO: </b><em class="formee-req">*</em></label>
         </div>
-        <div class="grid-6-12"><%=text_field :participante, :fechahora_captura%></div>
+        <div class="grid-6-12">
+          <%= select(:participante, :municipio_laboral, @municipios.collect {|p| [ p.nombre, p.id ] }, { :include_blank => true })%>
+        </div>
     </div>
 
 <div class="grid-6-12">
@@ -59,14 +61,14 @@ $j(document).ready(function() {
   <div class="grid-6-12">
     <label><b>TIEMPO QUE TIENE DE TRABAJAR COMO POLICÍA: </b><em class="formee-req">*</em></label>
   </div>
-  <div class="grid-6-12"><%=text_field :participante, :fechahora_captura%></div>
+  <div class="grid-6-12"><%=text_field :participante, :experiencia_puesto%></div>
 </div>
 
 <div class="grid-6-12">
   <div class="grid-6-12">
     <label><b>EXPERIENCIA QUE TIENE EN EL SISTEMA ACUSATORIO: </b><em class="formee-req">*</em></label>
   </div>
-  <div class="grid-6-12"><%=text_field :participante, :fechahora_captura%></div>
+  <div class="grid-6-12"><%=text_field :participante, :experiencia_nsjp%></div>
 </div>
 
 <div class="grid-6-12">

@@ -79,13 +79,18 @@ class ParticipantesController < ApplicationController
       case TipoParticipante.find(params[:tipo_participante]).clave
         when "MPTU"
           render :partial => "ministerio_publico", :layout => false 
+        when "MPTR"
+          render :partial => "ministerio_publico", :layout => false 
         when "DEPU"
           @defensores = Defensor.find(:all, :conditions => "activo IS NOT NULL or activo !=0")
           render :partial => "defensor", :layout => false 
-        when "PERI"
+        when "PERO"
+          render :partial => "perito", :layout => false 
+        when "PERP"
           render :partial => "perito", :layout => false 
         when "POLI"
           @corporaciones_policiacas = CorporacionPoliciaca.all
+          @municipios = Municipio.chiapas.all
           render :partial => "policia", :layout => false 
         when "VICT"
           render :partial => "victima", :layout => false   
