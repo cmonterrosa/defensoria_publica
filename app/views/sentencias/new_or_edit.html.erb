@@ -39,6 +39,16 @@
       </div>
     </div>
 
+    <div class="grid-6-12">
+        <div class="grid-6-12">
+          <label><b>JUZGADO: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-6-12">
+          <%= f.select(:juzgado_id, @organos.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true })%>
+        </div>
+    </div>
+
+
       <div class="grid-6-12">
         <div class="grid-4-12">
           <label><b>BENEFICIOS: </b></label>

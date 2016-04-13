@@ -68,9 +68,9 @@
 
 <div class="grid-6-12">
   <div class="grid-6-12">
-    <label><b>FECHAHORA DE CAPTURA: </b><em class="formee-req">*</em></label>
+    <label><b>FECHAHORA DE DETENCIÓN: </b><em class="formee-req">*</em></label>
   </div>
-  <div class="grid-6-12"><%=text_field :participante, :fechahora_captura%></div>
+  <div class="grid-6-12"><%=text_field :participante, :fechahora_detencion%></div>
 </div>
 
 <div class="grid-6-12">
@@ -131,6 +131,23 @@
   <div class="grid-8-12">
     <%= select(:participante, :marginacion_id, @marginacions.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true })%>
   </div>
+</div>
+
+<div class="grid-6-12">
+  <div class="grid-6-12">
+    <label><b>NÚMERO DE HIJOS: </b><em class="formee-req">*</em></label>
+  </div>
+  <div class="grid-6-12"><%=text_field :participante, :num_hijos%></div>
+</div>
+
+<div class="grid-6-12">
+  <div class="grid-6-12">
+    <label><b>¿REQUIERE TRADUCTOR?: </b><em class="formee-req">*</em></label>
+  </div>
+  <span class="InputGroup">
+      <label class="uper">SI <%= radio_button :participante, :requiere_traductor, "SI", :checked => @participante.requiere_traductor %></label>&nbsp;&nbsp;
+      <label class="uper">NO <%= radio_button :participante, :requiere_traductor, "NO", :checked => @participante.requiere_traductor == false %></label>
+    </span>
 </div>
 
 <div class="grid-6-12">
