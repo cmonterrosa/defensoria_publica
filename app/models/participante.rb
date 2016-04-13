@@ -14,6 +14,7 @@ class Participante < ActiveRecord::Base
  belongs_to :corporacion_policiaca
  has_many :relacions
  has_many :modificacions, :foreign_key =>"id_objeto"
+ has_many :adjuntos
 
  validates_presence_of :tramite_id, :message => "- Debe vincularse a un tramite"
 
