@@ -1,0 +1,49 @@
+<div class="titulocalendario">
+  <p><%=h @title%></p>
+</div>
+
+<!-- contenido -->
+<div id="divlista">
+    <table width="94%" border="0" cellspacing="0" cellpadding="0" class="tablakolaval" style="BORDER-RIGHT: #cccccc 1px solid; BORDER-TOP: #cccccc 1px solid; BORDER-LEFT: #cccccc 1px solid; BORDER-BOTTOM: #cccccc 1px solid; margin: auto;">
+      <tr>
+          <th style="vertical-align: middle;">Descripción</th>
+          <th style="vertical-align: middle;">Fecha/hora carga</th>
+          <th style="vertical-align: middle;">Cargado por:</th>
+          <th style="vertical-align: middle;" colspan="3" align="center">Acciones</th>
+      </tr>
+    
+    <%@uploaded_files.each do | uploaded_file|%>
+    <tr>
+       <td style="vertical-align: middle;"><%=h uploaded_file.descripcion %></td>
+       <td style="vertical-align: middle;"><%=h uploaded_file.created_at.strftime("%d de %B de %Y / %H:%M ")%></td>
+       <td style="vertical-align: middle;"><%=h (uploaded_file.user && uploaded_file.user.persona) ? uploaded_file.user.persona.nombre_completo : '' %></td>
+       <!-- acciones -->
+        <td style="vertical-align: middle;"><%=h (link_to "Descargar", {:controller => "upload", :action => "download", :id => uploaded_file.id}, :class => 'boton') %></td>
+        <td style="vertical-align: middle;"><%=h (link_to "Eliminar", {:controller => "upload", :action => "destroy", :id => uploaded_file.id, :t => uploaded_file.tramite_id}, :class => 'boton', :confirm => "¿Está seguro que desea eliminar el registro?") %></td>
+      </tr>
+    <%end%>
+  </table>
+</div>
+
+<br />
+
+ <% if @uploaded_files.total_entries > @uploaded_files.per_page.to_i %>
+<table>
+    <tr align="center" >
+      <td colspan="5" style="padding: 0;">
+        <div class="digg_pagination">
+          <div class="page_info">
+            <%= page_entries_info @uploaded_files %>
+          </div>
+          <%= will_paginate @uploaded_files %>
+        </div>
+      </td>
+    </tr>
+</table>
+<%end%>
+
+
+<div style="text-align: center; margin: auto;">
+  <p><%=link_to "+ NUEVO ADJUNTO", {:action => "new_or_edit", :t => @tramite, :p => @participante}, :class => 'boton'  -%></p>
+</div>
+
