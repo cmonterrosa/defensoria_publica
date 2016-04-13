@@ -78,9 +78,14 @@ class ParticipantesController < ApplicationController
       
       case TipoParticipante.find(params[:tipo_participante]).clave
         when "MPTU"
+          ## Ministerio publico de turno ##
           render :partial => "ministerio_publico", :layout => false 
         when "MPTR"
-          render :partial => "ministerio_publico", :layout => false 
+          ## Ministerio publico de tramite ##
+          render :partial => "ministerio_publico", :layout => false
+      when "ASEJ"
+          ## Asesor juridico ##
+          render :partial => "ministerio_publico", :layout => false
         when "DEPU"
           @defensores = Defensor.find(:all, :conditions => "activo IS NOT NULL or activo !=0")
           render :partial => "defensor", :layout => false 
@@ -108,6 +113,7 @@ class ParticipantesController < ApplicationController
   def history
     begin
         @participante = Participante.find(params[:id])
+        @tramite = @participante.tramite if @participante
     rescue ActiveRecord::RecordNotFound
         redirect_to  :action => "index"
     end
