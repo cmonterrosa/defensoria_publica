@@ -90,6 +90,7 @@ class ParticipantesController < ApplicationController
           @defensores = Defensor.find(:all, :conditions => "activo IS NOT NULL or activo !=0")
           render :partial => "defensor", :layout => false 
         when "PERO"
+          ## Perito oficial
           render :partial => "perito", :layout => false 
         when "PERP"
           render :partial => "perito", :layout => false 

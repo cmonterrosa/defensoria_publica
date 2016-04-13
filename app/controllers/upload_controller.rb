@@ -11,6 +11,7 @@ class UploadController < ApplicationController
     (params[:token] == "p" || params[:p])? @participante = Participante.find(params[:p]) : @tramite = Tramite.find(params[:t])
     @title = (@participante) ? "ARCHIVOS ADJUNTOS DEL PARTICIPANTE: #{@participante.id}" : "ARCHIVOS ADJUNTOS DEL TRAMITE: #{@tramite.id}"
     @uploaded_files = @tramite.adjuntos.paginate(:page => params[:page], :per_page => 10) if @tramite
+    @uploaded_files ||= @participante.adjuntos.paginate(:page => params[:page], :per_page => 10) if @participante
     render :partial => "list", :layout => "only_javascript"
   end
 

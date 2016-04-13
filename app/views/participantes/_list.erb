@@ -1,5 +1,14 @@
-<%=render :partial => "home/arbol"%>
+<script type="text/javascript">
+		$j(document).ready(function() {
+			/*
+			 *  Simple image gallery. Uses default settings
+			 */
 
+			$j('.fancybox').fancybox();
+               });
+</script>
+
+<%=render :partial => "home/arbol"%>
 <%=render :partial => "tramites/encabezado"%>
 
 <% form_tag({:action => "search", :t => @tramite}, {:class => "search"}) do -%>
@@ -30,6 +39,7 @@
      <td style="vertical-align: middle;"><%=link_to "Detalle", {:action => "show", :p =>p.persona}, :class => 'boton'  -%></td>
      <td style="vertical-align: middle;"><%=link_to "Editar", {:action => "new_or_edit", :id => p}, :class => 'boton'  -%></td>
      <td style="vertical-align: middle;"><%=link_to "Histórico", {:action => "history", :id => p, :p =>p.persona}, :class => 'boton'  -%></td>
+     <td style="vertical-align: middle;"><%=link_to "Documentos", {:action => "index", :controller => "upload", :p =>p}, :class => "boton fancybox fancybox.iframe"  -%></td>
      <td style="vertical-align: middle;"><%=link_to "Eliminar", {:action => "destroy", :id => p, :t => @tramite}, :confirm => '¿Desea eliminar el registro?', :class => 'boton'  -%></td>
     </tr>
     <%end%>
