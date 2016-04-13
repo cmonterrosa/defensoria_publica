@@ -28,12 +28,17 @@ class UploadController < ApplicationController
     @uploaded_file.tramite_id = @tramite.id if @tramite
     @uploaded_file.participante_id = @participante.id if @participante
     @uploaded_file.user_id ||= current_user.id if current_user
-    if @uploaded_file.save
-      flash[:notice] = "Archivo cargado correctamente"
-       redirect_to :action => "index", :t => @tramite, :p => @participante
-    else
-       flash[:notice] = "El archivo no fue cargado correctamente"
-       render :action => "new_or_edit"
+    begin
+      if @uploaded_file.save
+        flash[:notice] = "Archivo cargado correctamente"
+        redirect_to :action => "index", :t => @tramite, :p => @participante
+      else
+        flash[:notice] = "El archivo no fue cargado correctamente"
+        rrender :partial => "new", :layout => "only_jquery"
+      end
+    rescue ActiveRecord::RecordInvalid => invalid
+        @errores = invalid.record.errors.full_messages
+        render :partial => "new", :layout => "only_jquery"
     end
   end
 
