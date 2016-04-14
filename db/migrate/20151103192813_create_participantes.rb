@@ -10,7 +10,7 @@ class CreateParticipantes < ActiveRecord::Migration
       t.boolean :privado_libertad
       t.boolean :libre_atraves_medida_cautelar
       t.boolean :libre_suspension_condicional_proceso
-      t.datetime :fechahora_captura
+      t.datetime :fechahora_detencion
       t.datetime :fechahora_puesta_a_disposicion
       t.datetime :fechahora_libertad
       t.string :observaciones
@@ -30,7 +30,12 @@ class CreateParticipantes < ActiveRecord::Migration
       t.string :experiencia_nsjp, :limit => 20
       t.string :expericencia_puesto, :limit => 20
       t.integer :municipio_laboral
+      t.boolean :dialecto
+      t.integer :dialecto_id      
+      t.boolean :lengua_extranjera  
+      t.integer :lengua_extranjera_id
       t.string :cursos, :limit => 200
+      t.boolean :requiere_traductor
       t.timestamps
     end
 

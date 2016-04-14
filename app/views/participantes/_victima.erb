@@ -1,13 +1,3 @@
-<div class="grid-6-12">
-  <div class="grid-6-12">
-    <label><b>FECHA DE NACIMIENTO: </b><em class="formee-req">*</em></label>
-  </div>
-  <div class="grid-6-12">
-    <span class="datetime">
-      <%=date_select :participante, :fecha_nac, :order => [:day, :month, :year], :start_year => 1910%>
-    </span>  
-  </div>  
-</div>
 
 <div class="grid-6-12">
   <div class="grid-6-12">
@@ -42,15 +32,39 @@
 </div>
 
 <div class="grid-6-12">
+  <div class="grid-8-12">
+    <label><b>¿TIENE ALGÚN PADECIMIENTO?: </b><em class="formee-req">*</em></label>
+  </div>
+  <div class="grid-4-12">
+    <span class="InputGroup" id="tiene_antecedentes">
+      <label class="uper">SI <%= radio_button :participante, :tiene_padecimiento, "SI", :checked => @participante.tiene_padecimiento, :onclick => "enable_descripcion_padecimiento();" %></label>&nbsp;&nbsp;
+      <label class="uper">NO <%= radio_button :participante, :tiene_padecimiento, "NO", :checked => @participante.tiene_padecimiento == false, :onclick => "enable_descripcion_padecimiento();"%></label>
+    </span>
+  </div>
+</div>
+
+<div class="grid-6-12" id="descripcion_padecimiento" style="display:none;">
   <div class="grid-6-12">
-    <label><b>TIENE ALGÚN PADECIMIENTO: </b><em class="formee-req">*</em></label>
+    <label><b>DESCRIPCIÓN DEL PADECIMIENTO: </b><em class="formee-req">*</em></label>
   </div>
   <div class="grid-6-12"><%=text_field :participante, :padecimiento_detalle%></div>
 </div>
 
 <div class="grid-6-12">
-  <div class="grid-6-12">
-    <label><b>ANTECEDENTES PENALES: </b><em class="formee-req">*</em></label>
+  <div class="grid-8-12">
+    <label><b>¿TIENE ANTECEDENTES PENALES?: </b><em class="formee-req">*</em></label>
   </div>
-  <div class="grid-6-12"><%=text_field :participante, :antecedentes_penales_delito%></div>
+  <div class="grid-4-12">
+    <span class="InputGroup" id="tiene_antecedentes">
+      <label class="uper">SI <%= radio_button :participante, :tiene_antecedentes_penales, "SI", :checked => @participante.tiene_antecedentes_penales, :onclick => "enable_descripcion_delito();" %></label>&nbsp;&nbsp;
+      <label class="uper">NO <%= radio_button :participante, :tiene_antecedentes_penales, "NO", :checked => @participante.tiene_antecedentes_penales == false, :onclick => "enable_descripcion_delito();"%></label>
+    </span>
+  </div>
 </div>
+
+  <div class="grid-6-12" id="descripcion_delito" style="display:none;">
+    <div class="grid-6-12">
+        <label><b>DELITO POR EL CUAL TIENE ANTECEDENTES PENALES: </b><em class="formee-req">*</em></label>
+    </div>
+    <div class="grid-6-12"><%=text_field :participante, :antecedentes_penales_delito%></div>
+  </div>

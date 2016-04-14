@@ -96,4 +96,11 @@ function enable_descripcion_delito(){
         {document.getElementById("descripcion_delito").style.display = "inline";}
     else
         {document.getElementById("descripcion_delito").style.display = "none";}
-  }
+}
+
+function enable_descripcion_padecimiento(){
+    if (document.getElementById("participante_tiene_padecimiento_si").checked == true)
+        {document.getElementById("descripcion_padecimiento").style.display = "inline";}
+    else
+        {document.getElementById("descripcion_padecimiento").style.display = "none";}
+}
