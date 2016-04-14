@@ -14,8 +14,11 @@ class Contacto < ActiveRecord::Base
   named_scope :correo_electronico, :conditions => {:fk_tipo => 2}
   named_scope :direccion, :conditions => {:fk_tipo => 3}
   named_scope :telefono_casa, :conditions => {:fk_tipo => 4}
+  named_scope :direccion_laboral, :conditions => {:fk_tipo => 5}
+  named_scope :telefono_laboral, :conditions => {:fk_tipo => 6}
 
-  before_create :time_stamping, :make_active, :con_alta
+  before_create :time_stamping, :make_active
+  before_save :time_stamping, :make_active
   
 
   def make_active
@@ -23,7 +26,7 @@ class Contacto < ActiveRecord::Base
   end
 
   def time_stamping
-    self.con_modi ||= Time.now
+    self.con_modi = Time.now
     self.con_alta ||= Time.now
   end
 

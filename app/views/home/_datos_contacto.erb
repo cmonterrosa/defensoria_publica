@@ -27,3 +27,17 @@
       <div><%=hidden_field :persona, :id_persona%></div>
   </div>
 </div>
+
+<div class="grid-6-12">
+  <div class="grid-4-12">
+    <label><b>DIRECCION LABORAL: </b></label>
+  </div>
+  <div class="grid-8-12"><%=text_field :contacto, :direccion_laboral, :value => @direccion_laboral%></div>
+</div>
+
+<div class="grid-6-12">
+  <div class="grid-4-12">
+    <label><b>TELEFONO LABORAL: </b></label>
+  </div>
+  <div class="grid-8-12"><%=text_field :contacto, :telefono_laboral, :value => @telefono_laboral%></div>
+</div>
