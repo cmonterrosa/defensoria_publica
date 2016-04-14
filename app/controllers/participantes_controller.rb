@@ -75,39 +75,13 @@ class ParticipantesController < ApplicationController
       @marginacions = Marginacion.all
       @entornos = Entorno.all
       @particular = (@participante.particular) ? "SI" : "NO"
-      
-      case TipoParticipante.find(params[:tipo_participante]).clave
-        when "MPTU"
-          ## Ministerio publico de turno ##
-          render :partial => "ministerio_publico", :layout => false 
-        when "MPTR"
-          ## Ministerio publico de tramite ##
-          render :partial => "ministerio_publico", :layout => false
-      when "ASEJ"
-          ## Asesor juridico ##
-          render :partial => "ministerio_publico", :layout => false
-        when "DEPU"
-          @defensores = Defensor.find(:all, :conditions => "activo IS NOT NULL or activo !=0")
-          render :partial => "defensor", :layout => false 
-        when "PERO"
-          ## Perito oficial
-          render :partial => "perito", :layout => false 
-        when "PERP"
-          render :partial => "perito", :layout => false 
-        when "POLI"
-          @corporaciones_policiacas = CorporacionPoliciaca.all
-          @municipios = Municipio.chiapas.all
-          render :partial => "policia", :layout => false 
-        when "VICT"
-          render :partial => "victima", :layout => false   
-        when "ACU"
-          render :partial => "acusado", :layout => false 
-        when "TEST"
-          render :partial => "testigo", :layout => false 
-        when "DEPR"
-          render :partial => "defensor_privado", :layout => false
-      end
+      @defensores = Defensor.find(:all, :conditions => "activo IS NOT NULL or activo !=0")
+      @corporaciones_policiacas = CorporacionPoliciaca.all
+      @municipios = Municipio.chiapas.all
+      @tipo_participante = TipoParticipante.find(params[:tipo_participante])
+      render :partial => @tipo_participante.default_partial, :layout => false
     else
+      render :text => "Error"
     end
   end
 

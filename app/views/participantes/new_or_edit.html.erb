@@ -23,13 +23,13 @@
 
       <div id="datos_personales">
         <%if @participante%>
-          <% render :partial => "home/datos_personales"%>
+          <%= render :partial => "home/datos_personales"%>
         <%end%>
       </div>
 
 
       <div id="tipo_participante">
-       <div class="grid-12-12">
+        <div class="grid-12-12">
         <div class="grid-4-12">
           <label><b>TIPO DE PARTICIPANTE: </b><em class="formee-req">*</em></label>
         </div>
@@ -40,7 +40,23 @@
       </div>
 
 
-    <div id="datos_especificos"></div>  
+    <div id="datos_especificos">
+      <%if @participante.tipo_participante%>
+         <%
+            @tipo_participantes = TipoParticipante.all
+            @edo_civil = Catalogo.estados_civiles.all 
+            @escolaridades = Catalogo.escolaridades.all
+            @calidads= Calidad.all
+            @marginacions = Marginacion.all
+            @entornos = Entorno.all
+            @particular = (@participante.particular) ? "SI" : "NO"
+            @defensores = Defensor.find(:all, :conditions => "activo IS NOT NULL or activo !=0")
+            @corporaciones_policiacas = CorporacionPoliciaca.all
+            @municipios = Municipio.chiapas.all
+          %>
+         <%=render :partial => @participante.tipo_participante.default_partial, :layout => false%>
+      <%end%>
+     </div>
 
     <div class="grid-12-12">
       <div class="grid-4-12">

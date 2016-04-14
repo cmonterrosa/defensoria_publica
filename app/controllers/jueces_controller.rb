@@ -37,6 +37,9 @@ class JuecesController < ApplicationController
             @juez.persona.set_datos_contacto('direccion', :con_parametro => params[:contacto][:direccion], :con_usu_modi => current_user.persona.id) if params[:contacto][:direccion] &&  params[:contacto][:direccion].size > 0
             @juez.persona.set_datos_contacto('correo_electronico', :con_parametro => params[:contacto][:correo_electronico], :con_usu_modi => current_user.persona.id) if params[:contacto][:correo_electronico] &&  params[:contacto][:correo_electronico].size > 0
          end
+      else
+        flash[:error] = "Selecciona a una persona"
+        render :action => "new_or_edit"
       end
       @juez.persona ||= Persona.new(params[:persona])
       @juez.activo = (params[:juez] && params[:juez][:activo] == 'SI') ? true : false

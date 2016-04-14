@@ -46,20 +46,20 @@
   </div>
 </div>
 
-<%unless @persona%>
-  <script type="text/javascript">
-    if(document.getElementById("persona_per_curp").style.display == "none")
-    {
-      document.getElementById("persona_per_curp").style.display= "inline";
-      document.getElementById("curp_busqueda").style.display= "inline";
-    }
-    else
-    {
-        document.getElementById("persona_per_curp").style.display= "none";
-        document.getElementById("curp_busqueda").style.display= "none";
-    }
-  </script>
-<%end%>
+  <%#unless @persona%>
+    <%#*<script type="text/javascript">%>
+      <%#*if(document.getElementById("persona_per_curp").style.display == "none")%>
+      <%#*{%>
+        <%#*document.getElementById("persona_per_curp").style.display= "inline";%>
+        <%#*document.getElementById("curp_b1usqueda").style.display= "inline";%>
+      <%#*}%>
+      <%#*else%>
+      <%#*{%>
+          <%#*document.getElementById("persona_per_curp").style.display= "none";%>
+          <%#*document.getElementById("curp_busqueda").style.display= "none";%>
+      <%#*}%>
+    <%#*</script>%>
+  <%#end%>
 
 
 <!-- Datos de contacto -->
