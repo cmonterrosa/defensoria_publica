@@ -4,8 +4,8 @@ ActionController::Routing::Routes.draw do |map|
   map.logout '/logout', :controller => 'sessions', :action => 'destroy'
   map.login '/login', :controller => 'sessions', :action => 'new'
   map.register '/register', :controller => 'users', :action => 'create'
-  map.signup '/signup', :controller => 'users', :action => 'new'
-  map.activate '/activate/:activation_code',:controller=>'users',:action=>'activate'
+  map.signup '/signup', :controller => 'users', :action => 'new_or_edit'
+  map.activate '/activate/:activation_code',:controller=>'users', :action=>'activate'
   map.resources :users
   
   #--- new users only from admin --

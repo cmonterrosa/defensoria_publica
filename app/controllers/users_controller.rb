@@ -38,7 +38,7 @@ class UsersController < ApplicationController
  
   def create
     #logout_keeping_session!
-    @user = (params[:id])? User.find(params[:id]) :  User.new(params[:user])
+    @user = (params[:id] && params[:id].size > 0)? User.find(params[:id]) :  User.new(params[:user])
     @user.update_attributes(params[:user])
     if params[:persona]
       @user.persona = (params[:persona][:id_persona] && params[:persona][:id_persona].size > 0)? Persona.find(params[:persona][:id_persona]) : nil
