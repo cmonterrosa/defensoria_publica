@@ -11,7 +11,12 @@
 <!-- contenido -->
 <div id="divlista">
  <table width="85%" border="0" cellspacing="0" cellpadding="0" class="tablakolaval" style="BORDER-RIGHT: #cccccc 1px solid; BORDER-TOP: #cccccc 1px solid; BORDER-LEFT: #cccccc 1px solid; BORDER-BOTTOM: #cccccc 1px solid">
-  <% @corporacion_policiacas.each do |corporacion_policiaca| %>
+   <tr>
+     <th> Datos de la corporación</th>
+     <th colspan="3"> Acciones</th>
+   </tr>
+
+<% @corporacion_policiacas.each do |corporacion_policiaca| %>
     <tr>
       <td><%=h  corporacion_policiaca.descripcion%></td>
       <td><%= link_to 'Mostrar', corporacion_policiaca, :class => "boton" %></td>

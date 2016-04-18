@@ -1,3 +1,18 @@
+<%=render :partial => "home/arbol"%>
+
+<table class="tabla_dp" style="margin: auto;">
+  <tr>
+    <th>DESCRIPCION</th>
+    <th>DIRECCION</th>
+    <th>TELEFONOS</th>
+  </tr>
+  <tr>
+    <td><%=h @corporacion_policiaca.descripcion%></td>
+    <td><%=h @corporacion_policiaca.direccion%></td>
+    <td><%=h @corporacion_policiaca.telefonos%></td>
+  </tr>
+</table><br />
+
 
 <%= link_to 'Editar', edit_corporacion_policiaca_path(@corporacion_policiaca), :class => "boton" %> |
 <%= link_to 'Atrás', corporacion_policiacas_path, :class => "boton" %>
