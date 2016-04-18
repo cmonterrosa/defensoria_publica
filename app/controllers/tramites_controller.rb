@@ -30,6 +30,16 @@ class TramitesController < ApplicationController
         redirect_to  :action => "index"
     end
   end
+  
+  def atenciones
+    begin
+        @tramite =  Tramite.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+        redirect_to  :action => "index"
+    end
+  end
+
+
 
   def new_or_edit
     @tramite = (params[:id])? Tramite.find(params[:id]) : Tramite.new
