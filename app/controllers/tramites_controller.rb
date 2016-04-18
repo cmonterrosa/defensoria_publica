@@ -5,7 +5,7 @@
  
 class TramitesController < ApplicationController
   require_role [:defensor, :jefedefensor]
-  require_role :jefedefensor, :for => :asignar
+  require_role :jefedefensor, :for => [:asignar, :history]
 
   
   def index
