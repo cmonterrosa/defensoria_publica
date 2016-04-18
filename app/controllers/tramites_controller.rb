@@ -1,5 +1,5 @@
 ##########################################
-# Controlador que hace operaciones basicas y conecta el tramite
+# Controlador que hace operaciones basicas, inicia registro y conecta el tramite
 # con todos los demas modelos y elementos
 ##########################################
  
@@ -16,29 +16,16 @@ class TramitesController < ApplicationController
   end
 
   def menu
-    begin
-        @tramite =  Tramite.find(params[:id])
-    rescue ActiveRecord::RecordNotFound
-        redirect_to  :action => "index"
-    end
+    select_object
   end
 
-   def history
-    begin
-        @tramite =  Tramite.find(params[:id])
-    rescue ActiveRecord::RecordNotFound
-        redirect_to  :action => "index"
-    end
+  def history
+    select_object
   end
   
   def atenciones
-    begin
-        @tramite =  Tramite.find(params[:id])
-    rescue ActiveRecord::RecordNotFound
-        redirect_to  :action => "index"
-    end
+    select_object
   end
-
 
 
   def new_or_edit
@@ -52,14 +39,13 @@ class TramitesController < ApplicationController
 
   def save
     @tramite = (params[:id])? Tramite.find(params[:id]) : Tramite.new
-    @tramite.init_journal(current_user)
+    @tramite.init_journal(current_user) if current_user
     @tramite.update_attributes(params[:tramite])
     if @tramite.valid?
-      @tramite.save
-      @tramite.verificar_registro_atencion(current_user)
-      #@tramite.crear_modificaciones
-      flash[:notice] = "Trámite registrado correctamente"
-      redirect_to :controller => "tramites"
+       @tramite.save
+       @tramite.verificar_registro_atencion(current_user) if current_user
+       flash[:notice] = "Trámite registrado correctamente"
+       redirect_to :controller => "tramites"
     else
       @defensores = Defensor.find(:all, :conditions => ["activo = ? AND id = ?", true, current_user.id])
       @defensores = Defensor.find(:all, :conditions => ["activo = ?", true]) if current_user.has_role?(:admin)
@@ -73,23 +59,36 @@ class TramitesController < ApplicationController
     render :partial => "list", :layout => "content"
   end
 
+  def show
+      select_object
+  end
+
     def get_datos_tramite
         if params[:tramite]
-        @tramite = (params[:tramite][:nuc] && params[:tramite][:nuc].size >= 3)?  Tramite.find_by_nuc(params[:tramite][:nuc]) : nil
-        @tramite ||= (params[:tramite][:carpeta_investigacion] && params[:tramite][:carpeta_investigacion].size >= 3)?  Tramite.find_by_carpeta_investigacion(params[:tramite][:carpeta_investigacion]) : nil
-        @tramite ||= (params[:tramite][:causa_penal] && params[:tramite][:causa_penal].size >= 3)?  Tramite.find_by_causa_penal(params[:tramite][:causa_penal]) : nil
-        @tramite ||= (params[:tramite][:registro_atencion] && params[:tramite][:registro_atencion].size >= 3)?  Tramite.find_by_registro_atencion(params[:tramite][:registro_atencion]) : nil
-        @tramite ||= Tramite.new
-        @fiscalias = Fiscalia.find(:all, :conditions => ["activa = ?", true])
+          @tramite = (params[:tramite][:nuc] && params[:tramite][:nuc].size >= 3)?  Tramite.find_by_nuc(params[:tramite][:nuc]) : nil
+          @tramite ||= (params[:tramite][:carpeta_investigacion] && params[:tramite][:carpeta_investigacion].size >= 3)?  Tramite.find_by_carpeta_investigacion(params[:tramite][:carpeta_investigacion]) : nil
+          @tramite ||= (params[:tramite][:causa_penal] && params[:tramite][:causa_penal].size >= 3)?  Tramite.find_by_causa_penal(params[:tramite][:causa_penal]) : nil
+          @tramite ||= (params[:tramite][:registro_atencion] && params[:tramite][:registro_atencion].size >= 3)?  Tramite.find_by_registro_atencion(params[:tramite][:registro_atencion]) : nil
+          @tramite ||= Tramite.new
+          @fiscalias = Fiscalia.find(:all, :conditions => ["activa = ?", true])
         end
         return render(:partial => 'datos_tramite', :layout => 'only_jquery' ) if request.xhr?
      end
    
-
    def destroy
       @tramite = Tramite.find(params[:id])
       (@tramite && @tramite.destroy) ? flash[:notice] = "Registro eliminado correctamente" : flash[:error] = "Registro no se pudo eliminar, verifique"
       redirect_to :action => "index"
    end
 
+ protected
+  
+   def select_object
+        begin
+            @tramite =  Tramite.find(params[:id])
+        rescue ActiveRecord::RecordNotFound
+            flash[:error] = "No se encontro tramite, verifique o contacte al administrador"
+            redirect_to  :action => "index"
+        end
+   end
 end

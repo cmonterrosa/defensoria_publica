@@ -75,3 +75,10 @@ $j(document).ready(function() {
         </div>
         <div class="grid-8-12"><%=text_area  :tramite, :observaciones%></div>
     </div>
+
+
+<!-- Validaciones -->
+<script type="text/javascript">
+  var tramite_fechahora_atencion = new LiveValidation( 'tramite_fechahora_atencion', {onlyOnSubmit: true} );
+  tramite_fechahora_atencion.add( Validate.Presence );
+</script>

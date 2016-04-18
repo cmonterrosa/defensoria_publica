@@ -1,1 +1,40 @@
 <%=render :partial => "home/arbol"%>
+
+<table class="tabla_dp" style="margin: auto;">
+  <tr><th colspan="2" style="text-align:center;">Datos del tramite</th></tr>
+
+  <tr>
+    <td>Registro de atención: </td>
+    <td><%=h @tramite.registro_atencion%> </td>
+  </tr>
+
+  <tr>
+    <td>Carpeta de investigación: </td>
+    <td><%=h @tramite.carpeta_investigacion%> </td>
+  </tr>
+  <tr>
+    <td>Causa penal: </td>
+    <td><%=h @tramite.causa_penal%> </td>
+  </tr>
+
+  <tr>
+    <td>Número único de caso: </td>
+    <td><%=h @tramite.nuc%> </td>
+  </tr>
+
+</table><br />
+
+<!-- Participantes -->
+<table class="tabla_dp" style="margin: auto;">
+  <tr><th colspan="2" style="text-align:center;">Participantes</th></tr>
+  <%@tramite.participantes.each do |p|%>
+    <tr>
+        <td><%=h (p.persona)? p.persona.nombre_completo : ''%></td>
+        <td><%=h (p.tipo_participante)? p.tipo_participante.descripcion : ''%></td>
+    </tr>
+  <%end%>
+</table><br />
+
+
+
+

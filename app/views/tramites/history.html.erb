@@ -5,7 +5,7 @@
     <th colspan="5" style="text-align: center;">MODIFICACIONES EN TRAMITES</th>
   </tr>
   <tr>
-    <td>Modificado por:</td>
+    <td>Modificado/creado por:</td>
     <td>Fecha/hora de modificación</td>
     <td>Campo</td>
     <td>Valor Anterior</td>
@@ -17,7 +17,7 @@
         <% row.modificacion_detalles.each do |detail|%>
           <tr>
             <td><%=h (row.user_id) ? User.find(row.user_id).nombre_completo : ''%></td>
-            <td><%=h (row.created_at) ? row.created_at.strftime("%d/%m/%Y - %H:%M:%S") : ''%></td>
+            <td><%=h (row.created_at) ? row.created_at.strftime("%d/%m/%Y - %H:%M %P") : ''%></td>
             <td><%=h detail.campo%></td>
             <td><%=h detail.valor_anterior%></td>
             <td><%=h detail.valor_nuevo%></td>
