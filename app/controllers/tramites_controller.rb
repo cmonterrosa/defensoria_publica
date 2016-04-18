@@ -10,8 +10,8 @@ class TramitesController < ApplicationController
   
   def index
     @defensor = Defensor.find(:first, :conditions => ["persona_id = ?", current_user.persona.id]) if current_user
-    @tramites = Tramite.find(:all, :conditions => ["defensor_id = ?", @defensor.id]).paginate(:page => params[:page], :per_page => 25) if @defensor
-    @tramites = Tramite.find(:all).paginate(:page => params[:page], :per_page => 25) if current_user.has_role?(:admin) || current_user.has_role?(:jefedefensor)
+    @tramites = Tramite.find(:all, :order => "created_at DESC", :conditions => ["defensor_id = ?", @defensor.id]).paginate(:page => params[:page], :per_page => 25) if @defensor
+    @tramites = Tramite.find(:all, :order => "created_at DESC").paginate(:page => params[:page], :per_page => 25) if current_user.has_role?(:admin) || current_user.has_role?(:jefedefensor)
     render :partial => "list", :layout => "content"
   end
 
@@ -82,7 +82,7 @@ class TramitesController < ApplicationController
         @tramite ||= Tramite.new
         @fiscalias = Fiscalia.find(:all, :conditions => ["activa = ?", true])
         end
-        return render(:partial => 'datos_tramite', :layout => false ) if request.xhr?
+        return render(:partial => 'datos_tramite', :layout => 'only_jquery' ) if request.xhr?
      end
    
 
