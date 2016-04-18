@@ -1,0 +1,25 @@
+<%=render :partial => "home/arbol"%>
+
+<table class="tabla_dp" style="margin: auto;">
+  <tr>
+    <th colspan="5" style="text-align: center;">ATENCIONES DEL TRAMITE</th>
+  </tr>
+  <tr>
+    <td>ATENDIÓ:</td>
+    <td>INICIO</td>
+    <td>FIN</td>
+    <td>¿ACTIVA?</td>
+  </tr>
+
+  <%@tramite.atencions.each do |row|%>
+    <tr>
+            <td><%=h (row.user_id) ? User.find(row.user_id).nombre_completo : ''%></td>
+            <td><%=h (row.inicio) ? row.inicio.strftime("%d/%m/%Y - %H:%M %P") : ''%></td>
+            <td><%=h (row.fin) ? row.fin.strftime("%d/%m/%Y - %H:%M %P") : ''%></td>
+            <td><%=h (row.activa) ? 'SI' : 'NO'%></td>
+    </tr>
+<%end%>
+</table>
+
+
+
