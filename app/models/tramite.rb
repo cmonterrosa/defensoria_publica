@@ -13,6 +13,7 @@ class Tramite < ActiveRecord::Base
   has_many :sentencias
   has_many :modificacions, :foreign_key =>"id_objeto"
   has_many :adjuntos
+  has_many :atencions
   belongs_to :defensor
   belongs_to :fiscalia
 
@@ -30,6 +31,25 @@ class Tramite < ActiveRecord::Base
    def solicitante
     (self.solicitante_id)? User.find(self.solicitante_id) : nil
    end
+
+
+   def verificar_registro_atencion(user)
+       if user && self.id
+         @anteriores = Atencion.find(:all, :conditions => ["tramite_id = ? AND user_id != ?", self.id, user.id])
+         @actual = Atencion.find(:first, :conditions => ["user_id = ? AND tramite_id = ?", user.id, self.id])
+         @actual ||= Atencion.new(:user_id => user.id, :tramite_id => self.id)
+         @actual.inicio ||= Time.now
+         @actual.activa ||= true
+         if @actual.save
+            @anteriores.each do |a|
+                a.fin ||= Time.now
+                a.activa = false
+                a.save
+            end
+         end
+      end
+    end
+
 
 
   def init_journal(user)

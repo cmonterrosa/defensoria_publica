@@ -4,14 +4,14 @@
 ##########################################
  
 class TramitesController < ApplicationController
-  require_role :defensor
+  require_role [:defensor, :jefedefensor]
   require_role :jefedefensor, :for => :asignar
 
   
   def index
     @defensor = Defensor.find(:first, :conditions => ["persona_id = ?", current_user.persona.id]) if current_user
     @tramites = Tramite.find(:all, :conditions => ["defensor_id = ?", @defensor.id]).paginate(:page => params[:page], :per_page => 25) if @defensor
-    @tramites = Tramite.find(:all).paginate(:page => params[:page], :per_page => 25) if current_user.has_role?(:admin)
+    @tramites = Tramite.find(:all).paginate(:page => params[:page], :per_page => 25) if current_user.has_role?(:admin) || current_user.has_role?(:jefedefensor)
     render :partial => "list", :layout => "content"
   end
 
@@ -36,8 +36,8 @@ class TramitesController < ApplicationController
     @tramite.fechahora_atencion ||= Time.now.strftime("%Y/%m/%d")
     @tramite.fechahora_asistencia ||= Time.now.strftime("%Y/%m/%d")
     @tramite.fechahora_recepcion ||= Time.now.strftime("%Y/%m/%d")
-    @defensores = Defensor.find(:all, :conditions => ["activo = ? AND id = ?", true, current_user.id])
-    @defensores = Defensor.find(:all, :conditions => ["activo = ?", true]) if current_user.has_role?(:admin)
+    @defensores = Defensor.find(:all, :conditions => ["activo = ? AND persona_id = ?", true, current_user.persona.id])
+    @defensores = Defensor.find(:all, :conditions => ["activo = ?", true]) if current_user.has_role?(:admin) || current_user.has_role?(:jefedefensor)
   end
 
   def save
@@ -46,6 +46,7 @@ class TramitesController < ApplicationController
     @tramite.update_attributes(params[:tramite])
     if @tramite.valid?
       @tramite.save
+      @tramite.verificar_registro_atencion(current_user)
       #@tramite.crear_modificaciones
       flash[:notice] = "Trámite registrado correctamente"
       redirect_to :controller => "tramites"
