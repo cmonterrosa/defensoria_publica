@@ -14,7 +14,7 @@
     <div id="participantes_combo" class="grid-6-12">
       <label>Seleccione al otro participante: <em class="formee-req">*</em></label>
       <fieldset style="padding: 5px 5px 5px 5px;">
-          <div class="grid-6-12">
+          <div class="grid-12-12">
               <%=select(:relacion, :segundo_participante_id, @participantes.collect {|p| [ p.persona.nombre_completo, p.id ] }, { :include_blank => true })%>
         </div>
       </fieldset>
@@ -23,7 +23,7 @@
      <!-- participantes -->
     <div id="participantes" class="grid-6-12">
       <label>Seleccione el tipo de parentesco: <em class="formee-req">*</em></label>
-      <fieldset style="padding: 3px 3px 3px 3px; text-align: left;">
+      <fieldset style="padding: 3px 3px 3px 3px; text-align: left; font-size: 1.5em;">
         <div id="programas" class="checkbox" >
           <% @relaciones.each do |r| %>
             <%= check_box_tag "relaciones[#{r.id}]", r.descripcion%>&nbsp;<%= r.descripcion %><br />
