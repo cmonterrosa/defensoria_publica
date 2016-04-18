@@ -1,3 +1,7 @@
+<!--
+      Vista que muestra el detalle del tramite
+-->
+
 <%=render :partial => "home/arbol"%>
 
 <table class="tabla_dp" style="margin: auto;">
@@ -25,15 +29,17 @@
 </table><br />
 
 <!-- Participantes -->
-<table class="tabla_dp" style="margin: auto;">
-  <tr><th colspan="2" style="text-align:center;">Participantes</th></tr>
-  <%@tramite.participantes.each do |p|%>
-    <tr>
-        <td><%=h (p.persona)? p.persona.nombre_completo : ''%></td>
-        <td><%=h (p.tipo_participante)? p.tipo_participante.descripcion : ''%></td>
-    </tr>
-  <%end%>
+<%unless @tramite.participantes.empty?%>
+  <table class="tabla_dp" style="margin: auto;">
+    <tr><th colspan="2" style="text-align:center;">Participantes</th></tr>
+      <%@tramite.participantes.each do |p|%>
+        <tr>
+          <td><%=h (p.persona)? p.persona.nombre_completo : ''%></td>
+          <td><%=h (p.tipo_participante)? p.tipo_participante.descripcion : ''%></td>
+        </tr>
+    <%end%>
 </table><br />
+<%end%>
 
 
 
