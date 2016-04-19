@@ -15,6 +15,7 @@ class CreateAudienciaOrals < ActiveRecord::Migration
       t.column :observaciones, :string, :limit => 120
       t.column :cancel, :boolean
       t.column :cancel_user, :integer
+      t.column :motivo_cancelacion, :string
       t.timestamps
     end
     
@@ -22,6 +23,7 @@ class CreateAudienciaOrals < ActiveRecord::Migration
     add_index :audiencia_orals, [:fecha, :hora, :minutos, :organo_id], :name => ["audiencias_orales_fecha_hora_minutos_organo"]
     add_index :audiencia_orals, [:organo_id], :name => ["audiencias_orales_organo"]
     add_index :audiencia_orals, [:juez_id], :name => ["audiencias_orales_juez"]
+    add_index :audiencia_orals, [:cancel], :name => ["audiencias_orales_cancel"]
   end
 
   def self.down

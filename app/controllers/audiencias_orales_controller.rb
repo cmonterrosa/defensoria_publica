@@ -77,11 +77,19 @@ class AudienciasOralesController < ApplicationController
       render :partial => "show", :layout => "only_javascript"
     end
 
+    def cancel_form
+      @audiencia = AudienciaOral.find(params[:id])
+      @tramite = @audiencia.tramite if @audiencia
+      @tramite ||= Tramite.find(params[:t]) if params[:t]
+      render :partial => "motivo_cancelacion", :layout => "only_jquery"
+    end
+
     def cancel_window
       @audiencia = AudienciaOral.find(params[:id])
       @tramite = @audiencia.tramite if @audiencia
       @tramite ||= Tramite.find(params[:t]) if params[:t]
       if @audiencia.cancelar(current_user)
+        @audiencia.update_attributes!(params[:audiencia_oral]) if params[:audiencia_oral]
         flash[:notice] = "Audiencia cancelada correctamante"
       else
         flash[:error] = "No se pudo cancelar, verifique"

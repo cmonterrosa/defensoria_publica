@@ -22,14 +22,16 @@ class AudienciaOral < ActiveRecord::Base
 
   def descripcion_detallada
     if self.tramite
-      primera =  "<b>C.I</b> (#{self.tramite.carpeta_investigacion}) " if  self.tramite.carpeta_investigacion
-      primera ||= "<b>C.P </b> (#{self.tramite.causa_penal}) " if  self.tramite.causa_penal
-      primera ||= "<b>R.A </b> (#{self.tramite.registro_atencion}) " if  self.tramite.registro_atencion
-      primera ||= "<b>NUC </b> (#{self.tramite.nuc}) " if  self.tramite.nuc
+      primera =  "<b>C.I</b> (#{self.tramite.carpeta_investigacion}) " if  self.tramite.carpeta_investigacion && self.tramite.carpeta_investigacion.size > 0
+      primera ||= "<b>C.P </b> (#{self.tramite.causa_penal}) " if  self.tramite.causa_penal &&  self.tramite.causa_penal.size > 0
+      primera ||= "<b>R.A </b> (#{self.tramite.registro_atencion}) " if  self.tramite.registro_atencion && self.tramite.registro_atencion.size > 0
+      primera ||= "<b>NUC </b> (#{self.tramite.nuc}) " if  self.tramite.nuc && self.tramite.nuc.size > 0
     end
-    segunda = "<br /><b>#{self.start_at.strftime("%d de %B de %Y - %H:%M")}</b>" if self.start_at
+    primera ||= ""
+    segunda = "<br /><b>#{self.start_at.strftime("%d de %B de %Y - %H:%M %p")}</b>" if self.start_at
+    segunda ||= ""
     tercera ||= "<br /> <b>JUEZ</b>: #{self.juez.persona.nombre_completo}" if self.juez && self.juez.persona
-    primera ||=  segunda ||=  tercera ||= ""
+    tercera ||= ""
     return primera + segunda + tercera
   end
 

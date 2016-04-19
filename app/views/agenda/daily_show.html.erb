@@ -62,9 +62,11 @@
 
                     <%@backgrounds_colors = colors_to_days%>
                             <%estilo ||= !(audiencia.cancel == nil || audiencia.cancel == 0)? "background-color: #F8FB53; text-decoration: line-through; color: white;" : "background-color:  #{@backgrounds_colors[audiencia.tipoaudiencia_id - 1]}"%>
-                          <td class="audiencia_calendario">
-                            <%=link_to audiencia.descripcion_detallada, {:action => 'show_window', :controller => 'audiencias_orales', :id => audiencia},  :title => "Detalle", :class => "fancybox fancybox.iframe"%>
-                        </td>
+                          <%if audiencia%>
+                              <td class="audiencia_calendario">
+                                  <%=link_to audiencia.descripcion_detallada, {:action => 'show_window', :controller => 'audiencias_orales', :id => audiencia},  :title => "Detalle", :class => "fancybox fancybox.iframe"%>
+                              </td>
+                          <%end%>
                     <%else%>
                         <td>&nbsp;</td>
                  <%end%>
