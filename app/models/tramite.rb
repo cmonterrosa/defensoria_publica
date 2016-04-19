@@ -1,7 +1,8 @@
 ######################################
 # Modelo "tramite", sirve como columna vertebral
-# y conecta con múltiples modelos que giran alrededor
+# y conecta con múltiples modelos que giran alrededor,
 # automaticamente almacena modificaciones en bitacora
+# y genera folio
 ######################################
 
 class Tramite < ActiveRecord::Base
@@ -20,6 +21,8 @@ class Tramite < ActiveRecord::Base
   attr_reader :current_journal
   
   #validates_uniqueness_of :nuc
+
+  before_save :generar_folio
   
   after_save :crear_modificaciones
 
@@ -50,7 +53,19 @@ class Tramite < ActiveRecord::Base
       end
     end
 
+   def generar_folio
+     self.anio ||= Time.now.year
+     unless self.folio_expediente
+        maximo=  Tramite.maximum(:folio_expediente, :conditions => ["anio = ?", self.anio])
+        folio_expediente = 1 unless maximo
+        folio_expediente ||= maximo.to_i + 1
+        self.folio_expediente = folio_expediente
+     end
+   end
 
+   def numero_tramite
+    "#{self.anio[2..4]}#{self.folio_expediente.to_s.rjust(5, '0')}" if self.anio && self.folio_expediente
+   end
 
   def init_journal(user)
     @current_journal ||= Modificacion.new(:id_objeto => self.id, :user_id => user.id, :clase => self.class.to_s) if user

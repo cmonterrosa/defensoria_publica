@@ -7,6 +7,7 @@ class CreateParticipantes < ActiveRecord::Migration
       t.integer :entorno_id
       t.integer :marginacion_id
       t.integer :calidad_id
+      t.string :calificacion_control_detencion
       t.boolean :privado_libertad
       t.boolean :libre_atraves_medida_cautelar
       t.boolean :libre_suspension_condicional_proceso
