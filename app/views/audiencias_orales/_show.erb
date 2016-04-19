@@ -1,20 +1,25 @@
+<%= stylesheet_link_tag "encabezados.css"%>
+
 <%if @audiencia.cancel%>
     <p align="center">
-      <%= link_to "Reactivar" , {:controller => "audiencias_orales", :action => "reactivar_window", :id => @audiencia}, :title => "Cancelar audiencia", :confirm => '¿Esta seguro que quiere cancelar la audiencia?', :method => :post, :class => "boton" %><br />
+      <%= link_to "Reactivar Audiencia" , {:controller => "audiencias_orales", :action => "reactivar_window", :id => @audiencia}, :title => "Cancelar audiencia", :confirm => '¿Esta seguro que quiere cancelar la audiencia?', :method => :post, :class => "boton" %><br />
     </p>
 
   <%else%>
   <p align="center">
-      <%= link_to "Cancelar" , {:controller => "audiencias_orales", :action => "cancel_window", :id => @audiencia}, :title => "Cancelar audiencia", :confirm => '¿Esta seguro que quiere cancelar la audiencia?', :method => :post, :class => "boton" %><br />
+      <%= link_to "Cancelar Audiencia" , {:controller => "audiencias_orales", :action => "cancel_form", :id => @audiencia}, :title => "Cancelar audiencia", :confirm => '¿Esta seguro que quiere cancelar la audiencia?', :method => :post, :class => "boton" %><br />
   </p>
 <%end%>
 
 
-<table class="tabla_dp">
+<%=render :partial => "tramites/encabezado"%>
+
+
+<table class="encabezado">
   
   <tr>
     <td><b>FECHA/HORA:</b></td>
-    <td><%=h (@audiencia.start_at) ? @audiencia.start_at.strftime("%d de %B de %Y / %H:%M horas") : nil%></td>
+    <td><%=h (@audiencia.start_at) ? @audiencia.start_at.strftime("%d de %B de %Y / %H:%M %p") : nil%></td>
   </tr>
   <tr>
     <td><b>TIPO DE AUDIENCIA:</b></td>
@@ -50,6 +55,13 @@
       <td><b>CANCELADA POR:</b></td>
       <td><%=h (@audiencia.usuario_cancelacion)? @audiencia.usuario_cancelacion.nombre_completo : '' %></td>
     </tr>
+    
+     <tr>
+      <td><b>MOTIVO:</b></td>
+      <td><%=h (@audiencia.motivo_cancelacion)? @audiencia.motivo_cancelacion : '' %></td>
+    </tr>
+
+
   <%end%>
 
 </table>
