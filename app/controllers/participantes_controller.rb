@@ -77,7 +77,7 @@ class ParticipantesController < ApplicationController
       @participante= (params[:id])? Participante.find(params[:id]) : Participante.new
       @marginacions = Marginacion.all
       @entornos = Entorno.all
-      @particular = (@participante.particular) ? "SI" : "NO"
+      #@particular = (@participante.particular) ? "SI" : "NO"
       @defensores = Defensor.find(:all, :conditions => "activo IS NOT NULL or activo !=0")
       @corporaciones_policiacas = CorporacionPoliciaca.all
       @municipios = Municipio.chiapas.all
