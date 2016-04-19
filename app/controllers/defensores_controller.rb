@@ -4,7 +4,7 @@
 ######################################
 
 class DefensoresController < ApplicationController
-  require_role :defensor
+  require_role [:defensor, :jefedefensor]
   require_role :admin, :for => :destroy
 
   def index

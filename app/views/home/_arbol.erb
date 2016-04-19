@@ -33,7 +33,8 @@
                         if @user
                           ">> " +  raw(link_to  @user.nombre_completo, {:controller => 'admin', :action => "roles_by_user", :id => @user}, :class => "arbol")
                         end
-                else
+                   
+                 else
                       (link_to title.upcase, {:controller => params[:controller], :action => "index"}, :class => "arbol", :title => title.upcase)
                 end
 
@@ -144,7 +145,7 @@
             when "users_by_role"
                 " >>"  + raw(link_to ' ROLES', {:controller => 'admin', :action => 'roles_index'}, :class => 'arbol') +
                 if @role
-                  " >> #{@role.name}"
+                  ">> " +  raw(link_to  @role.descripcion, {:controller => 'admin', :action => "users_by_role", :id => @role}, :class => "arbol")
                 end
             end
        %>
