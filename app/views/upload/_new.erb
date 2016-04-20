@@ -1,6 +1,8 @@
 <!-- Carga de Evidencias -->
 <div class="container" style="width: 94%">
 
+  <%= error_messages_for :uploaded_file %>
+
  <%=render :partial => "mensaje_informativo"%>
 
   <%form_for(@uploaded_file, :url => {:action => "create", :t => @tramite, :p => @participante}, :html => {:multipart => true, :class => "formee" }) do |f| -%>
