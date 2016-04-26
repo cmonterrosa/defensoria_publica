@@ -6,9 +6,10 @@
     </p>
 
   <%else%>
-  <p align="center">
-      <%= link_to "Cancelar Audiencia" , {:controller => "audiencias_orales", :action => "cancel_form", :id => @audiencia}, :title => "Cancelar audiencia", :confirm => '¿Esta seguro que quiere cancelar la audiencia?', :method => :post, :class => "boton" %><br />
-  </p>
+      <p align="center">
+        <%= link_to "Reprogramar Audiencia" , {:controller => "audiencias_orales", :action => "reprogramar", :id => @audiencia}, :title => "Reprogramar audiencia", :confirm => '¿Esta seguro que quiere reprogramar la audiencia?', :method => :post, :class => "boton" %> |
+        <%= link_to "Cancelar Audiencia" , {:controller => "audiencias_orales", :action => "cancel_form", :id => @audiencia}, :title => "Cancelar audiencia", :confirm => '¿Esta seguro que quiere cancelar la audiencia?', :method => :post, :class => "boton" %><br />
+      </p>
 <%end%>
 
 
@@ -16,7 +17,6 @@
 
 
 <table class="encabezado">
-  
   <tr>
     <td><b>FECHA/HORA:</b></td>
     <td><%=h (@audiencia.start_at) ? @audiencia.start_at.strftime("%d de %B de %Y / %H:%M %p") : nil%></td>
