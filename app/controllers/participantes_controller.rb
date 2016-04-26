@@ -99,7 +99,13 @@ class ParticipantesController < ApplicationController
 
   def destroy
     @participante = Participante.find(params[:id])
-    (@participante && @participante.destroy) ? flash[:notice] = "Registro eliminado correctamente" : flash[:error] = "Registro no se pudo eliminar, verifique"
+    @destroyed = @participante.dup if @participante
+    if @participante && @participante.destroy
+         flash[:notice] = "Registro eliminado correctamente"
+         write_log("Participante eliminado: #{@destroyed.inspect}", current_user)
+    else
+       flash[:error] = "Registro no se pudo eliminar, verifique"
+    end
     redirect_to :action => "index", :t => params[:t]
   end
 
