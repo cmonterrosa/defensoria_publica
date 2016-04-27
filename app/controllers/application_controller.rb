@@ -40,4 +40,24 @@ class ApplicationController < ActionController::Base
     return @selected
   end
 
+  def save_persona(params={}, objeto=nil)
+          if params[:persona] && objeto
+            @participante = objeto
+            @participante.persona = (params[:persona][:id_persona] && params[:persona][:id_persona].size > 0)? Persona.find(params[:persona][:id_persona]) : nil
+            @participante.persona ||= (params[:persona][:per_curp] && params[:persona][:per_curp].size > 0) ? Persona.find(:first, :conditions => ["per_curp =  ?", params[:persona][:per_curp]]) : nil
+            ## Si no existe vamos a crear el objeto persona ##
+            @participante.persona ||= Persona.new(:per_nombre => params[:persona][:per_nombre], :per_paterno => params[:persona][:per_paterno], :per_materno => params[:persona][:per_materno], :per_nacimiento => params[:persona][:per_nacimiento])
+            if params[:contacto]
+              @participante.persona.set_datos_contacto('telefono_celular', :con_parametro => params[:contacto][:telefono_celular], :con_usu_modi => current_user.persona.id) if params[:contacto][:telefono_celular] &&  params[:contacto][:telefono_celular].size > 0
+              @participante.persona.set_datos_contacto('telefono_casa', :con_parametro => params[:contacto][:telefono_casa], :con_usu_modi => current_user.persona.id) if params[:contacto][:telefono_casa] &&  params[:contacto][:telefono_casa].size > 0
+              @participante.persona.set_datos_contacto('direccion', :con_parametro => params[:contacto][:direccion], :con_usu_modi => current_user.persona.id) if params[:contacto][:direccion] &&  params[:contacto][:direccion].size > 0
+              @participante.persona.set_datos_contacto('correo_electronico', :con_parametro => params[:contacto][:correo_electronico], :con_usu_modi => current_user.persona.id) if params[:contacto][:correo_electronico] &&  params[:contacto][:correo_electronico].size > 0
+              @participante.persona.set_datos_contacto('direccion_laboral', :con_parametro => params[:contacto][:direccion_laboral], :con_usu_modi => current_user.persona.id) if params[:contacto][:direccion_laboral] &&  params[:contacto][:direccion_laboral].size > 0
+              @participante.persona.set_datos_contacto('telefono_laboral', :con_parametro => params[:contacto][:telefono_laboral], :con_usu_modi => current_user.persona.id) if params[:contacto][:telefono_laboral] &&  params[:contacto][:telefono_laboral].size > 0
+          end
+          @participante.persona.set_datos_familiares("padre", params[:padre]) if params[:padre]
+          @participante.persona.set_datos_familiares("madre", params[:madre]) if params[:madre]
+        end
+    end
+
 end
