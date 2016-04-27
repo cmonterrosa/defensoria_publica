@@ -25,7 +25,7 @@ class AudienciasOralesController < ApplicationController
       if current_user.has_role?(:admin)
           @defensores ||= Defensor.find(:all, :conditions => ["activo = ?", true])
       elsif current_user.has_role?(:defensor)
-        @defensores = Defensor.find(:all, :conditions => ["persona_id = ?", current_user.persona.id]) if current_user.persona
+          @defensores = Defensor.find(:all, :conditions => ["persona_id = ?", current_user.persona.id]) if current_user.persona
       end
       @defensores ||= Defensor.find(:all, :conditions => ["activo = ?", true])
       @audiencia.fecha ||= Time.now.strftime("%Y/%m/%d")
@@ -38,14 +38,15 @@ class AudienciasOralesController < ApplicationController
       @audiencia.update_attributes(params[:audiencia])
       @tramite = Tramite.find(params[:t]) if params[:t]
       @audiencia.tramite = (@tramite) ? @tramite : Tramite.new
+      @reprogramar = (params[:token] && params[:token] == 'reprogramar') ? true : false
       if @audiencia.save && @audiencia.tramite.save
         flash[:notice] = "Audiencia registrada correctamente"
-        redirect_to :controller => "audiencias_orales", :t => @tramite
+        (@reprogramar) ? (redirect_to :action => "show_window", :id => @audiencia, :t => @tramite) : (redirect_to :controller => "audiencias_orales", :t => @tramite)
       else
         flash[:error] = "Registro no válido"
         render :action => "new_or_edit"
       end
-  end
+    end
 
   def destroy
     @audiencia = AudienciaOral.find(params[:id])
@@ -82,6 +83,22 @@ class AudienciasOralesController < ApplicationController
       @tramite = @audiencia.tramite if @audiencia
       @tramite ||= Tramite.find(params[:t]) if params[:t]
       render :partial => "motivo_cancelacion", :layout => "only_jquery"
+    end
+
+    def reprogramar
+      @audiencia = AudienciaOral.find(params[:id])
+      @tramite = @audiencia.tramite if @audiencia
+      @tipos_audiencias = TipoAudiencia.all
+      @organos = Organo.all
+      @jueces = Juez.find(:all, :conditions => ["activo = ?", true])
+       if current_user.has_role?(:admin)
+          @defensores ||= Defensor.find(:all, :conditions => ["activo = ?", true])
+      elsif current_user.has_role?(:defensor)
+        @defensores = Defensor.find(:all, :conditions => ["persona_id = ?", current_user.persona.id]) if current_user.persona
+      end
+      @defensores ||= Defensor.find(:all, :conditions => ["activo = ?", true])
+      @tramite ||= Tramite.find(params[:t]) if params[:t]
+      render :partial => "reprogramar", :layout => "only_jquery"
     end
 
     def cancel_window
