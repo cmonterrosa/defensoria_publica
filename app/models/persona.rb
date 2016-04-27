@@ -9,6 +9,7 @@ class Persona < ActiveRecord::Base
   set_table_name "pr_persona"
   set_primary_key "id_persona"
   has_many "contactos", :foreign_key =>"fk_persona"
+  has_many "familiars",  :foreign_key => "persona_id"
 
 #  validates_format_of :per_curp, :with => /\A[A-Z][AEIOUX][A-Z]{2}[0-9]{2}[0-1][0-9][0-3][0-9][MH][A-Z][BCDFGHJKLMNÑPQRSTVWXYZ]{4}[0-9A-Z][0-9]\z/,
 #    :allow_blank => true, :message => "Formato inválido"
@@ -42,6 +43,22 @@ class Persona < ActiveRecord::Base
   def nombre_curp
     nombre_completo + "| #{self.per_curp}"
   end
+
+  def get_datos_familiares(tipo_familiar=nil)
+    if tipo = TipoFamiliar.find(:first, :conditions => ["clave = ?", tipo_familiar])
+      @objeto = Familiar.find(:first, :conditions => ["persona_id = ? AND tipo_familiar_id = ?", self.id, tipo.id])
+    else
+      false
+    end
+  end
+
+   def set_datos_familiares(tipo_familiar=nil, parametros={})
+     if tipo = TipoFamiliar.find(:first, :conditions => ["clave = ?", tipo_familiar])
+        @objeto_contacto = eval("(Familiar.find(:first, :conditions => ['persona_id = ? AND tipo_familiar_id = ?', self.id, tipo.id]))? Familiar.find(:first, :conditions => ['persona_id = ? AND tipo_familiar_id = ?', self.id, tipo.id]) : Familiar.new(:persona_id => self.id)") if tipo_familiar && tipo
+        @objeto_contacto.tipo_familiar_id ||= tipo.id
+        @objeto_contacto.update_attributes!(parametros) if @objeto_contacto && parametros
+     end
+   end
 
   def self.search(search)
     if search

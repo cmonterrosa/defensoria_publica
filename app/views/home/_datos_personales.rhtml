@@ -70,9 +70,15 @@
       <%@correo_electronico = @persona.get_datos_contacto('correo_electronico')%>
       <%@direccion_laboral = @persona.get_datos_contacto('direccion_laboral')%>
       <%@telefono_laboral = @persona.get_datos_contacto('telefono_laboral')%>
+      <%@padre_nombre = (@persona.get_datos_familiares("padre"))? @persona.get_datos_familiares("padre").nombre : nil %>
+      <%@padre_apellidos = (@persona.get_datos_familiares("padre"))? @persona.get_datos_familiares("padre").apellidos : nil %>
+      <%@madre_nombre = (@persona.get_datos_familiares("madre"))? @persona.get_datos_familiares("madre").nombre : nil %>
+      <%@madre_apellidos = (@persona.get_datos_familiares("madre"))? @persona.get_datos_familiares("madre").apellidos : nil %>
 <%end%>
 
 <%=render :partial => "home/datos_contacto"%>
+
+<%=render :partial => "home/datos_familiares"%>
 
 <!-- Validaciones -->
 <script type="text/javascript">

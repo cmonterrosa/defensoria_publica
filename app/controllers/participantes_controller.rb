@@ -47,7 +47,9 @@ class ParticipantesController < ApplicationController
             @participante.persona.set_datos_contacto('correo_electronico', :con_parametro => params[:contacto][:correo_electronico], :con_usu_modi => current_user.persona.id) if params[:contacto][:correo_electronico] &&  params[:contacto][:correo_electronico].size > 0
             @participante.persona.set_datos_contacto('direccion_laboral', :con_parametro => params[:contacto][:direccion_laboral], :con_usu_modi => current_user.persona.id) if params[:contacto][:direccion_laboral] &&  params[:contacto][:direccion_laboral].size > 0
             @participante.persona.set_datos_contacto('telefono_laboral', :con_parametro => params[:contacto][:telefono_laboral], :con_usu_modi => current_user.persona.id) if params[:contacto][:telefono_laboral] &&  params[:contacto][:telefono_laboral].size > 0
-         end
+        end
+        @participante.persona.set_datos_familiares("padre", params[:padre]) if params[:padre]
+        @participante.persona.set_datos_familiares("madre", params[:madre]) if params[:madre]
       end
       
       @participante.persona ||= Persona.new(params[:persona])
