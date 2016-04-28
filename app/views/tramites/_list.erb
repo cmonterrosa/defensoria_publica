@@ -25,7 +25,7 @@
     <%@tramites.each do |t|%>
     <tr>
      <td style="vertical-align: middle;"><%=t.numero_tramite%></td>
-     <td style="vertical-align: middle;"> <%=(t.fechahora_atencion) ? t.fechahora_atencion.strftime("%d de %B de %Y") : ''%></td>
+     <td style="vertical-align: middle;"> <%=(t.fechahora_atencion) ? t.fechahora_atencion.strftime("%d de %B de %Y / %H:%M %p") : ''%></td>
      <td style="vertical-align: middle;"><%=t.nuc%></td>
      <td style="vertical-align: middle;"><%=t.carpeta_investigacion%></td>
      <td style="vertical-align: middle;"><%=t.causa_penal%></td>
