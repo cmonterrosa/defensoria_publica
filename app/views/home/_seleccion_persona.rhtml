@@ -3,7 +3,7 @@
           <label><b>SELECCIONE UNA PERSONA: </b><em class="formee-req">*</em></label>
         </div>
         <div class="grid-8-12">
-          <%= select(:persona, :id, @personas.collect {|p| [ p.nombre_curp, p.id ] }, { :include_blank => true })%>
+          <%= select(:persona, :id, @personas.collect {|p| [ p.show_info, p.id ] }, { :include_blank => true })%>
         </div>
  </div>
 

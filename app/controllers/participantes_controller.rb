@@ -22,6 +22,7 @@ class ParticipantesController < ApplicationController
   def new_or_edit
       @participante= (params[:id])? Participante.find(params[:id]) : Participante.new
       @tramite = Tramite.find(params[:t]) if params[:t]
+      @tramite ||= @participante.tramite
       @persona = @participante.persona
       @calidads= Calidad.all
       @tipo_participantes = TipoParticipante.all

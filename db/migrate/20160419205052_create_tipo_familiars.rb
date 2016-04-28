@@ -6,7 +6,7 @@ class CreateTipoFamiliars < ActiveRecord::Migration
       t.timestamps
     end
 
-    TipoFamiliar.create(:clave => "esp", :descripcion => "ESPOSO/A") unless TipoFamiliar.exists?(:clave => "esp")
+    TipoFamiliar.create(:clave => "conyu", :descripcion => "CONYUGE") unless TipoFamiliar.exists?(:clave => "esp")
     TipoFamiliar.create(:clave => "herma", :descripcion => "HERMANO/A") unless TipoFamiliar.exists?(:clave => "herma")
     TipoFamiliar.create(:clave => "padre", :descripcion => "PADRE") unless TipoFamiliar.exists?(:clave => "padre")
     TipoFamiliar.create(:clave => "madre", :descripcion => "MADRE") unless TipoFamiliar.exists?(:clave => "madre")

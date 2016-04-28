@@ -8,7 +8,7 @@ class CreateFamiliars < ActiveRecord::Migration
     	t.column :tipo_familiar_id, :integer
       t.timestamps
     end
-    add_index :familiars, [:persona_id], :name => "familiars_persona"
+    add_index :familiars, [:persona_id, :tipo_familiar_id], :name => "familiars_persona_tipo_familiar"
 end
 
   def self.down

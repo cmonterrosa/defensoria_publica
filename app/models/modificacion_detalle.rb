@@ -38,7 +38,8 @@ class ModificacionDetalle < ActiveRecord::Base
 
  def valor_nuevo
    if self.campo =~ /\w+id$/ && self.value
-     row = eval("#{self.campo.gsub("_id", "").camelize}.find(#{self.value})")
+     row = eval("#{self.campo.gsub("_id", "").camelize}.find('#{self.value}')") if self.campo == 'persona_id'
+     row ||= eval("#{self.campo.gsub("_id", "").camelize}.find(#{self.value})")
      vn = (row && row.respond_to?(:descripcion)) ? row.descripcion : nil
      vn ||= (row && row.respond_to?(:persona_id)) ? row.persona.nombre_completo : self.value
      return vn

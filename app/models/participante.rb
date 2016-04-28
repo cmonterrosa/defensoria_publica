@@ -25,14 +25,22 @@ class Participante < ActiveRecord::Base
   
 
   def self.search(search,tramite)
-    if search
-      find(:all, :joins => "a, participantes_tramites pt, tramites t, personas p",
-        :select => "a.* ",
-        :conditions => ['a.id=pt.participante_id AND pt.tramite_id=t.id AND BINARY a.persona_id= BINARY p.id_persona AND  CONCAT(p.per_nombre, \' \' , p.per_paterno, \' \' , p.per_materno) LIKE ?', "%#{search}%"],
-        :order => "a.created_at DESC")
+    if search && search.size > 0
+      if search =~ /^\w+$/
+        find(:all, :joins => "a, tramites t, personas p, clave_electors ce",
+          :select => "a.* ",
+          :conditions => ['a.tramite_id=t.id AND BINARY a.persona_id= BINARY p.id_persona AND  BINARY p.id_persona=ce.persona_id AND BINARY ce.descripcion like ?', "%#{search}%"],
+          :order => "a.created_at DESC")
+
+      else
+        find(:all, :joins => "a, tramites t, personas p",
+          :select => "a.* ",
+          :conditions => ['a.tramite_id=t.id AND BINARY a.persona_id= BINARY p.id_persona AND  CONCAT(p.per_nombre, \' \' , p.per_paterno, \' \' , p.per_materno) LIKE ?', "%#{search}%"],
+          :order => "a.created_at DESC")
+      end
     elsif tramite
-      find(:all, :joins => "a, participantes_tramites pt, tramites t, personas p",
-        :conditions => ['a.id=pt.participante_id AND pt.tramite_id=t.id AND BINARY a.persona_id'],
+      find(:all, :joins => "a, tramites t, personas p",
+        :conditions => ['a.tramite_id=t.id AND BINARY a.persona_id=BINARY p.id_persona'],
         :select => "a.* ",  :order => "a.created_at DESC")
     else
         Array.new
