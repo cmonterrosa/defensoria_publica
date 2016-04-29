@@ -14,7 +14,7 @@ class Adjunto < ActiveRecord::Base
    belongs_to :participante
    belongs_to :user
    
-   validates_uniqueness_of :md5, :scope => :tramite_id, :message => ": El archivo ya fue cargado anteriormente para el mismo trámite", :allow_blank => true
+   validates_uniqueness_of :md5, :scope => [:tramite_id, :user_id], :message => ": El archivo ya fue cargado anteriormente para el mismo trámite", :allow_blank => true
 
   after_create :write_file
   before_destroy :prepare_file_for_delete
@@ -104,8 +104,8 @@ class Adjunto < ActiveRecord::Base
   end
 
   def mark_as_deleted
-      file = self.dup
-      file.update_attributes!(:activo => false)
+      #file = self.dup
+      self.update_attributes!(:activo => false)
   end
 
 
