@@ -23,7 +23,21 @@
 
 <div class="grid-6-12">
   <div class="grid-4-12">
-    <label><b>APELLIDO DE LA MADRE: </b></label>
+    <label><b>APELLIDOS DE LA MADRE: </b></label>
   </div>
   <div class="grid-8-12"><%=text_field :madre, :apellidos, :value => @madre_apellidos%></div>
+</div>
+
+<div class="grid-6-12">
+  <div class="grid-4-12">
+    <label><b>NOMBRE DE CONYUGE: </b></label>
+  </div>
+  <div class="grid-8-12"><%=text_field :conyuge, :nombre, :value => @conyuge_nombre%></div>
+</div>
+
+<div class="grid-6-12">
+  <div class="grid-4-12">
+    <label><b>APELLIDOS DE CONYUGE: </b></label>
+  </div>
+  <div class="grid-8-12"><%=text_field :conyuge, :apellidos, :value => @conyuge_apellidos%></div>
 </div>

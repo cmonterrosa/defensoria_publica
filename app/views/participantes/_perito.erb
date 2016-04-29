@@ -32,10 +32,10 @@
 </div>
 
 <div class="grid-6-12">
-  <div class="grid-4-12">
+  <div class="grid-6-12">
     <label><b>¿TIENE ALGÚN PADECIMIENTO?: </b><em class="formee-req">*</em></label>
   </div>
-  <div class="grid-8-12">
+  <div class="grid-5-12">
     <span class="InputGroup" id="tiene_antecedentes">
       <label class="uper">SI <%= radio_button :participante, :tiene_padecimiento, "SI", :checked => @participante.tiene_padecimiento, :onclick => "enable_descripcion_padecimiento();" %></label>&nbsp;&nbsp;
       <label class="uper">NO <%= radio_button :participante, :tiene_padecimiento, "NO", :checked => @participante.tiene_padecimiento == false, :onclick => "enable_descripcion_padecimiento();"%></label>
@@ -51,10 +51,10 @@
 </div>
 
 <div class="grid-6-12">
-  <div class="grid-4-12">
+  <div class="grid-6-12">
     <label><b>¿TIENE ANTECEDENTES PENALES?: </b><em class="formee-req">*</em></label>
   </div>
-  <div class="grid-8-12">
+  <div class="grid-6-12">
     <span class="InputGroup" id="tiene_antecedentes">
       <label class="uper">SI <%= radio_button :participante, :tiene_antecedentes_penales, "SI", :checked => @participante.tiene_antecedentes_penales, :onclick => "enable_descripcion_delito();" %></label>&nbsp;&nbsp;
       <label class="uper">NO <%= radio_button :participante, :tiene_antecedentes_penales, "NO", :checked => @participante.tiene_antecedentes_penales == false, :onclick => "enable_descripcion_delito();"%></label>
