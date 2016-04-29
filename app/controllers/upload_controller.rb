@@ -8,15 +8,21 @@ class UploadController < ApplicationController
   require_role [:defensor, :admin, :subdireccion], :for => [:destroy, :download]
 
   def index
-    (params[:token] == "p" || params[:p])? @participante = Participante.find(params[:p]) : @tramite = Tramite.find(params[:t])
-    @title = (@participante) ? "ARCHIVOS ADJUNTOS DEL PARTICIPANTE: #{@participante.id}" : "ARCHIVOS ADJUNTOS DEL TRAMITE: #{@tramite.id}"
+    @participante = (params[:token] == "p" || params[:p] )?  Participante.find(params[:p]) : nil
+    @tramite = ( params[:t] )?  Tramite.find(params[:t]) : nil
+    @title = (@participante) ? "ARCHIVOS ADJUNTOS DEL PARTICIPANTE: #{@participante.id}" : nil
+    @title ||= (@tramite) ? "ARCHIVOS ADJUNTOS DEL TRAMITE: #{@tramite.id}" : nil
+    @title ||= "PORTAL DE DOCUMENTOS COMPARTIDOS"
     @uploaded_files = @tramite.adjuntos.paginate(:page => params[:page], :per_page => 10) if @tramite
     @uploaded_files ||= @participante.adjuntos.paginate(:page => params[:page], :per_page => 10) if @participante
+    @uploaded_files ||= Adjunto.find(:all, :conditions => ["activo = ? AND tramite_id IS NULL and participante_id IS NULL", true]).paginate(:page => params[:page], :per_page => 10) if current_user
     render :partial => "list", :layout => "only_javascript"
   end
 
-   def new_or_edit
-    (params[:token] == "p" || params[:p] )? @participante = Participante.find(params[:p]) : @tramite = Tramite.find(params[:t])
+  
+  def new_or_edit
+    @participante = (params[:token] == "p" || params[:p] )?  Participante.find(params[:p]) : nil
+    @tramite = ( params[:t] )?  Tramite.find(params[:t]) : nil
     @uploaded_file  = Adjunto.find(params[:id]) if params[:id]
     @uploaded_file  ||= Adjunto.new
     render :partial => "new", :layout => "only_jquery"
@@ -24,8 +30,8 @@ class UploadController < ApplicationController
 
   def create
     @uploaded_file =Adjunto.new(params[:adjunto])
-    (params[:token] == "p" || params[:p] )? @participante = Participante.find(params[:p]) : @tramite = Tramite.find(params[:t])
-    #@ruta = (params[:token] == "p")? {:action => "index", :id => @uploaded_file.participante.id} : {:action => "index", :id => @uploaded_file.tramite.id}
+    @participante = (params[:token] == "p" || params[:p] )? Participante.find(params[:p]) : nil
+    @tramite = ( params[:t] )? Tramite.find(params[:t]) : nil
     @uploaded_file.tramite_id = @tramite.id if @tramite
     @uploaded_file.participante_id = @participante.id if @participante
     @uploaded_file.user_id ||= current_user.id if current_user
