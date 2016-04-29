@@ -1,25 +1,35 @@
-<script type="text/javascript">
-		$j(document).ready(function() {
-			/*
-			 *  Simple image gallery. Uses default settings
-			 */
-
-			$j('.fancybox').fancybox();
-               });
-</script>
-
 <%=render :partial => "home/arbol"%>
 <%=render :partial => "encabezado"%>
 
-<%=link_to "PARTICIPANTES", {:controller => "participantes", :action => "index", :t => @tramite}, :class => "boton"-%> |
-<%=link_to "AUDIENCIAS", {:controller => "audiencias_orales", :action => "index", :t => @tramite}, :class => "boton"-%> |
-<%=link_to "PROMOCIONES", {:controller => "promociones", :action => "index", :t => @tramite}, :class => "boton"%> |
-<%=link_to "AMPAROS", {:controller => "amparos", :action => "index", :t => @tramite}, :class => "boton"-%> |
-<%=link_to "RECURSOS", {:controller => "recursos", :action => "index", :t => @tramite}, :class => "boton"-%> |
-<%=link_to "SENTENCIAS", {:controller => "sentencias", :action => "index", :t => @tramite}, :class => "boton"-%> |
-<%=link_to "DOCUMENTOS", {:controller => "upload", :action => "index", :t => @tramite}, :class => "boton fancybox fancybox.iframe"-%> |
-<%=link_to "HISTÓRICO", {:controller => "tramites", :action => "history", :id => @tramite}, :class => "boton"-%>
-<%=link_to "ATENCIONES", {:controller => "tramites", :action => "atenciones", :id => @tramite}, :class => "boton"-%>
-
-
-
+<div class="formee  container">
+  <fieldset>
+    <legend>&nbsp;MENU DEL TRAMITE&nbsp;</legend>
+      <div class="grid-3-12">
+        <%=link_to "PARTICIPANTES", {:controller => "participantes", :action => "index", :t => @tramite}, :class => "boton"-%>
+      </div>
+      <div class="grid-3-12">
+        <%=link_to "AUDIENCIAS", {:controller => "audiencias_orales", :action => "index", :t => @tramite}, :class => "boton"-%>
+      </div>
+      <div class="grid-3-12">
+        <%=link_to "PROMOCIONES", {:controller => "promociones", :action => "index", :t => @tramite}, :class => "boton"%>
+      </div>
+      <div class="grid-3-12">
+        <%=link_to "AMPAROS", {:controller => "amparos", :action => "index", :t => @tramite}, :class => "boton"-%>
+      </div>
+      <div class="grid-3-12">
+        <%=link_to "RECURSOS", {:controller => "recursos", :action => "index", :t => @tramite}, :class => "boton"-%>
+      </div>
+      <div class="grid-3-12">
+        <%=link_to "SENTENCIAS", {:controller => "sentencias", :action => "index", :t => @tramite}, :class => "boton"-%>
+      </div>
+      <div class="grid-3-12">
+        <%=link_to "DOCUMENTOS", {:controller => "upload", :action => "index", :t => @tramite}, :class => "boton fancybox fancybox.iframe"-%>
+      </div>
+      <div class="grid-3-12">
+        <%=link_to "HISTÓRICO", {:controller => "tramites", :action => "history", :id => @tramite}, :class => "boton"-%>
+      </div>
+      <div class="grid-3-12">
+        <%=link_to "SEGUIMIENTO DE ATENCIONES", {:controller => "tramites", :action => "atenciones", :id => @tramite}, :class => "boton"-%>
+      </div>
+   </fieldset>
+</div>

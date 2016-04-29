@@ -73,6 +73,9 @@
       <!-- Estilo de tablas del calendario -->
      <%= stylesheet_link_tag "calendario.css" %>
 
+      <!-- content -->
+      <%= stylesheet_link_tag "content"%>
+
     <script type="text/javascript">
       window.onload=function(){enableTooltips()};
       // this allows jquery to be called along with scriptaculous and YUI without any conflicts
@@ -80,6 +83,17 @@
       // e.g. $j('#div_id').stuff instead of $('#div_id').stuff
       var $j = jQuery.noConflict();
     </script>
+
+    <script type="text/javascript">
+		$j(document).ready(function() {
+			/*
+			 *  Simple image gallery. Uses default settings
+			 */
+
+			$j('.fancybox').fancybox();
+               });
+    </script>
+
 
 </head>
 
@@ -144,7 +158,7 @@ padding:2px;
 
         <!-- inicia tabla de contenido -->
       <div class="main_wrap">
-            <table style="text-align: center; width: 88%">
+            <table style="text-align: center; width: 95%">
                   <tr>
                     <td><%=render :partial => "layouts/notificaciones_acciones"%></td>
                   </tr>
