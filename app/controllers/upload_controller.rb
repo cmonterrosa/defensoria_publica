@@ -61,8 +61,12 @@ class UploadController < ApplicationController
 
    def destroy
       @uploaded_file = Adjunto.find(params[:id])
-      flash[:notice] = (@uploaded_file.mark_as_deleted) ?   "Archivo eliminado correctamente" :  "No se puedo eliminar, verifique"
-      redirect_to :action => "index", :t => @uploaded_file.tramite_id, :p => @uploaded_file.participante_id
+       if (@uploaded_file.user == current_user) && (@uploaded_file.mark_as_deleted)
+         flash[:notice] = "Archivo eliminado correctamente"
+       else
+         flash[:warning] = "No se puedo eliminar porque no tiene privilegios de hacerlo, contacte al administrador"
+       end
+     redirect_to :action => "index", :t => @uploaded_file.tramite_id, :p => @uploaded_file.participante_id
    end
 
 
