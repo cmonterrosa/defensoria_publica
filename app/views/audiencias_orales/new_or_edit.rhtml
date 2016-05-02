@@ -43,6 +43,13 @@
         </div>
       </div>
 
+       <div class="grid-12-12">
+        <div class="grid-4-12">
+          <label><b>MOTIVO: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-8-12"><%=f.text_field :descripcion%></div>
+      </div>
+
       <div class="grid-12-12">
         <div class="grid-4-12">
           <label><b>JUZGADO: </b><em class="formee-req">*</em></label>
@@ -72,7 +79,7 @@
 
       <div class="grid-4-12">
         <div class="grid-6-12">
-          <label><b>FECHA DE LA SOLICITUD: </b><em class="formee-req">*</em></label>
+          <label><b>FECHA: </b><em class="formee-req">*</em></label>
         </div>
         <div class="grid-6-12"><%=f.text_field :fecha%></div>
       </div>
@@ -91,6 +98,7 @@
         <div class="grid-6-12"><%=f.select :minutos, (00..59)%></div>
       </div>
 
+      
       <div class="grid-12-12">
         <div class="grid-2-12">
           <label><b>OBSERVACIONES: </b><em class="formee-req">*</em></label>
