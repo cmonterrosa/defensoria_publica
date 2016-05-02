@@ -8,14 +8,16 @@
 /*
 Table Style - This is what you want
 ------------------------------------------------------------------ */
+
+
 .tabla_dp a:link {
-	color: #666;
-	font-weight: bold;
+	/*color: #666;*/
+	/*font-weight: bold;*/
 	text-decoration:none;
 }
 .tabla_dp a:visited {
-	color: #999999;
-	font-weight:bold;
+	/*color: #999999;*(
+	/*font-weight:bold;*/
 	text-decoration:none;
 }
 .tabla_dp a:active,
