@@ -69,7 +69,7 @@ class ParticipantesController < ApplicationController
       @corporaciones_policiacas = CorporacionPoliciaca.all
       @municipios = Municipio.chiapas.all
       @tipo_participante = TipoParticipante.find(params[:tipo_participante])
-      render :partial => @tipo_participante.default_partial, :layout => "only_jquery"
+      render :partial => @tipo_participante.default_partial, :layout => "only_javascript"
     else
       render :text => "Error"
     end

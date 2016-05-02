@@ -8,6 +8,32 @@
           <%= error_messages_for :audiencia %>
       </div>
 
+    <div class="grid-12-12"><img alt="spinner" id="spinner" src="/images/loading_spinner.gif" style="display:none;" /></div>
+    <%unless @tramite%>
+        <div class="grid-12-12">
+            <div class="grid-4-12">
+              <label><b>ESCRIBA REGISTRO DE ATENCION/CARPETA DE INVESTIGACIÓN/ CAUSA PENAL / NUC: </b><em class="formee-req">*</em></label>
+            </div>
+            <div class="grid-8-12">
+                <%=text_field :tramite, :identificador, :limit => 30%>
+            </div>
+        </div>
+      
+          <%= observe_field 'tramite_identificador',
+              :on => "change",
+              :before => "Element.show('spinner')",
+              :success => "Element.hide('spinner')",
+              :url => {:action => 'get_datos_tramite',
+              :controller => 'home'},
+              :update => 'datos_tramite',
+              :with => "tramite_identificador"%>
+        <div id="datos_tramite"></div>
+        <%else%>
+            <div id="datos_tramite">
+                <%=render :partial => "home/datos_tramite"%>
+            </div>
+        <%end%>
+
      <div class="grid-12-12">
         <div class="grid-4-12">
           <label><b>TIPO DE AUDIENCIA: </b><em class="formee-req">*</em></label>
@@ -15,7 +41,7 @@
         <div class="grid-8-12">
           <%= f.select(:tipo_audiencia_id, @tipos_audiencias.collect {|t| [ t.descripcion, t.id ] }, { :include_blank => true })%>
         </div>
-       </div>
+      </div>
 
       <div class="grid-12-12">
         <div class="grid-4-12">
@@ -63,13 +89,6 @@
           <label><b>MINUTOS: </b><em class="formee-req">*</em></label>
         </div>
         <div class="grid-6-12"><%=f.select :minutos, (00..59)%></div>
-      </div>
-
-      <div class="grid-12-12">
-        <div class="grid-2-12">
-          <label><b>DESCRIPCION: </b><em class="formee-req">*</em></label>
-        </div>
-        <div class="grid-10-12"><%=f.text_area :descripcion%></div>
       </div>
 
       <div class="grid-12-12">

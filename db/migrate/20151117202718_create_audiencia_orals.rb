@@ -11,11 +11,11 @@ class CreateAudienciaOrals < ActiveRecord::Migration
       t.column :defensor_id, :integer
       t.column :sala, :string, :limit => 20
       t.column :sentencia_dictada, :string
-      t.column :descripcion, :string, :limit => 100
-      t.column :observaciones, :string, :limit => 120
+      t.column :observaciones, :string, :limit => 240
       t.column :cancel, :boolean
       t.column :cancel_user, :integer
       t.column :motivo_cancelacion, :string
+      t.column :motivo_reprogramacion, :string
       t.timestamps
     end
     

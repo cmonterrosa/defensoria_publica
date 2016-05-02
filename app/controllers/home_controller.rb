@@ -47,4 +47,22 @@ class HomeController < ApplicationController
             return render(:partial => 'datos_personales', :layout => false) if request.xhr?
         end
       end
+
+     def get_datos_tramite
+        if params[:tramite_identificador] && params[:tramite_identificador].size > 2
+          if @tramites = Tramite.search(params[:tramite_identificador])
+             if @tramites.size == 1
+                 @tramite = @tramites.first
+                 return render(:partial => 'datos_tramite', :layout => false) if request.xhr?
+            else
+                 return render(:partial => 'seleccion_tramite', :layout => false) if request.xhr?
+             end
+          else
+            render :text => "No se encontraron tramites existentes, verifique"
+          end
+        else
+           render :text => "Teclee cuando menos dos caracteres"
+        end
+     end
+
   end

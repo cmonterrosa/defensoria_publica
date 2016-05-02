@@ -39,6 +39,17 @@
           <div class="titulocalendario">
               <p style="font-size: 18px; text-align: center;"> NO HAY AUDIENCIAS PROGRAMADAS</p>
           </div>
+         
+         <%if current_user.has_role?(:admin)%>
+            <div id="nueva_audiencia">
+               <% form_for :audiencia, @audiencia, :url => { :action => "new_or_edit", :controller => "audiencias_orales", :fecha => @fecha }, :html => { :target => "_blank"} do |f| -%>
+                    <div class="grid-center">
+                        <input type="submit" title="NUEVA AUDIENCIA" value="NUEVA AUDIENCIA" />
+                    </div>
+              <%end%>
+            </div>
+         <%end%>
+
     <%else%>
         <table class="table1" border=1 width=90% style='table-layout:fixed'>
           <thead>

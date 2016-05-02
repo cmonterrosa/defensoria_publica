@@ -1,0 +1,27 @@
+<%unless @tramites.empty?%>
+    <div class="grid-6-12">
+          <div class="grid-4-12">
+            <label><b>SELECCIONE UN TRAMITE: </b><em class="formee-req">*</em></label>
+          </div>
+          <div class="grid-8-12">
+            <%= select(:tramite, :id, @tramites.collect {|p| [ p.show_info, p.id ] }, { :include_blank => true })%>
+          </div>
+    </div>
+    <%= observe_field 'tramite_id',
+      :on => "change",
+      :before => "Element.show('spinner')",
+      :success => "Element.hide('spinner')",
+      :url => {:controller => 'home',
+      :action => 'get_datos_tramite'},
+      :update => 'datos_tramite',
+      :with => "tramite_id"%>
+<%else%>
+
+<p>
+    <div class="formee-msg-error">
+                <h3>No se encontró trámite</h3>
+                <ul><li>&nbsp;</li></ul>
+    </div>
+</p>
+
+<%end%>

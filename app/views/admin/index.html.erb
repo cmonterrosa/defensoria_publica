@@ -1,7 +1,24 @@
 <%=render :partial => "home/arbol"%>
-<%=link_to "USUARIOS", {:controller => "admin", :action => "users_index"}, :class => "boton"%> |
-<%=link_to "DEFENSORES PÚBLICOS", {:controller => "defensores", :action => "index"}, :class => "boton"%>
-<%=link_to "ROLES", {:controller => "admin", :action => "roles_index"}, :class => "boton"%> |
-<%=link_to "JUECES", {:controller => "jueces", :action => "index"}, :class => "boton"%>
-<%=link_to "CORPORACIONES POLICIACAS", {:controller => "corporacion_policiacas", :action => "index"}, :class => "boton"%> |
 
+<!-- Menu de administrador -->
+<div class="formee  container">
+  <fieldset>
+    <legend>&nbsp;MENU&nbsp;DE&nbsp;ADMINISTRACIÓN</legend>
+      <div class="grid-3-12">
+          <%=link_to "USUARIOS", {:controller => "admin", :action => "users_index"}, :class => "boton"%> 
+      </div>
+      <div class="grid-3-12">
+          <%=link_to "ROLES", {:controller => "admin", :action => "roles_index"}, :class => "boton"%> 
+      </div>
+      <div class="grid-3-12">
+          <%=link_to "DEFENSORES PÚBLICOS", {:controller => "defensores", :action => "index"}, :class => "boton"%>
+      </div>
+      <div class="grid-3-12">
+          <%=link_to "JUECES", {:controller => "jueces", :action => "index"}, :class => "boton"%>
+      </div>
+      <div class="grid-3-12">
+          <%=link_to "CORPORACIONES POLICIACAS", {:controller => "corporacion_policiacas", :action => "index"}, :class => "boton"%> 
+      </div>
+      <div class="grid-12-12 clear"></div>
+  </fieldset>
+</div>

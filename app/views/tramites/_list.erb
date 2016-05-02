@@ -1,6 +1,5 @@
 <%=render :partial => "home/arbol"%>
 
-
 <% form_tag({:action => "search"}, {:class => "search"}) do -%>
   <p>
     <%= text_field_tag :search, params[:search], :limit => 60, :placeholder => "Escriba el número único de caso o carpeta de investigación" %>
@@ -8,19 +7,17 @@
   </p>
 <% end %>
 
-
-
 <!-- contenido -->
 <div id="divlista">
-    <table width="85%" border="0" cellspacing="0" cellpadding="0" class="tablakolaval" style="BORDER-RIGHT: #cccccc 1px solid; BORDER-TOP: #cccccc 1px solid; BORDER-LEFT: #cccccc 1px solid; BORDER-BOTTOM: #cccccc 1px solid">
+    <table width="80%" border="0" cellspacing="0" cellpadding="0" class="tabla_dp" style="BORDER-RIGHT: #cccccc 1px solid; BORDER-TOP: #cccccc 1px solid; BORDER-LEFT: #cccccc 1px solid; BORDER-BOTTOM: #cccccc 1px solid">
     <tr>
-       <td style="vertical-align: middle;">Folio</td>
-       <td style="vertical-align: middle;">Fecha/hora atención</td>
-       <td style="vertical-align: middle;">NUC</td>
-       <td style="vertical-align: middle;">Carpeta de investigación</td>
-       <td style="vertical-align: middle;">Causa Penal</td>
-       <td style="vertical-align: middle;">Defensor</td>
-       <td style="vertical-align: middle;" colspan="2">&nbsp;</td>
+       <th style="vertical-align: middle;">Folio</th>
+       <th style="vertical-align: middle;">Fecha/hora atención</th>
+       <th style="vertical-align: middle;">NUC</th>
+       <th style="vertical-align: middle;">Carpeta de investigación</th>
+       <th style="vertical-align: middle;">Causa Penal</th>
+       <th style="vertical-align: middle;">Defensor</th>
+       <th style="vertical-align: middle;" colspan="4">&nbsp;</th>
     </tr>
     <%@tramites.each do |t|%>
     <tr>

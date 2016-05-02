@@ -8,8 +8,12 @@ class AudienciasOralesController < ApplicationController
   
   def index
     @tramite = Tramite.find(params[:t]) if params[:t]
-    @audiencias = @tramite.audiencia_orals
-    render :partial => "list", :layout => "content"
+    if @tramite
+       @audiencias = @tramite.audiencia_orals
+       render :partial => "list", :layout => "content"
+    else
+      redirect_to(:back)
+    end
   end
 
   def search
@@ -28,6 +32,7 @@ class AudienciasOralesController < ApplicationController
           @defensores = Defensor.find(:all, :conditions => ["persona_id = ?", current_user.persona.id]) if current_user.persona
       end
       @defensores ||= Defensor.find(:all, :conditions => ["activo = ?", true])
+      @audiencia.fecha ||= params[:fecha].to_date if params[:fecha]
       @audiencia.fecha ||= Time.now.strftime("%Y/%m/%d")
       @tramite = @audiencia.tramite if @audiencia
       @tramite ||= Tramite.find(params[:t]) if params[:t]
@@ -37,11 +42,14 @@ class AudienciasOralesController < ApplicationController
       @audiencia = (params[:id])? AudienciaOral.find(params[:id]) : AudienciaOral.new
       @audiencia.update_attributes(params[:audiencia])
       @tramite = Tramite.find(params[:t]) if params[:t]
+      @tramite ||= Tramite.find(params[:tramite][:id]) if params[:tramite] && params[:tramite][:id]
+      @tramite ||= @audiencia.tramite
       @audiencia.tramite = (@tramite) ? @tramite : Tramite.new
       @reprogramar = (params[:token] && params[:token] == 'reprogramar') ? true : false
       if @audiencia.save && @audiencia.tramite.save
-        flash[:notice] = "Audiencia registrada correctamente"
-        (@reprogramar) ? (redirect_to :action => "show_window", :id => @audiencia, :t => @tramite) : (redirect_to :controller => "audiencias_orales", :t => @tramite)
+        flash[:notice] = "Audiencia guardada correctamente"
+        (@reprogramar) ? redirect_to(:back) : (redirect_to :controller => "audiencias_orales", :t => @tramite)
+        #(@reprogramar) ? (redirect_to :action => "show_window", :id => @audiencia, :t => @tramite) : (redirect_to :controller => "audiencias_orales", :t => @tramite)
       else
         flash[:error] = "Registro no válido"
         render :action => "new_or_edit"

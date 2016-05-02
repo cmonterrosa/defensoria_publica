@@ -1,0 +1,30 @@
+<div class="grid-4-12">
+  <div class="grid-4-12">
+    <label><b>REGISTRO ATENCION: </b></label>
+  </div>
+  <div class="grid-8-12"><%=text_field :tramite, :registro_atencion,  :onBlur=>"javascript:{this.value = this.value.toUpperCase(); }"%></div>
+  <div><%=hidden_field :tramite, :id%></div>
+</div>
+
+<div class="grid-4-12">
+  <div class="grid-4-12">
+    <label><b>CARPETA DE INVESTIGACION: </b></label>
+  </div>
+  <div class="grid-8-12"><%=text_field :tramite, :carpeta_investigacion,  :onBlur=>"javascript:{this.value = this.value.toUpperCase(); }"%></div>
+</div>
+
+<div class="grid-4-12">
+  <div class="grid-4-12">
+    <label><b>CAUSA PENAL: </b></label>
+  </div>
+  <div class="grid-8-12"><%=text_field :tramite, :causa_penal,  :onBlur=>"javascript:{this.value = this.value.toUpperCase(); }"%></div>
+</div>
+
+<div class="grid-6-12">
+  <div class="grid-4-12">
+    <label><b>NUC: </b><em class="formee-req">*</em></label>
+  </div>
+  <div class="grid-8-12"><%=text_field :tramite, :nuc,  :onBlur=>"javascript:{this.value = this.value.toUpperCase(); }"%></div>
+</div>
+
+

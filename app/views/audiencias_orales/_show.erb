@@ -7,7 +7,7 @@
 
   <%else%>
       <p align="center">
-        <%= link_to "Reprogramar Audiencia" , {:controller => "audiencias_orales", :action => "reprogramar", :id => @audiencia}, :title => "Reprogramar audiencia", :confirm => '¿Esta seguro que quiere reprogramar la audiencia?', :method => :post, :class => "boton" %> |
+        <%= link_to "Reprogramar y/o Editar Audiencia" , {:controller => "audiencias_orales", :action => "reprogramar", :id => @audiencia}, :title => "Reprogramar audiencia", :confirm => '¿Esta seguro que quiere reprogramar la audiencia?', :method => :post, :class => "boton" %> |
         <%= link_to "Cancelar Audiencia" , {:controller => "audiencias_orales", :action => "cancel_form", :id => @audiencia}, :title => "Cancelar audiencia", :confirm => '¿Esta seguro que quiere cancelar la audiencia?', :method => :post, :class => "boton" %><br />
       </p>
 <%end%>
@@ -41,11 +41,6 @@
   </tr>
 
   <tr>
-    <td><b>DESCRIPCION:</b></td>
-    <td> <%=h @audiencia.descripcion %></td>
-  </tr>
-
-  <tr>
     <td><b>OBSERVACIONES:</b></td>
     <td><%=h @audiencia.observaciones %></td>
   </tr>
@@ -57,8 +52,13 @@
     </tr>
     
      <tr>
-      <td><b>MOTIVO:</b></td>
+      <td><b>MOTIVO DE CANCELACION:</b></td>
       <td><%=h (@audiencia.motivo_cancelacion)? @audiencia.motivo_cancelacion : '' %></td>
+     </tr>
+
+     <tr>
+      <td><b>MOTIVO DE REPROGRAMACION:</b></td>
+      <td><%=h (@audiencia.motivo_reprogramacion)? @audiencia.motivo_reprogramacion : '' %></td>
     </tr>
 
 

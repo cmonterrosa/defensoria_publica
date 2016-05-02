@@ -28,7 +28,7 @@ class Tramite < ActiveRecord::Base
 
    def self.search(search, user=nil)
      user_condition = (user) ? "solicitante_id = #{user.id} AND " : ''
-     (search) ? find(:all, :conditions => ["#{user_condition} carpeta_investigacion LIKE ? OR nuc LIKE ?", "%#{search}%", "%#{search}%"], :order => "created_at DESC") :  find(:all)
+     (search) ? find(:all, :conditions => ["#{user_condition} carpeta_investigacion LIKE ? OR nuc LIKE ? OR registro_atencion LIKE ?", "%#{search}%", "%#{search}%", "%#{search}%"], :order => "created_at DESC") :  find(:all)
    end
 
    def solicitante
@@ -66,6 +66,10 @@ class Tramite < ActiveRecord::Base
    def numero_tramite
     "#{self.anio[2..4]}#{self.folio_expediente.to_s.rjust(5, '0')}" if self.anio && self.folio_expediente
    end
+
+    def show_info
+      "RA: #{self.registro_atencion}" + "|  CAUSA PENAL: #{self.causa_penal} |  CARPETA DE INVESTIGACIÓN: #{self.carpeta_investigacion} | NUC: #{self.nuc}"
+    end
 
   def init_journal(user)
     @current_journal ||= Modificacion.new(:id_objeto => self.id, :user_id => user.id, :clase => self.class.to_s) if user
