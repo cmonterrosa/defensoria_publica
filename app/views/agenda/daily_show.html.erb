@@ -40,7 +40,7 @@
               <p style="font-size: 18px; text-align: center;"> NO HAY AUDIENCIAS PROGRAMADAS</p>
           </div>
          
-         <%if current_user.has_role?(:admin)%>
+         <%if current_user.has_role?(:admin) || current_user.has_role?(:jefedefensor)%>
             <div id="nueva_audiencia">
                <% form_for :audiencia, @audiencia, :url => { :action => "new_or_edit", :controller => "audiencias_orales", :fecha => @fecha }, :html => { :target => "_blank"} do |f| -%>
                     <div class="grid-center">
