@@ -1,18 +1,5 @@
 <script type="text/javascript">
 $j(document).ready(function() {
-
-       $j('#tramite_fechahora_asistencia').datetimepicker({
-          dayOfWeekStart : 1,
-          buttonImage: "/images/icons/calendar.gif",
-          lang:'es'
-        });
-
-        $j('#tramite_fechahora_recepcion').datetimepicker({
-          dayOfWeekStart : 1,
-          buttonImage: "/images/icons/calendar.gif",
-          lang:'es'
-        });
-
         $j('#tramite_fechahora_atencion').datetimepicker({
           dayOfWeekStart : 1,
           buttonImage: "/images/icons/calendar.gif",
@@ -31,20 +18,6 @@ $j(document).ready(function() {
         </div>
 </div>
 
- <div class="grid-4-12">
-        <div class="grid-6-12">
-          <label><b>FECHA/HORA DE RECEPCIÓN: </b><em class="formee-req">*</em></label>
-        </div>
-        <div class="grid-6-12"><%=text_field :tramite, :fechahora_recepcion, :onload => "alert('show');"%></div>
-  </div>
-
-  <div class="grid-4-12">
-        <div class="grid-6-12">
-          <label><b>FECHA/HORA DE ASISTENCIA: </b><em class="formee-req">*</em></label>
-        </div>
-        <div class="grid-6-12"><%=text_field  :tramite, :fechahora_asistencia%></div>
-  </div>
-
   <div class="grid-4-12">
         <div class="grid-6-12">
           <label><b>FECHA/HORA DE ATENCIÓN: </b><em class="formee-req">*</em></label>
@@ -52,9 +25,8 @@ $j(document).ready(function() {
         <div class="grid-6-12"><%=text_field  :tramite, :fechahora_atencion%></div>
   </div>
 
-   
-
-   <div class="grid-12-12">
+ 
+  <div class="grid-12-12">
         <div class="grid-4-12">
             <label><b>CALIFICACIÓN JURÍDICA: </b><em class="formee-req">*</em></label>
         </div>
@@ -62,15 +34,16 @@ $j(document).ready(function() {
    </div>
 
    
-
-
-    <div class="grid-12-12">
+   <div class="grid-12-12">
         <div class="grid-4-12">
             <label><b>OBSERVACIONES: </b></label>
         </div>
         <div class="grid-8-12"><%=text_area  :tramite, :observaciones%></div>
     </div>
 
+    <div id ="boton_guardar" class="grid-form-login">
+      <input class="right" type="submit" title="GUARDAR" value="GUARDAR" />
+    </div>
 
 <!-- Validaciones -->
 <script type="text/javascript">

@@ -1,0 +1,23 @@
+<%=render :partial => "home/arbol"%>
+
+
+<div class="formee container">
+  <fieldset>
+    <legend>ACTIVIDAD&nbsp;SEMANAL&nbsp;DE&nbsp;LOS&nbsp;DEFENSORES</legend>
+        <div class="grid-12-12">
+            <table class="tabla_dp" style="margin: auto;">
+                  <tr>
+                    <th>Nombre</th>
+                    <th>Trámites atendidos</th>
+                  </tr>
+
+                  <%@defensores.each do |d|%>
+                      <tr>
+                        <td><%=h (d.persona) ? d.persona.nombre_completo : ''%></td>
+                        <td><%=h d.actividad_desde_inicio_semana%></td>
+                      </tr>
+                  <%end%>
+            </table>
+        </div>
+  </fieldset>
+</div>

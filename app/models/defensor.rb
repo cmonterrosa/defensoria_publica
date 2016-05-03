@@ -1,3 +1,4 @@
+require 'date'
 class Defensor < ActiveRecord::Base
   belongs_to :persona
   belongs_to :municipio
@@ -16,5 +17,22 @@ class Defensor < ActiveRecord::Base
       find(:all)
     end
   end
+
+  #### Busca actividad de defensores públicos ####
+
+  def num_tramites_periodo(inicio=Time.now,fin=Time.now)
+       inicio = inicio.strftime("%Y-%m-%d %H:%M:%S")
+       fin = fin.strftime("%Y-%m-%d %H:%M:%S")
+       num_tramites= Tramite.count(:id, :conditions => ["defensor_id = ? AND (fechahora_atencion between ? AND ?)", self.id, inicio, fin]) if inicio && fin
+       return num_tramites
+     end
+
+  def actividad_desde_inicio_semana
+      now = DateTime.parse(Time.now.strftime("%Y-%m-%d") + " 00:00:01")
+      inicio_semana = DateTime.parse((now - (now.wday-1)).strftime("%Y-%m-%d") + " 00:00:01")
+      fin_semana = DateTime.parse((now + (6-now.wday)).strftime("%Y-%m-%d") + " 23:59:59")
+      return num_tramites_periodo(inicio_semana,fin_semana)
+  end
+
 
 end

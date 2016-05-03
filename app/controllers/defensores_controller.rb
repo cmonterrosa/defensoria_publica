@@ -6,6 +6,7 @@
 class DefensoresController < ApplicationController
   require_role [:defensor, :jefedefensor]
   require_role :admin, :for => :destroy
+   require_role :jefedefensor, :for => :actividad_semanal
 
   def index
       @defensores = Defensor.find(:all).paginate(:page => params[:page], :per_page => 25)
@@ -52,8 +53,18 @@ class DefensoresController < ApplicationController
 
   def destroy
     @defensor = Defensor.find(params[:id])
-    (@defensor && @defensor.destroy) ? flash[:notice] = "Registro eliminado correctamente" : flash[:error] = "Registro no se pudo eliminar, verifique"
-    redirect_to :action => "index"
+    @tramites_defensor = Tramite.count(:defensor_id, :conditions => ["defensor_id = ? ", @defensor]) if @defensor
+    @sucess = (@tramites_defensor && @tramites_defensor.size == 0)
+    if @sucess && @defensor.destroy
+      flash[:notice] = "Registro eliminado correctamente"
+    else
+      flash[:error] = "No se pudo eliminar, cuenta con registros asociados, contacte al administrador"
+    end
+    redirect_to(:back)
+  end
+
+  def actividad_semanal
+    @defensores = Defensor.find(:all, :conditions => ["activo = ?", true]).sort{|a,b|a.actividad_desde_inicio_semana <=> b.actividad_desde_inicio_semana}
   end
 
   def list_tramites
@@ -63,7 +74,6 @@ class DefensoresController < ApplicationController
     rescue ActiveRecord::RecordNotFound
         redirect_to  :action => "index", :controller => "defensores"
     end
-      
   end
 
 end

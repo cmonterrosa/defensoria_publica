@@ -1,5 +1,20 @@
-<%=link_to "AUDIENCIAS", {:controller => "audiencias", :action => "index"}, :class => "boton"%> |
-<%=link_to "TRAMITES", {:controller => "tramites", :action => "index"}, :class => "boton"%> |
-<%=link_to "DEFENSORES PÚBLICOS", {:controller => "defensores", :action => "index"}, :class => "boton"%>
-<%=link_to "AUSENCIAS", {:controller => "ausencias", :action => "index"}, :class => "boton"%>
+<!-- Menu de jefe de defensores publicos -->
+<div class="formee  container">
+  <fieldset>
+    <legend>&nbsp;MENU&nbsp;PRINCIPAL&nbsp;</legend>
+      <div class="grid-3-12">
+          <%=link_to "AUDIENCIAS", {:controller => "audiencias", :action => "index"}, :class => "boton"%>
+      </div>
+      <div class="grid-3-12">
+          <%=link_to "TRAMITES", {:controller => "tramites", :action => "index"}, :class => "boton"%>
+      </div>
+      <div class="grid-3-12">
+          <%=link_to "DEFENSORES PÚBLICOS", {:controller => "defensores", :action => "index"}, :class => "boton"%>
+      </div>
+      <div class="grid-3-12">
+          <%=link_to "AUSENCIAS", {:controller => "ausencias", :action => "index"}, :class => "boton"%>
+      </div>
+      <div class="grid-12-12 clear"></div>
+  </fieldset>
+</div>
 

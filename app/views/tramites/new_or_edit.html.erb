@@ -55,17 +55,23 @@
         </div>
       </div>
 
-      <div class="grid-12-12"><img alt="spinner" id="spinner" src="/images/loading_spinner.gif" style="display:none;" /></div>
-      <div id="datos_tramite"></div>
-
       <div class="grid-12-12 clear"></div>
-
-      <div class="grid-form-login">
-        <input class="right" type="submit" title="GUARDAR" value="GUARDAR" />
+      <div class="grid-12-12"><img alt="spinner" id="spinner" src="/images/loading_spinner.gif" style="display:none;" /></div>
+      <div id="datos_tramite">
+            <div id ="boton_guardar" class="grid-form-login">
+                <input class="right" type="submit" title="GUARDAR" value="GUARDAR" />
+            </div>
       </div>
  </fieldset>
 <%end%>
 </div>
+
+
+<!-- Validaciones -->
+<script type="text/javascript">
+  var tramite_defensor_id = new LiveValidation( 'tramite_defensor_id', {onlyOnSubmit: true} );
+  tramite_defensor_id.add( Validate.Presence );
+</script>
 
 
 <%= observe_form('new_tramite', :update => "datos_tramite",

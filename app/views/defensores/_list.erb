@@ -15,12 +15,14 @@
     <tr>
        <td style="vertical-align: middle;">Nombre completo</td>
        <td style="vertical-align: middle;">Municipio</td>
+       <td style="vertical-align: middle;">Actividad semanal</td>
        <td style="vertical-align: middle;" colspan="4">&nbsp;</td>
     </tr>
     <%@defensores.each do |d|%>
     <tr>
       <td style="vertical-align: middle;"><%=(d.persona) ? d.persona.nombre_completo : "--"%></td>
      <td style="vertical-align: middle;"><%=(d.municipio) ? d.municipio.nombre : "--"%></td>
+     <td style="vertical-align: middle;"><%=(d.actividad_desde_inicio_semana) ? d.actividad_desde_inicio_semana : "--"%></td>
      <td style="vertical-align: middle;"><%=link_to "Ausencias", {:controller => 'ausencias', :p =>d.persona}, :class => 'boton'  -%></td>
      <td style="vertical-align: middle;"><%=link_to "Editar", {:action => "new_or_edit", :id => d}, :class => 'boton'  -%></td>
      <td style="vertical-align: middle;"><%=link_to "Eliminar", {:action => "destroy", :id => d}, :confirm => '¿Desea eliminar el registro?', :class => 'boton'  -%></td>
