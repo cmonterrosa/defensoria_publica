@@ -1,0 +1,157 @@
+/* 
+    Document   : kolaval_tables
+    Created on : 17/10/2014, 11:12:31 AM
+    Author     : cmonterrosa
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+@font-face {
+	font-family: "Nexa Light";
+	src: url('/fonts/NexaLight.otf');
+}
+
+@font-face {
+	font-family: "Nexa Bold";
+	src: url('/fonts/NexaBold.otf');
+}
+
+.tablakolaval {
+        font-family: "Nexa Light";
+	margin:0px;padding:0px;
+	width:100%;
+	/*box-shadow: 10px 10px 5px #888888;*/
+	border:1px solid #000000;
+
+        line-height: 136%;
+
+	-moz-border-radius-bottomleft:8px;
+	-webkit-border-bottom-left-radius:8px;
+	border-bottom-left-radius:8px;
+
+	-moz-border-radius-bottomright:8px;
+	-webkit-border-bottom-right-radius:8px;
+	border-bottom-right-radius:8px;
+
+	-moz-border-radius-topright:8px;
+	-webkit-border-top-right-radius:8px;
+	border-top-right-radius:8px;
+
+	-moz-border-radius-topleft:8px;
+	-webkit-border-top-left-radius:8px;
+	border-top-left-radius:8px;
+}.tablakolaval table{
+    border-collapse: collapse;
+        border-spacing: 0;
+	width:inherit;
+	height:100%;
+	margin:0px;padding:0px;
+}.tablakolaval tr:last-child td:last-child {
+	-moz-border-radius-bottomright:8px;
+	-webkit-border-bottom-right-radius:8px;
+	border-bottom-right-radius:8px;
+}
+.tablakolaval table tr:first-child td:first-child {
+	-moz-border-radius-topleft:8px;
+	-webkit-border-top-left-radius:8px;
+	border-top-left-radius:8px;
+}
+.tablakolaval table tr:first-child td:last-child {
+	-moz-border-radius-topright:8px;
+	-webkit-border-top-right-radius:8px;
+	border-top-right-radius:8px;
+}.tablakolaval tr:last-child td:first-child{
+	-moz-border-radius-bottomleft:8px;
+	-webkit-border-bottom-left-radius:8px;
+	border-bottom-left-radius:8px;
+}.tablakolaval tr:hover td{
+
+}
+.tablakolaval tr:nth-child(odd){ 
+/*background-color:#ceefef;*/
+background-color: #FAD0D0;
+}
+.tablakolaval tr:nth-child(even)    { background-color:#ffffff; }.tablakolaval td{
+	vertical-align:middle;
+        border:0px solid #000000;
+	border-width:0px 0px 0px 0px;
+	text-align:left;
+	padding:8px;
+	font-size:12px;
+	text-transform: uppercase;
+	font-weight:normal;
+	color:#000000;
+
+}.tablakolaval tr:last-child td{
+	border-width:0px 0px 0px 0px;
+}.tablakolaval tr td:last-child{
+	border-width:0px 0px 0px 0px;
+}.tablakolaval tr:last-child td:last-child{
+	border-width:0px 0px 0px 0px;
+}
+.tablakolaval tr:first-child td{
+	background:-o-linear-gradient(bottom, #CB352E 5%, #CB352E 100%);
+        background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #CB352E), color-stop(1, #CB352E) );
+	background:-moz-linear-gradient( center top, #019595 5%, #026d6d 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#CB352E", endColorstr="#CB352E");
+        background: -o-linear-gradient(top,#019595,026d6d);
+
+	background-color:#CB352E;
+	border:0px solid #000000;
+	text-align:center;
+	border-width:0px 0px 0px 0px;
+	font-size:12px;
+	text-transform: uppercase;
+	color:#ffffff;
+}
+.tablakolaval tr:first-child th{
+	background:-o-linear-gradient(bottom, #CB352E 5%, #CB352E 100%);
+        background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #CB352E), color-stop(1, #CB352E) );
+	background:-moz-linear-gradient( center top, #019595 5%, #026d6d 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#CB352E", endColorstr="#CB352E");
+        background: -o-linear-gradient(top,#019595,026d6d);
+
+	background-color:#CB352E;
+	border:0px solid #000000;
+	text-align:center;
+	border-width:0px 0px 0px 0px;
+	font-size:12px;
+	text-transform: uppercase;
+	color:#ffffff;
+}
+
+.tablakolaval tr:first-child:hover td{
+	/*background:-o-linear-gradient(bottom, gray 5%, #026d6d 100%);
+        background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, gray), color-stop(1, #026d6d) );
+	background:-moz-linear-gradient( center top, gray 5%, #026d6d 100% );
+	*/
+        background: #cccccc;
+        filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#CB352E", endColorstr="#026d6d");
+        /*background: -o-linear-gradient(top,gray,026d6d);*/
+        color: #CB352E;
+        /*background-color:#019595;*/
+}
+
+.tablakolaval tr:first-child:hover th{
+	background: #cccccc;
+        filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#CB352E", endColorstr="#026d6d");
+        color: #CB352E;
+}
+
+.tablakolaval tr:first-child td:first-child{
+	border-width:0px 0px 0px 0px;
+}
+.tablakolaval tr:first-child td:last-child{
+	border-width:0px 0px 0px 0px;
+}
+
+.tablakolaval tr:hover td{
+	background-color:#cccccc;
+
+
+}

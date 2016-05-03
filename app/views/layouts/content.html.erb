@@ -69,8 +69,10 @@
      <!-- Estilo de tablas del proyecto -->
      <%= stylesheet_link_tag "tabla_dp.css" %>
 
+     <!-- Estilo de tablas propias -->
+     <%= stylesheet_link_tag "tablas_defensoria.css" %>
 
-      <!-- Estilo de tablas del calendario -->
+     <!-- Estilo de tablas del calendario -->
      <%= stylesheet_link_tag "calendario.css" %>
 
       <!-- content -->
@@ -149,7 +151,7 @@ padding:2px;
            <hr class="LineaHorizontal" />
               <%if logged_in?%>
                         <div class="CaptionNombreUsuario">
-<%=link_to "#{current_user.nombre_completo}",  "/myaccount", :title => current_user.nombre_completo, :style => "text-decoration: none; color: #CB352E;"%>&nbsp;&nbsp;&nbsp;<span style="color: gray; text-transform: uppercase;">&nbsp;</span>
+                              <%=link_to "#{current_user.nombre_completo}",  "/myaccount", :title => current_user.nombre_completo, :style => "text-decoration: none; color: #CB352E;"%>&nbsp;&nbsp;&nbsp;<span style="color: gray; text-transform: uppercase;">&nbsp;</span>
                         </div>
              <%end%>
             <hr class="LineaHorizontal" />
