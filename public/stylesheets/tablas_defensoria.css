@@ -97,9 +97,9 @@ background-color: #FAD0D0;
 .tablakolaval tr:first-child td{
 	background:-o-linear-gradient(bottom, #CB352E 5%, #CB352E 100%);
         background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #CB352E), color-stop(1, #CB352E) );
-	background:-moz-linear-gradient( center top, #019595 5%, #026d6d 100% );
+	background:-moz-linear-gradient( center top, #CB352E 5%, #026d6d 100% );
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#CB352E", endColorstr="#CB352E");
-        background: -o-linear-gradient(top,#019595,026d6d);
+        background: -o-linear-gradient(top,#CB352E,026d6d);
 
 	background-color:#CB352E;
 	border:0px solid #000000;
@@ -112,7 +112,7 @@ background-color: #FAD0D0;
 .tablakolaval tr:first-child th{
 	background:-o-linear-gradient(bottom, #CB352E 5%, #CB352E 100%);
         background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #CB352E), color-stop(1, #CB352E) );
-	background:-moz-linear-gradient( center top, #019595 5%, #026d6d 100% );
+	background:-moz-linear-gradient( center top, #CB352E 5%, #CB352E 100% );
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#CB352E", endColorstr="#CB352E");
         background: -o-linear-gradient(top,#019595,026d6d);
 

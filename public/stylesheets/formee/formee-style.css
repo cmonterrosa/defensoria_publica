@@ -175,7 +175,8 @@ form .formee-txt:focus, .formee input[type="text"]:focus, .formee input[type="pa
 	letter-spacing:-.02em;
 	padding:0;
 	margin:0 0 -1em 0;
-        font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-family: 'Nexa Bold';
+        text-transform: uppercase;
 }
 .formee-msg-info {
 /*	background: #d1ecf7 url(/images/formee/form-ic-info.png) no-repeat 12px 23px;*/

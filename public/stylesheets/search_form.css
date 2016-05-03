@@ -16,11 +16,13 @@
                 border:2px solid #207cca;
                 background-color:#207cca;
                 color:#fafafa;
-                font-size: 12px;
-                width: 15%;
+                font-size: 13px;
+                font-family: 'Nexa Bold';
+                text-transform: uppercase;
+                width: 12%;
 }
 .search input[type=submit]:hover  {
                 background-color:#fafafa;
                 color:#207cca;
-                width: 15%;
+                width: 12%;
 }
