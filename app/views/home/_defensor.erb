@@ -3,10 +3,16 @@
   <fieldset>
     <legend>&nbsp;MENU&nbsp;PRINCIPAL&nbsp;</legend>
       <div class="grid-3-12">
-          <%=link_to "AUDIENCIAS", {:controller => "audiencias", :action => "index"}, :class => "boton"%>
+          <%=link_to "TRAMITES", {:controller => "tramites", :action => "index"}, :class => "boton"%>
+      </div>
+      <div class="grid-3-12">
+          <%=link_to "AGENDA DE AUDIENCIAS", {:controller => "agenda", :action => "index"}, :class => "boton"%>
       </div>
       <div class="grid-3-12">
           <%=link_to "TRAMITES", {:controller => "tramites", :action => "index"}, :class => "boton"%>
+      </div>
+      <div class="grid-3-12">
+          <%=link_to "DOCUMENTOS COMPARTIDOS", {:controller => "upload", :action => "index"}, :class => "boton fancybox fancybox.iframe"-%>
       </div>
       <div class="grid-12-12 clear"></div>
   </fieldset>
