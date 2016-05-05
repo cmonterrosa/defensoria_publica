@@ -1,0 +1,34 @@
+<%=render :partial => "home/arbol"%>
+
+<%=render :partial => "tramites/encabezado"%>
+
+<% form_tag({:action => "search", :t => @tramite}, {:class => "search"}) do -%>
+  <p>
+    <%= text_field_tag :search, params[:search], :limit => 90, :placeholder => "Escriba la descripcion de la promocion" %>
+    <%= submit_tag "Buscar", :name => nil %>
+  </p>
+<% end %>
+
+
+<!-- contenido -->
+<div id="divlista">
+    <table width="85%" border="0" cellspacing="0" cellpadding="0" class="tablakolaval" style="BORDER-RIGHT: #cccccc 1px solid; BORDER-TOP: #cccccc 1px solid; BORDER-LEFT: #cccccc 1px solid; BORDER-BOTTOM: #cccccc 1px solid">
+    <tr>
+      <td style="vertical-align: middle;">Fecha</td>
+      <td style="vertical-align: middle;">Tipo de mecanismo</td>
+      <td style="vertical-align: middle;">lugar</td>      
+      <td style="vertical-align: middle;" colspan="4">&nbsp;</td>
+    </tr>
+    <%@mecanismos_alternativos.each do |p|%>
+    <tr>
+      <td style="vertical-align: middle;"><%=(p.fecha) ? p.fecha : "--"%></td>
+      <td style="vertical-align: middle;"><%=(p.tipo_mecanismo_id) ? p.tipo_mecanismo.descripcion : "--"%></td>
+      <td style="vertical-align: middle;"><%=p.lugar %></td>      
+      <td style="vertical-align: middle;"><%=link_to "Editar", {:action => "new_or_edit", :id => p}, :class => 'boton'  -%></td>
+      <td style="vertical-align: middle;"><%=link_to "Eliminar", {:action => "destroy", :id => p, :t => @tramite}, :confirm => '¿Desea eliminar el registro?', :class => 'boton'  -%></td>
+    </tr>
+    <%end%>
+  </table>
+</div>
+
+<br /><%=link_to "NUEVO MECANISMO", {:action => "new_or_edit", :t => @tramite}, :class => 'boton'  -%>
