@@ -33,8 +33,7 @@
                         if @user
                           ">> " +  raw(link_to  @user.nombre_completo, {:controller => 'admin', :action => "roles_by_user", :id => @user}, :class => "arbol")
                         end
-                   
-                 else
+                else
                       (link_to title.upcase, {:controller => params[:controller], :action => "index"}, :class => "arbol", :title => title.upcase)
                 end
 
@@ -82,8 +81,8 @@
                 ">> " +  raw(link_to ' MENU ', {:controller => 'tramites', :action => "menu", :id => @tramite}, :class => "arbol") <<
                 ">> " + (link_to title.upcase, {:controller => params[:controller], :action => "index", :t => @tramite}, :class => "arbol", :title => title.upcase)
 
-            when 'promociones'
-                title = 'PROMOCIONES'
+            when 'promociones', 'mecanismos_alternativos'
+                title = params[:controller].gsub("_", " ")
                 raw(link_to ' TRAMITES ', {:controller => 'tramites', :action => "index"}, :class => "arbol") <<
                 ">> " +  raw(link_to ' MENU ', {:controller => 'tramites', :action => "menu", :id => @tramite}, :class => "arbol") <<
                 ">> " +  (link_to title.upcase, {:controller => params[:controller], :action => "index", :t => @tramite}, :class => "arbol", :title => title.upcase)
