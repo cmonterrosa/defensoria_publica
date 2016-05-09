@@ -1,0 +1,64 @@
+<%=render :partial => "home/arbol"%>
+
+<div class="container">
+<% form_for :mecanismo_alternativo, @mecanismos_alternativos, :url => { :action => "save", :controller => "mecanismos_alternativos", :id => @mecanismos_alternativos, :t => @tramite}, :html => {:class => "formee"} do |f| -%>
+  <fieldset>
+    <legend>&nbsp;REGISTRO&nbsp;DE&nbsp;MECANISMOS ALTERNATIVOS&nbsp;</legend>
+      <div class="grid-12-12">
+          <%= error_messages_for :mecanismo_alternativo %>
+      </div>
+
+      <div class="grid-6-12">
+        <div class="grid-6-12">
+          <label><b>FECHA: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-6-12">
+          <%=f.text_field :fecha%>
+        </div>
+      </div>
+
+      <div class="grid-6-12">
+        <div class="grid-4-12">
+          <label><b>LUGAR: </b></label>
+        </div>
+        <div class="grid-8-12">
+          <%= f.text_field(:lugar)%>
+        </div>
+      </div>
+
+      <div class="grid-6-12">
+        <div class="grid-6-12">
+          <label><b>TIPO DE MECANISMO: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-6-12">
+          <%= f.select(:tipo_mecanismo_id, @tipo_mecanismo.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true })%>
+        </div>
+      </div>
+
+      <div class="grid-6-12">
+        <div class="grid-4-12">
+          <label><b>ESPECIALISTA: </b></label>
+        </div>
+        <div class="grid-8-12">
+          <%= f.text_field(:especialista)%>
+        </div>
+      </div>
+
+      <div class="grid-6-12">
+        <div class="grid-6-12">
+          <label><b>RESULTADO DEL MECANISMO ALTERNATIVO: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-6-12">
+          <%= f.text_field(:descripcion_resultado)%>
+        </div>
+      </div>
+
+      
+      <div class="grid-12-12 clear"></div>
+
+      <div class="grid-form-login">
+        <input class="right" type="submit" title="GUARDAR" value="GUARDAR" />
+      </div>
+ </fieldset>
+<%end%>
+</div>

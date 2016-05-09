@@ -126,7 +126,7 @@
   <div class="grid-6-12">
     <label><b>NÚMERO DE HIJOS: </b><em class="formee-req">*</em></label>
   </div>
-  <div class="grid-6-12"><%=text_field :participante, :num_hijos%></div>
+  <div class="grid-6-12"><%=select :participante, :num_hijos, (0..30)%></div>
 </div>
 
 <div class="grid-6-12">

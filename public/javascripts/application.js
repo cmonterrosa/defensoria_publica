@@ -90,6 +90,15 @@ $(function() {
     });
 });
 
+/* Action New_or_edit, controller mecanismos_alternativos */
+$(function() {
+    $j('#mecanismo_alternativo_fecha').datepicker({
+        dayOfWeekStart : 1,
+        buttonImage: "/images/icons/calendar.gif",
+        lang:'es'
+    });
+});
+
 /* Habilita descripcion del delito si tiene antecedentes penales */
 function enable_descripcion_delito(){
     if (document.getElementById("participante_tiene_antecedentes_penales_si").checked == true)

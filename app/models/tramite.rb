@@ -15,6 +15,7 @@ class Tramite < ActiveRecord::Base
   has_many :modificacions, :foreign_key =>"id_objeto"
   has_many :adjuntos, :conditions => "activo = true"
   has_many :atencions
+  has_many :mecanismo_alternativos
   belongs_to :defensor
   belongs_to :fiscalia
   belongs_to :estatu

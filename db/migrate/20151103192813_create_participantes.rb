@@ -29,12 +29,9 @@ class CreateParticipantes < ActiveRecord::Migration
       t.string :padecimiento_detalle
       t.integer :corporacion_policiaca_id
       t.string :experiencia_nsjp, :limit => 20
-      t.string :expericencia_puesto, :limit => 20
+      t.string :experiencia_puesto, :limit => 20
       t.integer :municipio_laboral
-      t.boolean :dialecto
-      t.integer :dialecto_id      
-      t.boolean :lengua_extranjera  
-      t.integer :lengua_extranjera_id
+      t.integer :lengua_materna_id
       t.string :cursos, :limit => 200
       t.boolean :requiere_traductor
       t.timestamps
