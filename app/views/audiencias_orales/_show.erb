@@ -60,11 +60,12 @@
       <td><b>MOTIVO DE REPROGRAMACION:</b></td>
       <td><%=h (@audiencia.motivo_reprogramacion)? @audiencia.motivo_reprogramacion : '' %></td>
     </tr>
-
-
-  <%end%>
-
-</table>
+ <%end%>
+    <tr>
+      <td><b>MOTIVO DE CANCELACION:</b></td>
+      <td><%=h (@audiencia.motivo_cancelacion)? @audiencia.motivo_cancelacion : '' %></td>
+    </tr>
+</table><br />
 
 
 
