@@ -1,0 +1,31 @@
+<%=render :partial => "home/arbol"%>
+
+<div class="container">
+  <% form_for :estatu, @estatu, :url => { :action => "create"}, :html => {:class => "formee"} do |f| %>
+  <fieldset>
+
+    <legend>&nbsp;REGISTRO&nbsp;DE&nbsp;ESTATUS&nbsp;</legend>
+      <div class="grid-12-12">
+          <%= error_messages_for :estatu %>
+      </div>
+
+      <div class="grid-3-12">
+        <div class="grid-6-12">
+            <label><b>CLAVE: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-6-12"> <%= f.text_field :clave %></div>
+      </div>
+
+       <div class="grid-9-12">
+        <div class="grid-3-12">
+            <label><b>DESCRIPCION: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-9-12"> <%= f.text_field :descripcion %></div>
+      </div>
+
+      <div class="grid-form-login">
+        <input class="right" type="submit" title="GUARDAR" value="GUARDAR" />
+      </div>
+</fieldset>
+ <%end%>
+</div>

@@ -1,0 +1,18 @@
+<%=render :partial => "home/arbol"%>
+
+<div class="formee container">
+    <fieldset>
+      <legend>ESTATUS</legend>
+        <div class="grid-12-12">
+          <label><b>CLAVE:</b> <%=h @estatu.clave %> </label>
+        </div>
+        <div class="grid-12-12">
+          <label><b>DESCRIPCION:</b> <%=h @estatu.descripcion %> </label>
+        </div>
+    </fieldset>
+</div>
+
+
+
+<%= link_to 'Editar', edit_estatu_path(@estatu), :class => "boton" %> |
+<%= link_to 'Atrás', estatus_path, :class => "boton" %>

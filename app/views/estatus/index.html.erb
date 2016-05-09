@@ -1,0 +1,26 @@
+<%=render :partial => "home/arbol"%>
+
+<!-- contenido -->
+<div id="divlista">
+    <table width="50%" border="0" cellspacing="0" cellpadding="0" class="tablakolaval" style="BORDER-RIGHT: #cccccc 1px solid; BORDER-TOP: #cccccc 1px solid; BORDER-LEFT: #cccccc 1px solid; BORDER-BOTTOM: #cccccc 1px solid">
+    <tr>
+       <td>Clave</td>
+       <td>Descripción</td>
+       <td colspan="3">&nbsp;</td>
+    </tr>
+
+    <% @estatus.each do |estatu| %>
+      <tr>
+        <td><%=h estatu.clave %></td>
+        <td><%=h estatu.descripcion %></td>
+        <td><%= link_to 'Mostrar', estatu, :class => "boton" %></td>
+        <td><%= link_to 'Editar', edit_estatu_path(estatu), :class => "boton" %></td>
+        <td><%= link_to 'Eliminar', estatu, :class => "boton", :confirm => '¿Está seguro que desea eliminarlo?', :method => :delete %></td>
+      </tr>
+    <% end %>
+    </table>
+</div>
+
+<br />
+
+<%= link_to '+ NUEVO REGISTRO', new_estatu_path, :class => "boton" %>

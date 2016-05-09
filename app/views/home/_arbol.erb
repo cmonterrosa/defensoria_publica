@@ -8,10 +8,10 @@
   <%=  case params[:controller]
             when 'home'
                 case controller.action_name
-                  when 'myaccount'
-                    title = 'MI CUENTA'
-                    (link_to title.upcase, {:controller => params[:controller], :action => "myaccount"}, :class => "arbol", :title => title.upcase)
-              end
+                    when 'myaccount'
+                      title = 'MI CUENTA'
+                      (link_to title.upcase, {:controller => params[:controller], :action => "myaccount"}, :class => "arbol", :title => title.upcase)
+                end
             when 'defensores'
                 title = 'DEFENSORES PÚBLICOS '
                 case controller.action_name
@@ -63,6 +63,9 @@
                         ">> " +  raw(link_to ' AMPAROS ', {:controller => 'amparos', :action => "index", :t => @tramite}, :class => "arbol")
                 end
 
+            when 'estatus'
+                 (link_to "ADMINISTRACIÓN ", {:controller => "admin", :action => "index"}, :class => "arbol", :title => "Administración") <<
+                  ">> " + raw(link_to params[:controller].upcase, {:controller => params[:controller], :action => "index"}, :class => "arbol")
             when 'agenda'
                 title = 'AGENDA DE AUDIENCIAS '
                 case controller.action_name

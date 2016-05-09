@@ -17,6 +17,7 @@ class Tramite < ActiveRecord::Base
   has_many :atencions
   belongs_to :defensor
   belongs_to :fiscalia
+  belongs_to :estatu
 
   attr_reader :current_journal
   
@@ -68,7 +69,7 @@ class Tramite < ActiveRecord::Base
    end
 
     def show_info
-      "RA: #{self.registro_atencion}" + "|  CAUSA PENAL: #{self.causa_penal} |  CARPETA DE INVESTIGACIÓN: #{self.carpeta_investigacion} | NUC: #{self.nuc}"
+      "REGISTRO DE ATENCION: #{self.registro_atencion}" + " |  CAUSA PENAL: #{self.causa_penal} |  CARPETA DE INVESTIGACIÓN: #{self.carpeta_investigacion}  |  NUC: #{self.nuc}"
     end
 
   def init_journal(user)
