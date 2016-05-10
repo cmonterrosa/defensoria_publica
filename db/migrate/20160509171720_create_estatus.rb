@@ -3,6 +3,7 @@ class CreateEstatus < ActiveRecord::Migration
     create_table :estatus do |t|
       t.column :clave, :string, :limit => 6
       t.column :descripcion, :string, :limit => 80
+      t.column :concluido, :boolean
       t.timestamps
     end
 
