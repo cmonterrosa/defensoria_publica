@@ -2,7 +2,6 @@ require 'date'
 class Defensor < ActiveRecord::Base
   belongs_to :persona
   belongs_to :municipio
-
   validates_presence_of :persona_id, :message => "- Debe vincularse a una persona"
   validates_uniqueness_of :persona_id, :message => "- Ya existe un defensor con esos datos"
 
@@ -25,7 +24,7 @@ class Defensor < ActiveRecord::Base
        fin = fin.strftime("%Y-%m-%d %H:%M:%S")
        num_tramites= Tramite.count(:id, :conditions => ["defensor_id = ? AND (fechahora_atencion between ? AND ?)", self.id, inicio, fin]) if inicio && fin
        return num_tramites
-     end
+  end
 
   def actividad_desde_inicio_semana
       now = DateTime.parse(Time.now.strftime("%Y-%m-%d") + " 00:00:01")
