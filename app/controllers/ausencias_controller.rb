@@ -32,6 +32,7 @@ class AusenciasController < ApplicationController
       @ausencia.update_attributes(params[:ausencia])
       @ausencia.persona = (params[:persona] && params[:persona][:per_curp]) ? Persona.find(:first, :conditions => ["per_curp =  ?", params[:persona][:per_curp]]) : nil
       @ausencia.persona ||= Persona.new(params[:persona])
+      save_persona(params, @ausencia) if @ausencia.persona
       @ausencia.user_id = current_user
       if @ausencia.save && @ausencia.persona.save
         flash[:notice] = "Ausencia registrada correctamente"
