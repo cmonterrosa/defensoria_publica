@@ -1,3 +1,7 @@
+<!-- Live Validation -->
+<%=javascript_include_tag "livevalidation/livevalidation_standalone.js" %>
+<%= stylesheet_link_tag "livevalidation/validation.css" %>
+
 <script type="text/javascript">
 $j(document).ready(function() {
         $j('#tramite_fechahora_atencion').datetimepicker({
@@ -45,8 +49,8 @@ $j(document).ready(function() {
       <input class="right" type="submit" title="GUARDAR" value="GUARDAR" />
     </div>
 
-<!-- Validaciones -->
-<script type="text/javascript">
-  var tramite_fechahora_atencion = new LiveValidation( 'tramite_fechahora_atencion', {onlyOnSubmit: true} );
-  tramite_fechahora_atencion.add( Validate.Presence );
-</script>
+<%#*<!-- Validaciones -->%>
+<%#*<script type="text/javascript">%>
+  <%#*var tramite_fechahora_atencion = new LiveValidation( 'tramite_fechahora_atencion', {onlyOnSubmit: true} );%>
+  <%#*tramite_fechahora_atencion.add( Validate.Presence );%>
+<%#*</script>%>

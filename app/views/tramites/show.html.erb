@@ -4,7 +4,7 @@
 
 <%=render :partial => "home/arbol"%>
 
-<table class="tabla_dp" style="margin: auto;">
+<table class="tablakolaval" style="margin: auto;">
   <tr><th colspan="2" style="text-align:center;">Datos del tramite</th></tr>
 
   <tr>
@@ -30,7 +30,7 @@
 
 <!-- Participantes -->
 <%unless @tramite.participantes.empty?%>
-  <table class="tabla_dp" style="margin: auto;">
+  <table class="tablakolaval" style="margin: auto;">
     <tr><th colspan="2" style="text-align:center;">Participantes</th></tr>
       <%@tramite.participantes.each do |p|%>
         <tr>
