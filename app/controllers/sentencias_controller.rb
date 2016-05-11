@@ -15,7 +15,7 @@ class SentenciasController < ApplicationController
       @sentencia= (params[:id])? Sentencia.find(params[:id]) : Sentencia.new
       @tramite = Tramite.find(params[:t]) if params[:t]      
       @tiposentencia= TipoSentencia.all
-      
+      @organos = Organo.all
   end
 
   def save
