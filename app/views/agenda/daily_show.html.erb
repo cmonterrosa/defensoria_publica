@@ -40,7 +40,47 @@
               <p style="font-size: 18px; text-align: center;"> NO HAY AUDIENCIAS PROGRAMADAS</p>
           </div>
          
-         <%if current_user.has_role?(:admin) || current_user.has_role?(:jefedefensor)%>
+    <%else%>
+          <table class="table1" border=1 width=90% style='table-layout:fixed'>
+            <thead>
+                <tr>
+                    <th>HORARIO</th>
+                    <%@organos.each do |organo|%>
+                      <th scope="col" abbr="Starter"><%=h organo.descripcion%></th>
+                    <%end%>
+                </tr>
+            </thead>
+
+            <tbody>
+            <!-- horarios -->
+            <%@horarios.each do |horario|%>
+              <tr>
+                <th scope="row"><%=h (horario.hora_completa) ? (horario.hora_completa.upcase) : "--"%></th>
+                  <%@organos.each do |organo|%>
+                      <%audiencia = AudienciaOral.find(:first, :conditions => ["fecha = ? AND hora = ? AND minutos = ? AND organo_id = ? ", @fecha, horario.hora, horario.minutos, organo.id])%>
+                      <%if audiencia%>
+                          <%estilo =" background-color: darkorange; opacity: 0.30; text-align: center;"%>
+                          <%@backgrounds_colors = colors_to_days%>
+                          <%estilo ||= !(audiencia.cancel == nil || audiencia.cancel == 0)? "background-color: #F8FB53; text-decoration: line-through; color: white;" : "background-color:  #{@backgrounds_colors[audiencia.tipoaudiencia_id - 1]}"%>
+                          <%if audiencia%>
+                                <td class="audiencia_calendario">
+                                    <%=link_to audiencia.descripcion_detallada, {:action => 'show_window', :controller => 'audiencias_orales', :id => audiencia},  :title => "Detalle", :class => "fancybox fancybox.iframe"%>
+                                </td>
+                          <%end%>
+                      <%else%>
+                          <td>&nbsp;</td>
+                      <%end%>
+                  <%end%>
+              </tr>
+          <%end%>
+
+        </tbody>
+      </table>
+  <%end%>
+
+          <!-- NUEVA AUDIENCIA -->
+            <%if current_user.has_role?(:admin) || current_user.has_role?(:jefedefensor)%>
+            <br />
             <div id="nueva_audiencia">
                <% form_for :audiencia, @audiencia, :url => { :action => "new_or_edit", :controller => "audiencias_orales", :fecha => @fecha }, :html => { :target => "_blank"} do |f| -%>
                     <div class="grid-center">
@@ -49,44 +89,6 @@
               <%end%>
             </div>
          <%end%>
-
-    <%else%>
-        <table class="table1" border=1 width=90% style='table-layout:fixed'>
-          <thead>
-              <tr>
-                  <th>HORARIO</th>
-                  <%@organos.each do |organo|%>
-                    <th scope="col" abbr="Starter"><%=h organo.descripcion%></th>
-                  <%end%>
-              </tr>
-          </thead>
-
-          <tbody>
-          <!-- horarios -->
-          <%@horarios.each do |horario|%>
-            <tr>
-            <th scope="row"><%=h (horario.hora_completa) ? (horario.hora_completa.upcase) : "--"%></th>
-                <%@organos.each do |organo|%>
-                    <%audiencia = AudienciaOral.find(:first, :conditions => ["fecha = ? AND hora = ? AND minutos = ? AND organo_id = ? ", @fecha, horario.hora, horario.minutos, organo.id])%>
-                     <%if audiencia%>
-                       <%estilo =" background-color: darkorange; opacity: 0.30; text-align: center;"%>
-
-                    <%@backgrounds_colors = colors_to_days%>
-                            <%estilo ||= !(audiencia.cancel == nil || audiencia.cancel == 0)? "background-color: #F8FB53; text-decoration: line-through; color: white;" : "background-color:  #{@backgrounds_colors[audiencia.tipoaudiencia_id - 1]}"%>
-                          <%if audiencia%>
-                              <td class="audiencia_calendario">
-                                  <%=link_to audiencia.descripcion_detallada, {:action => 'show_window', :controller => 'audiencias_orales', :id => audiencia},  :title => "Detalle", :class => "fancybox fancybox.iframe"%>
-                              </td>
-                          <%end%>
-                    <%else%>
-                        <td>&nbsp;</td>
-                 <%end%>
-              <%end%>
-          </tr>
-          <%end%>
-        </tbody>
-      </table>
-  <%end%>
 
   <%else%>
       <div class="titulocalendario">
