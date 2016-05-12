@@ -65,6 +65,10 @@ class ApplicationController < ActionController::Base
               @clave_elector.descripcion ||= params[:clave_elector][:descripcion]
               @clave_elector.save
             end
+            if params[:extension] && params[:extension].size > 0
+              @extension = (@participante.persona.extension_persona) ? @participante.persona.extension_persona : ExtensionPersona.new(:persona_id => @participante.persona.id)
+              @extension.update_attributes!(params[:extension])
+           end
           @participante.persona.set_datos_familiares("padre", params[:padre]) if params[:padre]
           @participante.persona.set_datos_familiares("madre", params[:madre]) if params[:madre]
         end

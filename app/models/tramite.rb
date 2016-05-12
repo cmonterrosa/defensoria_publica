@@ -108,5 +108,17 @@ class Tramite < ActiveRecord::Base
   end
 
 
+  def update_estatus!(clave,usuario)
+    begin
+      @estatus = Estatu.find_by_clave(clave) if (!clave.nil? && !usuario.nil?)
+      @bitacora = Bitacora.new(:tramite_id => self.id, :estatu_id => @estatus.id, :user_id => usuario.id ) if @estatus
+      @tiene_historia = Bitacora.count(:id, :conditions => ["tramite_id = ? AND estatu_id = ?", self.id, @estatus.id])
+      success = (self.estatu_id != @estatus.id) && @tiene_historia < 1
+      (success && @bitacora.save) ? self.update_attributes!(:estatu_id => @estatus.id) : false
+    rescue Exception => exception
+        puts exception if usuario
+    end
+  end
+
 
 end

@@ -26,6 +26,5 @@ class Catalogo < ActiveRecord::Base
   named_scope :motivos_diferir_audiencia, :conditions => {:fk_id_catalogos => 276}
   named_scope :motivos_reagendar_audiencia, :conditions => {:fk_id_catalogos => 277}
   named_scope :motivos_suspender_audiencia, :conditions => {:fk_id_catalogos => 278}
-
-
+  named_scope :sexos, :conditions => {:fk_id_catalogos => 239}
 end

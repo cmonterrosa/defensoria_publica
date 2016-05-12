@@ -11,6 +11,7 @@ class CreateTramites < ActiveRecord::Migration
       t.column :fiscalia_id, :integer
       t.column :calificacion_juridica, :string, :limit => 60
       t.column :defensor_id, :integer
+      t.column :materia_id, :integer
       t.column :observaciones, :string
       t.column :concluido, :boolean
       t.timestamps

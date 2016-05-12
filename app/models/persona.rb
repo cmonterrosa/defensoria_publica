@@ -11,6 +11,7 @@ class Persona < ActiveRecord::Base
   has_many "contactos", :foreign_key =>"fk_persona"
   has_many "familiars",  :foreign_key => "persona_id"
   has_one "clave_elector", :foreign_key => "persona_id"
+  has_one "extension_persona", :foreign_key => "persona_id"
 
 #  validates_format_of :per_curp, :with => /\A[A-Z][AEIOUX][A-Z]{2}[0-9]{2}[0-1][0-9][0-3][0-9][MH][A-Z][BCDFGHJKLMNÑPQRSTVWXYZ]{4}[0-9A-Z][0-9]\z/,
 #    :allow_blank => true, :message => "Formato inválido"

@@ -23,7 +23,6 @@ class AmparosController < ApplicationController
       @tramite = Tramite.find(params[:t]) if params[:t]
       @tipo_amparos= TipoAmparo.all
       @resoluciones_amparos = Catalogo.sentido_resolucion_amparo.all 
-      
   end
 
   def save
@@ -31,7 +30,6 @@ class AmparosController < ApplicationController
     @amparo = (params[:id])? Amparo.find(params[:id]) : Amparo.new
     @amparo.update_attributes(params[:amparo])
     @amparo.tramite = @tramite
-      
     if @tramite && @amparo.valid? 
       @amparo.save  
       flash[:notice] = "Amparo registrado correctamente"

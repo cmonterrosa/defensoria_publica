@@ -19,6 +19,14 @@ class UploadController < ApplicationController
     render :partial => "list", :layout => "only_javascript"
   end
 
+
+  #################################################
+  #
+  #                           ACCIONES CRUD
+  #
+  ################################################
+
+
   
   def new_or_edit
     @participante = (params[:token] == "p" || params[:p] )?  Participante.find(params[:p]) : nil
@@ -49,17 +57,7 @@ class UploadController < ApplicationController
     end
   end
 
-
-
-  ################################################
-  #
-  #                           ACCIONES CRUD
-  #
-  ################################################
-
-
-
-   def destroy
+  def destroy
       @uploaded_file = Adjunto.find(params[:id])
        if (@uploaded_file.user == current_user) && (@uploaded_file.mark_as_deleted)
          flash[:notice] = "Archivo eliminado correctamente"

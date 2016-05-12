@@ -42,6 +42,7 @@ class TramitesController < ApplicationController
     if @tramite.valid?
        @tramite.save
        @tramite.verificar_registro_atencion(current_user) if current_user
+       @tramite.update_estatus!('tramre',current_user) if current_user
        flash[:notice] = "Trámite registrado correctamente"
        redirect_to :controller => "tramites"
     else
