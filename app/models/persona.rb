@@ -19,13 +19,15 @@ class Persona < ActiveRecord::Base
   before_save :validates_curp, :if => "self.per_curp != nil"
 
   def validates_curp
-    if self.per_curp && self.per_curp.size == 18
-        self.per_curp = '' unless self.per_curp =~ /\A[A-Z][AEIOUX][A-Z]{2}[0-9]{2}[0-1][0-9][0-3][0-9][MH][A-Z][BCDFGHJKLMNÑPQRSTVWXYZ]{4}[0-9A-Z][0-9]\z/
-    else
-        self.per_curp=''
+    success = (self.per_curp && self.per_curp.size == 18)
+    if success && self.per_curp=~ /\A[A-Z][AEIOUX][A-Z]{2}[0-9]{2}[0-1][0-9][0-3][0-9][MH][A-Z][BCDFGHJKLMNÑPQRSTVWXYZ]{4}[0-9A-Z][0-9]\z/
+        true
     end
-    return true
   end
+  
+   def edad
+      self.per_nacimiento ? ((DateTime.now -  self.per_nacimiento) / 365.25).to_i : nil
+   end
 
   ###### FUNCIONES QUE TRAEN Y GUADAN VALORES DE CONTACTO  ######
 
