@@ -67,7 +67,13 @@ class PersonasController < ApplicationController
   end
 
   def activity
-    render :text => "Actividad de las personas"
+    begin
+      @persona = Persona.find(params[:id])
+      @participantes = Participante.find(:all, :conditions => ["persona_id = ?", @persona.id])
+    rescue
+      flash[:error] = "No se encontro persona, verifique"
+      redirect_to(:back)
+    end
   end
 
   # PUT /personas/1

@@ -1,13 +1,18 @@
 <%=render :partial => "home/arbol"%>
 
 <%if @persona%>
-  <div class="formee container">
+  <div class="formee container" id="datos_show">
     <fieldset>
         <legend>DATOS&nbsp;PERSONALES</legend>
         <%=render :partial => "home/datos_personales"%>
     </fieldset>
   </div>
 <%end%>
+
+<!-- Bloqueamos para que capturen algo -->
+<script type="text/javascript">
+  $j("#datos_show :input").attr("disabled", true);
+</script>
 
 
 <%= link_to 'Editar', edit_persona_path(@persona), :class => "boton" %> |
