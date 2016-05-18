@@ -58,8 +58,8 @@ class ParticipantesController < ApplicationController
   def get_campos_especificos
     if params[:tipo_participante]
       @tipo_participantes = TipoParticipante.all
-      @edo_civil = Catalogo.estados_civiles.all 
-      @escolaridades = Catalogo.escolaridades.all
+      @edo_civil = Catalogo.estado_civil.all 
+      @escolaridades = Catalogo.escolaridad.all
       @calidads= Calidad.all
       @participante= (params[:id])? Participante.find(params[:id]) : Participante.new
       @marginacions = Marginacion.all

@@ -109,14 +109,18 @@
                 else
                   ">> " +  raw(link_to ' MENU ', {:controller => 'tramites', :action => "menu", :id => @tramite}, :class => "arbol")
                 end
-            else
+            when 'personas'
+                title = 'PERSONAS'
+                (link_to title.upcase, {:controller => params[:controller], :action => "index"}, :class => "arbol", :title => title.upcase)
+             else
                 (link_to params[:controller].upcase, {:controller => params[:controller], :action => "index"}, :class => "arbol", :title => params[:controller])
           end
     %>
 
    <!-- Si lleva parametro de persona -->
-    <%if (params[:p] && params[:p].size == 36)%>
-          <%if persona = Persona.find(params[:p])%>
+    <%if (params[:p] && params[:p].size == 36) || (params[:id] && params[:id].size == 36)%>
+         <%identificador = params[:p] || params[:id]%>
+         <%if persona = Persona.find(identificador)%>
                >> <%=h (persona.nombre_completo).upcase%>
           <%end%>
      <%end%>

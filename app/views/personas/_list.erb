@@ -1,0 +1,51 @@
+<%=render :partial => "home/arbol"%>
+
+<% form_tag({:action => "search"}, {:class => "search"}) do -%>
+  <p>
+    <%= text_field_tag :search, params[:search], :limit => 90, :placeholder => "Escriba el nombre de la persona" %>
+    <%= submit_tag "Buscar", :name => nil %>
+  </p>
+<% end %>
+
+
+
+<!-- contenido -->
+<div id="divlista">
+    <table width="90%" border="0" cellspacing="0" cellpadding="0" class="tablakolaval" style="BORDER-RIGHT: #cccccc 1px solid; BORDER-TOP: #cccccc 1px solid; BORDER-LEFT: #cccccc 1px solid; BORDER-BOTTOM: #cccccc 1px solid">
+    <tr>
+       <td style="vertical-align: middle;">Nombre completo</td>
+       <td style="vertical-align: middle;">CURP</td>
+       <td style="vertical-align: middle;" colspan="4">&nbsp;</td>
+    </tr>
+    <%@personas.each do |p|%>
+    <tr>
+     <td style="vertical-align: middle;"><%=(p) ? p.nombre_completo : "--"%></td>
+     <td style="vertical-align: middle;"><%=(p) ? p.per_curp : "--"%></td>
+     <td style="vertical-align: middle;"><%=link_to "Datos personales", {:action => "show", :controller => 'personas', :id =>p}, :class => 'boton'  -%></td>
+     <td style="vertical-align: middle;"><%=link_to "Actividad", {:action => "activity", :controller => 'personas', :id =>p}, :class => 'boton'  -%></td>
+     <td style="vertical-align: middle;"><%=link_to "Editar", {:action => "edit", :id => p}, :class => 'boton'  -%></td>
+     <td style="vertical-align: middle;"><%=link_to "Eliminar", {:action => "destroy", :id => p}, :confirm => '¿Desea eliminar el registro?', :class => 'boton'  -%></td>
+    </tr>
+    <%end%>
+  </table>
+</div>
+
+<br />
+<table>
+    <tr align="center" >
+      <td colspan="5" style="padding: 0;">
+        <div class="digg_pagination">
+          <div class="page_info">
+            <%= page_entries_info @personas %>
+          </div>
+          <%= will_paginate @personas %>
+        </div>
+      </td>
+    </tr>
+</table>
+
+
+<br /><%=link_to "NUEVA PERSONA ", {:action => "new_or_edit"}, :class => 'boton'  -%>
+
+
+

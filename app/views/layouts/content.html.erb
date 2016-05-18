@@ -2,6 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Instituto de la Defensoría Pública</title>
 
   <%=javascript_include_tag :defaults%>
@@ -11,10 +12,14 @@
   <%= stylesheet_link_tag "estructura"%>
   <%= stylesheet_link_tag "encabezados"%>
   
-
    <!-- Burbujas de descripcion -->
-   <%= javascript_include_tag 'prototype'%>
-   <%= javascript_include_tag 'BubbleTooltips' %>
+   <%#= javascript_include_tag 'prototype'%>
+   <%#= javascript_include_tag 'BubbleTooltips' %>
+
+   <!-- Tooltips -->
+   <%#= stylesheet_link_tag 'CSS3Tooltips/style.css'%>
+   <%#= stylesheet_link_tag 'CSS3Tooltips/tooltips.css' %>
+   <%#= javascript_include_tag 'CSS3Tooltips/tooltips.js' %>
 
     <!-- Notificaciones de mensajes -->
     <%= stylesheet_link_tag "notificaciones"%>
@@ -66,6 +71,9 @@
      <!-- search form -->
      <%= stylesheet_link_tag "search_form.css" %>
 
+     <!-- search bar -->
+     <%= stylesheet_link_tag "searchbar.css" %>
+
      <!-- Estilo de tablas del proyecto -->
      <%= stylesheet_link_tag "tabla_dp.css" %>
 
@@ -79,14 +87,10 @@
       <%= stylesheet_link_tag "content"%>
 
     <script type="text/javascript">
-      window.onload=function(){enableTooltips()};
-      // this allows jquery to be called along with scriptaculous and YUI without any conflicts
-      // the only difference is all jquery functions should be called with $j instead of $
-      // e.g. $j('#div_id').stuff instead of $('#div_id').stuff
       var $j = jQuery.noConflict();
     </script>
 
-    <script type="text/javascript">
+       <script type="text/javascript">
 		$j(document).ready(function() {
 			/*
 			 *  Simple image gallery. Uses default settings
@@ -95,6 +99,8 @@
 			$j('.fancybox').fancybox();
                });
     </script>
+
+
 
 
 </head>
@@ -127,7 +133,7 @@ padding:2px;
       <div class="main_area">
           <div class="logo_wrap">
               <p class="logo_pad" style="margin:0;">
-                  <h3><%=link_to 'SISTEMA DE LA DEFENSORIA PÚBLICA',{:controller => "home"}, :title => "INICIO", :class => "arbol"%></h3>
+                <h3>&nbsp;&nbsp;&nbsp;<%=link_to 'SISTEMA DE LA DEFENSORIA PÚBLICA',{:controller => "home"}, :title => "INICIO", :class => "arbol"%></h3>
                   <!--
                    <=link_to image_tag("kolaval/logo-menu_small.jpg", :border => 0, :alt => "Poder Judicial del Estado de Chiapas"), {:controller => "home" }, :title => "INICIO"%>
                   -->
@@ -151,7 +157,7 @@ padding:2px;
            <hr class="LineaHorizontal" />
               <%if logged_in?%>
                         <div class="CaptionNombreUsuario">
-                              <%=link_to "#{current_user.nombre_completo}",  "/myaccount", :title => current_user.nombre_completo, :style => "text-decoration: none; color: #CB352E;"%>&nbsp;&nbsp;&nbsp;<span style="color: gray; text-transform: uppercase;">&nbsp;</span>
+                              &nbsp;&nbsp;&nbsp;&nbsp;<%=link_to "#{current_user.nombre_completo}",  "/myaccount", :style => "text-decoration: none; color: #CB352E;"%>&nbsp;&nbsp;&nbsp;<span style="color: gray; text-transform: uppercase;">&nbsp;</span>
                         </div>
              <%end%>
             <hr class="LineaHorizontal" />
@@ -160,7 +166,7 @@ padding:2px;
 
         <!-- inicia tabla de contenido -->
       <div class="main_wrap">
-            <table style="text-align: center; width: 95%">
+           <table style="text-align: center; width: 95%; margin: auto;">
                   <tr>
                     <td><%=render :partial => "layouts/notificaciones_acciones"%></td>
                   </tr>

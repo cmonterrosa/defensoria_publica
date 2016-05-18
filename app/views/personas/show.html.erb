@@ -1,33 +1,17 @@
 <%=render :partial => "home/arbol"%>
 
-<%if @ausencia && @persona%>
-
-    <p>
-      <b>Nombre completo:</b>
-      <%=h @persona.nombre_completo %>
-    </p>
-
-    <p>
-      <b>CURP:</b>
-      <%=h @persona.per_curp %>
-    </p>
-
-
-    <p>
-      <b>Inicio:</b>
-      <%=h (@ausencia.inicio)? @ausencia.inicio.strftime("%de de %B de %Y - %H:%M"): '---'%>
-    </p>
-
-     <p>
-      <b>Fin:</b>
-      <%=h (@ausencia.fin)? @ausencia.fin.strftime("%de de %B de %Y - %H:%M") : '---'%>
-    </p>
-
+<%if @persona%>
+  <div class="formee container">
+    <fieldset>
+        <legend>DATOS&nbsp;PERSONALES</legend>
+        <%=render :partial => "home/datos_personales"%>
+    </fieldset>
+  </div>
 <%end%>
 
 
-<%= link_to 'Editar', edit_ausencia_path(@ausencia) %> |
-<%= link_to 'Atras', ausencia_path %>
+<%= link_to 'Editar', edit_persona_path(@persona), :class => "boton" %> |
+<%= link_to 'Atras', persona_path, :class => "boton" %>
 
 
 

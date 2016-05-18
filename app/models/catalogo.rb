@@ -13,10 +13,10 @@ class Catalogo < ActiveRecord::Base
   named_scope :materias, :conditions => {:fk_id_catalogos => 209}
   named_scope :medidas_cautelares, :conditions => {:fk_id_catalogos => 201}
   named_scope :idiomas, :conditions => {:fk_id_catalogos => 54}
-  named_scope :escolaridades, :conditions => {:fk_id_catalogos => 23}
+  named_scope :escolaridad, :conditions => {:fk_id_catalogos => 23}
   named_scope :tipos_amparos, :conditions => {:fk_id_catalogos => 263}
   named_scope :sentido_resolucion_amparo, :conditions => {:fk_id_catalogos => 264}
-  named_scope :estados_civiles, :conditions => {:fk_id_catalogos => 26}
+  named_scope :estado_civil, :conditions => {:fk_id_catalogos => 26}
   named_scope :parentesco, :conditions => {:fk_id_catalogos => 189}
   named_scope :estatus_audiencia, :conditions => {:fk_id_catalogos => 30}
   named_scope :tipo_audiencia, :conditions => {:fk_id_catalogos => 100}
@@ -27,4 +27,6 @@ class Catalogo < ActiveRecord::Base
   named_scope :motivos_reagendar_audiencia, :conditions => {:fk_id_catalogos => 277}
   named_scope :motivos_suspender_audiencia, :conditions => {:fk_id_catalogos => 278}
   named_scope :sexos, :conditions => {:fk_id_catalogos => 239}
+
 end
+

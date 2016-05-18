@@ -4,34 +4,34 @@
 <div class="formee  container">
   <fieldset>
     <legend>&nbsp;MENU&nbsp;DEL&nbsp;TRAMITE&nbsp;</legend>
-      <div class="grid-3-12">
+      <div class="grid-4-12">
         <%=link_to "PARTICIPANTES", {:controller => "participantes", :action => "index", :t => @tramite}, :class => "boton"-%>
       </div>
-      <div class="grid-3-12">
+      <div class="grid-4-12">
         <%=link_to "AUDIENCIAS", {:controller => "audiencias_orales", :action => "index", :t => @tramite}, :class => "boton"-%>
       </div>
-      <div class="grid-3-12">
+      <div class="grid-4-12">
         <%=link_to "PROMOCIONES", {:controller => "promociones", :action => "index", :t => @tramite}, :class => "boton"%>
       </div>
-      <div class="grid-3-12">
+      <div class="grid-4-12">
         <%=link_to "AMPAROS", {:controller => "amparos", :action => "index", :t => @tramite}, :class => "boton"-%>
       </div>
-      <div class="grid-3-12">
+      <div class="grid-4-12">
         <%=link_to "RECURSOS", {:controller => "recursos", :action => "index", :t => @tramite}, :class => "boton"-%>
       </div>
-      <div class="grid-3-12">
+      <div class="grid-4-12">
         <%=link_to "MECANISMOS ALTERNATIVOS", {:controller => "mecanismos_alternativos", :action => "index", :t => @tramite}, :class => "boton"-%>
       </div>
-      <div class="grid-3-12">
+      <div class="grid-4-12">
         <%=link_to "SENTENCIAS", {:controller => "sentencias", :action => "index", :t => @tramite}, :class => "boton"-%>
       </div>
-      <div class="grid-3-12">
+      <div class="grid-4-12">
         <%=link_to "DOCUMENTOS", {:controller => "upload", :action => "index", :t => @tramite}, :class => "boton fancybox fancybox.iframe"-%>
       </div>
-      <div class="grid-3-12">
+      <div class="grid-4-12">
         <%=link_to "HISTÓRICO", {:controller => "tramites", :action => "history", :id => @tramite}, :class => "boton"-%>
       </div>
-      <div class="grid-3-12">
+      <div class="grid-4-12">
         <%=link_to "SEGUIMIENTO DE ATENCIONES", {:controller => "tramites", :action => "atenciones", :id => @tramite}, :class => "boton"-%>
       </div>
    </fieldset>

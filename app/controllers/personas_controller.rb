@@ -1,14 +1,24 @@
 class PersonasController < ApplicationController
+  require_role [:admin, :jefedefensor]
   # GET /personas
   # GET /personas.xml
   def index
-    @personas = Persona.find(:all)
+    @participantes = Participante.find(:all, :select => "persona_id")
+    @audiencias = Participante.find(:all, :select => "persona_id")
+
+    @personas = Persona.find(:all, :conditions => ["id_persona in (?)", (@participantes + @audiencias).map{|i|i.persona_id}]).paginate(:page => params[:page], :per_page => 25)
 
     respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @personas }
+#      format.html # index.html.erb
+      format.html {render :partial => "list", :layout => "content"}
+      format.xml  { render :xml => @personas.to_xml }
       format.json { render :xml => @personas.to_json }
     end
+  end
+
+   def search
+    @personas = Persona.search(params[:search]).paginate(:page => params[:page], :per_page => 25)
+    render :partial => "list", :layout => "content"
   end
 
   # GET /personas/1
@@ -41,9 +51,10 @@ class PersonasController < ApplicationController
 
   # POST /personas
   # POST /personas.xml
-  def create
-    @persona = Persona.new(params[:persona])
-
+  def save
+    @persona = Persona.find(params[:id]) if params[:id]
+    @persona ||= Persona.new(params[:persona])
+    @persona.prepare_row(params,current_user)
     respond_to do |format|
       if @persona.save
         format.html { redirect_to(@persona, :notice => 'Persona was successfully created.') }
@@ -53,6 +64,10 @@ class PersonasController < ApplicationController
         format.xml  { render :xml => @persona.errors, :status => :unprocessable_entity }
       end
     end
+  end
+
+  def activity
+    render :text => "Actividad de las personas"
   end
 
   # PUT /personas/1

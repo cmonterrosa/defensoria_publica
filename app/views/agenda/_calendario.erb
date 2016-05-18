@@ -1,8 +1,4 @@
-<div class="titulocalendario">
-  <%=h(@title)%>
-</div>
-
-<div id="calendar">
+<div id="calendar" style="display: inline-block; width: 100%; margin: auto;">
   <h2 id="month">
     <%= link_to "<", {:month => (@date.beginning_of_month-1).strftime("%Y-%m")}, :class => "flecha_calendario" -%>
     <%=h @date.strftime("%B DE %Y").upcase %>
