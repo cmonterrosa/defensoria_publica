@@ -23,7 +23,7 @@ class AudienciasOralesController < ApplicationController
 
   def new_or_edit
       @audiencia = (params[:id])? AudienciaOral.find(params[:id]) : AudienciaOral.new
-      @tipos_audiencias = TipoAudiencia.all
+      @tipos_audiencias = Catalogo.tipo_audiencia.all
       @organos = Organo.all
       @jueces = Juez.find(:all, :conditions => ["activo = ?", true])
       if current_user.has_role?(:admin)
@@ -96,7 +96,7 @@ class AudienciasOralesController < ApplicationController
     def reprogramar
       @audiencia = AudienciaOral.find(params[:id])
       @tramite = @audiencia.tramite if @audiencia
-      @tipos_audiencias = TipoAudiencia.all
+      @tipos_audiencias = Catalogo.tipo_audiencia.all
       @organos = Organo.all
       @jueces = Juez.find(:all, :conditions => ["activo = ?", true])
        if current_user.has_role?(:admin)
