@@ -10,7 +10,7 @@ class Catalogo < ActiveRecord::Base
   
   named_scope :distritos_judiciales, :conditions => {:fk_id_catalogos => 160}
   named_scope :nacionalidades, :conditions => {:fk_id_catalogos => 67}, :order => :descripcion
-  named_scope :materias, :conditions => {:fk_id_catalogos => 209}, :order => :descripcion
+  named_scope :materia, :conditions => {:fk_id_catalogos => 209}, :order => :descripcion
   named_scope :medidas_cautelares, :conditions => {:fk_id_catalogos => 201}
   named_scope :idiomas, :conditions => {:fk_id_catalogos => 54}, :order => :descripcion
   named_scope :escolaridad, :conditions => {:fk_id_catalogos => 23}, :order => :descripcion

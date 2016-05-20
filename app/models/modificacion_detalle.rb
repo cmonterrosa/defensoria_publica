@@ -28,7 +28,8 @@ class ModificacionDetalle < ActiveRecord::Base
  def valor_anterior
   begin
       if self.campo =~ /\w+id$/ && self.old_value
-        row = eval("#{self.campo.gsub("_id", "").camelize}.find(#{self.old_value})")
+        row = eval("#{self.campo.gsub("_id", "").camelize}.find(#{self.old_value})") if Object.const_defined?(self.campo.gsub("_id", "").camelize)
+        row ||= eval("Catalogo.#{self.campo.gsub("_id", "")}.find(#{self.old_value})") if Catalogo.respond_to?(self.campo.gsub("_id", "").camelize)
         va =  (row && row.respond_to?(:descripcion)) ? row.descripcion : nil
         va ||= (row && row.respond_to?(:persona_id)) ? row.persona.nombre_completo : self.old_value
         return va
@@ -36,17 +37,16 @@ class ModificacionDetalle < ActiveRecord::Base
         return self.old_value
       end
   rescue SyntaxError, NameError => err
-        row ||= eval("Catalogo.#{self.campo.gsub("_id", "")}.find(#{self.old_value})")
-        vn = (row && row.respond_to?(:descripcion)) ? row.descripcion : nil
-        return vn
+        err
   end
  end
 
  def valor_nuevo
    begin
       if self.campo =~ /\w+id$/ && self.value
-        row = eval("#{self.campo.gsub("_id", "").camelize}.find('#{self.value}')") if self.campo == 'persona_id'
-        row ||= eval("#{self.campo.gsub("_id", "").camelize}.find(#{self.value})")
+        row = eval("#{self.campo.gsub("_id", "").camelize}.find('#{self.value}')") if self.campo == 'persona_id' && Object.const_defined?(self.campo.gsub("_id", "").camelize)
+        row ||= eval("#{self.campo.gsub("_id", "").camelize}.find(#{self.value})") if Object.const_defined?(self.campo.gsub("_id", "").camelize)
+        row ||= eval("Catalogo.#{self.campo.gsub("_id", "")}.find(#{self.value})") if Catalogo.respond_to?(self.campo.gsub("_id", "").downcase)
         vn = (row && row.respond_to?(:descripcion)) ? row.descripcion : nil
         vn ||= (row && row.respond_to?(:persona_id)) ? row.persona.nombre_completo : self.value
         return vn
@@ -54,9 +54,7 @@ class ModificacionDetalle < ActiveRecord::Base
         return self.value
       end
    rescue SyntaxError, NameError => err
-        row ||= eval("Catalogo.#{self.campo.gsub("_id", "")}.find(#{self.value})")
-        vn = (row && row.respond_to?(:descripcion)) ? row.descripcion : nil
-        return vn
+        err
    end
  end
 

@@ -31,6 +31,7 @@ class TramitesController < ApplicationController
   def new_or_edit
     @tramite = (params[:id])? Tramite.find(params[:id]) : Tramite.new
     @tramite.fechahora_atencion ||= Time.now.strftime("%Y/%m/%d")
+    @materias = Catalogo.materia.all
     @defensores = Defensor.find(:all, :conditions => ["activo = ? AND persona_id = ?", true, current_user.persona.id])
     @defensores = Defensor.find(:all, :conditions => ["activo = ?", true]) if current_user.has_role?(:admin) || current_user.has_role?(:jefedefensor)
   end
