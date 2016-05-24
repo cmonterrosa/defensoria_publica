@@ -12,8 +12,8 @@
                       title = 'MI CUENTA'
                       (link_to title.upcase, {:controller => params[:controller], :action => "myaccount"}, :class => "arbol", :title => title.upcase)
                 end
-            when 'defensores'
-                title = 'DEFENSORES PÚBLICOS '
+            when 'defensores', 'jueces'
+                title = (params[:controller] == 'defensores')? 'DEFENSORES PÚBLICOS ' : 'JUECES'
                 case controller.action_name
                   when 'list_tramites'
                     if @defensor && @defensor.persona
@@ -22,7 +22,10 @@
                       " >> " + raw(link_to @defensor.persona.nombre_completo.upcase, {:controller => params[:controller], :action => controller.action_name, :id => @defensor }, :class => "arbol", :title => 'TRAMITES DEL DEFENSOR')
                     end
                 else
-                    (link_to title.upcase, {:controller => params[:controller], :action => "index"}, :class => "arbol", :title => title.upcase)
+                    if (current_user.has_role?(:admin))
+                      (link_to "ADMINISTRACIÓN ", {:controller => "admin", :action => "index"}, :class => "arbol", :title => "Administración") <<
+                      " >> " + (link_to title.upcase, {:controller => params[:controller], :action => "index"}, :class => "arbol", :title => title.upcase)
+                    end
                 end
              when 'admin'
                 title = 'ADMINISTRACIÓN '
