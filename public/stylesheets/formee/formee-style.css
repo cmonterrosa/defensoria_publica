@@ -131,7 +131,7 @@ Style
 	border-color:#c6c6c6;
 }
 .formee select:disabled {
-	color: #fff;
+/*	color: #fff;*/
 	background: #fff none;
 	border-color:#c6c6c6;
 }

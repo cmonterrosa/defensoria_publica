@@ -42,11 +42,11 @@
 
             when 'participantes'
                 case controller.action_name
-                    when 'index', 'new_or_edit', 'show', 'search'
+                    when 'index', 'new_or_edit', 'search'
                         raw(link_to ' TRAMITES ', {:controller => 'tramites', :action => "index"}, :class => "arbol") <<
                         ">> " +  raw(link_to ' MENU ', {:controller => 'tramites', :action => "menu", :id => @tramite}, :class => "arbol") <<
                         ">> " +  raw(link_to ' PARTICIPANTES ', {:controller => 'participantes', :action => "index", :t => @tramite}, :class => "arbol")
-                    when 'relationships'
+                    when 'relationships', 'show'
                         raw(link_to ' TRAMITES ', {:controller => 'tramites', :action => "index"}, :class => "arbol") <<
                         ">> " +  raw(link_to ' MENU ', {:controller => 'tramites', :action => "menu", :id => @tramite}, :class => "arbol") <<
                         ">> " +  raw(link_to ' PARTICIPANTES ', {:controller => 'participantes', :action => "index", :t => @tramite}, :class => "arbol") << 
