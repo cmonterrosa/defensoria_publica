@@ -1,0 +1,26 @@
+<%=render :partial => "home/arbol"%>
+
+<%if @persona = @participante.persona%>
+  <div class="formee container" id="participante_show">
+    <fieldset>
+      <legend>DATOS&nbsp;DE&nbsp;PARTICIPANTE</legend>
+        
+         <div class="grid-12-12">
+                  <div class="grid-4-12">
+                    <label><b>TIPO DE PARTICIPANTE: </b><em class="formee-req">*</em></label>
+                  </div>
+              <div class="grid-8-12">
+                  <%= select(:participante, :tipo_participante_id, @tipo_participantes.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true })%>
+              </div>
+         </div>
+         <%=render :partial => "home/datos_personales"%>
+         <%=render :partial =>  @participante.tipo_participante.default_partial%>
+    </fieldset>
+   </div>
+<%end%>
+
+
+<!-- Bloqueamos para que capturen algo -->
+<script type="text/javascript">
+  $j("#participante_show :input").attr("disabled", true);
+</script>

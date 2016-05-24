@@ -64,7 +64,6 @@ class ParticipantesController < ApplicationController
       @participante= (params[:id])? Participante.find(params[:id]) : Participante.new
       @marginacions = Marginacion.all
       @entornos = Entorno.all
-      #@particular = (@participante.particular) ? "SI" : "NO"
       @defensores = Defensor.find(:all, :conditions => "activo IS NOT NULL or activo !=0")
       @corporaciones_policiacas = CorporacionPoliciaca.all
       @municipios = Municipio.chiapas.all
@@ -76,12 +75,20 @@ class ParticipantesController < ApplicationController
   end
 
   def history
-    begin
-        @participante = Participante.find(params[:id])
-        @tramite = @participante.tramite if @participante
-    rescue ActiveRecord::RecordNotFound
-        redirect_to  :action => "index"
-    end
+      select_object
+  end
+
+  def show
+    select_object
+    @tipo_participantes = TipoParticipante.all
+    @edo_civil = Catalogo.estado_civil.all
+    @escolaridades = Catalogo.escolaridad.all
+    @calidads= Calidad.all
+    @marginacions = Marginacion.all
+    @entornos = Entorno.all
+    @defensores = Defensor.find(:all, :conditions => "activo IS NOT NULL or activo !=0")
+    @corporaciones_policiacas = CorporacionPoliciaca.all
+    @municipios = Municipio.chiapas.all
   end
 
   def destroy
@@ -91,7 +98,7 @@ class ParticipantesController < ApplicationController
          flash[:notice] = "Registro eliminado correctamente"
          write_log("Participante eliminado: #{@destroyed.inspect}", current_user)
     else
-       flash[:error] = "Registro no se pudo eliminar, verifique"
+         flash[:error] = "Registro no se pudo eliminar, verifique"
     end
     redirect_to :action => "index", :t => params[:t]
   end
@@ -130,7 +137,7 @@ class ParticipantesController < ApplicationController
       if @segundo_participante && !params[:relaciones].empty?
           params[:relaciones].each_key do |k|
               if (Relacion.create(:participante_id => @participante.id, :segundo_participante_id => @segundo_participante.id, :parentesco_id => k.to_i) unless Relacion.count(:id, :conditions => ["(participante_id = ? OR segundo_participante_id = ? )AND parentesco_id = ?", @participante.id, @segundo_participante.id, k.to_i]) > 0)
-                flash[:notice] = "Parentesco guardado correctamente"
+                  flash[:notice] = "Parentesco guardado correctamente"
               end
           end
       else
@@ -142,5 +149,16 @@ class ParticipantesController < ApplicationController
       redirect_to :controller => "home"
     end
   end
+
+  protected
+
+   def select_object
+        begin
+            @participante =  Participante.find(params[:id])
+        rescue ActiveRecord::RecordNotFound
+            flash[:error] = "No se encontro participante, verifique o contacte al administrador"
+            redirect_to  :action => "index", :t => params[:t]
+        end
+   end
 
 end

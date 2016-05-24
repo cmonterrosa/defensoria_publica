@@ -25,7 +25,7 @@
       <%if @participantes.size > 1%>
         <td style="vertical-align: middle;"><%=link_to "Parentescos", {:action => "relationships", :id =>p}, :class => 'boton'  -%></td>
       <%end%>
-      
+
      <td style="vertical-align: middle;"><%=link_to "Detalle", {:action => "show", :id =>p}, :class => 'boton'  -%></td>
      <td style="vertical-align: middle;"><%=link_to "Editar", {:action => "new_or_edit", :id => p}, :class => 'boton'  -%></td>
      <td style="vertical-align: middle;"><%=link_to "Histórico", {:action => "history", :id => p, :p =>p.persona}, :class => 'boton'  -%></td>
