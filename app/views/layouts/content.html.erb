@@ -157,7 +157,7 @@ padding:2px;
            <hr class="LineaHorizontal" />
               <%if logged_in?%>
                         <div class="CaptionNombreUsuario">
-                              &nbsp;&nbsp;&nbsp;&nbsp;<%=link_to "#{current_user.nombre_completo}",  "/myaccount", :style => "text-decoration: none; color: #CB352E;"%>&nbsp;&nbsp;&nbsp;<span style="color: gray; text-transform: uppercase;">&nbsp;</span>
+                          <label style="margin-left: 5%;"><%=h (current_user.persona)? current_user.persona.nombre_completo : ''%></label>
                         </div>
              <%end%>
             <hr class="LineaHorizontal" />
