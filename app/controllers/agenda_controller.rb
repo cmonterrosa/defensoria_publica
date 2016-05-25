@@ -5,6 +5,9 @@
 ######################################
 
 class AgendaController < ApplicationController
+
+  require_role [:defensores, :jefedefensor, :admin]
+
   def index
      @audiencias = []
      @date = params[:month] ? Date.parse(params[:month].gsub('-', '/')) : Date.today

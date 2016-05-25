@@ -103,9 +103,9 @@
             when 'users'
                 case controller.action_name
                   when 'edit'
-                    if current_user && current_user.persona
+                    if @user && @user.persona
                       (link_to 'MI CUENTA', {:controller => 'home', :action => "myaccount"}, :class => "arbol", :title => 'MI CUENTA') <<
-                      " >> " + (link_to current_user.persona.nombre_completo, {:controller => "users", :action => "edit", :id => current_user}, :class => "arbol")
+                      " >> " + (link_to @user.persona.nombre_completo, {:controller => "users", :action => "edit", :id => current_user}, :class => "arbol")
                     end
                 else
                    title = 'USUARIOS '
