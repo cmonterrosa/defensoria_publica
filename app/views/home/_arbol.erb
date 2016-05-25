@@ -97,11 +97,20 @@
 
             when 'audiencias'
                 title = 'ORIENTACIONES AL PÚBLICO '
+
                 (link_to title.upcase, {:controller => params[:controller], :action => "index"}, :class => "arbol", :title => title.upcase)
 
             when 'users'
-                title = 'USUARIOS '
-                (link_to title.upcase, {:controller => "admin", :action => "users_index"}, :class => "arbol", :title => title.upcase)
+                case controller.action_name
+                  when 'edit'
+                    if current_user && current_user.persona
+                      (link_to 'MI CUENTA', {:controller => 'home', :action => "myaccount"}, :class => "arbol", :title => 'MI CUENTA') <<
+                      " >> " + (link_to current_user.persona.nombre_completo, {:controller => "users", :action => "edit", :id => current_user}, :class => "arbol")
+                    end
+                else
+                   title = 'USUARIOS '
+                  (link_to title.upcase, {:controller => "admin", :action => "users_index"}, :class => "arbol", :title => title.upcase)
+                end
 
             when 'tramites'
                 title = 'TRAMITES'
