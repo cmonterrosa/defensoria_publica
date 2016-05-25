@@ -6,7 +6,7 @@
 
 class AgendaController < ApplicationController
 
-  require_role [:defensores, :jefedefensor, :admin]
+  require_role [:defensor, :jefedefensor, :admin]
 
   def index
      @audiencias = []
