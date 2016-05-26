@@ -57,12 +57,13 @@
                         ">> " +  raw(link_to ' PARTICIPANTES ', {:controller => 'participantes', :action => "index", :t => @tramite}, :class => "arbol")
                 end
 
-            when 'amparos'
+            when 'amparos', 'sentencias', 'recursos', 'promociones', 'mecanismos_alternativos'
                 case controller.action_name
                     when 'index', 'new_or_edit', 'show'
+                    title = params[:controller].gsub("_", " ").upcase
                         raw(link_to ' TRAMITES ', {:controller => 'tramites', :action => "index"}, :class => "arbol") <<
                         ">> " +  raw(link_to ' MENU ', {:controller => 'tramites', :action => "menu", :id => @tramite}, :class => "arbol") <<
-                        ">> " +  raw(link_to ' AMPAROS ', {:controller => 'amparos', :action => "index", :t => @tramite}, :class => "arbol")
+                        ">> " +  raw(link_to title, {:controller => params[:controller], :action => "index", :t => @tramite}, :class => "arbol")
                 end
 
             when 'estatus'
@@ -83,12 +84,6 @@
                 raw(link_to ' TRAMITES ', {:controller => 'tramites', :action => "index"}, :class => "arbol") <<
                 ">> " +  raw(link_to ' MENU ', {:controller => 'tramites', :action => "menu", :id => @tramite}, :class => "arbol") <<
                 ">> " + (link_to title.upcase, {:controller => params[:controller], :action => "index", :t => @tramite}, :class => "arbol", :title => title.upcase)
-
-            when 'promociones', 'mecanismos_alternativos'
-                title = params[:controller].gsub("_", " ")
-                raw(link_to ' TRAMITES ', {:controller => 'tramites', :action => "index"}, :class => "arbol") <<
-                ">> " +  raw(link_to ' MENU ', {:controller => 'tramites', :action => "menu", :id => @tramite}, :class => "arbol") <<
-                ">> " +  (link_to title.upcase, {:controller => params[:controller], :action => "index", :t => @tramite}, :class => "arbol", :title => title.upcase)
 
             when 'corporacion_policiacas'
                 title = 'CORPORACIONES POLICIACAS'
