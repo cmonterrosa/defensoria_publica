@@ -1,5 +1,5 @@
 ####################################################
-# Modelo que guarda detalle de cada campo modificado en los modelos especificados
+# = Modelo que guarda detalle de cada campo modificado en los modelos especificados
 #
 ####################################################
 
@@ -9,6 +9,7 @@ class ModificacionDetalle < ActiveRecord::Base
   validates_uniqueness_of :id
   validates_presence_of :modificacion_id, :if => "self.id"
 
+  # Verifica que el campo id se encuentre correctamente asignado
   def check_id
     unless self.id
         maximo=  self.class.maximum(:id)
@@ -17,7 +18,8 @@ class ModificacionDetalle < ActiveRecord::Base
         self.id = id
      end
   end
-  
+
+  # Despliega el comentario del campo almacenado en el motor de BD
  def field_comment(field)
     (self.class.find_by_sql("SELECT a.COLUMN_COMMENT AS comment
     FROM information_schema.COLUMNS a
@@ -25,6 +27,7 @@ class ModificacionDetalle < ActiveRecord::Base
    a.COLUMN_NAME='#{field}';").first.comment) if field
  end
 
+ # Obtiene el valor anterior almacenado del registro
  def valor_anterior
   begin
       if self.campo =~ /\w+id$/ && self.old_value
@@ -41,6 +44,7 @@ class ModificacionDetalle < ActiveRecord::Base
   end
  end
 
+ # Obtiene el nuevo valor almacenado del registro
  def valor_nuevo
    begin
       if self.campo =~ /\w+id$/ && self.value

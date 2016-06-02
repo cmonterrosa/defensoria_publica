@@ -1,11 +1,17 @@
 class UsersController < ApplicationController
   # Be sure to include AuthenticationSystem in Application Controller instead
   include AuthenticatedSystem
-  
+    
   # render new.rhtml
 
   def new
     redirect_to :action => "new_or_edit"
+  end
+
+  def edit
+    @user = (params[:id])? User.find(params[:id]) : nil if current_user.has_role?(:admin)
+    @user ||= current_user
+    render :partial => "edit", :layout => "content"
   end
 
   def new_or_edit
@@ -49,7 +55,8 @@ class UsersController < ApplicationController
     success = @user && @user.save
     if success && @user.errors.empty?
       #redirect_back_or_default('/')
-      redirect_to :action => "users_index", :controller => "admin"
+      #redirect_to :action => "users_index", :controller => "admin"
+      redirect_to(:back)
       flash[:notice] = "Usuario guardado correctamente"
     else
       flash[:error]  = "We couldn't set up that account, sorry.  Please try again, or contact an admin (link is above)."

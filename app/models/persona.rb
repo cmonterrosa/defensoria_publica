@@ -64,6 +64,8 @@ class Persona < ActiveRecord::Base
      end
    end
 
+   
+
   def self.search(search)
     if search
       find(:all, :conditions => ['CONCAT(per_nombre, \' \' , per_paterno, \' \' , per_materno) LIKE ?', "%#{search}%"], :order => "per_paterno, per_materno, per_nombre", :limit => 25)

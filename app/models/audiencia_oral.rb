@@ -1,14 +1,21 @@
+##################################################
+# = Modelo que almacena las audiencias que se llevan a cabo en las salas de oralidad
+#
+##################################################
+
 class AudienciaOral < ActiveRecord::Base
   belongs_to :tramite
   belongs_to :organo
   belongs_to :juez
   belongs_to :defensor
 
+  # Regresa un objeto de tipo fecha basado en los valores almacenados en año, mes, dia y hora
   def start_at
     fecha = DateTime.civil(self.fecha.year, self.fecha.month, self.fecha.day, self.hora, self.minutos) if self.fecha && (self.hora && self.minutos)
     return fecha
   end
 
+  # Regresa el tipo de audiencia
   def tipo_audiencia
     Catalogo.tipo_audiencia.find(self.tipo_audiencia_id) if self.tipo_audiencia_id
   end
@@ -22,6 +29,7 @@ class AudienciaOral < ActiveRecord::Base
     end
   end
 
+  # Devuelve un string con información contenida en diversos campos del registro
   def descripcion_detallada
     if self.tramite
       primera =  "<b>C.I</b> (#{self.tramite.carpeta_investigacion}) " if  self.tramite.carpeta_investigacion && self.tramite.carpeta_investigacion.size > 0
@@ -37,6 +45,7 @@ class AudienciaOral < ActiveRecord::Base
     return primera + segunda + tercera
   end
 
+  # Método que busca audiencias por alguno de los participantes
   def self.search(search)
     if search
       find(:all, :joins => "a, personas p", :select => "a.* ", :conditions => ['BINARY a.persona_id= BINARY p.id_persona AND  CONCAT(p.per_nombre, \' \' , p.per_paterno, \' \' , p.per_materno) LIKE ?', "%#{search}%"], :order => "a.created_at DESC")
@@ -45,15 +54,18 @@ class AudienciaOral < ActiveRecord::Base
     end
   end
 
+  # Cancelación lógica de sesión
   def cancelar(usuario=nil)
    usuario ||= self.cancel_user
    self.update_attributes!(:cancel => true, :cancel_user => usuario)
   end
 
+  # Activación lógica de sesión
   def reactivar
     self.update_attributes!(:cancel => nil, :cancel_user => nil)
   end
 
+  # Asignación de usuario que efectua la cancelación
   def usuario_cancelacion
     if self.cancel_user
       if u = User.find(self.cancel_user)

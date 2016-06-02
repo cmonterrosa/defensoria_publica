@@ -133,7 +133,7 @@ padding:2px;
       <div class="main_area">
           <div class="logo_wrap">
               <p class="logo_pad" style="margin:0;">
-                <h3>&nbsp;&nbsp;&nbsp;<%=link_to 'SISTEMA DE LA DEFENSORIA PÚBLICA',{:controller => "home"}, :title => "INICIO", :class => "arbol"%></h3>
+                <h3 style=" margin-left: 6%;" ><%=link_to 'SISTEMA DE LA DEFENSORIA PÚBLICA',{:controller => "home"}, :title => "INICIO", :class => "arbol"%></h3>
                   <!--
                    <=link_to image_tag("kolaval/logo-menu_small.jpg", :border => 0, :alt => "Poder Judicial del Estado de Chiapas"), {:controller => "home" }, :title => "INICIO"%>
                   -->
@@ -157,7 +157,7 @@ padding:2px;
            <hr class="LineaHorizontal" />
               <%if logged_in?%>
                         <div class="CaptionNombreUsuario">
-                              &nbsp;&nbsp;&nbsp;&nbsp;<%=link_to "#{current_user.nombre_completo}",  "/myaccount", :style => "text-decoration: none; color: #CB352E;"%>&nbsp;&nbsp;&nbsp;<span style="color: gray; text-transform: uppercase;">&nbsp;</span>
+                          <label style="margin-left: 5%;"><%=h (current_user.persona)? current_user.persona.nombre_completo : ''%></label>
                         </div>
              <%end%>
             <hr class="LineaHorizontal" />

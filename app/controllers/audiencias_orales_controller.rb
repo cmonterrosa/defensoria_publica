@@ -1,5 +1,5 @@
 ###########################################
-#  Controlador que administra las acciones básicas de
+#  = Controlador que administra las acciones básicas de
 #  las audiencias inicial, intermedia y   de juicio oral
 #############################################
 

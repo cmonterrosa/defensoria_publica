@@ -1,0 +1,85 @@
+<%=render :partial => "home/arbol"%>
+
+<div class="container">
+ <%= error_messages_for :user %>
+ <% form_for :user, @user, :url => { :action => "create", :controller => "users", :id => @user}, :html => {:class => "formee"} do |f| -%>
+  <fieldset>
+    <legend>&nbsp;EDITAR&nbsp;USUARIO</legend>
+      <div class="grid-12-12">
+          <% @user.password = @user.password_confirmation = nil %>
+      </div>
+  
+      <div id="datos_personales">
+        <%if @persona%>
+            <%=render :partial => "home/datos_personales"%>
+        <%end%>
+      </div>
+
+      <div class="grid-6-12">
+        <div class="grid-4-12">
+          <label><b>LOGIN: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-8-12">
+          <%=f.text_field :login%>
+        </div>
+       </div>
+
+      <div class="grid-6-12">
+        <div class="grid-4-12">
+          <label><b>CORREO ELECTRONICO: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-8-12">
+          <%= f.text_field :email %>
+        </div>
+       </div>
+
+      <div class="grid-6-12">
+        <div class="grid-4-12">
+          <label><b>CONTRASEÑA: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-8-12">
+          <%= f.password_field :password %>
+        </div>
+       </div>
+
+       <div class="grid-6-12">
+        <div class="grid-4-12">
+          <label><b>CONFIRMACIÓN DE LA CONTRASEÑA: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-8-12">
+          <%= f.password_field :password_confirmation %>
+        </div>
+       </div>
+
+      <div class="grid-6-12">
+        <div class="grid-4-12">
+          <label><b>¿ACTIVO?: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-8-12">
+                  <span class="InputGroup">
+                   <label class="uper">SI <%= f.radio_button :activo, "SI", :checked => @user.activo %></label>&nbsp;&nbsp;
+                   <label class="uper">NO <%= f.radio_button :activo, "NO", :checked => @user.activo == false %></label>
+                  </span>
+        </div>
+      </div>
+
+      <div class="grid-12-12 clear"></div>
+      <div class="grid-form-login">
+        <input class="right" type="submit" title="GUARDAR" value="GUARDAR" />
+      </div>
+ </fieldset>
+<%end%>
+</div>
+
+<!-- Validaciones -->
+<script type="text/javascript">
+  var email = new LiveValidation( 'user_email', {onlyOnSubmit: true} );
+  email.add( Validate.Presence );
+</script>
+
+
+
+
+
+
+

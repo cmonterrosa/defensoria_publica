@@ -1,5 +1,5 @@
 ######################################
-# Modelo que se conecta a tabla de municipios
+# == Modelo que se conecta a tabla de municipios
 # dentro de base de datos de catalogos
 ######################################
 

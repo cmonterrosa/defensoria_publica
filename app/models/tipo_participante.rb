@@ -1,6 +1,7 @@
 class TipoParticipante < ActiveRecord::Base
   has_many :participantes
 
+ # De acuerdo al tipo de participante regresa el partial predeterminado
  def default_partial
   case self.clave
     when "MPTU"

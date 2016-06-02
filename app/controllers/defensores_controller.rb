@@ -1,7 +1,7 @@
-######################################
-# Controlador que administra a los defensores públicos
+#########################################
+# = Controlador que administra a los defensores públicos
 # 
-######################################
+#########################################
 
 class DefensoresController < ApplicationController
   require_role [:defensor, :jefedefensor]
@@ -14,15 +14,18 @@ class DefensoresController < ApplicationController
       render :partial => "list", :layout => "content"
   end
 
+  # Búsqueda de defensores por nombre o apellidos
   def search
     @defensores = Defensor.search(params[:search]).paginate(:page => params[:page], :per_page => 25)
     render :partial => "list", :layout => "content"
   end
 
+  # Registro o edición de defensores públicos
   def new_or_edit
       @defensor = (params[:id])? Defensor.find(params[:id]) : Defensor.new
       @persona = @defensor.persona
       @municipios = Municipio.chiapas.all
+      @materias = Materia.all
   end
 
    def save
@@ -42,10 +45,12 @@ class DefensoresController < ApplicationController
          redirect_to :controller => "defensores"
       else
          @municipios = Municipio.chiapas.all
+         @materias = Materia.all
          render :action => "new_or_edit"
       end
     end
 
+  # Método que elimina registro de defensor, recibe como parámetro el id del registro
   def destroy
     @defensor = Defensor.find(params[:id])
     @tramites_defensor = Tramite.count(:defensor_id, :conditions => ["defensor_id = ? ", @defensor]) if @defensor

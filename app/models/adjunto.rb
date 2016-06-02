@@ -108,6 +108,14 @@ class Adjunto < ActiveRecord::Base
       self.update_attributes!(:activo => false)
   end
 
+ def self.search(search)
+    if search
+      find(:all, :conditions => ['tramite_is IS NULL AND descripcion LIKE ?', "%#{search}%"], :order => "created_at", :limit => 25)
+    else
+      find(:all)
+    end
+  end
+
 
   private
 

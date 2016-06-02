@@ -9,12 +9,14 @@ class CreateAudiencias < ActiveRecord::Migration
       t.string :procedencia, :limit => 140
       t.string :persona_id, :limit => 36
       t.boolean :activo
+      t.boolean :atendido
       t.timestamps
     end
     add_index :audiencias, :defensor_id, :name => "audiencias_defensor"
     add_index :audiencias, :persona_id, :name => "audiencias_persona"
     add_index :audiencias, :turno, :name => "audiencias_turno"
-     add_index :audiencias, :fecha, :name => "audiencias_fecha"
+    add_index :audiencias, :fecha, :name => "audiencias_fecha"
+    add_index :audiencias, [:defensor_id, :fecha, :atendido, :activo], :name => "audiencias_monitoe"
   end
 
   def self.down

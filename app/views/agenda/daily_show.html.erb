@@ -79,7 +79,7 @@
   <%end%>
 
           <!-- NUEVA AUDIENCIA -->
-            <%if current_user.has_role?(:admin) || current_user.has_role?(:jefedefensor)%>
+           <%if current_user && (current_user.has_role?(:admin) || current_user.has_role?(:jefedefensor))%>
             <br />
             <div id="nueva_audiencia">
                <% form_for :audiencia, @audiencia, :url => { :action => "new_or_edit", :controller => "audiencias_orales", :fecha => @fecha }, :html => { :target => "_blank"} do |f| -%>
