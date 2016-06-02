@@ -1,5 +1,5 @@
 #####################################
-# Modelo que consulta los catalogos
+# = Modelo que consulta los catalogos
 #
 #####################################
 

@@ -1,4 +1,11 @@
+################################################
+# = Sentencias del trámite
+#
+################################################
+
 class SentenciasController < ApplicationController
+  require_role [:admin, :defensor, :jefedefensor]
+  
 	def index
       @tramite = Tramite.find(params[:t]) if params[:t]
       @sentencias = @tramite.sentencias.paginate(:page => params[:page], :per_page => 25) if @tramite

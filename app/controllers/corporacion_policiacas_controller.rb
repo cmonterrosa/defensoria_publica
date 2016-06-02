@@ -1,3 +1,7 @@
+#############################################
+# CRUD para corporacion policiacas
+#
+#############################################
 class CorporacionPoliciacasController < ApplicationController
   require_role :admin
   # GET /corporacion_policiacas

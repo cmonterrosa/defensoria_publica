@@ -1,3 +1,8 @@
+###############################################
+# = Administración de las guardias de los defensores públicos activos
+#
+###############################################
+
 class GuardiasController < ApplicationController
   before_filter :login_required
   

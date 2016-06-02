@@ -1,5 +1,6 @@
 ######################################
-# Modelo "tramite", sirve como columna vertebral
+# == Modelo "tramite"
+# sirve como columna vertebral del proyecto
 # y conecta con múltiples modelos que giran alrededor,
 # automaticamente almacena modificaciones en bitacora
 # y genera folio
@@ -55,6 +56,7 @@ class Tramite < ActiveRecord::Base
       end
     end
 
+   # Función que genera busca el último folio del año y asigna el consecutivo
    def generar_folio
      self.anio ||= Time.now.year
      unless self.folio_expediente
@@ -65,22 +67,24 @@ class Tramite < ActiveRecord::Base
      end
    end
 
+   # Forma dinámicamente el número de trámite con base en año y folio
    def numero_tramite
     "#{self.anio[2..4]}#{self.folio_expediente.to_s.rjust(5, '0')}" if self.anio && self.folio_expediente
    end
 
+    # Muestra un string con información del trámite
     def show_info
       "REGISTRO DE ATENCION: #{self.registro_atencion}" + " |  CAUSA PENAL: #{self.causa_penal} |  CARPETA DE INVESTIGACIÓN: #{self.carpeta_investigacion}  |  NUC: #{self.nuc}"
     end
 
+    # Inicia el registro de modificación
     def init_journal(user)
       @current_journal ||= Modificacion.new(:id_objeto => self.id, :user_id => user.id, :clase => self.class.to_s) if user
       @issue_before_change = self.clone
       @current_journal
     end
 
-    # Guarda cambios en bitacora
-    # Llamado despues de guadar
+    # Guarda cambios en bitacora y es llamado despues de guardar un objeto
     def crear_modificaciones
       if @current_journal
         @current_journal.id_objeto ||= self.id
@@ -107,7 +111,7 @@ class Tramite < ActiveRecord::Base
     end
   end
 
-
+# Actualización del estatus del trámite y además guarda registro en bitácora
   def update_estatus!(clave,usuario)
     begin
       @estatus = Estatu.find_by_clave(clave) if (!clave.nil? && !usuario.nil?)

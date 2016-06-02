@@ -1,5 +1,5 @@
 ##############################################
-# Controlador que hace administra la aplicación
+# = Controlador que hace administra la aplicación
 #
 ##############################################
 

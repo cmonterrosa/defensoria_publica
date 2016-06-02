@@ -78,6 +78,7 @@ class UploadController < ApplicationController
     end
   end
 
+  # Previ
   def preview_image
     @uploaded_file  = Adjunto.find(params[:id])
     render :partial => "preview_image", :layout => "only_jquery"

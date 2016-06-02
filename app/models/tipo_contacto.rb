@@ -1,3 +1,8 @@
+#############################################
+# Establece los tipos de contacto de una persona
+#
+#############################################
+
 class TipoContacto < ActiveRecord::Base
   establish_connection "persona"
   set_table_name "cat_tipo_contacto"

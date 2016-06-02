@@ -31,6 +31,7 @@ class Document
      return result
   end
 
+  # Envía datos mediante conexión jdbc a JasperReports
   def self.generate_report_jdbc(report_design, output_type, report_params)
        report_design << '.jasper' if !report_design.match(/\.jasper$/)
        if OS.windows?   #=> true or false

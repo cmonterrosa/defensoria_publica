@@ -1,7 +1,13 @@
+####################################################
+# = Orientaciones presenciales en el Instituto de la Defensoría Pública
+#
+####################################################
+
 require 'date'
 
 class Audiencia < ActiveRecord::Base
   belongs_to :persona
+  belongs_to :defensor
   validates_uniqueness_of :turno, :scope => :fecha
   before_save :create_turno, :if => "self.fecha"
   

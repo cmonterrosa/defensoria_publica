@@ -1,3 +1,8 @@
+#############################################
+#  CRUD para los diferentes estatus posibles para un trámite
+#
+#############################################
+
 class EstatusController < ApplicationController
   require_role :admin
   # GET /estatus

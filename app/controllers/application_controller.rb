@@ -1,5 +1,7 @@
-# Filters added to this controller apply to all controllers in the application.
-# Likewise, all the methods added will be available for all controllers.
+###################################################
+# = Controlador de la aplicación
+#
+###################################################
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
@@ -11,11 +13,13 @@ class ApplicationController < ActionController::Base
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password
   layout 'content', :except => [:sessions]
-  
+
+  # Método que elimina espacios y comas en una cadena
   def clean_string(string)
     (string) ? (return string.to_s.gsub(/\$/, '\$').gsub(/\"/, '\"')) : (return "")
   end
 
+  # Método para escribir log personalizado
    def write_log(text=nil, user=nil)
     user = (user) ? user.nombre_completo : "DESCONOCIDO"
     text = (text) ? text.upcase : ""
@@ -23,6 +27,7 @@ class ApplicationController < ActionController::Base
     #Rails.logger.debug "=> (#{Time.now.strftime('%d/%m/%Y  %H:%M:%S')}" +  "/  USUARIO: #{user}) - " + text
   end
 
+  # Es un día hábil
   def habil?(date=Time.now)
     habil = false
     if ((1..5)===date.wday)
@@ -40,6 +45,7 @@ class ApplicationController < ActionController::Base
     return @selected
   end
 
+  # Guarda registro de persona en tablas vínculadas
   def save_persona(params={}, objeto=nil)
           if params[:persona] && objeto
             @participante = objeto
@@ -73,5 +79,4 @@ class ApplicationController < ActionController::Base
           @participante.persona.set_datos_familiares("madre", params[:madre]) if params[:madre]
         end
     end
-
 end

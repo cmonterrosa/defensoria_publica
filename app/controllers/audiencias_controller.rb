@@ -3,11 +3,9 @@
 # u orientaciones que los defensores dan al publico en general
 ######################################
 
-
 class AudienciasController < ApplicationController
   before_filter :login_required, :except => 'get_datos_personales'
-#  layout :set_layout
-
+  
   def index
     @audiencias = Audiencia.find(:all, :conditions => ["fecha = ?", Time.now.strftime("%Y/%m/%d")])
     render :partial => "list", :layout => "content"
@@ -26,6 +24,7 @@ class AudienciasController < ApplicationController
       @persona = @audiencia.persona
   end
 
+  # Guarda registro
   def save
       @audiencia = (params[:id])? Audiencia.find(params[:id]) : Audiencia.new
       @audiencia.update_attributes(params[:audiencia])
@@ -44,11 +43,12 @@ class AudienciasController < ApplicationController
   end
 
   def show
-      @audiencia = Audiencia.find(params[:id])
+      select_object
   end
 
-    def print
-        if (@audiencia = Audiencia.find(params[:id])) && (@audiencia.turno)
+  # Imprime en formato pdf registro de audiencia/orientacion
+  def print
+        if (select_object) && (@audiencia.turno)
          param=Hash.new {|k, v| k[v] = {:tipo=>"",:valor=>""}}
          #-- Parametros
          param["APP_URL"]={:tipo=>"String", :valor=>RAILS_ROOT}
@@ -59,19 +59,20 @@ class AudienciasController < ApplicationController
          param["P_PROCEDENCIA"]={:tipo=>"String", :valor=>clean_string(@audiencia.procedencia)}
          param["P_ASUNTO"]={:tipo=>"String", :valor=>clean_string(@audiencia.asunto)}
          if File.exists?(REPORTS_DIR + "/ficha_atencion.jasper")
-           send_doc_jdbc("ficha_atencion", "ficha_atencion", param, output_type = 'pdf')
+            send_doc_jdbc("ficha_atencion", "ficha_atencion", param, output_type = 'pdf')
          else
-           flash[:error] = "archivo de reporte no existe"
-           redirect_to :controller => "home"
+            flash[:error] = "archivo de reporte no existe"
+            redirect_to :controller => "home"
         end
       else
-        flash[:error] = "Error de parámetros"
-        redirect_to :controller => "home"
+          flash[:error] = "Error de parámetros"
+          redirect_to :controller => "home"
     end
  end
 
+ # Elimina registro de audiencia
   def destroy
-    @audiencia = Audiencia.find(params[:id])
+    select_object
     if @audiencia.destroy
       flash[:notice] = "Registro eliminado correctamente"
     else
@@ -80,9 +81,28 @@ class AudienciasController < ApplicationController
     redirect_to :action => "index"
   end
 
-  
+  # Función que despliega dinámicamente listado de turnos y defensores
+  def monitor
+      render :partial => "monitor", :layout => "only_javascript"
+  end
 
+  # Obtiene el valor de la asignación de defensores al público
+  def get_last_attention
+      @audiencias = Audiencia.find(:all, :conditions => ["defensor_id IS NOT NULL AND fecha = ?", Time.now.strftime("%Y/%m/%d")])
+      return render(:partial => 'list_turnos', :layout => false) if request.xhr?
+  end
+
+  
 private
+
+def select_object
+        begin
+            @audiencia =  Audiencia.find(params[:id])
+        rescue ActiveRecord::RecordNotFound
+            flash[:error] = "No se encontro tramite, verifique o contacte al administrador"
+            redirect_to  :action => "index"
+        end
+end
 
 #  def set_layout
 #    (action_name == 'print')? 'pdf' : 'content'
