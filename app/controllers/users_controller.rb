@@ -16,9 +16,10 @@ class UsersController < ApplicationController
 
   def new_or_edit
     @user = (params[:id])? User.find(params[:id]) : User.new
-    @persona = @user.persona
-    @per_curp = @persona.per_curp if @persona
-    #@personas = Persona.find(:all, :order => "per_nombre, per_paterno, per_materno")
+    if @persona = @user.persona
+      @per_curp = @persona.per_curp if @persona.per_curp.size > 0
+      @per_curp ||= @persona.nombre_completo
+    end
     render :partial => "new_or_edit", :layout => "content"
   end
 
