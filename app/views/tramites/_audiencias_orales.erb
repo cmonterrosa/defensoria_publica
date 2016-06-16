@@ -1,0 +1,20 @@
+<!-- Detalle de las audiencias orales -->
+<%if @tramite && !@tramite.audiencia_orals.empty?%>
+    <table class="tablakolaval" style="margin: auto;">
+      <tr><th colspan="3" style="text-align:center;">AUDIENCIAS ORALES</th></tr>
+      <tr>
+          <th>FECHA/HORA</th>
+          <th>TIPO</th>
+          <th>LUGAR</th>
+      </tr>
+      <%@tramite.audiencia_orals.each do |a|%>
+        <tr>
+          <td><%=h (a.start_at)? custom_format(a.start_at) : ''%></td>
+          <td><%=h (a.tipo_audiencia)? a.tipo_audiencia.descripcion : ''%></td>
+          <td><%=h (a.organo_id)? a.organo.descripcion : ''%></td>
+        </tr>
+    <%end%>
+</table><br />
+
+<%end%>
+

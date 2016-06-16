@@ -22,23 +22,30 @@ $j(document).ready(function() {
         </div>
 </div>
 
-  <div class="grid-4-12">
-        <div class="grid-6-12">
+  <div class="grid-6-12">
+        <div class="grid-8-12">
           <label><b>FECHA/HORA DE ATENCIÓN: </b><em class="formee-req">*</em></label>
         </div>
-        <div class="grid-6-12"><%=text_field  :tramite, :fechahora_atencion%></div>
+        <div class="grid-4-12"><%=text_field  :tramite, :fechahora_atencion%></div>
   </div>
 
  
-  <div class="grid-12-12">
-        <div class="grid-4-12">
+  <div class="grid-6-12">
+        <div class="grid-6-12">
             <label><b>CALIFICACIÓN JURÍDICA: </b><em class="formee-req">*</em></label>
         </div>
-        <div class="grid-8-12"><%=text_field  :tramite, :calificacion_juridica%></div>
+        <div class="grid-6-12"><%=text_area  :tramite, :calificacion_juridica%></div>
+   </div>
+
+  <div class="grid-6-12">
+        <div class="grid-4-12">
+            <label><b>HECHO DELICTIVO: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-8-12"><%=text_field  :tramite, :hecho_delictivo%></div>
    </div>
 
    
-   <div class="grid-12-12">
+   <div class="grid-6-12">
         <div class="grid-4-12">
             <label><b>OBSERVACIONES: </b></label>
         </div>

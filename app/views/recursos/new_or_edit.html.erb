@@ -57,3 +57,12 @@
  </fieldset>
 <%end%>
 </div>
+
+
+<!-- Validaciones -->
+<script type="text/javascript">
+  var fecha = new LiveValidation( 'recurso_fecha', {onlyOnSubmit: true} );
+  var tipo_recurso = new LiveValidation( 'recurso_tipo_recurso_id', {onlyOnSubmit: true} );
+  fecha.add( Validate.Presence );
+  tipo_recurso.add( Validate.Presence );
+</script>

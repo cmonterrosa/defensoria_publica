@@ -47,7 +47,7 @@
         <div class="grid-8-12"><%=f.text_field :causa_penal%></div>
       </div>
 
-      <div class="grid-12-12">
+      <div class="grid-6-12">
         <div class="grid-4-12">
             <label><b>DEFENSOR PÚBLICO: </b><em class="formee-req">*</em></label>
         </div>
@@ -67,21 +67,25 @@
 
       <div class="grid-12-12 clear"></div>
       <div class="grid-12-12"><img alt="spinner" id="spinner" src="/images/loading_spinner.gif" style="display:none;" /></div>
+
+
       <div id="datos_tramite">
-            <div id ="boton_guardar" class="grid-form-login">
-                <input class="right" type="submit" title="GUARDAR" value="GUARDAR" />
-            </div>
+        <%if @tramite%>
+            <%=render :partial => "datos_tramite"%>
+        <%end%>
       </div>
- </fieldset>
+</fieldset>
 <%end%>
 </div>
 
 
 <!-- Validaciones -->
-<script type="text/javascript">
-  var tramite_defensor_id = new LiveValidation( 'tramite_defensor_id', {onlyOnSubmit: true} );
-  tramite_defensor_id.add( Validate.Presence );
-</script>
+<% if @defensores.size > 0 %>
+  <script type="text/javascript">
+    var tramite_defensor_id = new LiveValidation( 'tramite_defensor_id', {onlyOnSubmit: true} );
+    tramite_defensor_id.add( Validate.Presence );
+  </script>
+<%end%>
 
 
 <%= observe_form('new_tramite', :update => "datos_tramite",

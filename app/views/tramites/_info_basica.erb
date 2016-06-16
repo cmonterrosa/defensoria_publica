@@ -1,0 +1,38 @@
+<% if @tramite %>
+  <table class="tablakolaval" style="margin: auto;">
+  <tr><th colspan="2" style="text-align:center;">Datos del tramite</th></tr>
+
+  <tr>
+    <td>Registro de atención: </td>
+    <td><%=h @tramite.registro_atencion%> </td>
+  </tr>
+
+  <tr>
+    <td>Carpeta de investigación: </td>
+    <td><%=h @tramite.carpeta_investigacion%> </td>
+  </tr>
+  <tr>
+    <td>Causa penal: </td>
+    <td><%=h @tramite.causa_penal%> </td>
+  </tr>
+
+  <tr>
+    <td>Número único de caso: </td>
+    <td><%=h @tramite.nuc%> </td>
+  </tr>
+
+  <%if @tramite.defensor && @tramite.defensor.persona%>
+      <tr>
+        <td>Nombre del defensor público: </td>
+        <td><%=h @tramite.defensor.persona.nombre_completo%> </td>
+      </tr>
+      
+      <tr>
+        <td>Correo electrónico del defensor público:</td>
+        <td><%=h (@user = User.find_by_persona_id(@tramite.defensor.persona.id)) ? @user.email : '' %></td>
+      </tr>
+
+  <%end%>
+
+</table><br />
+<%end%>

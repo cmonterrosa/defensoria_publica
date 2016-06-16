@@ -1,0 +1,16 @@
+<!-- Detalle de participantes -->
+<%unless @tramite.participantes.empty?%>
+  <table class="tablakolaval" style="margin: auto;">
+    <tr><th colspan="2" style="text-align:center;">Participantes</th></tr>
+    <tr>
+        <th>NOMBRE COMPLETO</th>
+        <th>TIPO DE PARTICIPANTE</th>
+    </tr>
+      <%@tramite.participantes.each do |p|%>
+        <tr>
+          <td><%=h (p.persona)? p.persona.nombre_completo : ''%></td>
+          <td><%=h (p.tipo_participante)? p.tipo_participante.descripcion : ''%></td>
+        </tr>
+    <%end%>
+</table><br />
+<%end%>
