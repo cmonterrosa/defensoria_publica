@@ -1,3 +1,4 @@
+require 'resolv'
 require 'digest/sha1'
 
 class User < ActiveRecord::Base
@@ -104,6 +105,14 @@ class User < ActiveRecord::Base
       find(:all)
     end
   end
+
+    def email_valid?(email=self.email)
+      domain = email.match(/\@(.+)/)[1]
+      Resolv::DNS.open do |dns|
+          @mx = dns.getresources(domain, Resolv::DNS::Resource::IN::MX)
+      end
+      @mx.size > 0 ? true : false
+   end
 
     protected
       def make_activation_code
