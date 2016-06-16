@@ -64,8 +64,10 @@ body {
 /*---------------------------------------------nav--------------------------------------------------*/
 .navarea_wrap {
 	width:586px;
+        min-width: 56px;
 	float:left;
 	padding:39px 0 0 0;
+        margin: auto;
 }
 .nav_wrap {
 	width:100%;

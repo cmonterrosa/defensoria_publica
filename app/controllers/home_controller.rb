@@ -13,6 +13,8 @@ class HomeController < ApplicationController
           return render(:partial => 'jefedefensor', :layout => "content")
       elsif @usuario.has_role?(:defensor)
           return render(:partial => 'defensor', :layout => "content")
+      elsif @usuario.has_role?(:defensorapoyo)
+          return render(:partial => 'defensor', :layout => "content")
       elsif @usuario.has_role?(:solicitante)
           return render(:partial => 'solicitante', :layout => "content")
       else

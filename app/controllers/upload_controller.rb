@@ -10,7 +10,7 @@ class UploadController < ApplicationController
   def index
     @participante = (params[:token] == "p" || params[:p] )?  Participante.find(params[:p]) : nil
     @tramite = ( params[:t] )?  Tramite.find(params[:t]) : nil
-    @title = (@participante) ? "ARCHIVOS ADJUNTOS DEL PARTICIPANTE: #{@participante.id}" : nil
+    @title = (@participante) ? "ARCHIVOS ADJUNTOS DEL PARTICIPANTE: #{(@participante.persona) ? @participante.persona.nombre_completo: ''}" : nil
     @title ||= (@tramite) ? "ARCHIVOS ADJUNTOS DEL TRAMITE: #{@tramite.id}" : nil
     @title ||= "PORTAL DE DOCUMENTOS COMPARTIDOS"
     @uploaded_files = @tramite.adjuntos.paginate(:page => params[:page], :per_page => 10) if @tramite

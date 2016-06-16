@@ -1,11 +1,6 @@
 <%=render :partial => "home/arbol"%>
-
-<% form_tag({:action => "search"}, {:class => "search"}) do -%>
-  <p>
-    <%= text_field_tag :search, params[:search], :limit => 60, :placeholder => "Escriba el número único de caso o carpeta de investigación" %>
-    <%= submit_tag "Buscar", :name => nil %>
-  </p>
-<% end %>
+<%@label_busqueda = "CARPETA DE INVESTIGACIÓN O NUC"%>
+<%= render :partial => "home/barra_busqueda"%>
 
 <!-- contenido -->
 <div id="divlista">
@@ -26,7 +21,7 @@
      <td style="vertical-align: middle;"><%=t.nuc%></td>
      <td style="vertical-align: middle;"><%=t.carpeta_investigacion%></td>
      <td style="vertical-align: middle;"><%=t.causa_penal%></td>
-     <%if t.defensor_id.nil?%>
+     <%if t.defensor_id.nil? && current_user.has_role?(:jefedefensor)%>
         <td style="vertical-align: middle;"><%=link_to "ASIGNAR DEFENSOR", {:action => "new_or_edit", :id => t}, :class => 'boton'  -%></td>
      <%else%>
         <td><%=h (t.defensor && t.defensor.persona)? t.defensor.persona.nombre_completo : "--"%></td>
@@ -41,18 +36,21 @@
 </div>
 
 <br />
-<table>
-    <tr align="center" >
-      <td colspan="5" style="padding: 0;">
-        <div class="digg_pagination">
-          <div class="page_info">
-            <%= page_entries_info @tramites %>
+
+<% if @tramites.total_entries > @tramites.per_page.to_i %>
+    <table>
+      <tr align="center" >
+        <td colspan="5" style="padding: 0;">
+          <div class="digg_pagination">
+            <div class="page_info">
+              <%= page_entries_info @tramites %>
+            </div>
+            <%= will_paginate @tramites %>
           </div>
-          <%= will_paginate @tramites %>
-        </div>
-      </td>
-    </tr>
-</table>
+        </td>
+      </tr>
+  </table>
+<%end%>
 
 <br /><%=link_to "REGISTRAR NUEVO TRAMITE", {:action => "new_or_edit"}, :class => 'boton'  -%>
 

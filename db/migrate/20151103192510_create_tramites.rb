@@ -13,6 +13,7 @@ class CreateTramites < ActiveRecord::Migration
       t.column :defensor_id, :integer
       t.column :materia_id, :integer
       t.column :observaciones, :string
+      t.column :hecho_delictivo, :string, :limit => 140
       t.column :concluido, :boolean
       t.timestamps
     end

@@ -1,17 +1,23 @@
 <%=render :partial => "home/arbol"%>
 <%=render :partial => "tramites/encabezado"%>
 
-<% form_tag({:action => "search", :t => @tramite}, {:class => "search"}) do -%>
-  <p>
-    <%= text_field_tag :search, params[:search], :limit => 90, :placeholder => "Escriba el nombre del participante o su clave de elector" %>
-    <%= submit_tag "Buscar", :name => nil %>
-  </p>
-<% end %>
-
+<%@label_busqueda = "NOMBRE DEL PARTICIPANTE O CLAVE DE ELECTOR"%>
+<%= render :partial => "home/barra_busqueda"%>
 
 <!-- contenido -->
 <div id="divlista">
     <table width="90%" border="0" cellspacing="0" cellpadding="0" class="tablakolaval" style="BORDER-RIGHT: #cccccc 1px solid; BORDER-TOP: #cccccc 1px solid; BORDER-LEFT: #cccccc 1px solid; BORDER-BOTTOM: #cccccc 1px solid">
+
+   <!-- Notificacion de trámite -->
+   <%if @participantes.size > 0%>
+        <p style="text-align: center; margin: auto;">
+          <%if current_user.has_role?(:defensorapoyo) || current_user.has_role?(:jefedefensor)%>
+            <%=h link_to 'NOTIFICAR DE TRAMITE VIA EMAIL', {:action => "notificar", :id => @tramite, :controller => "tramites", :token => Base64.encode64(current_user.login)}, :class => "boton" %>
+          <%end%>
+        </p><br />
+   <%end%>
+
+
     <tr>
        <th style="vertical-align: middle;">Tipo</th>
        <th style="vertical-align: middle;">Nombre completo</th>

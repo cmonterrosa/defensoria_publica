@@ -41,7 +41,7 @@ class AusenciasController < ApplicationController
   end
 
   def destroy
-    @ausencia = Ausencia.find(params[:id])
+    select_object
     if @ausencia.destroy
       flash[:notice] = "Registro eliminado correctamente"
     else
@@ -51,10 +51,15 @@ class AusenciasController < ApplicationController
   end
 
   def show
-    @ausencia = Ausencia.find(params[:id])
+    select_object
     @persona = @ausencia.persona if @ausencia
   end
 
+  def select_object
+        @ausencia = Ausencia.find(params[:id])
+   rescue ActiveRecord::RecordNotFound
+          render_404
+   end
   
 
 end

@@ -89,10 +89,12 @@
 
 <!-- Validaciones -->
 <script type="text/javascript">
+   var login = new LiveValidation( 'user_login', {onlyOnSubmit: true} );
   var email = new LiveValidation( 'user_email', {onlyOnSubmit: true} );
   var per_curp = new LiveValidation( 'persona_per_curp', {onlyOnSubmit: true} );
+  login.add( Validate.Presence );
   email.add( Validate.Presence );
-   per_curp.add( Validate.Presence );
+  per_curp.add( Validate.Presence );
 </script>
 
 

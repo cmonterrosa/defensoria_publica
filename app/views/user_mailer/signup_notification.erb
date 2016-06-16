@@ -1,8 +1,39 @@
-Your account has been created.
+<table border="1" width="70%" style="background-color:white; text-align: center;">
 
-  Username: <%=h @user.login %>
-  Password: <%=h @user.password %>
+   <tr style="background-color:gray; color:white">
+    <th colspan="2">
+      Plataforma de Certificación de Escuelas Saludables y Sustentables (ESyS)
+    </th>
+   </tr>
 
-Visit this url to activate your account:
+    <tr>
+    <th>Usuario:</th>
+    <td><%=h @user.login.upcase%></td>
+    </tr>
 
-  <%=h @url %>
+
+   <tr>
+    <th>Contraseña</th>
+    <td><%=h @user.password%></td>
+  </tr>
+</table>
+
+
+
+
+<p>
+<h4>Para ingresar a la plataforma ingrese a la siguiente liga:
+  <%= url_for(:host => "#{SITE_URL}", :controller => "home", :action => "index") %>
+</h4>
+</p>
+
+
+
+-----------------------------------------------------------------------------------------------------
+<p align="center">
+  Edificio Anexo de la Subsecretaria de Educación Federalizada (SEF), 3er. Piso<br />
+  Calzada Mayor Julio Sabines S/N, Col. 24 de Junio, Tuxtla Gutiérrez, Chiapas. <br />
+  Teléfono: (961) 61 70800 Ext. 41270<br />
+  Correo Electrónico: era.chiapas@gmail.com<br />
+</p>
+

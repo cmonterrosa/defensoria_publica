@@ -1,0 +1,28 @@
+<%=render :partial => "home/arbol"%>
+
+<div class="container">
+<% form_for :tramite, @tramite, :url => { :action => "save_notificacion", :controller => "tramites", :id => @tramite, :type=> "email"}, :html => {:class => "formee", :id => "new_notificacion"} do |f| -%>
+  <fieldset>
+    <legend>&nbsp;NOTIFICACION&nbsp;DE&nbsp;TRAMITE&nbsp;POR&nbsp;EMAIL</legend>
+      <div class="grid-12-12">
+          <%= error_messages_for :tramite %>
+      </div>
+
+      <div class="grid-12-12">
+          <%=render :partial => "show"%>
+      </div>
+
+      
+      <div class="grid-12-12 clear"></div>
+
+       <div id ="boton_guardar" class="grid-form-login">
+      <input class="right" type="submit" title="ENVIAR" value="ENVIAR" />
+    </div>
+</fieldset>
+<%end%>
+</div>
+
+
+
+
+
