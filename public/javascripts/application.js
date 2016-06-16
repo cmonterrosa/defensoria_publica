@@ -44,6 +44,14 @@ $(function() {
     });
 });
 
+$(function() {
+    $j('#participante_fechahora_detencion').datetimepicker({
+        dayOfWeekStart : 1,
+        buttonImage: "/images/icons/calendar.gif",
+        lang:'es'
+    });
+});
+
 
 $(function() {
     $j('#participante_fechahora_puesta_a_disposicion').datetimepicker({
