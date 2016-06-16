@@ -4,14 +4,16 @@
 ##########################################
  
 class TramitesController < ApplicationController
-  require_role [:defensor, :jefedefensor]
+  require_role [:defensor, :jefedefensor, :defensorapoyo]
   require_role :jefedefensor, :for => [:asignar, :history]
 
   
   def index
     @defensor = Defensor.find(:first, :conditions => ["persona_id = ?", current_user.persona.id]) if current_user
+    #@tramites = [].paginate(:page => params[:page], :per_page => 25)
     @tramites = Tramite.find(:all, :order => "created_at DESC", :conditions => ["defensor_id = ?", @defensor.id]).paginate(:page => params[:page], :per_page => 25) if @defensor
     @tramites = Tramite.find(:all, :order => "created_at DESC").paginate(:page => params[:page], :per_page => 25) if current_user.has_role?(:admin) || current_user.has_role?(:jefedefensor)
+    @tramites ||= Tramite.find(Atencion.find(:all, :conditions => ["user_id = ? AND activa=?", current_user, true ]).map{|i|i.tramite_id}).paginate(:page => params[:page], :per_page => 25) if current_user.has_role?(:defensorapoyo)
     render :partial => "list", :layout => "content"
   end
 
@@ -32,8 +34,10 @@ class TramitesController < ApplicationController
     @tramite = (params[:id])? Tramite.find(params[:id]) : Tramite.new
     @tramite.fechahora_atencion ||= Time.now.strftime("%Y/%m/%d")
     @materias = Catalogo.materia.all
-    @defensores = Defensor.find(:all, :conditions => ["activo = ? AND persona_id = ?", true, current_user.persona.id])
+    @fiscalias = Fiscalia.find(:all, :conditions => ["activa = ?", true])
+    @defensores = Defensor.find(:all, :conditions => ["activo = ? AND persona_id = ?", true, current_user.persona.id]) if current_user.has_role?(:defensor)
     @defensores = Defensor.find(:all, :conditions => ["activo = ?", true]) if current_user.has_role?(:admin) || current_user.has_role?(:jefedefensor)
+    @defensores ||= Array.new
   end
 
   def save
@@ -81,14 +85,22 @@ class TramitesController < ApplicationController
       redirect_to :action => "index"
    end
 
+   def notificar
+     select_object
+     @user = User.find_by_login(Base64.decode64(params[:token])) if params[:token]
+     if (@user && @user == current_user) && (@user.has_role?(:jefedefensor) || @user.has_role?(:defensorapoyo))
+        render :partial => "notificacion_email", :layout => "content"
+     else
+        flash[:error] = "No tiene privilegios de notificar"
+        redirect_to :controller => "home"
+     end
+   end
+
  protected
   
-   def select_object
-        begin
-            @tramite =  Tramite.find(params[:id])
-        rescue ActiveRecord::RecordNotFound
-            flash[:error] = "No se encontro tramite, verifique o contacte al administrador"
-            redirect_to  :action => "index"
-        end
+  def select_object
+        @tramite =  Tramite.find(params[:id])
+   rescue ActiveRecord::RecordNotFound
+          render_404
    end
 end

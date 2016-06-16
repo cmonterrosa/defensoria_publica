@@ -1,11 +1,11 @@
-######################################
+##########################################
 # Controlador que administra a los participantes de cada
 # trámite
-######################################
+###########################################
 
 class ParticipantesController < ApplicationController
 
-  require_role :defensor, :for_all_except => :show
+  require_role [:defensor, :defensorapoyo], :for_all_except => :show
 
   def index
       @tramite = Tramite.find(params[:t]) if params[:t]
@@ -51,6 +51,7 @@ class ParticipantesController < ApplicationController
           @entornos = Entorno.all
           @calidads= Calidad.all
           @marginacions = Marginacion.all
+          @edo_civil = Catalogo.estado_civil.all
           render :action => "new_or_edit"
         end
   end
@@ -152,13 +153,11 @@ class ParticipantesController < ApplicationController
 
   protected
 
-   def select_object
-        begin
-            @participante =  Participante.find(params[:id])
-        rescue ActiveRecord::RecordNotFound
-            flash[:error] = "No se encontro participante, verifique o contacte al administrador"
-            redirect_to  :action => "index", :t => params[:t]
-        end
+    def select_object
+      @participante =  Participante.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+          render_404
+          #flash[:error] = "No se encontro tramite, verifique o contacte al administrador"
+          #redirect_to  :action => "index"
    end
-
 end

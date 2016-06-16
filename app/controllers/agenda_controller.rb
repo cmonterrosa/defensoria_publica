@@ -1,8 +1,8 @@
-######################################
+##########################################
 # Controlador que visualiza en forma de calendario,
 # las audiencias de oralidad
 #
-######################################
+##########################################
 
 class AgendaController < ApplicationController
 

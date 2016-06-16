@@ -3,7 +3,8 @@ class RecursosController < ApplicationController
 
 	def index
       @tramite = Tramite.find(params[:t]) if params[:t]
-      @recursos = @tramite.recursos.paginate(:page => params[:page], :per_page => 25) if @tramite
+      @recursos = @tramite.recursos.paginate(:page => params[:page], :per_page => 25) if @tramite 
+      @recursos ||= []
       render :partial => "list", :layout => "content"
   end
 
@@ -17,7 +18,6 @@ class RecursosController < ApplicationController
       @recurso= (params[:id])? Amparo.find(params[:id]) : Recurso.new
       @tramite = Tramite.find(params[:t]) if params[:t]      
       @tiporecurso= TipoRecurso.all
-      
   end
 
   def save
@@ -35,4 +35,15 @@ class RecursosController < ApplicationController
     end
   end
 
+  def destroy
+        begin
+            @recurso =  Recurso.find(params[:id])
+            @tramite = Tramite.find(params[:t])
+            (@recurso && @recurso.destroy)? flash[:notice] = "Recurso eliminado correctamente" : flash[:error] = "No se pudo eliminar registro, verifique"
+             redirect_to(:action => "index", :t => @tramite)
+        rescue ActiveRecord::RecordNotFound, ActiveRecord::RecordInvalid => invalid
+            flash[:error] = invalid
+            redirect_to :controller => "home"
+        end
+  end
 end
