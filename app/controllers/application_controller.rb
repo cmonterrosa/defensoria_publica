@@ -2,6 +2,8 @@
 # = Controlador de la aplicación
 #
 ###################################################
+require 'date'
+require 'time'
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
@@ -43,6 +45,30 @@ class ApplicationController < ActionController::Base
       @selected=relacion.collect{|cat|cat.id}
     end
     return @selected
+  end
+
+  def render_404(options={})
+    render_error({:message => 'REGISTRO NO ENCONTRADO', :status => "ERROR"}.merge(options))
+    return false
+  end
+
+    # Renders an error response
+  def render_error(arg)
+    arg = {:message => arg} unless arg.is_a?(Hash)
+
+    @message = arg[:message]
+    @message = l(@message) if @message.is_a?(Symbol)
+    @status = arg[:status] || 500
+
+    respond_to do |format|
+      format.html {
+        render :template => 'home/error', :layout => 'content', :status => @status
+      }
+      format.atom { head @status }
+      format.xml { head @status }
+      format.js { head @status }
+      format.json { head @status }
+    end
   end
 
   # Guarda registro de persona en tablas vínculadas

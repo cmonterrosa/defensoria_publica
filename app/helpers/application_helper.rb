@@ -21,5 +21,20 @@ module ApplicationHelper
                                                    1 => "#feaeff", 2 => "#A9A9F5", 3 => "#31B404", 4=> "#F2F5A9", 5 => "#EDD46F", 6 => "#20d6d0"}
   end
 
-  
+  def html_title(*args)
+    if args.empty?
+      title = []
+      title += @html_title if @html_title
+      title << Setting.app_title
+      title.select {|t| !t.blank? }.join(' - ')
+    else
+      @html_title ||= []
+      @html_title += args
+    end
+  end
+
+  def custom_format(date=nil)
+      return date.strftime("%d de %B de %Y, %H:%M %p ").upcase if date && (date.respond_to?(:strftime))
+  end
+
 end
