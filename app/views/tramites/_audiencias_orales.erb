@@ -9,7 +9,7 @@
       </tr>
       <%@tramite.audiencia_orals.each do |a|%>
         <tr>
-          <td><%=h (a.start_at)? custom_format(a.start_at) : ''%></td>
+          <td><%=h (a.start_at)? a.start_at.strftime("%d de %B de %Y, %H:%M %p").upcase : ''%></td>
           <td><%=h (a.tipo_audiencia)? a.tipo_audiencia.descripcion : ''%></td>
           <td><%=h (a.organo_id)? a.organo.descripcion : ''%></td>
         </tr>

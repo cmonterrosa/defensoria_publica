@@ -1,12 +1,21 @@
 <%=render :partial => "home/arbol"%>
 
 <div class="container">
-<% form_for :tramite, @tramite, :url => { :action => "save_notificacion", :controller => "tramites", :id => @tramite, :type=> "email"}, :html => {:class => "formee", :id => "new_notificacion"} do |f| -%>
+<% form_for :tramite, @tramite, :url => { :action => "send_notification", :controller => "tramites", :id => @tramite, :type=> "email"}, :html => {:class => "formee", :id => "new_notificacion"} do |f| -%>
   <fieldset>
     <legend>&nbsp;NOTIFICACION&nbsp;DE&nbsp;TRAMITE&nbsp;POR&nbsp;EMAIL</legend>
       <div class="grid-12-12">
           <%= error_messages_for :tramite %>
       </div>
+
+     <!-- Email donde se enviará notificación -->
+     <div class="grid-12-12">
+        <div class="grid-4-12">
+          <label><b>CORREOS ELECTRONICOS DONDE SE ENVIARA NOTIFICACION: </b></label>
+        </div>
+        <div class="grid-8-12"><%=label :info, :correo, @tramite.users_allowed_for_notification.collect{|u|" #{u.persona.nombre_completo}  \< #{u.email} \>"}.join(" , ")%></div>
+      </div>
+
 
       <div class="grid-12-12">
           <%=render :partial => "show"%>
