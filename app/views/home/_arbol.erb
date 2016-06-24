@@ -107,6 +107,12 @@
                   (link_to title.upcase, {:controller => "admin", :action => "users_index"}, :class => "arbol", :title => title.upcase)
                 end
 
+            when 'etapas'
+              title = 'ETAPAS DEL TRÁMITE'
+              (link_to 'TRAMITES', {:controller => "tramites", :action => "index"}, :class => "arbol", :title => title.upcase) <<
+              " >> " +  raw(link_to ' MENU ', {:controller => 'tramites', :action => "menu", :id => @tramite}, :class => "arbol") <<
+              " >> " + (link_to title.upcase, {:controller => "etapas", :action => "index", :id => @tramite}, :class => "arbol", :title => title.upcase)
+
             when 'tramites'
                 title = 'TRAMITES'
                 raw(link_to ' TRAMITES ', {:controller => 'tramites', :action => "index"}, :class => "arbol") <<
