@@ -96,6 +96,14 @@ class TramitesController < ApplicationController
      end
    end
 
+   def send_notification
+     select_object
+     if @tramite.notificar_por_email
+        flash[:notice] = "Envío correcto"
+        redirect_to(:back)
+     end
+   end
+
  protected
   
   def select_object

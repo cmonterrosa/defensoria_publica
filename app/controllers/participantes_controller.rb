@@ -5,7 +5,7 @@
 
 class ParticipantesController < ApplicationController
 
-  require_role [:defensor, :defensorapoyo], :for_all_except => :show
+  require_role [:jefedefensor, :defensor, :defensorapoyo], :for_all_except => :show
 
   def index
       @tramite = Tramite.find(params[:t]) if params[:t]
