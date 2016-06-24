@@ -116,9 +116,20 @@ class Tramite < ActiveRecord::Base
  # Notificar de nuevo tramite
  def notificar_por_email
   # sent a message to users from jefefensor role if at least one row is exists
+  success=false
   unless self.participantes.empty?
-    Role.find_by_name("jefedefensor").active_users.each{ |j|  TramiteMailer.deliver_notification_created(j, self.id) if j.email_valid? }
+    Role.find_by_name("jefedefensor").active_users.each{ |j|  TramiteMailer.deliver_notification_created(j, self.id) && success=true if j.email_valid? }
   end
+  return success
+ end
+
+ # Regresa un arreglo de los usuarios que recibirán notificacion
+ def users_allowed_for_notification
+  unless self.participantes.empty?
+    array=[]
+    Role.find_by_name("jefedefensor").active_users.each{ |i| array << i  if i.email_valid? }
+  end
+  return array
  end
 
 # Actualización del estatus del trámite y además guarda registro en bitácora
