@@ -7,7 +7,7 @@
 
 <%=periodically_call_remote(:url => {:controller => "audiencias",
                             :action => "get_last_attention"},
-                            :frequency => '12',
+                            :frequency => '8',
                             :before => "Element.show('spinner')",
                             :success => "Element.hide('spinner')",
                             :update => { :success => "monitor", :failure => "error" })%>

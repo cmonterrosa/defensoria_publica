@@ -1,0 +1,43 @@
+<%=render :partial => "home/arbol"%>
+
+
+<%if @persona%>
+  <p>
+    <b>Nombre completo:</b>
+    <%=h @persona.nombre_completo %>
+  </p>
+
+  <p>
+    <b>CURP:</b>
+    <%=h @persona.per_curp %>
+  </p>
+
+  <p>
+    <b>RFC:</b>
+    <%=h @persona.per_rfc %>
+  </p>
+
+<%end%>
+
+<!-- Listado de visitas -->
+<table class="tablakolaval" style=" margin: auto; width: 80%;">
+  <tr>
+    <td>ASUNTO</td>
+    <td>DEFENSOR</td>
+    <td>FECHA</td>
+  </tr>
+
+    <%@orientaciones.each do |a|%>
+      <tr>
+        <td><%=a.asunto%></td>
+        <td><%=(a.defensor && a.defensor.persona) ? a.defensor.persona.nombre_completo : '-'%></td>
+        <td><%=(a.fecha)? a.fecha.strftime("%d de %B de %Y") : ''%></td>
+      </tr>
+    <%end%>
+</table>
+
+
+
+
+
+

@@ -1,5 +1,13 @@
 <%=render :partial => "home/arbol"%>
 
+<script type="text/javascript">
+  var windowObjectReference;
+  var strWindowFeatures = "menubar=no,location=no,resizable=no,scrollbars=no,status=no,directories=no,width=600,height=450";
+    function openRequestedPopup() {
+      windowObjectReference = window.open("/audiencias/monitor", "MONITOR", strWindowFeatures);
+     }
+</script>
+
 <% form_tag({:action => "search"}, {:class => "search"}) do -%>
   <p>
     <%= text_field_tag :search, params[:search], :limit => 90, :placeholder => "Escriba el nombre del solicitante" %>
@@ -7,7 +15,9 @@
   </p>
 <% end %>
 
-
+  <p>
+    <a href="#" onclick="openRequestedPopup();" class="boton">MONITOR</a>
+  </p>
 
 <!-- contenido -->
 <div id="divlista">
@@ -17,7 +27,7 @@
        <td style="vertical-align: middle;">Turno</td>
        <td style="vertical-align: middle;">Nombre completo</td>
        <td style="vertical-align: middle;">Asunto</td>
-       <td style="vertical-align: middle;" colspan="4">&nbsp;</td>
+       <td style="vertical-align: middle;" colspan="5">&nbsp;</td>
     </tr>
     <%@audiencias.each do |a|%>
     <tr>
@@ -25,7 +35,12 @@
      <td style="vertical-align: middle;"><%=a.turno%></td>
      <td style="vertical-align: middle;"><%=(a.persona) ? a.persona.nombre_completo : "--"%></td>
      <td style="vertical-align: middle;"><%=(a.asunto) ? a.asunto : "--"%></td>
-     <td style="vertical-align: middle;"><%=link_to "Imprimir", {:action => "print", :id =>a}, :class => 'boton'  -%></td>
+     <td style="vertical-align: middle;"><%=link_to "ficha", {:action => "print", :id =>a}, :class => 'boton'  -%></td>
+
+      <% if  a.persona.numero_orientaciones > 1 %>
+          <td style="vertical-align: middle;"><%=link_to "historico", {:action => "history_by_person", :id =>a.persona.id}, :class => 'boton'  -%></td>
+     <%end%>
+
      <td style="vertical-align: middle;"><%=link_to "Detalle", {:action => "show", :id => a}, :class => 'boton'  -%></td>
      <td style="vertical-align: middle;"><%=link_to "Editar", {:action => "new_or_edit", :id => a}, :class => 'boton'  -%></td>
      <td style="vertical-align: middle;"><%=link_to "Eliminar", {:action => "destroy", :id => a}, :confirm => '¿Desea eliminar el registro?', :class => 'boton'  -%></td>

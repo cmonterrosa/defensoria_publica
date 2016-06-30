@@ -4,7 +4,7 @@
 ######################################
 
 class AudienciasController < ApplicationController
-  before_filter :login_required, :except => 'get_datos_personales'
+  require_role [:defensor, :directivo, :admin], :except => 'get_datos_personales'
   
   def index
     @audiencias = Audiencia.find(:all, :conditions => ["fecha = ?", Time.now.strftime("%Y/%m/%d")])
@@ -42,6 +42,18 @@ class AudienciasController < ApplicationController
       end
   end
 
+ # Muestra detalle historico de orientaciones por persona
+ def history_by_person
+    if @persona = Persona.find(params[:id])
+       @orientaciones = Audiencia.find(:all, :conditions => ["persona_id = ?", @persona.id], :order=> "created_at DESC")
+    else
+      flash[:error] = "Persona no encontrada, verifique o contacte al administrador"
+      redirect_to(:back)
+    end
+ end
+
+
+  # Muestra detalle de la orientacion
   def show
       select_object
   end

@@ -92,8 +92,14 @@
 
             when 'audiencias'
                 title = 'ORIENTACIONES AL PÚBLICO '
-
-                (link_to title.upcase, {:controller => params[:controller], :action => "index"}, :class => "arbol", :title => title.upcase)
+                case controller.action_name
+                when 'history_by_person'
+                  (link_to title.upcase, {:controller => params[:controller], :action => "index"}, :class => "arbol", :title => title.upcase) <<
+                   ">> " + (link_to 'HISTORICO', {:controller => params[:controller], :action => controller.action_name}, :class => "arbol", :title => title.upcase)
+                else
+                  (link_to title.upcase, {:controller => params[:controller], :action => "index"}, :class => "arbol", :title => title.upcase)
+                end
+                
 
             when 'users'
                 case controller.action_name
