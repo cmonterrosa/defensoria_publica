@@ -24,12 +24,13 @@ class Persona < ActiveRecord::Base
         true
     end
   end
-  
+
+  # Calcula la edad de la persona
    def edad
       self.per_nacimiento ? ((DateTime.now -  self.per_nacimiento) / 365.25).to_i : nil
    end
 
-  ###### FUNCIONES QUE TRAEN Y GUADAN VALORES DE CONTACTO  ######
+  ###### FUNCIONES QUE TRAEN Y GUARDAN VALORES DE CONTACTO  ######
 
   def set_datos_contacto(tipo=nil, parametros={})
     @objeto_contacto = eval("(Contacto.#{tipo}.find(:first, :conditions => ['fk_persona = ?', self.id]))? Contacto.#{tipo}.find(:first, :conditions => ['fk_persona = ?', self.id]) : Contacto.#{tipo}.new(:fk_persona => self.id)") if tipo
@@ -64,8 +65,12 @@ class Persona < ActiveRecord::Base
      end
    end
 
-   
+   # Devuelve el numero de orientaciones fisicas que se le han brindado en el IDP
+   def numero_orientaciones
+     (self.id) ?Audiencia.count(:id, :conditions => ["persona_id = ?", self.id]) : 0
+   end
 
+   
   def self.search(search)
     if search
       find(:all, :conditions => ['CONCAT(per_nombre, \' \' , per_paterno, \' \' , per_materno) LIKE ?', "%#{search}%"], :order => "per_paterno, per_materno, per_nombre", :limit => 25)
@@ -74,6 +79,7 @@ class Persona < ActiveRecord::Base
     end
   end
 
+  # Prepara registro con sus correlaciones en distintos modelos
   def prepare_row(params={}, current_user=nil, objeto=nil)
           if params[:persona]
             @persona = objeto.persona if (objeto)

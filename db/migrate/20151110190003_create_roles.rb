@@ -10,9 +10,11 @@ class CreateRoles < ActiveRecord::Migration
     Role.create(:name => "admin", :descripcion => "ADMINISTRADOR DEL SISTEMA", :prioridad => 1)
     Role.create(:name => "directivo", :descripcion => "DIRECTIVO", :prioridad => 2)
     Role.create(:name => "jefedefensor", :descripcion => "JEFE DE DEFENSORES PUBLICOS", :prioridad => 3)
-    Role.create(:name => "defensor", :descripcion => "DEFENSOR PUBLICO", :prioridad => 4)
-    Role.create(:name => "defensorapoyo", :descripcion => "DEFENSOR PUBLICO DE APOYO", :prioridad => 5)
-    Role.create(:name => "solicitante", :descripcion => "SOLICITANTE", :prioridad => 6)
+    Role.create(:name => "defensorpenal", :descripcion => "DEFENSOR PUBLICO PENAL", :prioridad => 4)
+    Role.create(:name => "defensor", :descripcion => "DEFENSOR PUBLICO", :prioridad => 5)
+    Role.create(:name => "defensorapoyo", :descripcion => "DEFENSOR PUBLICO DE APOYO", :prioridad => 6)
+    Role.create(:name => "notificante", :descripcion => "RECIBE NOTIFICACIONES DE TRAMITES", :prioridad => 7)
+    Role.create(:name => "solicitante", :descripcion => "SOLICITANTE", :prioridad => 8)
     
     # generate the join table
     create_table "roles_users", :id => false do |t|
