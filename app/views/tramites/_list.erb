@@ -52,7 +52,9 @@
   </table>
 <%end%>
 
-<br /><%=link_to "REGISTRAR NUEVO TRAMITE", {:action => "new_or_edit"}, :class => 'boton'  -%>
+<% accion=(current_user.has_role?(:defensor)? 'new_or_edit' : 'new_or_edit_apoyo') %>
+<br /><%=link_to "REGISTRAR NUEVO TRAMITE", {:action => accion}, :class => 'boton'  -%>
+
 
 
 
