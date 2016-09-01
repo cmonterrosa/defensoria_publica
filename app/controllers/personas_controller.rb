@@ -17,6 +17,7 @@ class PersonasController < ApplicationController
   end
 
    def search
+    @search = params[:search]
     @personas = Persona.search(params[:search]).paginate(:page => params[:page], :per_page => 25)
     render :partial => "list", :layout => "content"
   end
@@ -70,6 +71,7 @@ class PersonasController < ApplicationController
     begin
       @persona = Persona.find(params[:id])
       @participantes = Participante.find(:all, :conditions => ["persona_id = ?", @persona.id])
+      @audiencias = Audiencia.find(:all, :conditions => ["persona_id = ?", @persona.id])
     rescue
       flash[:error] = "No se encontro persona, verifique"
       redirect_to(:back)

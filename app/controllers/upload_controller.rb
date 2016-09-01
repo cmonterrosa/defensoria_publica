@@ -5,7 +5,7 @@
 ############################################
 
 class UploadController < ApplicationController
-  require_role [:defensor, :admin, :subdireccion], :for => [:destroy, :download]
+  require_role [:defensor, :admin, :subdireccion, :defensorapoyo], :for => [:destroy, :download]
 
   def index
     @participante = (params[:token] == "p" || params[:p] )?  Participante.find(params[:p]) : nil
@@ -15,7 +15,12 @@ class UploadController < ApplicationController
     @title ||= "PORTAL DE DOCUMENTOS COMPARTIDOS"
     @uploaded_files = @tramite.adjuntos.paginate(:page => params[:page], :per_page => 10) if @tramite
     @uploaded_files ||= @participante.adjuntos.paginate(:page => params[:page], :per_page => 10) if @participante
-    @uploaded_files ||= Adjunto.find(:all, :conditions => ["activo = ? AND tramite_id IS NULL and participante_id IS NULL", true]).paginate(:page => params[:page], :per_page => 10) if current_user
+    @uploaded_files ||= Adjunto.find(:all, :conditions => ["clave_mensaje IS NULL AND activo = ? AND tramite_id IS NULL and participante_id IS NULL", true]).paginate(:page => params[:page], :per_page => 10) if current_user
+    render :partial => "list", :layout => "only_javascript"
+  end
+
+  def search
+    @uploaded_files ||= Adjunto.find(:all, :conditions => ["clave_mensaje IS NULL AND activo = ? AND tramite_id IS NULL and participante_id IS NULL AND descripcion like ?", true, "%#{params[:search]}%" ]).paginate(:page => params[:page], :per_page => 10) if current_user
     render :partial => "list", :layout => "only_javascript"
   end
 

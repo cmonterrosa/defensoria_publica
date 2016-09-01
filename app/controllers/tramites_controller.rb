@@ -13,7 +13,7 @@ class TramitesController < ApplicationController
     #@tramites = [].paginate(:page => params[:page], :per_page => 25)
     @tramites = Tramite.find(:all, :order => "created_at DESC", :conditions => ["defensor_id = ?", @defensor.id]).paginate(:page => params[:page], :per_page => 25) if @defensor
     @tramites = Tramite.find(:all, :order => "created_at DESC").paginate(:page => params[:page], :per_page => 25) if current_user.has_role?(:admin) || current_user.has_role?(:jefedefensor)
-    @tramites ||= Tramite.find(Atencion.find(:all, :conditions => ["user_id = ? AND activa=?", current_user, true ]).map{|i|i.tramite_id}).paginate(:page => params[:page], :per_page => 25) if current_user.has_role?(:defensorapoyo)
+    @tramites ||= Tramite.find(Atencion.find(:all, :conditions => ["user_id = ? AND activa IS NOT NULL", current_user ]).map{|i|i.tramite_id}).paginate(:page => params[:page], :per_page => 25) if current_user.has_role?(:defensorapoyo)
     render :partial => "list", :layout => "content"
   end
 
@@ -28,6 +28,49 @@ class TramitesController < ApplicationController
   def atenciones
     select_object
   end
+
+  # Habilita seleccion de optiones para concluir tramite
+  def options_concluir
+      select_object
+      @concluido = Concluido.find(:first, :conditions => ["tramite_id = ?", @tramite.id]) if @tramite
+      @concluido ||= Concluido.new(:tramite_id => @tramite.id)
+      @motivos_conclusion = MotivoConclusion.all
+      render :partial => "options_concluir", :layout => "content"
+  end
+
+  # Despliega opciones de seleccion al concluir tramite
+  def get_opciones
+    if @motivo_conclusion = MotivoConclusion.find(params[:concluido][:motivo_conclusion_id])
+        case @motivo_conclusion.clave
+        when 'poralt'
+          @mecanismo_alternativo = MecanismoAlternativo.find(:first, :conditions => ["tramite_id = ?", params[:tramite][:id]]) || MecanismoAlternativo.new
+          @tipo_mecanismo= TipoMecanismo.all
+          render :partial => "options_for_mecanismos_alternativos"
+        else
+          render :text => "ES CORRECTO"
+        end
+    end
+  end
+
+  # Guarda trámite como concluido
+  def concluir
+      @tramite = Tramite.find(params[:id])
+      @concluido = Concluido.find(:first, :conditions => ["tramite_id = ?", @tramite.id]) if @tramite
+      @concluido ||= Concluido.new(:tramite_id => @tramite.id)
+      @concluido.update_attributes(params[:concluido])
+      # Options #
+      @mecanismo_alternativo = MecanismoAlternativo.find(:first, :conditions => ["tramite_id = ?", params[:tramite][:id]]) || MecanismoAlternativo.new(params[:mecanismo_alternativo] )
+      @tramite.mecanismo_alternativos << @mecanismo_alternativo
+      @concluido.user = current_user
+      if @concluido.save && @tramite.save
+        redirect_to :action => "index"
+        write_log("Expediente concluido correctamente: #{@concluido.inspect}", current_user)
+        flash[:notice] = "Expediente concluido correctamente"
+      else
+        render :text => "No se pudo concluir"
+        flash[:error] = "No se pudo concluir correctamente"
+      end
+    end
 
 
   def new_or_edit
@@ -44,6 +87,7 @@ class TramitesController < ApplicationController
     @tramite = (params[:id])? Tramite.find(params[:id]) : Tramite.new
     @tramite.init_journal(current_user) if current_user
     @tramite.update_attributes(params[:tramite])
+    #@tramite.prepare_fields
     if @tramite.valid?
        @tramite.save
        @tramite.verificar_registro_atencion(current_user) if current_user

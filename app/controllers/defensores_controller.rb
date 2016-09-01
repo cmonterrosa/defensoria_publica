@@ -53,8 +53,8 @@ class DefensoresController < ApplicationController
   # Método que elimina registro de defensor, recibe como parámetro el id del registro
   def destroy
     @defensor = Defensor.find(params[:id])
-    @tramites_defensor = Tramite.count(:defensor_id, :conditions => ["defensor_id = ? ", @defensor]) if @defensor
-    @sucess = (@tramites_defensor && @tramites_defensor.size == 0)
+    @tramites_defensor = Tramite.count(:defensor_id, :conditions => ["defensor_id = ? ", @defensor.id]) if @defensor
+    @sucess = (@tramites_defensor && @tramites_defensor == 0)
     if @sucess && @defensor.destroy
       flash[:notice] = "Registro eliminado correctamente"
     else
