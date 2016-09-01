@@ -19,10 +19,10 @@
                 font-size: 13px;
                 font-family: 'Nexa Bold';
                 text-transform: uppercase;
-                width: 12%;
+                width: 22%;
 }
 .search input[type=submit]:hover  {
                 background-color:#fafafa;
                 color:#207cca;
-                width: 12%;
+                width: 22%;
 }

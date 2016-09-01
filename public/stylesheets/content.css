@@ -65,6 +65,27 @@ TextBoxMenu:hover {
 }
 
 
+/* Nueva persona */
+.Nueva Persona{
+    font-family: "Nexa Bold";
+    vertical-align: middle;
+    font-size: 18px;
+    color: navy;
+}
+
+.NuevaPersona a{
+    font-family: "Nexa Bold";
+    vertical-align: middle;
+    margin: auto;
+    font-size: 18px;
+    color: green;
+}
+
+.NuevaPersona a:hover{
+    vertical-align: middle;
+    color: #fad42e;
+}
+
 .TituloSubdireccion {
     font-family: "Nexa Light";
     background-color: #CB352E;
