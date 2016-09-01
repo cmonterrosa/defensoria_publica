@@ -1,5 +1,5 @@
 ##################################
-# Modelo que conecta directamente a tabla de persona
+# = Modelo que conecta directamente a tabla de persona
 #
 ##################################
 
@@ -17,12 +17,18 @@ class Persona < ActiveRecord::Base
 #    :allow_blank => true, :message => "Formato inválido"
 
   before_save :validates_curp, :if => "self.per_curp != nil"
+  before_save :set_timestamp
 
   def validates_curp
     success = (self.per_curp && self.per_curp.size == 18)
     if success && self.per_curp=~ /\A[A-Z][AEIOUX][A-Z]{2}[0-9]{2}[0-1][0-9][0-3][0-9][MH][A-Z][BCDFGHJKLMNÑPQRSTVWXYZ]{4}[0-9A-Z][0-9]\z/
         true
     end
+  end
+
+  def set_timestamp
+    self.per_elaboracion ||= Time.now
+    self.per_modificacion = Time.now
   end
 
   # Calcula la edad de la persona
@@ -70,10 +76,10 @@ class Persona < ActiveRecord::Base
      (self.id) ?Audiencia.count(:id, :conditions => ["persona_id = ?", self.id]) : 0
    end
 
-   
+   # Metodo que busca una persona o personas
   def self.search(search)
-    if search
-      find(:all, :conditions => ['CONCAT(per_nombre, \' \' , per_paterno, \' \' , per_materno) LIKE ?', "%#{search}%"], :order => "per_paterno, per_materno, per_nombre", :limit => 25)
+    if search && search.size > 1
+      find(:all, :conditions => ['CONCAT(per_nombre, \' \' , per_paterno, \' \' , per_materno) LIKE ?', "%#{search}%"], :order => "per_paterno, per_materno, per_nombre", :limit => 125)
     else
       find(:all)
     end

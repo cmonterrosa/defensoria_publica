@@ -10,16 +10,8 @@
           <% @user.password = @user.password_confirmation = nil %>
       </div>
 
-     <div class="grid-12-12">
-          <div class="grid-4-12">
-            <label><b>CURP O NOMBRE COMPLETO: </b><em class="formee-req">*</em></label>
-          </div>
-          <%if @persona%>
-              <div class="grid-4-12"><%=text_field :persona, :per_curp, :value => @per_curp%></div>
-           <%else%>
-              <div class="grid-4-12"><%=text_field :persona, :per_curp, :placeholder => "Escriba la CURP o el nombre completo"%></div>
-          <%end%>
-      </div>
+     <!-- Barra de busqueda de persona -->
+      <%=render :partial => "home/search_per_curp"%>
 
       <div class="grid-12-12"><img alt="spinner" id="spinner" src="/images/loading_spinner.gif" style="display:none;" /></div>
 
@@ -29,8 +21,11 @@
         <%end%>
       </div>
 
+  </fieldset>
 
-      <div class="grid-6-12">
+  <fieldset>
+    <legend>INFORMACION DE LA CUENTA</legend>
+     <div class="grid-6-12">
         <div class="grid-4-12">
           <label><b>LOGIN: </b><em class="formee-req">*</em></label>
         </div>
@@ -66,7 +61,16 @@
         </div>
        </div>
 
-      <div class="grid-6-12">
+      <div class="grid-8-12">
+          <div class="grid-2-12">
+            <label><b>ADSCRIPCION: </b><em class="formee-req">*</em></label>
+          </div>
+         <div class="grid-10-12">
+            <%= f.select(:adscripcion_id, Adscripcion.all.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true })%>
+          </div>
+      </div>
+
+      <div class="grid-4-12">
         <div class="grid-4-12">
           <label><b>¿ACTIVO?: </b><em class="formee-req">*</em></label>
         </div>

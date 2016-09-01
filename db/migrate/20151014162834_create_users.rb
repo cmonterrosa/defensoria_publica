@@ -15,11 +15,13 @@ class CreateUsers < ActiveRecord::Migration
       t.datetime :activated_at
       t.datetime :last_login
       t.string :last_ip, :limit => "15"
+      t.integer :adscripcion_id
       t.boolean :activo
 
     end
     add_index :users, :persona_id, :name => "user_persona", :unique => true
     add_index :users, [:persona_id, :activo],  :name => "user_persona_activo"
+    add_index :users, [:adscripcion_id],  :name => "user_adscripcion"
     add_index :users, :login, :unique => true
   end
 

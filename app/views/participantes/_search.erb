@@ -1,0 +1,8 @@
+<%=render :partial => "home/arbol"%>
+
+<% form_tag({:action => "search"}, {:class => "search"}) do -%>
+  <p>
+    <%= text_field_tag :search, params[:search], :limit => 90, :placeholder => "Escriba el nombre del defensor" %>
+    <%= submit_tag "Buscar", :name => nil %>
+  </p>
+<% end %>

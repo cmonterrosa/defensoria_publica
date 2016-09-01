@@ -15,6 +15,7 @@ class CreateRoles < ActiveRecord::Migration
     Role.create(:name => "defensorapoyo", :descripcion => "DEFENSOR PUBLICO DE APOYO", :prioridad => 6)
     Role.create(:name => "notificante", :descripcion => "RECIBE NOTIFICACIONES DE TRAMITES", :prioridad => 7)
     Role.create(:name => "solicitante", :descripcion => "SOLICITANTE", :prioridad => 8)
+    Role.create(:name => "recepcion", :descripcion => "RECEPCION EN MODULO", :prioridad => 9)
     
     # generate the join table
     create_table "roles_users", :id => false do |t|

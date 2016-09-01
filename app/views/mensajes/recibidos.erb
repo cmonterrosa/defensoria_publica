@@ -1,0 +1,65 @@
+<%=render :partial => "home/arbol"%>
+<%=render :partial => "menu"%>
+
+<br />
+
+
+
+<div class="formee-msg-info">
+    <h3>Mensajes en bandeja</h3>
+    <ul>
+      <li>Los registros en color <span style="background-color: yellow;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>,  aún no han sido leídos</li>
+    </ul>
+  </div>
+
+
+
+<!-- Menú de administrador -->
+<div class="titulocalendario">
+  <p>
+    Mensajes Recibidos
+  </p>
+</div>
+
+<!-- contenido -->
+<div id="divlista">
+    <table width="76%" border="0" cellspacing="0" cellpadding="0" class="tablakolaval" style="BORDER-RIGHT: #cccccc 1px solid; BORDER-TOP: #cccccc 1px solid; BORDER-LEFT: #cccccc 1px solid; BORDER-BOTTOM: #cccccc 1px solid; margin: auto;">
+      <tr style="background-color:#2E6AB1; color:white;">
+        <th width="20%">Fecha/Hora</th>
+        <th width="35%">Remitente</th>
+        <th width="35%">Asunto</th>
+        <th width="10%" colspan="2">&nbsp;</th>
+      </tr>
+    <%clase=0%>
+    <%contador=1%>
+    <%@recibidos.each do |r|%>
+
+        <%clase = (r.leido_at) ? "d0": "noleido"%>
+
+        <tr class="<%=clase%>">
+        <td style="vertical-align: middle; text-align: center;"><%=r.created_at.strftime("%d de %b de %Y - %H:%M")%></td>
+        <td style="vertical-align: middle;"><%=link_to "#{(r.envia_id && @user = User.find(r.envia_id))? @user.nombre_adscripcion_detalle : ''}", {:action => "show", :id => r}, :style => "text-decoration: none; color: #404040;"%></td>
+        <td style="vertical-align: middle;"><%=link_to r.asunto, {:action => "show", :id => r}, :style => "text-decoration: none; color: #404040;"%></td>
+        <td style="vertical-align: middle;"><%= button_to 'Leer', {:action => "show", :id => r}, :method => :post, :class => 'boton' %></td>
+        <td style="vertical-align: middle;"><%= button_to 'Eliminar', {:action => "destroy", :id => r}, :confirm => '¿Esta seguro que desea eliminar el mensaje?', :method => :post, :class => 'boton' %></td>
+        <%contador+=1%>
+    </tr>
+    <%end%>
+</table>
+</div>
+
+ <br />
+
+
+  <% if @recibidos.total_entries > @recibidos.per_page.to_i %>
+    <tr class="d<%=invert_class(clase)%>" align="center" >
+      <td colspan="8" style="padding: 0;">
+        <div class="digg_pagination">
+          <div class="page_info">
+            <%= page_entries_info @recibidos %>
+          </div>
+          <%= will_paginate @recibidos %>
+        </div>
+      </td>
+    </tr>
+    <% end %>

@@ -1,0 +1,103 @@
+<!-- Asignacion de variables -->
+<!-- Datos de contacto -->
+<%if @persona%>
+      <%@telefono_celular = @persona.get_datos_contacto('telefono_celular')%>
+      <%@telefono_casa = @persona.get_datos_contacto('telefono_casa')%>
+      <%@direccion = @persona.get_datos_contacto('direccion')%>
+      <%@correo_electronico = @persona.get_datos_contacto('correo_electronico')%>
+      <%@direccion_laboral = @persona.get_datos_contacto('direccion_laboral')%>
+      <%@telefono_laboral = @persona.get_datos_contacto('telefono_laboral')%>
+      <%@padre_nombre = (@persona.get_datos_familiares("padre"))? @persona.get_datos_familiares("padre").nombre : nil %>
+      <%@padre_apellidos = (@persona.get_datos_familiares("padre"))? @persona.get_datos_familiares("padre").apellidos : nil %>
+      <%@madre_nombre = (@persona.get_datos_familiares("madre"))? @persona.get_datos_familiares("madre").nombre : nil %>
+      <%@madre_apellidos = (@persona.get_datos_familiares("madre"))? @persona.get_datos_familiares("madre").apellidos : nil %>
+      <!-- Datos de extension de persona -->
+      <%@extension = ExtensionPersona.find_by_persona_id(@persona)%>
+  <%end%>
+
+
+<div class="grid-4-12">
+  <div class="grid-4-12">
+    <label><b>RFC: </b></label>
+  </div>
+  <div class="grid-8-12"><%=text_field :persona, :per_rfc,  :onBlur=>"javascript:{this.value = this.value.toUpperCase(); }"%></div>
+</div>
+
+<div class="grid-4-12">
+  <div class="grid-4-12">
+    <label><b>CURP: </b></label>
+  </div>
+  <div class="grid-8-12"><%=text_field :persona, :per_curp,  :onBlur=>"javascript:{this.value = this.value.toUpperCase(); }"%></div>
+</div>
+
+<div class="grid-4-12">
+  <div class="grid-4-12">
+    <label><b>CLAVE DE ELECTOR: </b></label>
+  </div>
+  <%@clave_elector = (@persona) ? ClaveElector.find_by_persona_id(@persona.id) : nil%>
+  <div class="grid-8-12"><%=text_field :clave_elector, :descripcion,  :onBlur=>"javascript:{this.value = this.value.toUpperCase(); }"%></div>
+</div>
+
+<div class="grid-6-12">
+  <div class="grid-4-12">
+    <label><b>APELLIDO PATERNO: </b><em class="formee-req">*</em></label>
+  </div>
+  <div class="grid-8-12"><%=text_field :persona, :per_paterno,  :onBlur=>"javascript:{this.value = this.value.toUpperCase(); }"%></div>
+</div>
+
+<div class="grid-6-12">
+  <div class="grid-4-12">
+    <label><b>APELLIDO MATERNO: </b><em class="formee-req">*</em></label>
+  </div>
+  <div class="grid-8-12"><%=text_field :persona, :per_materno,  :onBlur=>"javascript:{this.value = this.value.toUpperCase(); }"%></div>
+</div>
+
+<div class="grid-6-12">
+  <div class="grid-3-12">
+    <label><b>NOMBRE: </b><em class="formee-req">*</em></label>
+  </div>
+  <div class="grid-9-12"><%=text_field :persona, :per_nombre,  :onBlur=>"javascript:{this.value = this.value.toUpperCase(); }"%>
+      <div><%=hidden_field :persona, :id_persona%></div>
+  </div>
+</div>
+
+<div class="grid-6-12">
+  <div class="grid-5-12">
+    <label><b>FECHA DE NACIMIENTO: </b><em class="formee-req">*</em></label>
+  </div>
+  <div class="grid-7-12">
+    <span class="datetime">
+      <%=date_select :persona, :per_nacimiento, :order => [:day, :month, :year], :start_year => 1910%>
+    </span>
+  </div>
+</div>
+
+<div class="grid-6-12">
+        <div class="grid-4-12">
+          <label><b>SEXO: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-8-12">
+          <%= select(:extension, :sexo_id, Catalogo.sexos.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true })%>
+        </div>
+</div>
+
+<div class="grid-4-12">
+  <div class="grid-8-12">
+    <label><b>TIPO DE PERSONA: </b></label>
+  </div>
+  <div class="grid-4-12"><%=select :persona, :per_tipo,  ["FISICA", "MORAL"], :onBlur=>"javascript:{this.value = this.value.toUpperCase(); }"%></div>
+</div>
+
+<%=render :partial => "home/datos_contacto"%>
+
+
+<!-- Validaciones -->
+<script type="text/javascript">
+  var paterno = new LiveValidation( 'persona_per_paterno' );
+  var materno = new LiveValidation( 'persona_per_paterno' );
+  var nombre = new LiveValidation( 'persona_per_nombre' );
+  paterno.add( Validate.Presence );
+  materno.add( Validate.Presence );
+  nombre.add( Validate.Presence );
+</script>
+

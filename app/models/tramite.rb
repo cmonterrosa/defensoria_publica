@@ -29,15 +29,31 @@ class Tramite < ActiveRecord::Base
   
   after_save :crear_modificaciones
 
+  # Buscador
    def self.search(search, user=nil)
      user_condition = (user) ? "solicitante_id = #{user.id} AND " : ''
      (search) ? find(:all, :conditions => ["#{user_condition} carpeta_investigacion LIKE ? OR nuc LIKE ? OR registro_atencion LIKE ?", "%#{search}%", "%#{search}%", "%#{search}%"], :order => "created_at DESC") :  find(:all)
    end
 
+   # Devuelve el usuario soliciante
    def solicitante
     (self.solicitante_id)? User.find(self.solicitante_id) : nil
    end
 
+   # Devuelve el objeto de delito del catalogo
+   def delito_norma
+     (self.delito_norma_id)? DelitoNorma.find(self.delito_norma_id) : nil
+   end
+
+   # Regresa el primer objeto del modelo concluido perteneciente al tramite
+   def concluido
+     Concluido.find(:first, :conditions => ["tramite_id = ?", self.id], :order => "updated_at") if self.id
+   end
+
+   # Regresa el valor true o false dependiendo si el trámite ya fue concluido
+   def concluido?
+     Concluido.count(:id, :conditions => ["tramite_id = ?", self.id], :order => "updated_at") > 0 if self.id
+   end
 
    def verificar_registro_atencion(user)
        if user && self.id
@@ -115,10 +131,11 @@ class Tramite < ActiveRecord::Base
 
  # Notificar de nuevo tramite
  def notificar_por_email
-  # sent a message to users from jefefensor role if at least one row is exists
+  # sent a message to users from jefefensor and notificante roles if at least one row is exists
   success=false
   unless self.participantes.empty?
     Role.find_by_name("jefedefensor").active_users.each{ |j|  TramiteMailer.deliver_notification_created(j, self.id) && success=true if j.email_valid? }
+    Role.find_by_name("notificante").active_users.each{ |n|  TramiteMailer.deliver_notification_created(n, self.id) && success=true if n.email_valid? }
   end
   return success
  end
@@ -128,6 +145,7 @@ class Tramite < ActiveRecord::Base
   unless self.participantes.empty?
     array=[]
     Role.find_by_name("jefedefensor").active_users.each{ |i| array << i  if i.email_valid? }
+    Role.find_by_name("notificante").active_users.each{ |i| array << i  if i.email_valid? }
   end
   return array
  end

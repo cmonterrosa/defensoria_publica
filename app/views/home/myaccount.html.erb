@@ -15,6 +15,11 @@
        <td style="vertical-align: middle;"><%=(@user.persona)? @user.persona.nombre_completo : '--'%></td>
     </tr>
 
+     <tr>
+       <td style="vertical-align: middle;"><b>Adscripción:</b></td>
+       <td style="vertical-align: middle;"><%=(@user.adscripcion)? @user.adscripcion.descripcion : '--'%></td>
+    </tr>
+
     <tr>
        <td style="vertical-align: middle;"><b>Correo electrónico:</b></td>
        <td style="vertical-align: middle;"><%=@user.email%></td>

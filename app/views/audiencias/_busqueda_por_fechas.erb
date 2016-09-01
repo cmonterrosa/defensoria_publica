@@ -1,0 +1,33 @@
+<fieldset>
+  <label>POR RANGO DE FECHAS:</label>
+  <div class="grid-12-12">
+    <% form_tag({:action => "search"}, {:class => "search"}) do -%>
+    
+    <div class="grid-4-12">
+       <div class="grid-12-12">
+      <label>FECHA INICIAL</label>
+       </div>
+       <div class="grid-12-12">
+        <span class="datetime">
+          <%=date_select :fecha, :inicio, :order => [:day, :month, :year], :start_year => 1910%>
+        </span>
+       </div>
+    </div>
+
+      <div class="grid-4-12">
+       <div class="grid-12-12">
+      <label>FECHA FINAL</label>
+       </div>
+       <div class="grid-12-12">
+        <span class="datetime">
+          <%=date_select :fecha, :fin, :order => [:day, :month, :year], :start_year => 1910%>
+        </span>
+       </div>
+    </div>
+
+    <div class="grid-4-12">
+        <%= submit_tag "Buscar", :name => nil, :style => "width:50%;" %>
+    </div>
+   <% end %>
+  </div>
+</fieldset>

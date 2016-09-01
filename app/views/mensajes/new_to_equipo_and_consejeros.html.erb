@@ -1,0 +1,91 @@
+<%=render :partial => "menu"%>
+<br />
+
+
+
+
+<div class="container">
+  <div class="formee-msg-info">
+    <h3>Captura de nuevo mensaje</h3>
+    <ul>
+      <li>Los campos marcados con <em class="formee-req">*</em> son obligatorios.</li>
+    </ul>
+  </div>
+
+<%form_for(@mensaje, :url => {:action => "save_to_consejeros", :destinatario => @destinatario}, :html => {:class => "formee" }) do |f| -%>
+  <fieldset>
+    <legend>NUEVO&nbsp;MENSAJE</legend>
+
+    <!-- Línea campo -->
+
+            <div class="grid-12-12">
+              <label class="uper">¿El destinatario es un centro escolar?<em class="formee-req"> *</em></label>
+            </div>
+            <div class="grid-12-12">
+              <div class="grid-3-12"></div>
+              <div class="grid-5-12">
+                  <span id="ct_escuela_establecimiento" class="InputGroup">
+                   <label class="uper">SI <%= radio_button :destinatario, :escuela, "SI", :onclick => "enaDivRadioChecked('destinatario_escuela', 'busqueda_destinatario', 'destinatario_equipo');" %></label>&nbsp;&nbsp;
+                   <label class="uper">NO <%= radio_button :destinatario, :escuela, "NO", :onclick => "enaDivRadioChecked('destinatario_escuela', 'busqueda_destinatario', 'destinatario_equipo');" %></label>
+                  </span>
+              </div>
+            </div>
+
+
+    <div id="busqueda_destinatario" style="display: none;">
+        <div class="grid-12-12">
+          <label>Escriba la clave completa de la escuela para realizar la búsqueda: <em class="formee-req">*</em></label>
+              <%= text_field :escuela, :clave %>
+        </div>
+
+        <div class="grid-12-12">
+          <label>Destinatario: <em class="formee-req">*</em> </label>
+          <div id="destinatario"></div>
+        </div>
+
+        <img alt="spinner" id="spinner" src="/images/loading_spinner.gif" style="display:none;" />
+                       <%= observe_field :escuela_clave,
+                        :on => "change",
+                        :before => "Element.show('spinner')",
+                        :success => "Element.hide('spinner')",
+                        :update => :destinatario,
+                        :url => { :controller => 'combos', :action => 'get_clave_escuela' },
+                        :with => :escuela_clave %>
+  </div>
+   
+      <div class="grid-form" id="destinatario_equipo" style="display:none;">
+      <label>Destinatario: <em class="formee-req">*</em> </label>
+      <%= f.select :recibe_id, @destinatarios.collect{|a| [a.nombre, a.id]}, :style => "width: 700px; height: 1px"%>
+    </div>
+
+    <div class="grid-12-12 clear"></div>
+
+    <div class="grid-12-12">
+      <label>Asunto: <em class="formee-req">*</em></label>
+        <%= f.text_field :asunto, :placeholder => "Escriba brevemente el asunto", :style => "width: 700px; height: 1px" %>
+    </div>
+
+    <div class="grid-12-12 clear"></div>
+
+
+    <div class="grid-12-12">
+      <label>Descripción: <em class="formee-req">*</em></label>
+        <%= f.text_area :descripcion, :placeholder => "Escriba la descripción detallada", :style => "width: 700px; height: 200px" %>
+    </div>
+    <%#*</div>%>
+    <div class="grid-12-12 clear"></div>
+    <div class="grid-7-12">
+      <input class="right" type="submit" title="ENVIAR" value="ENVIAR" />
+    </div>
+  </fieldset>
+<%end%>
+</div>
+
+<script type="text/javascript">
+  var comentario_asunto = new LiveValidation( 'mensaje_asunto', {onlyOnSubmit: true} );
+  comentario_asunto.add( Validate.Presence );
+  var comentario_descripcion = new LiveValidation( 'mensaje_descripcion', {onlyOnSubmit: true} );
+  comentario_descripcion.add( Validate.Presence );
+  var destinatario = new LiveValidation( 'escuela_clave_completa', {onlyOnSubmit: true} );
+  destinatario.add( Validate.Presence );
+</script>

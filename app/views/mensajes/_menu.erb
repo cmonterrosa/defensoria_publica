@@ -1,0 +1,20 @@
+<table width="35%" border="0" cellspacing="0" cellpadding="0">
+    <tr align="center">
+        <!-- Nuevo -->
+        <td><%=link_to image_tag('mensajes/nuevo_mensaje.png', :size => "96x96", :mouseover => 'mensajes/nuevo_mensaje2.png') , {:action => "new", :controller => "mensajes"}, :title => "Nuevo Mensaje"%></td
+
+        <!-- Recibidos -->
+        <td><%=link_to image_tag('mensajes/enviados.png', :size => "96x96",  :mouseover => 'mensajes/enviados2.png') , {:action => "enviados", :controller => "mensajes"}, :title => "Mensajes enviados"%></td
+
+        <!-- Enviados -->
+        <td><%=link_to image_tag('mensajes/recibidos.png', :size => "96x96", :mouseover => 'mensajes/recibidos2.png') , {:action => "recibidos", :controller => "mensajes"}, :title => "Mensajes recibidos"%></td>
+     </tr>
+
+  <!-- TITULOS -->
+  <tr align="center">
+    <td class="menu">Nuevo</td>
+    <td class="menu">Enviados</td>
+    <td class="menu">Recibidos</td>
+   </tr>
+</table>
+<br/>

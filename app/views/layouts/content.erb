@@ -90,6 +90,7 @@
       var $j = jQuery.noConflict();
     </script>
 
+      <!-- fancybox -->
        <script type="text/javascript">
 		$j(document).ready(function() {
 			/*
@@ -102,14 +103,10 @@
 
     <!-- Barra de búsqueda -->
     <%= stylesheet_link_tag "barra_busqueda"%>
-
-
-
-
 </head>
 
 
-<style>
+<style type="text/css">
 body {
   background-repeat: no-repeat;
 }
@@ -132,7 +129,8 @@ padding:2px;
 </style>
 
   <body style="background: #ffffff;">
-   <div class="header_area">
+
+     <div class="header_area">
       <div class="main_area">
           <div class="logo_wrap">
               <p class="logo_pad" style="margin:0;">
@@ -147,28 +145,31 @@ padding:2px;
                 <ul>
                   <li class="TextBoxMenu"><%=link_to 'MI CUENTA',  {:controller => "home", :action => "myaccount"}, :title => "Datos de mi cuenta"%></li>
                   <li>&nbsp;&nbsp;</li>
+                  <li class="TextBoxMenu"><%=link_to "#{current_user.mensajes_sin_leer!} MENSAJES",  {:controller => "mensajes", :action => "recibidos"}, :title => "Bandeja de Mensajes"%></li>
+                  <li>&nbsp;&nbsp;</li>
                   <li class="TextBoxMenu"> <%=link_to 'CERRAR SESIÓN', {:action => "destroy", :controller=>"sessions"}, :title => "¿Desea salir del sistema?"%></li>
                 </ul>
               </div>
           </div>
         </div>
-      </div>
+     </div>
 
-      <!-- Barra de nombre -->
-      <div class="main_area">
+    <!-- Barra de nombre -->
+    <div class="main_area">
          <div class="body_wrap">
            <hr class="LineaHorizontal" />
               <%if logged_in?%>
                         <div class="CaptionNombreUsuario">
                           <label style="margin-left: 5%;"><%=h (current_user.persona)? current_user.persona.nombre_completo : ''%></label>
+                          <label style="color: gray; font-size: 11px; font-weight: bold;">&nbsp;&nbsp;<%=h (current_user.adscripcion)? current_user.adscripcion.descripcion : ''%></label>
                         </div>
              <%end%>
             <hr class="LineaHorizontal" />
           </div>
       </div>
 
-        <!-- inicia tabla de contenido -->
-      <div class="main_wrap">
+    <!-- inicia tabla de contenido -->
+    <div class="main_wrap">
            <table style="text-align: center; width: 95%; margin: auto;">
                   <tr>
                     <td><%=render :partial => "layouts/notificaciones_acciones"%></td>
@@ -180,31 +181,14 @@ padding:2px;
       </div>
 
 
-  <div class="footer_wrap">
+    <div class="footer_wrap">
     <div class="footer_area">
       <br class="blank" />
       <div style="text-align: center;">&nbsp;</div>
       <br class="blank" />
     </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   </body>
-
-
 </html>
 
 

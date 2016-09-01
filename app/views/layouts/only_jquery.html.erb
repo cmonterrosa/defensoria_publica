@@ -18,6 +18,9 @@
     <%= stylesheet_link_tag "bt"%>
     <%= stylesheet_link_tag "calendario"%>
 
+    <!-- Estilo personalizado -->
+    <%= stylesheet_link_tag "miestilo"%>
+
     <!-- Live Validation -->
     <%=javascript_include_tag "livevalidation/livevalidation_standalone.js" %>
     <%= stylesheet_link_tag "livevalidation/validation.css" %>
@@ -41,6 +44,10 @@
       // e.g. $j('#div_id').stuff instead of $('#div_id').stuff
       var $j = jQuery.noConflict();
     </script>
+
+    <!-- Barra de búsqueda -->
+    <%= stylesheet_link_tag "barra_busqueda"%>
+
 </head>
 
 <body>

@@ -72,13 +72,18 @@ class AdminController < ApplicationController
   end
 
   ##########################################
-  #        Administracion de Roles y Usuarios
+  #        Administracion de Roles, Usuarios y Adscripciones
   #
   ##########################################
   
   def users_by_role
     @role = Role.find(params[:id])
     @users = @role.no_users
+  end
+
+   def users_by_adscripcion
+      redirect_to(:back) unless @adscripcion = Adscripcion.find(params[:id])
+      @users = @adscripcion.users.paginate(:page => params[:page], :per_page => 25)
   end
 
  def roles_by_user

@@ -14,8 +14,10 @@
               </div>
          </div>
          <%=render :partial => "home/datos_personales"%>
-         <%=render :partial =>  @participante.tipo_participante.default_partial%>
     </fieldset>
+     <fieldset>
+         <%=render :partial =>  @participante.tipo_participante.default_partial%>
+     </fieldset>
    </div>
 <%end%>
 

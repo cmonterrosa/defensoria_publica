@@ -15,20 +15,23 @@
       <tr>
         <td style="vertical-align: middle;">Login</td>
         <td style="vertical-align: middle;">Nombre</td>
-        <td style="vertical-align: middle;">Última conexión</td>
-        <td style="vertical-align: middle;">IP</td>
-        <td style="vertical-align: center;" colspan="4">&nbsp;</td>
+        <td style="vertical-align: middle;">Adscripción</td>
+        <td style="vertical-align: center;" colspan="5">&nbsp;</td>
       </tr>
     <%@users.each do |user|%>
       <tr>
         <td style="vertical-align: middle;"><%=h (user.login)%></td>
         <td style="vertical-align: middle;"><%=h (user.persona)? user.persona.nombre_completo : ''%></td>
-        <td style="vertical-align: middle;"><%=h (!user.last_login.nil?)? user.last_login.strftime("%d de %B de %Y - %H:%M:%S") : "Sin conexión"%></td>
-        <td  style="vertical-align: middle;"><%=h (user.last_ip)? (user.last_ip) : ' '%></td>
+        <td style="vertical-align: middle;"><%=h (user.adscripcion)? user.adscripcion.descripcion : '-'%></td>
+        
         <%if current_user.has_role?(:admin)%>
 
             <td style="vertical-align: middle;">
                 <%=link_to "Roles", {:action => "roles_by_user", :id => user}, {:title => "Perfiles a los que pertenece", :class => "boton"}%>
+            </td>
+
+            <td style="vertical-align: middle;">
+                <%=link_to "Detalle", {:controller => "users", :action => "show", :id => user}, {:title => "Detalle del usuario", :class => "boton"}%>
             </td>
 
             <td style="vertical-align: middle;">

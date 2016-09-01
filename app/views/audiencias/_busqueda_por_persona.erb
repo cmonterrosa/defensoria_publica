@@ -1,0 +1,13 @@
+<fieldset>
+  <label>POR PERSONA:</label>
+  <div class="grid-12-12">
+    <% form_tag({:action => "search"}, {:class => "search"}) do -%>
+      <div class="grid-9-12">
+        <%= text_field_tag :search, params[:search], :limit => 90, :placeholder => "Escriba el nombre del solicitante" %>
+      </div>
+      <div class="grid-3-12">
+        <%= submit_tag "Buscar", :name => nil, :style => "width:50%;" %>
+    </div>
+    <% end %>
+  </div>
+</fieldset>

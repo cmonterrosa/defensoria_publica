@@ -8,12 +8,8 @@
           <%= error_messages_for :defensor %>
       </div>
 
-      <div class="grid-12-12">
-          <div class="grid-4-12">
-            <label><b>CURP O NOMBRE COMPLETO: </b><em class="formee-req">*</em></label>
-          </div>
-          <div class="grid-4-12"><%=text_field :persona, :per_curp, :placeholder => "Escriba la CURP o el nombre completo"%></div>
-      </div>
+      <!-- Barra de busqueda de persona -->
+       <%=render :partial => "home/search_per_curp"%>
 
       <div class="grid-12-12"><img alt="spinner" id="spinner" src="/images/loading_spinner.gif" style="display:none;" /></div>
 
@@ -75,8 +71,7 @@
     :on => "change",
     :before => "Element.show('spinner')",
     :success => "Element.hide('spinner')",
-    :url => {:controller => 'audiencias',
-    :action => 'get_datos_personales',
+    :url => { :action => 'get_datos_personales',
     :controller => 'home'},
     :update => 'datos_personales',
     :with => "persona_per_curp"%>

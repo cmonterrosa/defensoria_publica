@@ -9,10 +9,11 @@
         <%=link_to "PARTICIPANTES", {:controller => "participantes", :action => "index", :t => @tramite}, :class => "boton"-%>
       </div>
 
-     <%if current_user.has_role?(:defensor) || current_user.has_role?(:jefedefensor)%>
-        <div class="grid-4-12">
+      <div class="grid-4-12">
           <%=link_to "AUDIENCIAS", {:controller => "audiencias_orales", :action => "index", :t => @tramite}, :class => "boton"-%>
-        </div>
+      </div>
+
+     <%if current_user.has_role?(:defensor) || current_user.has_role?(:jefedefensor)%>
         <div class="grid-4-12">
           <%=link_to "PROMOCIONES", {:controller => "promociones", :action => "index", :t => @tramite}, :class => "boton"%>
         </div>

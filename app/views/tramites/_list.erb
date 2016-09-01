@@ -15,7 +15,7 @@
        <th style="vertical-align: middle;" colspan="4">&nbsp;</th>
     </tr>
     <%@tramites.each do |t|%>
-    <tr>
+    <tr class="<%=h (t.concluido?)? 'concluido' : ''%>">
      <td style="vertical-align: middle;"><%=t.numero_tramite%></td>
      <td style="vertical-align: middle;"> <%=(t.fechahora_atencion) ? t.fechahora_atencion.strftime("%d de %B de %Y / %H:%M %p") : ''%></td>
      <td style="vertical-align: middle;"><%=t.nuc%></td>
@@ -26,6 +26,7 @@
      <%else%>
         <td><%=h (t.defensor && t.defensor.persona)? t.defensor.persona.nombre_completo : "--"%></td>
      <%end%>
+     <td style="vertical-align: middle;"><%=link_to "CONCLUIR", {:action => "options_concluir", :id => t}, :class => "boton", :html => { :blank=> true}  -%></td>
      <td style="vertical-align: middle;"><%=link_to "EDITAR", {:action => "new_or_edit", :id => t}, :class => 'boton'  -%></td>
      <td style="vertical-align: middle;"><%=link_to "MENU", {:action => "menu", :id => t}, :class => 'boton'  -%></td>
      <td style="vertical-align: middle;"><%=link_to "DETALLE", {:action => "show", :id => t}, :class => 'boton'  -%></td>

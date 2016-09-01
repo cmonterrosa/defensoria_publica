@@ -1,0 +1,61 @@
+<%=render :partial => "home/arbol"%>
+
+  <div class="container">
+  <div class="formee">
+    <fieldset>
+      <!-- constancia -->
+      <% form_for :mensaje, @mensaje, :url => { :action => "responder", :controller => "mensajes", :recibe_id => @mensaje.envia_id } do |f| -%>
+      <div class="grid-center">
+        <input type="submit" title="RESPONDER MENSAJE" value="RESPONDER MENSAJE" />
+      </div>
+      <%end%>
+    </fieldset>
+  </div>
+</div>
+
+<div class="container">
+ <%form_for(@mensaje, :url => {:action => "save"}, :html => {:class => "formee" }) do |f| -%>
+  <fieldset>
+    <legend style=" color: navy;">VER&nbsp;MENSAJE</legend>
+
+    
+    <div class="grid-6-12">
+      <label><b style="color: navy;">Remitente: </b><%=@mensaje.remitente%></label>
+    </div>
+
+    <div class="grid-6-12">
+      <label><b style="color: navy;">Destinatario: </b><%=@mensaje.destinatario%></label>
+    </div>
+
+    <div class="grid-12-12 clear"></div>
+    
+    <div class="grid-12-12">
+      <label><b style="color: navy;">Asunto: </b><%=@mensaje.asunto%></label>
+     </div>
+    
+    <div class="grid-12-12 clear"></div>
+        
+    <div class="grid-12-12">
+      <label><b style="color: navy;">Descripción: </b></label>
+      <p>
+        <%= f.text_area :descripcion,  :placeholder => "Escriba la descripción detallada", :disabled => true, :style => "width: 700px; height: 200px" %>
+      </p>
+     </div>
+
+    <%if @adjunto = Adjunto.find(:first, :conditions => ["clave_mensaje = ?", @mensaje.clave])%>
+      <div class="grid-12-12">
+          <%= link_to 'DESCARGAR ADJUNTO', {:controller => "upload", :action => "download", :id => @adjunto.id}, :method => :post, :class => 'boton', :html => { :target => "_blank"} %>
+      </div>
+    <%end%>
+
+  </fieldset>
+<%end%>
+</div>
+
+
+
+
+
+<!--
+ :html => { :target => "_blank"}
+-->

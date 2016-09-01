@@ -1,0 +1,37 @@
+<div class="grid-6-12">
+        <div class="grid-6-12">
+          <label><b>TIPO DE MECANISMO: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-6-12">
+          <%= select(:mecanismo_alternativo, :tipo_mecanismo_id, @tipo_mecanismo.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true })%>
+        </div>
+</div>
+
+<div class="grid-6-12">
+        <div class="grid-6-12">
+          <label><b>ESPECIALISTA: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-6-12">
+          <%= text_field :mecanismo_alternativo, :especialista  %>
+        </div>
+</div>
+
+<div class="grid-6-12">
+        <div class="grid-6-12">
+          <label><b>LUGAR: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-6-12">
+          <%= text_field :mecanismo_alternativo, :lugar  %>
+        </div>
+</div>
+
+<div class="grid-6-12">
+        <div class="grid-3-12">
+          <label><b>FECHA: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-9-12">
+          <span class="datetime">
+            <%= date_select :mecanismo_alternativo, :fecha  %>
+          </span>
+        </div>
+</div>

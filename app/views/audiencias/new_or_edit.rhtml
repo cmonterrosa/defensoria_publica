@@ -8,18 +8,32 @@
           <%= error_messages_for :audiencia %>
       </div>
 
-      <div class="grid-6-12">
-        <div class="grid-6-12">
-          <label><b>FECHA: </b><em class="formee-req">*</em></label>
+      <!-- Barra de busqueda de persona -->
+       <%=render :partial => "home/search_per_curp"%>
+
+      <div class="grid-12-12"><img alt="spinner" id="spinner" src="/images/loading_spinner.gif" style="display:none;" /></div>
+
+      <div id="datos_personales">
+        <%if @persona%>
+            <%=render :partial => "home/datos_personales_minimos"%>
+        <%end%>
+      </div>
+  </fieldset>
+      <!-- Datos propios de la orientacion -->
+   <fieldset>
+      
+      <div class="grid-9-12">
+        <div class="grid-2-12">
+          <label><b>FECHA/HORA: </b><em class="formee-req">*</em></label>
         </div>
-        <div class="grid-6-12"><%=f.text_field :fecha%></div>
+        <div class="grid-10-12"> <span class="datetimefull"><%=f.datetime_select :fechahora_atencion%></span></div>
       </div>
 
-      <div class="grid-6-12">
-        <div class="grid-4-12">
+      <div class="grid-3-12">
+        <div class="grid-5-12">
           <label><b>MATERIA: </b><em class="formee-req">*</em></label>
         </div>
-        <div class="grid-8-12">
+        <div class="grid-7-12">
           <%= f.select(:materia_id, @materias.collect {|m| [ m.descripcion, m.id ] }, { :include_blank => true })%>
         </div>
        </div>
@@ -34,20 +48,6 @@
       </div>
 
        
-       <div class="grid-8-12">
-          <div class="grid-6-12">
-            <label><b>CURP O NOMBRE COMPLETO: </b><em class="formee-req">*</em></label>
-          </div>
-          <div class="grid-6-12"><%=text_field :persona, :per_curp%></div>
-       </div>
-
-      <div class="grid-12-12"><img alt="spinner" id="spinner" src="/images/loading_spinner.gif" style="display:none;" /></div>
-
-      <div id="datos_personales">
-        <%if @persona%>
-            <%=render :partial => "home/datos_personales"%>
-        <%end%>
-      </div>
 
       <div class="grid-12-12">
         <div class="grid-2-12">
@@ -82,7 +82,13 @@
 <!-- Validaciones -->
 <script type="text/javascript">
   var asunto = new LiveValidation( 'audiencia_asunto', {onlyOnSubmit: true} );
+  var materia = new LiveValidation( 'audiencia_materia_id', {onlyOnSubmit: true} );
+  <%#*var fecha = new LiveValidation( 'audiencia_fecha', {onlyOnSubmit: true} );%>
+  var per_curp = new LiveValidation( 'persona_per_curp', {onlyOnSubmit: true} );
   asunto.add( Validate.Presence );
+  materia.add( Validate.Presence );
+  <%#*fecha.add( Validate.Presence );%>
+  per_curp.add( Validate.Presence );
 </script>
 
 
@@ -91,7 +97,7 @@
     :before => "Element.show('spinner')",
     :success => "Element.hide('spinner')",
     :url => {:controller => 'home',
-    :action => 'get_datos_personales'},
+    :action => 'get_datos_personales_minimos'},
     :update => 'datos_personales',
     :with => "persona_per_curp"%>
 

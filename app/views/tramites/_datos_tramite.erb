@@ -39,13 +39,46 @@ $j(document).ready(function() {
 
   <div class="grid-6-12">
         <div class="grid-4-12">
+          <label><b>CATEGORIA DEL DELITO: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-8-12">
+          <%= select(:tramite, :delito_norma_id, DelitoNorma.find(:all, :order => "Norma").collect {|m| [ m.descripcion, m.id ] }, { :include_blank => true })%>
+        </div>
+     </div>
+
+  <div class="grid-6-12">
+        <div class="grid-4-12">
             <label><b>HECHO DELICTIVO: </b><em class="formee-req">*</em></label>
         </div>
         <div class="grid-8-12"><%=text_field  :tramite, :hecho_delictivo%></div>
    </div>
 
+<div class="grid-6-12">
+  <div class="grid-8-12">
+    <label><b>¿ES DELITO GRAVE?: </b><em class="formee-req">*</em></label>
+  </div>
+  <div class="grid-4-12">
+    <span class="InputGroup" id="detenido_flagrancia">
+      <label class="uper">SI <%= radio_button :tramite, :es_delito_grave, true, :checked => @tramite.es_delito_grave %></label>&nbsp;&nbsp;
+      <label class="uper">NO <%= radio_button :tramite, :es_delito_grave, false, :checked => @tramite.es_delito_grave == false%></label>
+    </span>
+  </div>
+</div>
+
+<div class="grid-6-12">
+  <div class="grid-8-12">
+    <label><b>¿ES UN CASO URGENTE?: </b><em class="formee-req">*</em></label>
+  </div>
+  <div class="grid-4-12">
+    <span class="InputGroup" id="detenido_flagrancia">
+      <label class="uper">SI <%= radio_button :tramite, :es_urgente, true, :checked => @tramite.es_urgente %></label>&nbsp;&nbsp;
+      <label class="uper">NO <%= radio_button :tramite, :es_urgente, false, :checked => @tramite.es_urgente == false%></label>
+    </span>
+  </div>
+</div>
+
    
-   <div class="grid-6-12">
+   <div class="grid-12-12">
         <div class="grid-4-12">
             <label><b>OBSERVACIONES: </b></label>
         </div>

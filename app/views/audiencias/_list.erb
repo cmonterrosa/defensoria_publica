@@ -1,53 +1,38 @@
+
 <%=render :partial => "home/arbol"%>
+  <!-- monitor -->
+  <p><a href="link" class="boton" onClick="javascript:window.open('/audiencias/monitor','Windows','width=750,height=450,toolbar=no,menubar=no,scrollbars=yes,resizable=yes,location=no,directories=no,status=no');return false")">MONITOR</a></p>
 
-<script type="text/javascript">
-  var windowObjectReference;
-  var strWindowFeatures = "menubar=no,location=no,resizable=no,scrollbars=no,status=no,directories=no,width=600,height=450";
-    function openRequestedPopup() {
-      windowObjectReference = window.open("/audiencias/monitor", "MONITOR", strWindowFeatures);
-     }
-</script>
-
-<% form_tag({:action => "search"}, {:class => "search"}) do -%>
-  <p>
-    <%= text_field_tag :search, params[:search], :limit => 90, :placeholder => "Escriba el nombre del solicitante" %>
-    <%= submit_tag "Buscar", :name => nil %>
-  </p>
-<% end %>
-
-  <p>
-    <a href="#" onclick="openRequestedPopup();" class="boton">MONITOR</a>
-  </p>
-
-<!-- contenido -->
-<div id="divlista">
-    <table width="85%" border="0" cellspacing="0" cellpadding="0" class="tablakolaval" style="BORDER-RIGHT: #cccccc 1px solid; BORDER-TOP: #cccccc 1px solid; BORDER-LEFT: #cccccc 1px solid; BORDER-BOTTOM: #cccccc 1px solid">
-    <tr>
-       <td style="vertical-align: middle;">Fecha</td>
-       <td style="vertical-align: middle;">Turno</td>
-       <td style="vertical-align: middle;">Nombre completo</td>
-       <td style="vertical-align: middle;">Asunto</td>
-       <td style="vertical-align: middle;" colspan="5">&nbsp;</td>
-    </tr>
-    <%@audiencias.each do |a|%>
-    <tr>
-      <td style="vertical-align: middle;"> <%=a.fecha.strftime("%d de %B de %Y")%></td>
-     <td style="vertical-align: middle;"><%=a.turno%></td>
-     <td style="vertical-align: middle;"><%=(a.persona) ? a.persona.nombre_completo : "--"%></td>
-     <td style="vertical-align: middle;"><%=(a.asunto) ? a.asunto : "--"%></td>
-     <td style="vertical-align: middle;"><%=link_to "ficha", {:action => "print", :id =>a}, :class => 'boton'  -%></td>
-
-      <% if  a.persona.numero_orientaciones > 1 %>
-          <td style="vertical-align: middle;"><%=link_to "historico", {:action => "history_by_person", :id =>a.persona.id}, :class => 'boton'  -%></td>
-     <%end%>
-
-     <td style="vertical-align: middle;"><%=link_to "Detalle", {:action => "show", :id => a}, :class => 'boton'  -%></td>
-     <td style="vertical-align: middle;"><%=link_to "Editar", {:action => "new_or_edit", :id => a}, :class => 'boton'  -%></td>
-     <td style="vertical-align: middle;"><%=link_to "Eliminar", {:action => "destroy", :id => a}, :confirm => '¿Desea eliminar el registro?', :class => 'boton'  -%></td>
-    </tr>
+  <!-- menu de busqueda -->
+  <%=render :partial => "opciones_busqueda"%>
+  <!-- Imprimir -->
+  <%if @audiencias && @audiencias.size > 0%>
+        <% form_for :audiencia, @audiencia, :url => { :action => "print_list.pdf", :audiencias_ids => @audiencias_ids }, :html => { :target => "_blank"} do -%>
+          <div class="grid-center">
+          <input type="submit" title="IMPRIMIR <%=@audiencias.size%> RESULTADOS" value="IMPRIMIR <%=@audiencias.size%> RESULTADOS" />
+        </div>
     <%end%>
+  <%end%>
+
+
+  <!-- Contenido del listado -->
+  <%=render :partial => "list_essentials"%>
+
+
+<% if (!@audiencias.empty?) && (@audiencias.total_entries > @audiencias.per_page.to_i) %>
+    <table>
+      <tr align="center" >
+        <td colspan="5" style="padding: 0;">
+          <div class="digg_pagination">
+            <div class="page_info">
+              <%= page_entries_info @audiencias %>
+            </div>
+            <%= will_paginate @audiencias %>
+          </div>
+        </td>
+      </tr>
   </table>
-</div>
+<%end%>
 
 
 <br /><%=link_to "NUEVA ORIENTACION", {:action => "new_or_edit"}, :class => 'boton'  -%>

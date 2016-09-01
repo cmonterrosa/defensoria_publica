@@ -22,6 +22,15 @@
       <%end%>
     </table>
 <%else%>
-      <p class="titulocalendario">Persona sin actividad hasta el momento</p>
+
+      <%unless @audiencias.empty?%>
+          <!-- Lista de audiencias -->
+          <p style="font-size: 160%;">LISTADO DE AUDIENCIAS</p>
+          <%@audiencias.each do |a|%>
+              <%=render :partial => "audiencias/show", :locals => { :a => a }%>
+           <%end%>
+      <%else%>
+          <p class="titulocalendario">Persona sin actividad hasta el momento</p>
+      <%end%>
 <%end%><br />
 

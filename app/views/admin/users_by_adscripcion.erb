@@ -1,0 +1,39 @@
+<%=render :partial => "home/arbol"%>
+
+<!-- contenido -->
+<div id="divlista">
+    <table width="85%" border="0" cellspacing="0" cellpadding="0" class="tablakolaval" style="BORDER-RIGHT: #cccccc 1px solid; BORDER-TOP: #cccccc 1px solid; BORDER-LEFT: #cccccc 1px solid; BORDER-BOTTOM: #cccccc 1px solid">
+    <tr>
+       <td style="vertical-align: middle;">Usuario</td>
+       <td style="vertical-align: middle;">Nombre Completo</td>
+       <td style="vertical-align: middle;" colspan="4">&nbsp;</td>
+    </tr>
+    <%@users.each do |u|%>
+    <tr>
+      <td style="vertical-align: middle;"><%=u.login%></td>
+      <td style="vertical-align: middle;"><%=(u.persona) ? u.persona.nombre_completo : "--"%></td>
+      <td style="vertical-align: middle;"><%=link_to "Modificar", {:action => "destroy", :id => u}, :confirm => '¿Desea eliminar el registro?', :class => 'boton'  -%></td>
+    </tr>
+    <%end%>
+  </table>
+</div>
+
+<br />
+<table>
+    <tr align="center" >
+      <td colspan="5" style="padding: 0;">
+        <div class="digg_pagination">
+          <div class="page_info">
+            <%= page_entries_info @users %>
+          </div>
+          <%= will_paginate @users %>
+        </div>
+      </td>
+    </tr>
+</table>
+
+
+<br /><%=link_to "NUEVA ADSCRIPCION", {:controller => "adscripcions", :action => "new"}, :class => 'boton'  -%>
+
+
+

@@ -1,15 +1,47 @@
 <%= stylesheet_link_tag "encabezados.css"%>
 
 <%if @tramite%>
-  <table class="encabezado" style="width: 60%" style=" background-color: #FFF6BF; ">
-    <tr>
-      <td><b>REGISTRO DE ATENCIÓN :</b><%=h @tramite.registro_atencion%></td>
-      <td><b>CARPETA DE INVESTIGACIÓN:</b> <%=h @tramite.carpeta_investigacion%></td>
-    </tr>
-    <tr>
-      <td><b>CAUSA PENAL: </b><%=h @tramite.causa_penal%></td>
-      <td><b>NUC: </b><%=h @tramite.nuc%></td>
-    </tr>
-  </table>
+  <div class="formee container ">
+    <fieldset>
+      <div class="grid-4-12 encabezado_formee">
+        <b>NUC:</b>
+        <%=h @tramite.nuc%>
+      </div>
+
+      <div class="grid-4-12 encabezado_formee">
+        <b>REGISTRO DE ATENCION:</b>
+        <%=h @tramite.registro_atencion%>
+      </div>
+
+      <div class="grid-4-12 encabezado_formee">
+        <b>CARPETA DE INVESTIGACION:</b>
+        <%=h @tramite.carpeta_investigacion%>
+      </div>
+
+      <div class="grid-4-12 encabezado_formee">
+        <b>CAUSA PENAL:</b>
+        <%=h @tramite.causa_penal%>
+      </div>
+
+      <div class="grid-4-12 encabezado_formee">
+        <b>CATEGORIA DEL DELITO:</b>
+        <%=h (@tramite.delito_norma)? @tramite.delito_norma.descripcion : '-'%>
+      </div>
+
+      <div class="grid-4-12 encabezado_formee">
+              <b>¿CONCLUIDO:</b>
+              <%=h (@tramite.concluido?)? 'SI' : 'NO'%>
+      </div>
+        
+        <%if @tramite.concluido?%>
+            <div class="grid-12-12 encabezado_formee">
+              <%if @tramite.concluido%>
+                <b>MOTIVO DE CONCLUSION: </b><%=h (@tramite.concluido.motivo_conclusion) ? @tramite.concluido.motivo_conclusion.descripcion : ''%>
+              <%end%>
+            </div>
+        <%end%>
+
+    </fieldset>
+</div>
   <br />
 <%end%>

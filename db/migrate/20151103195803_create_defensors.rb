@@ -4,6 +4,7 @@ class CreateDefensors < ActiveRecord::Migration
        t.string :persona_id, :limit => 36
        t.integer :municipio_id
        t.integer :materia_id
+       t.integer :cve_def
        t.boolean :activo
        t.timestamps
     end

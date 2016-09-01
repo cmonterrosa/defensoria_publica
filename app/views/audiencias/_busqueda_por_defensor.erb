@@ -1,0 +1,20 @@
+<fieldset>
+  <label>POR DEFENSOR:</label>
+  <div class="grid-12-12">
+    <% form_tag({:action => "search"}, {:class => "search"}) do -%>
+
+    <div class="grid-9-12">
+        <div class="grid-4-12">
+          <label><b>DEFENSOR: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-8-12">
+          <%= select(:defensor, :id, @defensores.collect {|p| [ p.persona.nombre_completo, p.id ] }, { :include_blank => true })%>
+        </div>
+     </div>
+
+     <div class="grid-3-12">
+        <%= submit_tag "Buscar", :name => nil, :style => "width:50%;" %>
+    </div>
+   <% end %>
+  </div>
+</fieldset>

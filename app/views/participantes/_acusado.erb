@@ -63,17 +63,17 @@
 </div>
 
 <div class="grid-6-12">
-  <div class="grid-6-12">
+  <div class="grid-8-12">
     <label><b>FECHAHORA DE PUESTA A DISPOSICIÓN: </b><em class="formee-req">*</em></label>
   </div>
-  <div class="grid-6-12"><%=text_field :participante, :fechahora_puesta_a_disposicion%></div>
+  <div class="grid-4-12"><%=text_field :participante, :fechahora_puesta_a_disposicion%></div>
 </div>
 
 <div class="grid-6-12">
-  <div class="grid-6-12">
+  <div class="grid-8-12">
     <label><b>FECHAHORA DE LIBERTAD: </b><em class="formee-req">*</em></label>
   </div>
-  <div class="grid-6-12"><%=text_field :participante, :fechahora_libertad%></div>
+  <div class="grid-4-12"><%=text_field :participante, :fechahora_libertad%></div>
 </div>
 
 <div class="grid-6-12">
@@ -114,10 +114,10 @@
 </div>
 
 <div class="grid-6-12">
-  <div class="grid-4-12">
+  <div class="grid-6-12">
     <label><b>GRADO DE MARGINACIÓN: </b><em class="formee-req">*</em></label>
   </div>
-  <div class="grid-8-12">
+  <div class="grid-6-12">
     <%= select(:participante, :marginacion_id, @marginacions.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true })%>
   </div>
 </div>
@@ -170,9 +170,24 @@
   </div>
 </div>
 
+
+
   <div class="grid-6-12" id="descripcion_delito" style="display:none;">
     <div class="grid-6-12">
         <label><b>DELITO POR EL CUAL TIENE ANTECEDENTES PENALES: </b><em class="formee-req">*</em></label>
     </div>
     <div class="grid-6-12"><%=text_field :participante, :antecedentes_penales_delito%></div>
   </div>
+
+
+<div class="grid-6-12">
+  <div class="grid-8-12">
+    <label><b>¿DETENIDO EN FLAGRANCIA?: </b><em class="formee-req">*</em></label>
+  </div>
+  <div class="grid-4-12">
+    <span class="InputGroup" id="detenido_flagrancia">
+      <label class="uper">SI <%= radio_button :participante, :detenido_flagrancia, "SI", :checked => @participante.detenido_flagrancia %></label>&nbsp;&nbsp;
+      <label class="uper">NO <%= radio_button :participante, :detenido_flagrancia, "NO", :checked => @participante.detenido_flagrancia == false%></label>
+    </span>
+  </div>
+</div>

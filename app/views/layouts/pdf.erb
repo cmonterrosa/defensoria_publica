@@ -2,9 +2,8 @@
 <html lang="en">
 
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
-<title>Poder Judicial del Estado de Chiapas</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <title>Poder Judicial del Estado de Chiapas</title>
 <style type="text/css">
   body {
 	margin-top: 2px;
@@ -12,15 +11,153 @@
 </style>
 </head>
 
+<style type="text/css">
+.tablakolaval {
+	margin:0px;padding:0px;
+	width:95%;
+	box-shadow: 10px 10px 5px #888888;
+	border:1px solid #000000;
+
+        line-height: 136%;
+
+	-moz-border-radius-bottomleft:8px;
+	-webkit-border-bottom-left-radius:8px;
+	border-bottom-left-radius:8px;
+
+	-moz-border-radius-bottomright:8px;
+	-webkit-border-bottom-right-radius:8px;
+	border-bottom-right-radius:8px;
+
+	-moz-border-radius-topright:8px;
+	-webkit-border-top-right-radius:8px;
+	border-top-right-radius:8px;
+
+	-moz-border-radius-topleft:8px;
+	-webkit-border-top-left-radius:8px;
+	border-top-left-radius:8px;
+}.tablakolaval table{
+    border-collapse: collapse;
+        border-spacing: 0;
+	width:inherit;
+	height:100%;
+	margin:0px;padding:0px;
+}.tablakolaval tr:last-child td:last-child {
+	-moz-border-radius-bottomright:8px;
+	-webkit-border-bottom-right-radius:8px;
+	border-bottom-right-radius:8px;
+}
+.tablakolaval table tr:first-child td:first-child {
+	-moz-border-radius-topleft:8px;
+	-webkit-border-top-left-radius:8px;
+	border-top-left-radius:8px;
+}
+.tablakolaval table tr:first-child td:last-child {
+	-moz-border-radius-topright:8px;
+	-webkit-border-top-right-radius:8px;
+	border-top-right-radius:8px;
+}.tablakolaval tr:last-child td:first-child{
+	-moz-border-radius-bottomleft:8px;
+	-webkit-border-bottom-left-radius:8px;
+	border-bottom-left-radius:8px;
+}.tablakolaval tr:hover td{
+
+}
+.tablakolaval tr:nth-child(odd){ background-color:#ceefef; }
+.tablakolaval tr:nth-child(even)    { background-color:#ffffff; }.tablakolaval td{
+	vertical-align:middle;
+
+
+	border:0px solid #000000;
+	border-width:0px 0px 0px 0px;
+	text-align:left;
+	padding:8px;
+	font-size:12px;
+	font-family: "Nexa Bold";
+        text-transform: uppercase;
+	font-weight:normal;
+	color:#000000;
+}.tablakolaval tr:last-child td{
+	border-width:0px 0px 0px 0px;
+}.tablakolaval tr td:last-child{
+	border-width:0px 0px 0px 0px;
+}.tablakolaval tr:last-child td:last-child{
+	border-width:0px 0px 0px 0px;
+}
+.tablakolaval tr:first-child td{
+	background:-o-linear-gradient(bottom, #019595 5%, #026d6d 100%);
+        background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #019595), color-stop(1, #026d6d) );
+	background:-moz-linear-gradient( center top, #019595 5%, #026d6d 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#019595", endColorstr="#026d6d");	background: -o-linear-gradient(top,#019595,026d6d);
+
+	background-color:#019595;
+	border:0px solid #000000;
+	text-align:center;
+	border-width:0px 0px 0px 0px;
+	font-size:12px;
+	font-family: "Nexa Bold";
+        text-transform: uppercase;
+	color:#ffffff;
+}
+.tablakolaval tr:first-child:hover td{
+	background:-o-linear-gradient(bottom, #019595 5%, #026d6d 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #019595), color-stop(1, #026d6d) );
+	background:-moz-linear-gradient( center top, #019595 5%, #026d6d 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#019595", endColorstr="#026d6d");	background: -o-linear-gradient(top,#019595,026d6d);
+
+	background-color:#019595;
+}
+.tablakolaval tr:first-child td:first-child{
+	border-width:0px 0px 0px 0px;
+}
+.tablakolaval tr:first-child td:last-child{
+	border-width:0px 0px 0px 0px;
+}
+
+.tablakolaval tr:hover td{
+	background-color:#cccccc;
+
+
+}
+</style>
+
+
+
+
 <body>
+
+  <%
+PDFKit.configure do |config|
+  config.default_options = {
+    :page_size => 'letter',
+    :margin_top => '0.3in',
+    :margin_right => '0.3in',
+    :margin_bottom => '0.3in',
+    :margin_left => '0.3in',
+    :encoding => 'utf-8',
+    :header_right => "FECHA DE CREACION: [date] [time]     ",
+    :footer_right => "PAGINA [page] DE [toPage]     "
+  }
+end%>
+
 <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
-  <tr><th align="center">CONSEJO DE LA JUDICATURA</th></tr>
-   <tr><th align="center">INSTITUTO DE LA DEFENSORÍA PÚBLICA</th></tr>
-   <tr><th align="center">SISTEMA DE GESTIÓN DE AUDIENCIAS</th></tr>
+   <tr style="margin: auto;">
+     <th rowspan="3" width="25%"><%=image_tag 'logos/pjech.jpg', :size => "69x85"%></th>
+     <th>CONSEJO DE LA JUDICATURA</th>
+     <th width="26%">&nbsp;</th>
+   </tr>
+   <tr>
+     <th align="center">INSTITUTO DE LA DEFENSORIA PUBLICA</th>
+     <th>&nbsp;</th>
+   </tr>
+
+   <tr>
+     <th align="center">SISTEMA INTEGRAL DEL IDP</th>
+      <th>&nbsp;</th>
+   </tr>
+
   <tr align="center" >
-    <td>
+    <th colspan="3">
       <%=yield%>
-    </td>
+    </th>
   </tr>
 </table>
 </body>

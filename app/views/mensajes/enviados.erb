@@ -1,0 +1,51 @@
+<%=render :partial => "home/arbol"%>
+<%=render :partial => "menu"%>
+
+<br />
+
+
+<!-- Menú de administrador -->
+<div class="titulocalendario">
+  <p>
+    Mensajes Enviados
+  </p>
+</div>
+
+<!-- contenido -->
+<div id="divlista">
+    <table width="76%" border="0" cellspacing="0" cellpadding="0" class="tablakolaval" style="BORDER-RIGHT: #cccccc 1px solid; BORDER-TOP: #cccccc 1px solid; BORDER-LEFT: #cccccc 1px solid; BORDER-BOTTOM: #cccccc 1px solid; margin: auto;">
+      <tr>
+        <td width="20%">Fecha/Hora</td>
+        <td width="25%">Destinatario</td>
+        <td width="30%">Asunto</td>
+        <td width="15%">Estatus</td>
+        <td width="10%">&nbsp;</td>
+      </tr>
+    
+    <%@enviados.each do |e|%>
+       <%style='text-decoration: line-through;' if e.leido_at %>
+       <tr style="<%style%>">
+          <td style="vertical-align: middle; text-align: center;"><%=e.created_at.strftime("%d de %b de %Y - %H:%M")%></td>
+          <td style="vertical-align: middle;"><%=link_to "#{(e.recibe_id && @user = User.find(e.recibe_id))? @user.nombre_adscripcion_detalle : ''}", {:action => "show", :id => e}, :style => "text-decoration: none; color: #404040;"%></td>
+          <td style="vertical-align: middle;"><%=link_to e.asunto, {:action => "show", :id => e}, :style => "text-decoration: none; color: #404040;"%></td>
+          <td style="vertical-align: middle;"><%=h (e.leido_at) ? "LEIDO" : "NO LEIDO"%></td>
+          <td style="vertical-align: middle;"><%= button_to 'Eliminar', {:action => "destroy", :id => e}, :confirm => '¿Esta seguro que desea eliminar el mensaje?', :method => :post, :class => 'boton' %></td>
+        </tr>
+    <%end%>
+</table>
+</div>
+
+  <br />
+
+    <% if @enviados.total_entries > @enviados.per_page.to_i %>
+    <tr class="d<%=invert_class(clase)%>" align="center" >
+      <td colspan="8" style="padding: 0;">
+        <div class="digg_pagination">
+          <div class="page_info">
+            <%= page_entries_info @enviados %>
+          </div>
+          <%= will_paginate @enviados %>
+        </div>
+      </td>
+    </tr>
+    <% end %>

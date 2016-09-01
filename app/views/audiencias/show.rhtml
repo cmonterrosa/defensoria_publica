@@ -1,59 +1,10 @@
 <%=render :partial => "home/arbol"%>
+<%=render :partial => "show"%>
 
-<p>
-  <b>Fecha:</b>
-  <%=h (@audiencia.fecha) ? @audiencia.fecha.strftime('%d-%m-%Y') : nil%>
-</p>
-
-<p>
-  <b>Turno:</b>
-  <%=h @audiencia.turno %>
-</p>
-
-
-
-<%if @audiencia.persona%>
-
-<p>
-  <b>Id:</b>
-  <%=h @audiencia.persona.id_persona %>
-</p>
-
-<p>
-  <b>Nombre completo:</b>
-  <%=h @audiencia.persona.nombre_completo %>
-</p>
-
-<p>
-  <b>CURP:</b>
-  <%=h @audiencia.persona.per_curp %>
-</p>
-
-<p>
-  <b>RFC:</b>
-  <%=h @audiencia.persona.per_rfc %>
-</p>
-
+<%if current_user.has_role?(:directivo)%>
+    <%= link_to 'Editar',  {:action => "new_or_edit", :id => @audiencia }, :class => "boton"%> |
+    <%= link_to 'Atrás', {:action => "index"},  :class => "boton" %>
 <%end%>
-
-<p>
-  <b>Asunto:</b>
-  <%=h @audiencia.asunto %>
-</p>
-
-<p>
-  <b>Procedencia:</b>
-  <%=h @audiencia.procedencia %>
-</p>
-
-<p>
-  <b>Observaciones:</b>
-  <%=h @audiencia.observaciones %>
-</p>
-
-
-<%= link_to 'Editar',  {:action => "new_or_edit", :id => @audiencia }, :class => "boton"%> |
-<%= link_to 'Atrás', {:action => "index"},  :class => "boton" %>
 
 
 

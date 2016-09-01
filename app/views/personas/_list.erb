@@ -37,7 +37,7 @@
           <div class="page_info">
             <%= page_entries_info @personas %>
           </div>
-          <%= will_paginate @personas %>
+          <%= will_paginate @personas, :params=> {:search => params[:search]} %>
         </div>
       </td>
     </tr>

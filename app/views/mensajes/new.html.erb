@@ -1,0 +1,65 @@
+<%=render :partial => "menu"%>
+<br />
+
+<%= error_messages_for :uploaded_file %>
+
+<div class="container">
+  <div class="formee-msg-info">
+    <ul>
+      <h3>Captura de nuevo mensaje</h3><br />
+      <li>Los campos marcados con <em class="formee-req">*</em> son obligatorios. Escriba la clave completa de la escuela a la enviará mensaje.</li><br />
+      <li>&nbsp;</li>
+    </ul>
+  </div>
+
+<%form_for(@mensaje, :url => {:action => "save"}, :html => {:multipart => true, :class => "formee" }) do |f| -%>
+  <fieldset>
+    <legend>NUEVO&nbsp;MENSAJE</legend>
+
+    <!-------- DESTINATARIO ------>
+
+      <div class="grid-12-12">
+        <label>Destinatario / Adscripción: <em class="formee-req">*</em> </label>
+        <div class="grid-12-12">
+          <%= f.select(:recibe_id, @destinatarios.collect {|p| [ p.nombre_adscripcion_detalle, p.id ] }, { :include_blank => true })%>
+        </div>
+      </div>
+
+     <div class="grid-12-12 clear"></div>
+   
+    <div class="grid-12-12">
+      <label>Asunto: <em class="formee-req">*</em></label>
+        <%= f.text_field :asunto, :placeholder => "Escriba brevemente el asunto" %>
+    </div>
+   
+    <div class="grid-12-12">
+      <label>Descripción: <em class="formee-req">*</em></label>
+        <%= f.text_area :descripcion, :placeholder => "Escriba la descripción detallada", :style => "width: 100%; height: 2%;" %>
+    </div>
+
+     
+       <div class="grid-12-12">
+          <div class="grid-form">
+            <label>Archivo adjunto: </label>
+            <%= file_field :adjunto, :inputfile %>
+          </div>
+      </div>
+    
+
+    <div class="grid-12-12 clear"></div>
+    <div class="grid-12-12">
+      <input class="right" type="submit" title="ENVIAR" value="ENVIAR" />
+    </div>
+  </fieldset>
+<%end%>
+</div>
+
+<script type="text/javascript">
+  var asunto = new LiveValidation( 'mensaje_asunto', {onlyOnSubmit: true} );
+  asunto.add( Validate.Presence );
+  asunto.add( Validate.Length, { maximum: 160 } );
+  descripcion = new LiveValidation( 'mensaje_descripcion', {onlyOnSubmit: true} );
+  descripcion.add( Validate.Presence );
+  descripcion.add( Validate.Length, { maximum: 160 } );
+</script>
+

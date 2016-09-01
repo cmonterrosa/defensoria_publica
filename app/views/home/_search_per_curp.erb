@@ -1,0 +1,25 @@
+<!-- Elemento de búsqueda -->
+ <div class="grid-8-12">
+          <div class="grid-6-12">
+            <label><b>CURP O NOMBRE COMPLETO: </b><em class="formee-req">*</em></label>
+          </div>
+          <div class="grid-6-12">
+                <div class="grid-10-12">
+                  <%@default=(@persona) ? @persona.nombre_completo : nil%>
+                  <%= text_field_tag :persona_per_curp, @default, :style=>"
+                    background: #ededed url(/images/icons/search-icon.png) no-repeat 9px center;
+                    border: solid 1px #ccc;
+                    padding: 9px 10px 9px 32px;",
+                    :placeholder => "      ESCRIBA PARA BUSCARLO O CREARLO" %>
+                  <%#=text_field :persona, :per_curp, :type => "search", :placeholder => "Escriba para buscarlo", :class => "demo-2"%>
+                </div>
+                <div class="grid-2-12 NuevaPersona">
+                    <%=link_to_remote '+', :update => "datos_personales", 
+                      :url => { :controller => "home",  :action => "get_datos_personales" },
+                      :before => "Element.show('spinner')",
+                      :complete => "Element.hide('spinner')",
+                      :html => {:title => "Registro en blanco"}%>
+                </div>
+
+          </div>
+  </div>

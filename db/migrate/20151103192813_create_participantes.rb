@@ -34,6 +34,7 @@ class CreateParticipantes < ActiveRecord::Migration
       t.integer :lengua_materna_id
       t.string :cursos, :limit => 200
       t.boolean :requiere_traductor
+      t.boolean :detenido_flagrancia
       t.timestamps
     end
 

@@ -1,0 +1,48 @@
+<%=render :partial => "home/arbol"%>
+
+
+
+<table class="tabla_dp">
+
+  <tr>
+    <td><b>FECHA/HORA:</b></td>
+    <td><%=h (@audiencia.start_at) ? @audiencia.start_at.strftime("%d de %B de %Y / %H:%M horas") : nil%></td>
+  </tr>
+  <tr>
+    <td><b>TIPO DE AUDIENCIA:</b></td>
+    <td><%=h (@audiencia.tipo_audiencia)? @audiencia.tipo_audiencia.descripcion : "" %></td>
+  </tr>
+  <tr>
+    <td><b>JUZGADO U ORGANO:</b></td>
+    <td> <%=h (@audiencia.organo)? @audiencia.organo.descripcion : "" %></td>
+  </tr>
+
+  <tr>
+    <td><b>JUEZ:</b></td>
+    <td><%=h (@audiencia.juez && @audiencia.juez.persona)? @audiencia.juez.persona.nombre_completo : "" %></td>
+  </tr>
+
+  <tr>
+    <td><b>DEFENSOR:</b></td>
+    <td><%=h (@audiencia.defensor && @audiencia.defensor.persona)? @audiencia.defensor.persona.nombre_completo : "" %></td>
+  </tr>
+
+  <tr>
+    <td><b>DESCRIPCION:</b></td>
+    <td> <%=h @audiencia.descripcion %></td>
+  </tr>
+
+  <tr>
+    <td><b>OBSERVACIONES:</b></td>
+    <td><%=h @audiencia.observaciones %></td>
+  </tr>
+
+  <%if @audiencia.cancel%>
+    <tr>
+      <td><b>CANCELADA POR:</b></td>
+      <td><%=h (@audiencia.usuario_cancelacion)? @audiencia.usuario_cancelacion.nombre_completo : '' %></td>
+    </tr>
+  <%end%>
+
+</table>
+

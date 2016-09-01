@@ -12,9 +12,12 @@ class CreateTramites < ActiveRecord::Migration
       t.column :calificacion_juridica, :string, :limit => 60
       t.column :defensor_id, :integer
       t.column :materia_id, :integer
+      t.column :delito_norma_id, :integer
       t.column :observaciones, :string
       t.column :hecho_delictivo, :string, :limit => 140
+      t.column :es_delito_grave, :boolean
       t.column :concluido, :boolean
+      t.column :es_urgente, :boolean
       t.timestamps
     end
 

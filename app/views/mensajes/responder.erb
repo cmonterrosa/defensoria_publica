@@ -1,0 +1,63 @@
+<div class="container">
+  <div class="formee-msg-info">
+    <h3>Respuesta de nuevo mensaje</h3>
+    <ul>
+      <li>Los campos marcados con <em class="formee-req">*</em> son obligatorios.</li>
+    </ul>
+  </div>
+
+<%form_for(@mensaje_respuesta, :url => {:action => "save", :destinatario => @destinatario.id, :tipo => "respuesta"}, :html => {:multipart => true, :class => "formee" }) do |f| -%>
+  <fieldset>
+    <legend style="color: navy;">RESPONDER&nbsp;MENSAJE</legend>
+
+
+   <div class="grid-12-12">
+      <label>Destinatario: <em class="formee-req">*</em><%=@mensaje_respuesta.destinatario%></label>
+      <div id="destinatario"></div>
+    </div>
+
+    <div class="grid-12-12 clear"></div>
+
+    <div class="grid-12-12">
+      <label>Asunto: <em class="formee-req">*</em></label>
+        <%= f.text_field :asunto, :placeholder => "Escriba brevemente el asunto" %>
+    </div>
+
+    <div class="grid-12-12 clear"></div>
+
+
+    <div class="grid-12-12">
+      <label>Descripción: <em class="formee-req">*</em></label>
+        <%= f.text_area :descripcion, :placeholder => "Escriba la descripción detallada" %>
+    </div>
+    
+    <div class="grid-12-12 clear"></div>
+
+       <div class="grid-12-12">
+          <div class="grid-form">
+            <label>Archivo adjunto: </label>
+            <%= file_field :adjunto, :inputfile %>
+          </div>
+        </div>
+
+    <div class="grid-12-12">
+      <input class="right" type="submit" title="RESPONDER" value="RESPONDER" />
+    </div>
+  </fieldset>
+<%end%>
+</div>
+
+<script type="text/javascript">
+  var asunto = new LiveValidation( 'mensaje_asunto', {onlyOnSubmit: true} );
+  asunto.add( Validate.Presence );
+  asunto.add( Validate.Length, { maximum: 160 } );
+  descripcion = new LiveValidation( 'mensaje_descripcion', {onlyOnSubmit: true} );
+  descripcion.add( Validate.Presence );
+  descripcion.add( Validate.Length, { maximum: 160 } );
+</script>
+
+
+
+
+
+

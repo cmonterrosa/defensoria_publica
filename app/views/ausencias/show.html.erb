@@ -1,0 +1,32 @@
+<%=render :partial => "home/arbol"%>
+
+<p>
+  <b>Id:</b>
+  <%=h @persona.id_persona %>
+</p>
+
+<p>
+  <b>Nombre completo:</b>
+  <%=h @persona.nombre_completo %>
+</p>
+
+<p>
+  <b>CURP:</b>
+  <%=h @persona.per_curp %>
+</p>
+
+<p>
+  <b>RFC:</b>
+  <%=h @persona.per_rfc %>
+</p>
+
+
+
+<%= link_to 'Edit', edit_persona_path(@persona) %> |
+<%= link_to 'Back', personas_path %>
+
+
+
+
+
+

@@ -7,7 +7,7 @@
 
 
 <div class="titulocalendario">
-  <p>Listado de audencias del día: <%=Time.now.strftime("%d de %B de %Y")%></p>
+  <p>Listado de orientaciones del día: <%=Time.now.strftime("%d de %B de %Y")%></p>
 </div>
 
 <!-- contenido -->
@@ -19,15 +19,18 @@
        <td style="vertical-align: middle;">Asunto</td>
        <td style="vertical-align: middle;" colspan="2">&nbsp;</td>
     </tr>
-    <%@audiencias.each do |a|%>
-    <tr>
-      <td style="vertical-align: middle;"><%=a.turno%></td>
-     <td style="vertical-align: middle;"><%=(a.persona) ? a.persona.nombre_completo : "--"%></td>
-     <td style="vertical-align: middle;"><%=(a.asunto) ? a.asunto : "--"%></td>
-     <td style="vertical-align: middle;"><%=link_to "Imprimir", {:action => "print", :id =>a}, :class => 'boton'  -%></td>
-     <td style="vertical-align: middle;"><%=link_to "Detalle", {:action => "show", :id => a}, :class => 'boton'  -%></td>
-     <td style="vertical-align: middle;"><%=link_to "Eliminar", {:action => "destroy", :id => a}, :confirm => '¿Desea eliminar el registro?', :class => 'boton'  -%></td>
-    </tr>
+    
+    <%if @audiencias && @audiencias.empty?%>
+        <%@audiencias.each do |a|%>
+          <tr>
+            <td style="vertical-align: middle;"><%=a.turno%></td>
+            <td style="vertical-align: middle;"><%=(a.persona) ? a.persona.nombre_completo : "--"%></td>
+            <td style="vertical-align: middle;"><%=(a.asunto) ? a.asunto : "--"%></td>
+            <td style="vertical-align: middle;"><%=link_to "Imprimir", {:action => "print", :id =>a}, :class => 'boton'  -%></td>
+            <td style="vertical-align: middle;"><%=link_to "Detalle", {:action => "show", :id => a}, :class => 'boton'  -%></td>
+            <td style="vertical-align: middle;"><%=link_to "Eliminar", {:action => "destroy", :id => a}, :confirm => '¿Desea eliminar el registro?', :class => 'boton'  -%></td>
+          </tr>
+        <%end%>
     <%end%>
   </table>
 </div>
