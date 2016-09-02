@@ -1,0 +1,56 @@
+<% if @audiencia = @audiencia || a%>
+  <table class="tablakolaval" style="margin: auto;">
+  <tr><th colspan="2" style="text-align:center;">DATOS DE LA ORIENTACION</th></tr>
+
+
+  <tr>
+    <td class="titulocalendario">Adscripción: </td>
+    <td><%=h (@audiencia.adscripcion)? @audiencia.adscripcion.descripcion : ''%> </td>
+  </tr>
+
+  <tr>
+    <td class="titulocalendario">Turno: </td>
+    <td><%=h @audiencia.turno%> </td>
+  </tr>
+
+    <tr>
+    <td class="titulocalendario">¿Se atendió?: </td>
+    <td><%=h (@audiencia.atendido)? 'SI' : '--' %> </td>
+  </tr>
+
+  <tr>
+    <td class="titulocalendario">Fecha: </td>
+    <td><%=h @audiencia.fecha%> </td>
+  </tr>
+
+  <%if @audiencia.defensor && @audiencia.defensor.persona%>
+      <tr>
+        <td class="titulocalendario">Nombre del defensor público: </td>
+        <td><%=h @audiencia.defensor.persona.nombre_completo%> </td>
+      </tr>
+  <%end%>
+
+  <%if @audiencia.persona %>
+        <tr>
+          <td class="titulocalendario">Nombre del solicitante: </td>
+          <td><%=h @audiencia.persona.nombre_completo%> </td>
+      </tr>
+   <%end%>
+
+   <tr>
+    <td class="titulocalendario">Procedencia: </td>
+    <td><%=h @audiencia.procedencia%> </td>
+   </tr>
+
+   <tr>
+    <td class="titulocalendario">Asunto: </td>
+    <td><%=h @audiencia.asunto%> </td>
+  </tr>
+
+     <tr>
+    <td class="titulocalendario">Observaciones: </td>
+    <td><%=h @audiencia.observaciones%> </td>
+  </tr>
+</table>
+<%end%>
+<br />

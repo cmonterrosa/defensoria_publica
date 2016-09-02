@@ -1,0 +1,49 @@
+<!-- Menu de recepcion en modulos de atencion -->
+<div class="formee  container">
+  <fieldset>
+    <legend>BUSQUEDA</legend>
+         <div class="grid-3-12">
+               <%=link_to_remote 'POR PERSONA', :update => "menu_opciones",
+                      :url => { :controller => "audiencias",  :action => "get_menu_opciones", :tipo => "persona" },
+                      :before => "Element.show('spinner')",
+                      :complete => "Element.hide('spinner')",
+                      :html => {:title => "REPORTE POR PERSONA", :class => "boton"}%>
+          </div>
+
+          <div class="grid-3-12">
+               <%=link_to_remote 'POR DEFENSOR', :update => "menu_opciones",
+                      :url => { :controller => "audiencias",  :action => "get_menu_opciones", :tipo => "defensor" },
+                      :before => "Element.show('spinner')",
+                      :complete => "Element.hide('spinner')",
+                      :html => {:title => "REPORTE POR DEFENSOR", :class => "boton"}%>
+          </div>
+
+          <div class="grid-3-12">
+               <%=link_to_remote 'POR RANGO DE FECHAS', :update => "menu_opciones",
+                      :url => { :controller => "audiencias",  :action => "get_menu_opciones", :tipo => "fechas" },
+                      :before => "Element.show('spinner')",
+                      :complete => "Element.hide('spinner')",
+                      :html => {:title => "REPORTE POR PERSONA", :class => "boton"}%>
+          </div>
+
+           <div class="grid-3-12">
+            <%=link_to_remote 'POR ADSCRIPCION', :update => "menu_opciones",
+                      :url => { :controller => "audiencias",  :action => "get_menu_opciones", :tipo => "adscripcion" },
+                      :before => "Element.show('spinner')",
+                      :complete => "Element.hide('spinner')",
+                      :html => {:title => "REPORTE POR PERSONA", :class => "boton"}%>
+          </div>
+    
+      <div class="grid-12-12 clear"></div>
+
+      <div id="menu_opciones" class="grid-12-12 clear">
+
+      </div>
+
+  </fieldset>
+
+
+  <!-- Listado dinamico de opciones -->
+  <div class="grid-12-12"><img alt="spinner" id="spinner" src="/images/loading_spinner.gif" style="display:none;" /></div>
+
+ </div>

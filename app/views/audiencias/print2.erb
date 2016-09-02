@@ -1,0 +1,50 @@
+
+
+<%if @audiencia.persona%>
+
+<p>
+  <b>Id:</b>
+  <%=h @audiencia.persona.id_persona %>
+</p>
+
+<p>
+  <b>Nombre completo:</b>
+  <%=h @audiencia.persona.nombre_completo %>
+</p>
+
+<p>
+  <b>CURP:</b>
+  <%=h @audiencia.persona.per_curp %>
+</p>
+
+<p>
+  <b>RFC:</b>
+  <%=h @audiencia.persona.per_rfc %>
+</p>
+
+<%end%>
+
+<p>
+  <b>Asunto:</b>
+  <%=h @audiencia.asunto %>
+</p>
+
+<p>
+  <b>Procedencia:</b>
+  <%=h @audiencia.procedencia %>
+</p>
+
+<p>
+  <b>Observaciones:</b>
+  <%=h @audiencia.observaciones %>
+</p>
+
+
+<%= link_to 'Edit',  :action => "new_or_edit", :id => @audiencia %> |
+<%= link_to 'Atrás', :action => "index" %>
+
+
+
+
+
+

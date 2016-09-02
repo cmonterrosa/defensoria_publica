@@ -1,0 +1,24 @@
+<%=  render :partial => "home/arbol" unless params[:action].include?("print_history_by_person")%>
+
+<%if @persona%>
+  <p>
+    <b>NOMBRE COMPLETO:</b><%=h @persona.nombre_completo %>
+  </p>
+
+  <p>
+    <b>CURP:</b><%=h @persona.per_curp %>
+  </p>
+
+  <p>
+    <b>RFC:</b><%=h @persona.per_rfc %>
+  </p>
+<%end%>
+
+ <p style="text-align: center;">
+    <%=(link_to 'IMPRIMIR', {:action => "print_history_by_person", :id => "#{@persona.id}.pdf"}, :class => "boton")  unless params[:action].include?("print_history_by_person")%>
+ </p>
+
+ <!-- Lista de audiencias -->
+ <%@orientaciones.each do |a|%>
+    <%=render :partial => "show", :locals => { :a => a }%>
+<%end%>

@@ -1,0 +1,42 @@
+<!-- Listado esencial -->
+
+<!-- Si especificamente tiene un titulo -->
+<%if @title%>
+    <p style="text-align:center"><b><%=h @title%></b></p>
+<%end%>
+
+<!-- contenido -->
+<div id="divlista">
+    <table width="85%" border="0" cellspacing="0" cellpadding="0" class="tablakolaval" style="BORDER-RIGHT: #cccccc 1px solid; BORDER-TOP: #cccccc 1px solid; BORDER-LEFT: #cccccc 1px solid; BORDER-BOTTOM: #cccccc 1px solid">
+    <tr>
+       <td style="vertical-align: middle;">NP</td>
+       <td style="vertical-align: middle;">Fecha</td>
+       <td style="vertical-align: middle;">Turno</td>
+       <%if current_user.has_role?(:directivo)%>
+            <td style="vertical-align: middle; width: 15%">Lugar</td>
+       <%end%>
+       <td style="vertical-align: middle;">Nombre completo</td>
+       <td style="vertical-align: middle;">Defensor público</td>
+       <td style="vertical-align: middle;">Asunto</td>
+       <td style="vertical-align: middle;" colspan="5">&nbsp;</td>
+    </tr>
+    <%contador=1%>
+    <%if @audiencias && !@audiencias.empty?%>
+      <%@audiencias.each do |a|%>
+      <tr>
+        <td style="vertical-align: middle;"><%=h contador%><%contador+=1%></td>
+        <td style="vertical-align: middle;"> <%=(a.fechahora_atencion)? a.fechahora_atencion.strftime("%d de %B de %Y") : ''%></td>
+        <td style="vertical-align: middle;"><%=a.turno%></td>
+        <td style="vertical-align: middle; width: 15%;"><%=(a.adscripcion)? a.adscripcion.descripcion: ''%></td>
+        <td style="vertical-align: middle;"><%=(a.persona) ? a.persona.nombre_completo : "--"%></td>
+        <td style="vertical-align: middle;"><%=(a.defensor && a.defensor.persona) ? a.defensor.persona.nombre_completo : "--"%></td>
+        <td style="vertical-align: middle;"><%=(a.asunto) ? a.asunto : "--"%></td>
+      </tr>
+      <%end%>
+    <%end%>
+  </table>
+</div>
+
+<div style="text-align: center">
+  <p>TOTAL DE RESULTADOS: <%=@audiencias.size%></p>
+</div>
