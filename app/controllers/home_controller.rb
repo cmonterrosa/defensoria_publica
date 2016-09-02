@@ -52,7 +52,11 @@ class HomeController < ApplicationController
         else
           if @personas = Persona.search(params[:persona_per_curp])
             if @personas.empty?
-              return render(:partial => partial_persona, :layout => false) if request.xhr?
+              if current_user.has_role?(:defensorapoyo)
+                return render(:partial => 'datos_personales_compacto', :layout => false) if request.xhr?
+              else                 
+                return render(:partial => 'datos_personales', :layout => false) if request.xhr?
+              end
             else
               return render(:partial => 'seleccion_persona', :layout => false) if request.xhr?
             end

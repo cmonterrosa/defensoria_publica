@@ -71,6 +71,17 @@ $(function() {
     });
 });
 
+
+/* Concluir tramite */
+
+$(function() {
+    $j('#concluido_created_at').datetimepicker({
+        dayOfWeekStart : 1,
+        buttonImage: "/images/icons/calendar.gif",
+        lang:'es'
+    });
+});
+
 /* Action New_or_edit, controller promocion */
 $(function() {
     $j('#promocion_fecha').datepicker({

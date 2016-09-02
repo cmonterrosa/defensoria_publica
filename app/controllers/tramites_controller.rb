@@ -83,6 +83,17 @@ class TramitesController < ApplicationController
     @defensores ||= Array.new
   end
 
+  def new_or_edit_apoyo
+    @tramite = (params[:id])? Tramite.find(params[:id]) : Tramite.new
+    @tramite.fechahora_atencion ||= Time.now.strftime("%Y/%m/%d")
+    @materias = Catalogo.materia.all
+    @fiscalias = Fiscalia.find(:all, :conditions => ["activa = ?", true])
+    @defensores = Defensor.find(:all, :conditions => ["activo = ? AND persona_id = ?", true, current_user.persona.id]) if current_user.has_role?(:defensor)
+    @defensores = Defensor.find(:all, :conditions => ["activo = ?", true]) if current_user.has_role?(:admin) || current_user.has_role?(:jefedefensor)
+    @defensores ||= Array.new
+    render :partial => "new_or_edit_apoyo", :layout => "content"
+  end
+
   def save
     @tramite = (params[:id])? Tramite.find(params[:id]) : Tramite.new
     @tramite.init_journal(current_user) if current_user

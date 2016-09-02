@@ -1,8 +1,9 @@
 class UsersController < ApplicationController
   # Be sure to include AuthenticationSystem in Application Controller instead
   include AuthenticatedSystem
-    
+  before_filter :login_required, :except => [:new, :save]
   # render new.rhtml
+
 
   def new
     redirect_to :action => "new_or_edit"
@@ -14,6 +15,7 @@ class UsersController < ApplicationController
     render :partial => "edit", :layout => "content"
   end
 
+ 
   def new_or_edit
     @user = (params[:id])? User.find(params[:id]) : User.new
     if @persona = @user.persona
@@ -63,6 +65,10 @@ class UsersController < ApplicationController
       flash[:error]  = "We couldn't set up that account, sorry.  Please try again, or contact an admin (link is above)."
       render :action => 'new'
     end
+  end
+
+  def show
+    @user = User.find(params[:id])
   end
 
   def activate

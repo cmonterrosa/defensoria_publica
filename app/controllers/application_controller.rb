@@ -29,6 +29,13 @@ class ApplicationController < ActionController::Base
     #Rails.logger.debug "=> (#{Time.now.strftime('%d/%m/%Y  %H:%M:%S')}" +  "/  USUARIO: #{user}) - " + text
   end
 
+   def join_date(params=nil, field=nil)
+    if params && field
+      anio, mes, dia, hora, minutos = params["#{field}(1i)"],  params["#{field}(2i)"],  params["#{field}(3i)"], params["#{field}(4i)"], params["#{field}(5i)"]
+      return DateTime.civil(anio.to_i,mes.to_i,dia.to_i,hora.to_i, minutos.to_i)
+    end
+   end
+
   # Es un día hábil
   def habil?(date=Time.now)
     habil = false

@@ -1,0 +1,173 @@
+<%=render :partial => "home/arbol"%>
+
+<div class="container">
+
+  <div class="formee-msg-info">
+    <h3>Información importante</h3>
+    <ul>
+      <li>Los campos marcados con <em class="formee-req">*</em> son obligatorios.</li>
+    </ul>
+    <ul><li>&nbsp;</li></ul>
+  </div>
+
+
+<% form_for :tramite, @tramite, :url => { :action => "save", :controller => "tramites", :id => @tramite}, :html => {:class => "formee", :id => "new_tramite"} do |f| -%>
+  <fieldset>
+    <legend>&nbsp;REGISTRO&nbsp;DE&nbsp;TRAMITE&nbsp;</legend>
+      <div class="grid-12-12">
+          <%= error_messages_for :tramite %>
+      </div>
+
+      <div class="grid-6-12">
+        <div class="grid-4-12">
+          <label><b>NÚMERO ÚNICO DE CASO: </b></label>
+        </div>
+        <div class="grid-8-12"><%=f.text_field :nuc%></div>
+      </div>
+
+      <div class="grid-6-12">
+        <div class="grid-4-12">
+          <label><b>REGISTRO DE ATENCIÓN: </b></label>
+        </div>
+        <div class="grid-8-12"><%=f.text_field :registro_atencion%></div>
+      </div>
+
+      <div class="grid-6-12">
+        <div class="grid-4-12">
+          <label><b>CARPETA DE INVESTIGACIÓN: </b></label>
+        </div>
+        <div class="grid-8-12"><%=f.text_field :carpeta_investigacion%></div>
+      </div>
+
+      <div class="grid-6-12">
+        <div class="grid-4-12">
+          <label><b>CAUSA PENAL: </b></label>
+        </div>
+        <div class="grid-8-12"><%=f.text_field :causa_penal%></div>
+      </div>
+    
+
+      <div class="grid-6-12">
+        <div class="grid-4-12">
+          <label><b>MATERIA: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-8-12">
+          <%= f.select(:materia_id, @materias.collect {|m| [ m.descripcion, m.id ] }, { :include_blank => true })%>
+        </div>
+      </div>
+
+
+
+      <fieldset class="grid-12-12">
+        <legend>&nbsp;DATOS&nbsp;DE&nbsp;IMPUTADO&nbsp;</legend>
+          <div class="grid-12-12">
+              <%= error_messages_for :participante %>
+          </div>
+
+          <div class="grid-8-12">
+            <div class="grid-6-12">
+              <label id="curp_busqueda"><b>CURP O NOMBRE COMPLETO: </b><em class="formee-req">*</em></label>
+            </div>
+            <div class="grid-4-12"><%=  text_field :persona, :per_curp%></div>
+            <div class="grid-2-12"><%= link_to image_tag("icons/actualizar.jpg", :size => "24x24", :border =>0) , {:action => "new_or_edit"}, :title => "Recargar"%></div>
+          </div>
+
+          <div class="grid-12-12"><img alt="spinner" id="spinner" src="/images/loading_spinner.gif" style="display:none;" /></div>
+
+
+          <div id="datos_personales_compacto">
+            <%if @participante%>
+              <%= render :partial => "home/datos_personales_compacto"%>
+            <%end%>
+          </div>
+
+         </fieldset>
+
+
+        <fieldset class="grid-12-12">
+          <legend>&nbsp;DATOS&nbsp;DE&nbsp;MINISTERIO&nbsp;PUBLICO&nbsp;</legend>
+            <div class="grid-12-12">
+                <%= error_messages_for :participante %>
+            </div>
+
+            <div class="grid-8-12">
+              <div class="grid-6-12">
+                <label id="curp_busqueda"><b>CURP O NOMBRE COMPLETO: </b><em class="formee-req">*</em></label>
+              </div>
+              <div class="grid-4-12"><%=  text_field :persona, :per_curp%></div>
+              <div class="grid-2-12"><%= link_to image_tag("icons/actualizar.jpg", :size => "24x24", :border =>0) , {:action => "new_or_edit"}, :title => "Recargar"%></div>
+            </div>
+
+            <div class="grid-12-12"><img alt="spinner" id="spinner" src="/images/loading_spinner.gif" style="display:none;" /></div>
+
+
+            <div id="datos_personales_compacto">
+              <%if @participante%>
+                <%= render :partial => "home/datos_personales_compacto"%>
+              <%end%>
+            </div>
+         </fieldset>        
+
+
+
+
+
+      <div id="datos_tramite">
+        <%if @tramite%>
+          <%=render :partial => "datos_tramite"%>
+        <%end%>
+      </div>
+
+      <div class="grid-12-12 clear"></div>
+      <div class="grid-12-12"><img alt="spinner" id="spinner" src="/images/loading_spinner.gif" style="display:none;" /></div>
+
+
+ </fieldset>
+<%end%>
+</div>
+
+
+<!-- Validaciones -->
+<script type="text/javascript">
+  var per_curp = new LiveValidation( 'persona_per_curp', {onlyOnSubmit: true} );
+  var tipo_participante = new LiveValidation( 'participante_tipo_participante_id', {onlyOnSubmit: true} );
+  per_curp.add( Validate.Presence );
+  tipo_participante.add( Validate.Presence );
+</script>
+
+
+<%= observe_field 'persona_per_curp',
+  :on => "change",
+  :before => "Element.show('spinner')",
+  :success => "Element.hide('spinner')",
+  :url => {:action => 'get_datos_personales',
+  :controller => 'home'},
+  :update => 'datos_personales_compacto',
+  :with => "persona_per_curp"%>
+
+
+<%= observe_form('new_tramite', :update => "datos_tramite",
+  :on => "change",
+  :loading => "Element.show('spinner')",
+  :complete => "Element.hide('spinner')",
+  :url => {:action => :get_datos_tramite})%>
+
+
+<%#= observe_field :tramite_nuc,
+    :on => "change",
+    :before => "Element.show('spinner')",
+    :success => "Element.hide('spinner')",
+    :url => {:controller => 'tramites',
+    :action => 'get_datos_tramite'},
+    :update => 'datos_tramite',
+    :with => "tramite_nuc"%>
+
+<%#= observe_field :tramite_carpeta_investigacion,
+    :on => "change",
+    :before => "Element.show('spinner')",
+    :success => "Element.hide('spinner')",
+    :url => {:controller => 'tramites',
+    :action => 'get_datos_tramite'},
+    :update => 'datos_tramite',
+    :with => "tramite_carpeta_investigacion"
+%>

@@ -1,0 +1,54 @@
+<!-- Asignacion de variables -->
+<!-- Datos de contacto -->
+<%if @persona%>      
+      <%@extension = ExtensionPersona.find_by_persona_id(@persona)%>
+<%end%>
+
+<div class="grid-4-12">
+  <div class="grid-4-12">
+    <label><b>RFC: </b></label>
+  </div>
+  <div class="grid-8-12"><%=text_field :persona, :per_rfc,  :onBlur=>"javascript:{this.value = this.value.toUpperCase(); }"%></div>
+</div>
+
+<div class="grid-4-12">
+  <div class="grid-4-12">
+    <label><b>CURP: </b></label>
+  </div>
+  <div class="grid-8-12"><%=text_field :persona, :per_curp,  :onBlur=>"javascript:{this.value = this.value.toUpperCase(); }"%></div>
+</div>
+
+<div class="grid-6-12">
+  <div class="grid-4-12">
+    <label><b>APELLIDO PATERNO: </b><em class="formee-req">*</em></label>
+  </div>
+  <div class="grid-8-12"><%=text_field :persona, :per_paterno,  :onBlur=>"javascript:{this.value = this.value.toUpperCase(); }"%></div>
+</div>
+
+<div class="grid-6-12">
+  <div class="grid-4-12">
+    <label><b>APELLIDO MATERNO: </b><em class="formee-req">*</em></label>
+  </div>
+  <div class="grid-8-12"><%=text_field :persona, :per_materno,  :onBlur=>"javascript:{this.value = this.value.toUpperCase(); }"%></div>
+</div>
+
+<div class="grid-6-12">
+  <div class="grid-3-12">
+    <label><b>NOMBRE: </b><em class="formee-req">*</em></label>
+  </div>
+  <div class="grid-9-12"><%=text_field :persona, :per_nombre,  :onBlur=>"javascript:{this.value = this.value.toUpperCase(); }"%>
+      <div><%=hidden_field :persona, :id_persona%></div>
+  </div>
+</div>
+
+<div class="grid-6-12">
+  <div class="grid-5-12">
+    <label><b>FECHA DE NACIMIENTO: </b><em class="formee-req">*</em></label>
+  </div>
+  <div class="grid-7-12">
+    <span class="datetime">
+      <%=date_select :persona, :per_nacimiento, :order => [:day, :month, :year], :start_year => 1910%>
+    </span>
+  </div>
+</div>
+
