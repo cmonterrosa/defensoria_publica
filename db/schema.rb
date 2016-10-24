@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20160707171627) do
+ActiveRecord::Schema.define(:version => 20160809152656) do
 
   create_table "adjuntos", :force => true do |t|
     t.string   "descripcion",     :limit => 160
@@ -98,6 +98,7 @@ ActiveRecord::Schema.define(:version => 20160707171627) do
     t.integer  "turno"
     t.integer  "defensor_id"
     t.integer  "estado_audiencia_id"
+    t.integer  "tipo_juicio_id"
     t.string   "asunto",              :limit => 500
     t.string   "observaciones",       :limit => 300
     t.string   "procedencia",         :limit => 140
@@ -105,6 +106,7 @@ ActiveRecord::Schema.define(:version => 20160707171627) do
     t.integer  "adscripcion_id"
     t.boolean  "activo"
     t.boolean  "atendido"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "materia_id"
@@ -117,6 +119,7 @@ ActiveRecord::Schema.define(:version => 20160707171627) do
   add_index "audiencias", ["materia_id"], :name => "audiencias_materia"
   add_index "audiencias", ["persona_id"], :name => "audiencias_persona"
   add_index "audiencias", ["turno"], :name => "audiencias_turno"
+  add_index "audiencias", ["user_id"], :name => "audiencias_usuario"
 
   create_table "ausencias", :force => true do |t|
     t.string   "persona_id",         :limit => 36
@@ -317,11 +320,11 @@ ActiveRecord::Schema.define(:version => 20160707171627) do
   add_index "mensajes", ["recibe_id", "owner_id"], :name => "mensajes_usuario_recibido"
 
   create_table "modificacion_detalles", :force => true do |t|
-    t.integer "modificacion_id"
-    t.string  "campo",           :limit => 60
-    t.string  "old_value"
-    t.string  "value"
-    t.string  "tipo"
+    t.integer "modificacion_id",               :comment => "Identificador de modificación"
+    t.string  "campo",           :limit => 60, :comment => "Columna modificada"
+    t.string  "old_value",                     :comment => "valor anterior"
+    t.string  "value",                         :comment => "Valor nuevo"
+    t.string  "tipo",                          :comment => "Clase del comentario"
   end
 
   add_index "modificacion_detalles", ["modificacion_id"], :name => "modificacion_detalles_id"
@@ -425,18 +428,18 @@ ActiveRecord::Schema.define(:version => 20160707171627) do
   add_index "participantes_tramites", ["participante_id"], :name => "index_participantes_tramites_on_participante_id"
   add_index "participantes_tramites", ["tramite_id"], :name => "index_participantes_tramites_on_tramite_id"
 
-  create_table "personas", :primary_key => "id_persona", :force => true do |t|
-    t.string   "per_paterno",             :limit => 100
-    t.string   "per_materno",             :limit => 100
-    t.string   "per_nombre",              :limit => 100
-    t.string   "per_rfc",                 :limit => 13
-    t.string   "per_curp",                :limit => 18
-    t.string   "per_tipo",                :limit => 0
-    t.datetime "per_elaboracion"
-    t.datetime "per_modificacion"
-    t.boolean  "per_activo_reg"
-    t.string   "fk_usuario_alta",         :limit => 36
-    t.string   "fk_usuario_modificacion", :limit => 36
+  create_table "personas", :primary_key => "id_persona", :force => true, :comment => "personas que realizan tramite en la institucion" do |t|
+    t.string   "per_paterno",             :limit => 100, :comment => "apellido paterno"
+    t.string   "per_materno",             :limit => 100, :comment => "apellido materno"
+    t.string   "per_nombre",              :limit => 100, :comment => "nombre o razon social"
+    t.string   "per_rfc",                 :limit => 13,  :comment => "registro federal de contribuyentes"
+    t.string   "per_curp",                :limit => 18,  :comment => "clave unica del registro de poblacion"
+    t.string   "per_tipo",                :limit => 0,   :comment => "tipo de persona ya sea fisica o moral"
+    t.datetime "per_elaboracion",                        :comment => "fecha de elaboracion del registro"
+    t.datetime "per_modificacion",                       :comment => "fecha de modificacion del registro"
+    t.boolean  "per_activo_reg",                         :comment => "estado de la persona"
+    t.string   "fk_usuario_alta",         :limit => 36,  :comment => "alta del usuario"
+    t.string   "fk_usuario_modificacion", :limit => 36,  :comment => "modificacion del usuario"
     t.integer  "per_nacionalidad"
     t.date     "per_nacimiento"
   end
