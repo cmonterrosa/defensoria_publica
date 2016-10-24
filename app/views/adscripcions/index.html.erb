@@ -1,0 +1,22 @@
+<h1>Listing adscripcions</h1>
+
+<table>
+  <tr>
+    <th>Clave</th>
+    <th>Descripcion</th>
+  </tr>
+
+<% @adscripcions.each do |adscripcion| %>
+  <tr>
+    <td><%=h adscripcion.clave %></td>
+    <td><%=h adscripcion.descripcion %></td>
+    <td><%= link_to 'Show', adscripcion %></td>
+    <td><%= link_to 'Edit', edit_adscripcion_path(adscripcion) %></td>
+    <td><%= link_to 'Destroy', adscripcion, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New adscripcion', new_adscripcion_path %>

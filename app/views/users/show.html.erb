@@ -1,0 +1,35 @@
+<%=render :partial => "home/arbol"%>
+
+<% if @user %>
+  <table class="tablakolaval" style="margin: auto;">
+  <tr><th colspan="2" style="text-align:center;">Datos del usuario</th></tr>
+
+  <tr>
+    <td>Nombre completo: </td>
+    <td><%=h (@user.persona)? @user.persona.nombre_completo : ''%> </td>
+  </tr>
+
+  <tr>
+    <td>Login: </td>
+    <td><%=h @user.login%> </td>
+  </tr>
+
+  <tr>
+    <td>Adscripción: </td>
+    <td><%=h (@user.adscripcion)? @user.adscripcion.descripcion : ''%> </td>
+  </tr>
+
+  <tr>
+    <td>Última conexión: </td>
+    <td><%=h (@user.last_login)? @user.last_login.strftime("%d de %B de %Y / %H:%M %p").upcase : ''%> </td>
+  </tr>
+  <tr>
+    <td>Dirección IP: </td>
+    <td><%=h @user.last_ip%> </td>
+  </tr>
+  <tr>
+    <td>Correo electrónico:</td>
+    <td><%=h @user.email %></td>
+  </tr>
+</table>
+<%end%>

@@ -1,0 +1,53 @@
+   <%=  javascript_include_tag :defaults%>
+
+   <%= stylesheet_link_tag "content"%>
+   <%= stylesheet_link_tag "miestilo"%>
+   
+    <!-- Burbujas de descripcion -->
+   <%= javascript_include_tag 'prototype'%>
+   <%= javascript_include_tag 'BubbleTooltips' %>
+
+    <%= javascript_include_tag "jquery.min", "jquery-ui.min", "application" %>
+    <%=javascript_include_tag "datetimepicker"%>
+    <%=javascript_include_tag "datepicker_es"%>
+
+    <!-- Paginate -->
+    <%= stylesheet_link_tag "paginate/style.css" %>
+
+    <!-- Add mousewheel plugin (this is optional) -->
+    <%=javascript_include_tag "fancybox/jquery.mousewheel-3.0.6.pack.js"%>
+
+    <!-- Add fancyBox main JS and CSS files -->
+    <%=javascript_include_tag "fancybox/jquery.fancybox.js?v=2.1.0"%>
+    
+    <!-- Live Validation -->
+    <%=javascript_include_tag "livevalidation/livevalidation_standalone.js" %>
+    
+    <%=javascript_include_tag "formee/formee.js" %>
+
+   <!-- Estilo de tablas del proyecto -->
+    <%= stylesheet_link_tag "tabla_dp.css" %>
+
+      <!-- Estilo de tablas propias -->
+     <%= stylesheet_link_tag "tablas_defensoria.css" %>
+
+    <!-- Estilo de tablas del calendario -->
+    <%= stylesheet_link_tag "calendario.css" %>
+
+    <!-- formee -->
+    <%= stylesheet_link_tag "formee/formee-structure.css" %>
+    <%= stylesheet_link_tag "formee/formee-style.css" %>
+    <%=javascript_include_tag "formee/formee.js" %>
+
+      <script type="text/javascript">
+        var $j = jQuery.noConflict();
+     </script>
+
+     <!-- Barra de búsqueda -->
+    <%= stylesheet_link_tag "barra_busqueda"%>
+
+
+    <%=render :partial => "layouts/notificaciones_acciones"%>
+     
+     <!-- contenido -->
+     <%=yield%>

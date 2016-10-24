@@ -1,0 +1,48 @@
+<%=render :partial => "home/arbol"%>
+
+<div class="container">
+<% form_for :adscripcion, @adscripcion, :url => { :action => "save", :id => @adscripcion}, :html => {:class => "formee"} do |f| -%>
+  <fieldset>
+         <div class="grid-form">
+          <%= error_messages_for :adscripcion %>
+      </div>
+
+     <legend>&nbsp;ADSCRIPCION&nbsp;</legend>
+
+      <div class="grid-3-12">
+        <div class="grid-4-12">
+          <label><b>CLAVE: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-8-12"><%=f.text_field :clave%></div>
+      </div>
+
+      <div class="grid-9-12">
+        <div class="grid-3-12">
+          <label><b>DESCRIPCION: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-9-12"><%=f.text_field :descripcion%></div>
+      </div>
+
+      <div class="grid-12-12 clear"></div>
+
+      <div class="grid-form-login">
+        <input class="right" type="submit" title="GUARDAR" value="GUARDAR" />
+      </div>
+ </fieldset>
+<%end%>
+</div>
+
+<!-- Validaciones -->
+<script type="text/javascript">
+  var clave = new LiveValidation( 'adscripcion_clave', {onlyOnSubmit: true} );
+  var descripcion = new LiveValidation( 'adscripcion_descripcion', {onlyOnSubmit: true} );
+  clave.add( Validate.Presence );
+  descripcion.add( Validate.Presence );
+</script>
+
+
+
+
+
+
+

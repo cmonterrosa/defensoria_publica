@@ -1,0 +1,20 @@
+<h1>Editing adscripcion</h1>
+
+<% form_for(@adscripcion) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :clave %><br />
+    <%= f.text_field :clave %>
+  </p>
+  <p>
+    <%= f.label :descripcion %><br />
+    <%= f.text_field :descripcion %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @adscripcion %> |
+<%= link_to 'Back', adscripcions_path %>

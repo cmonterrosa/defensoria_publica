@@ -1,0 +1,71 @@
+  <!-- Datos básicos de usuario -->
+  <div class="grid-6-12">
+        <div class="grid-4-12">
+          <label><b>LOGIN: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-8-12">
+          <%=text_field :user, :login%>
+        </div>
+       </div>
+
+      <div class="grid-6-12">
+        <div class="grid-4-12">
+          <label><b>CORREO ELECTRONICO: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-8-12">
+          <%= text_field :user, :email %>
+        </div>
+       </div>
+
+      <div class="grid-6-12">
+        <div class="grid-4-12">
+          <label><b>CONTRASEÑA: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-8-12">
+          <%= password_field :user, :password %>
+        </div>
+       </div>
+
+       <div class="grid-6-12">
+        <div class="grid-4-12">
+          <label><b>CONFIRMACIÓN DE LA CONTRASEÑA: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-8-12">
+          <%= password_field :user, :password_confirmation %>
+        </div>
+       </div>
+
+       <div class="grid-60-12">
+          <div class="grid-2-12">
+            <label><b>ADSCRIPCION: </b><em class="formee-req">*</em></label>
+          </div>
+         <div class="grid-10-12">
+            <%= select(:user, :adscripcion_id, Adscripcion.all.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true })%>
+          </div>
+      </div>
+
+      <div class="grid-6-12">
+        <div class="grid-4-12">
+          <label><b>¿CUENTA ACTIVA?: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-8-12">
+                  <span class="InputGroup">
+                   <label class="uper">SI <%= radio_button :user, :activo, "SI", :checked => @user.activo %></label>&nbsp;&nbsp;
+                   <label class="uper">NO <%= radio_button :user, :activo, "NO", :checked => @user.activo == false %></label>
+                  </span>
+        </div>
+      </div>
+
+ <!-- Validaciones -->
+<script type="text/javascript">
+  var login = new LiveValidation( 'user_login', {onlyOnSubmit: true} );
+  var email = new LiveValidation( 'user_email', {onlyOnSubmit: true} );
+  login.add( Validate.Presence );
+  email.add( Validate.Presence );
+  var password = new LiveValidation( 'user_password' );
+  <%#*password.add( Validate.Presence, {onlyOnSubmit: true } );%>
+  password.add( Validate.Length, { minimum: 6 } );
+  var password_confirmation = new LiveValidation( 'user_password_confirmation' );
+  password_confirmation.add( Validate.Confirmation, { match: 'user_password'} );
+</script>
+
