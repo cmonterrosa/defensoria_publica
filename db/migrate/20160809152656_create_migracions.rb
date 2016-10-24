@@ -25,7 +25,7 @@ class CreateMigracions < ActiveRecord::Migration
               @persona = Persona.find(:first, :conditions => ["per_paterno = ? AND per_materno = ? AND per_nombre = ?", d["a_paterno"].strip, d["a_materno"].strip, d["nombre"].strip])
               @persona ||= Persona.new(:per_nombre => d["nombre"], :per_paterno => d["a_paterno"], :per_materno => d["a_materno"])
               @defensor =  Defensor.find(:first, :conditions => ["persona_id = ?", @persona.id]) if @persona
-              @defensor ||= Defensor.new(:persona_id => @persona.id, :municipio_id => @municipio, :cve_def => d.cve_def, :activo => true)
+              @defensor ||= Defensor.new(:persona_id => @persona.id, :municipio_id => @municipio.id, :cve_def => d.cve_def, :activo => true)
               if @persona.save && @defensor.save
                 puts("      DEFENSOR #{@defensor.persona.nombre_completo} GUARDADO CORRECTAMENTE")
                 @contador_defensores_guardados+=1
