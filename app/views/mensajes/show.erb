@@ -19,15 +19,17 @@
     <legend style=" color: navy;">VER&nbsp;MENSAJE</legend>
 
     
-    <div class="grid-6-12">
+    <div class="grid-12-12">
       <label><b style="color: navy;">Remitente: </b><%=@mensaje.remitente%></label>
     </div>
 
-    <div class="grid-6-12">
+    <div class="grid-12-12">
       <label><b style="color: navy;">Destinatario: </b><%=@mensaje.destinatario%></label>
     </div>
 
-    <div class="grid-12-12 clear"></div>
+    <div class="grid-12-12">
+      <label><b style="color: navy;">Fecha/hora: </b><%=(@mensaje.created_at)? @mensaje.created_at.strftime("%d de %B de %Y - %H:%M:%S %p"): '--'%></label>
+     </div>
     
     <div class="grid-12-12">
       <label><b style="color: navy;">Asunto: </b><%=@mensaje.asunto%></label>
@@ -38,18 +40,20 @@
     <div class="grid-12-12">
       <label><b style="color: navy;">Descripción: </b></label>
       <p>
-        <%= f.text_area :descripcion,  :placeholder => "Escriba la descripción detallada", :disabled => true, :style => "width: 700px; height: 200px" %>
+        <%= f.text_area :descripcion,  :placeholder => "Escriba la descripción detallada", :disabled => true, :style => "width: 80%; height: 6%" %>
       </p>
      </div>
-
-    <%if @adjunto = Adjunto.find(:first, :conditions => ["clave_mensaje = ?", @mensaje.clave])%>
-      <div class="grid-12-12">
-          <%= link_to 'DESCARGAR ADJUNTO', {:controller => "upload", :action => "download", :id => @adjunto.id}, :method => :post, :class => 'boton', :html => { :target => "_blank"} %>
-      </div>
-    <%end%>
-
   </fieldset>
 <%end%>
+
+      <%if @adjunto = Adjunto.find(:first, :conditions => ["clave_mensaje = ?", @mensaje.clave])%>
+        <% form_for :escuela, @escuela, :url => { :action => "download", :controller => "upload", :id => @adjunto.id }, :html => { :target => "_blank"} do |f| -%>
+          <div class="grid-center">
+            <input type="submit" title="DESCARGAR ADJUNTO" value="DESCARGAR ADJUNTO" />
+          </div>
+        <%end%>
+      <%end%>
+
 </div>
 
 

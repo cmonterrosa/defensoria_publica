@@ -82,7 +82,7 @@ class ApplicationController < ActionController::Base
   def save_persona(params={}, objeto=nil)
           if params[:persona] && objeto
             @participante = objeto
-            @participante.persona = (params[:persona][:id_persona] && params[:persona][:id_persona].size > 0)? Persona.find(params[:persona][:id_persona]) : nil
+            @participante.persona ||= (params[:persona][:id_persona] && params[:persona][:id_persona].size > 0)? Persona.find(params[:persona][:id_persona]) : nil
             @participante.persona ||= (params[:persona][:per_curp] && params[:persona][:per_curp].size > 0) ? Persona.find(:first, :conditions => ["per_curp =  ?", params[:persona][:per_curp]]) : nil
             anio = params[:persona]["per_nacimiento(1i)"]
             mes= params[:persona]["per_nacimiento(2i)"]

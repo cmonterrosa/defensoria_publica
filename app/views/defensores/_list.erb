@@ -6,21 +6,25 @@
 
 <!-- contenido -->
 <div id="divlista">
-    <table width="85%" border="0" cellspacing="0" cellpadding="0" class="tablakolaval" style="BORDER-RIGHT: #cccccc 1px solid; BORDER-TOP: #cccccc 1px solid; BORDER-LEFT: #cccccc 1px solid; BORDER-BOTTOM: #cccccc 1px solid">
+    <table width="90%" border="0" cellspacing="0" cellpadding="0" class="tablakolaval" style="BORDER-RIGHT: #cccccc 1px solid; BORDER-TOP: #cccccc 1px solid; BORDER-LEFT: #cccccc 1px solid; BORDER-BOTTOM: #cccccc 1px solid">
     <tr>
+       <td style="vertical-align: middle;">login del sistema</td>
        <td style="vertical-align: middle;">Nombre completo</td>
-       <td style="vertical-align: middle;">Municipio</td>
+       <td style="vertical-align: middle;">Adscripción</td>
+       <td style="vertical-align: middle;">¿Activo?</td>
        <td style="vertical-align: middle;">Actividad semanal</td>
        <td style="vertical-align: middle;" colspan="4">&nbsp;</td>
     </tr>
     <%@defensores.each do |d|%>
     <tr>
+      <td style="vertical-align: middle;"><%=(d.persona && User.find_by_persona_id(d.persona.id)) ?User.find_by_persona_id(d.persona.id).login : "--"%></td>
       <td style="vertical-align: middle;"><%=(d.persona) ? d.persona.nombre_completo : "--"%></td>
-     <td style="vertical-align: middle;"><%=(d.municipio) ? d.municipio.nombre : "--"%></td>
-     <td style="vertical-align: middle;"><%=(d.actividad_desde_inicio_semana) ? d.actividad_desde_inicio_semana : "--"%></td>
-     <td style="vertical-align: middle;"><%=link_to "Ausencias", {:controller => 'ausencias', :p =>d.persona}, :class => 'boton'  -%></td>
-     <td style="vertical-align: middle;"><%=link_to "Editar", {:action => "new_or_edit", :id => d}, :class => 'boton'  -%></td>
-     <td style="vertical-align: middle;"><%=link_to "Eliminar", {:action => "destroy", :id => d}, :confirm => '¿Desea eliminar el registro?', :class => 'boton'  -%></td>
+      <td style="vertical-align: middle;"><%=(d.persona && User.find_by_persona_id(d.persona.id)) ?  User.find_by_persona_id(d.persona.id).adscripcion.descripcion : "--"%></td>
+      <td style="vertical-align: middle;"><%=h (d.activo)? 'SI' : 'NO'%></td>
+      <td style="vertical-align: middle;"><%=(d.actividad_desde_inicio_semana) ? d.actividad_desde_inicio_semana : "--"%></td>
+      <td style="vertical-align: middle;"><%=link_to "Ausencias", {:controller => 'ausencias', :p =>d.persona}, :class => 'boton'  -%></td>
+      <td style="vertical-align: middle;"><%=link_to "Editar", {:action => "new_or_edit", :id => d}, :class => 'boton'  -%></td>
+      <td style="vertical-align: middle;"><%=link_to "Eliminar", {:action => "destroy", :id => d}, :confirm => '¿Desea eliminar el registro?', :class => 'boton'  -%></td>
     </tr>
     <%end%>
   </table>

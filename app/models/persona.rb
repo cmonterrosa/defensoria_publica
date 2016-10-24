@@ -13,11 +13,15 @@ class Persona < ActiveRecord::Base
   has_one "clave_elector", :foreign_key => "persona_id"
   has_one "extension_persona", :foreign_key => "persona_id"
 
+  validates_uniqueness_of :id_persona, :if => "self.id_persona", :allow_blank => true
+
 #  validates_format_of :per_curp, :with => /\A[A-Z][AEIOUX][A-Z]{2}[0-9]{2}[0-1][0-9][0-3][0-9][MH][A-Z][BCDFGHJKLMNÑPQRSTVWXYZ]{4}[0-9A-Z][0-9]\z/,
 #    :allow_blank => true, :message => "Formato inválido"
 
   before_save :validates_curp, :if => "self.per_curp != nil"
+  before_save :trim_all_fields
   before_save :set_timestamp
+  before_save :set_per_nacionalidad
 
   def validates_curp
     success = (self.per_curp && self.per_curp.size == 18)
@@ -29,6 +33,16 @@ class Persona < ActiveRecord::Base
   def set_timestamp
     self.per_elaboracion ||= Time.now
     self.per_modificacion = Time.now
+  end
+
+  # Borra caracteres en blanco de todos los campos
+  def trim_all_fields
+    self.attributes.each{|a| a.strip! if a.class == 'String'}
+  end
+
+  # Establece nacionalidad por defecto
+  def set_per_nacionalidad
+    self.per_nacionalidad ||= 122 if self.respond_to?(:per_nacionalidad)
   end
 
   # Calcula la edad de la persona
@@ -79,7 +93,7 @@ class Persona < ActiveRecord::Base
    # Metodo que busca una persona o personas
   def self.search(search)
     if search && search.size > 1
-      find(:all, :conditions => ['CONCAT(per_nombre, \' \' , per_paterno, \' \' , per_materno) LIKE ?', "%#{search}%"], :order => "per_paterno, per_materno, per_nombre", :limit => 125)
+      find(:all, :conditions => ['CONCAT(per_nombre, \' \' , per_paterno, \' \' , per_materno) LIKE ?', "%#{search.strip}%"], :order => "per_paterno, per_materno, per_nombre", :limit => 125)
     else
       find(:all)
     end
@@ -88,8 +102,9 @@ class Persona < ActiveRecord::Base
   # Prepara registro con sus correlaciones en distintos modelos
   def prepare_row(params={}, current_user=nil, objeto=nil)
           if params[:persona]
-            @persona = objeto.persona if (objeto)
-            @persona = (params[:persona][:id_persona] && params[:persona][:id_persona].size > 0)? Persona.find(params[:persona][:id_persona]) : nil
+            @persona = self if self
+            @persona ||= objeto.persona if (objeto)
+            @persona ||= (params[:persona][:id_persona] && params[:persona][:id_persona].size > 0)? Persona.find(params[:persona][:id_persona]) : nil
             @persona ||= (params[:persona][:per_curp] && params[:persona][:per_curp].size > 0) ? Persona.find(:first, :conditions => ["per_curp =  ?", params[:persona][:per_curp]]) : nil
             anio = params[:persona]["per_nacimiento(1i)"]
             mes= params[:persona]["per_nacimiento(2i)"]

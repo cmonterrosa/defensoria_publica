@@ -1,18 +1,21 @@
-######################################
+#########################################
 # = Controlador que hace operaciones basicas de las audiencias
 # u orientaciones que los defensores dan al publico en general
-######################################
+##########################################
 
 class AudienciasController < ApplicationController
   require_role [:defensor, :directivo, :admin, :recepcion], :except => 'get_datos_personales'
 
   # Listado de audiencias
   def index
-    if current_user.has_role?(:directivo) || current_user.has_role?(:admin)
-      adscripcion_conditions = (current_user.adscripcion) ? '' : "AND adscripcion_id=#{current_user.adscripcion.id}"
-      @audiencias = Audiencia.find(:all, :conditions => ["DATE(fechahora_atencion) = ? #{adscripcion_conditions}", Time.now.strftime("%Y/%m/%d")], :order => "fechahora_atencion DESC").paginate(:page => params[:page], :per_page => 25)
-   end
-    @audiencias ||= Audiencia.find(:all, :conditions => ["DATE(fechahora_atencion) = ? #{adscripcion_conditions}", Time.now.strftime("%Y/%m/%d")], :order => "fechahora_atencion DESC").paginate(:page => params[:page], :per_page => 25)
+    case
+      when current_user.has_role?(:admin)
+        adscripcion_conditions = ""
+    else
+        adscripcion_conditions = (current_user.adscripcion) ? '' : "AND adscripcion_id=#{current_user.adscripcion.id}"
+    end
+    @title = "AUDIENCIAS DEL DIA: #{ Time.now.strftime("%d de %B de %Y")} ".upcase
+    @audiencias = Audiencia.find(:all, :conditions => ["DATE(fechahora_atencion) = ? #{adscripcion_conditions}", Time.now.strftime("%Y/%m/%d")], :order => "fechahora_atencion DESC").paginate(:page => params[:page], :per_page => 25)
     @audiencias_ids = @audiencias.collect{|a|a.id.to_i}.join(",")
     render :partial => "list", :layout => "content"
   end
@@ -23,49 +26,54 @@ class AudienciasController < ApplicationController
   end
 
   # Devuelve seleccionar para busqueda
-  def get_menu_opciones
+  def get_menu_opciones2
     case params[:tipo]
     when 'persona'
         render :partial => "busqueda_por_persona", :layout => "only_jquery"
     when 'fechas'
         render :partial => "busqueda_por_fechas", :layout => "only_jquery"
     when 'defensor'
-       @defensores_list = Defensor.find(:all, :conditions => ["persona_id IS NOT NULL"])
-       @defensores = []
-       @defensores_list.each do |d|
-         @defensores << d if d.persona
-       end
+       select_defensores_adscripciones
        render :partial => "busqueda_por_defensor", :layout => "only_jquery"
     when 'adscripcion'
-        @adscripciones = Adscripcion.find :all
+        select_defensores_adscripciones
         render :partial => "busqueda_por_adscripcion"
     else
         render :text => ""
     end
   end
 
+  def get_menu_opciones
+    select_defensores_adscripciones
+    render (params[:tipo] && params[:tipo].size > 0)? {:partial => "busqueda_por_" + params[:tipo], :layout => "only_jquery"} :  {:text => ""}
+  end
+
   # Búsqueda de audiencias
   def search
+      select_defensores_adscripciones
       if params[:fecha]
         @inicio = join_date(params[:fecha], :inicio)
         @fin = join_date(params[:fecha], :fin)
-        if (@inicio && @fin) && (@fin >= @inicio)
-            @audiencias = Audiencia.find(:all, :conditions => ["DATE(fechahora_atencion) between ? AND ?", @inicio, @fin], :order => "fechahora_atencion").paginate(:page => params[:page], :per_page => 25)
-            @title = "PERIODO DEL : #{@inicio.strftime("%d de %B de %Y").upcase} AL #{@fin.strftime("%d de %B de %Y").upcase}"
+        if (@inicio.respond_to?(:wday) && @fin.respond_to?(:wday)) && (@fin >= @inicio)
+            @audiencias = Audiencia.find(:all, :conditions => ["adscripcion_id IN (?) AND DATE(fechahora_atencion) between ? AND ?", @adscripciones, @inicio, @fin], :order => "fechahora_atencion DESC").paginate(:page => params[:page], :per_page => 25)
+            @title = ((@inicio.year == @fin.year) && (@inicio.wday == @fin.wday))? "AUDIENCIAS DEL DIA: #{@inicio.strftime("%d de %B de %Y").upcase}" : nil
+            @title ||= "PERIODO DEL : #{@inicio.strftime("%d de %B de %Y").upcase} AL #{@fin.strftime("%d de %B de %Y").upcase}"
+            #@title += " \n ADSCRIPCIONES: #{@adscripciones.collect{|a|a.descripcion}.join(" , ")}"
         else
           @audiencias = Array.new
           flash[:error] = "Seleccione un rango de fechas valido"
         end
       else
-        if params[:defensor].respond_to?(:size) && params[:defensor][:id]
-            @defensor = Defensor.find(params[:defensor][:id])
+        if params[:defensor].respond_to?(:size) && (params[:defensor][:id] || params[:defensor])
+            @defensor_id = (params[:defensor][:id])? params[:defensor][:id] : params[:defensor]
+            @defensor = Defensor.find(@defensor_id) if @defensor_id && @defensor_id.size > 0
             @title = "AUDIENCIAS DEL DEFENSOR #{(@defensor && @defensor.persona) ? @defensor.persona.nombre_completo : ''}"
-            @audiencias = Audiencia.find(:all, :conditions => ["defensor_id = ?", @defensor.id]) if @defensor
+            @audiencias = Audiencia.find(:all, :conditions => ["defensor_id = ?", @defensor.id],  :order => "fechahora_atencion DESC") if @defensor
         end
-        if params[:adscripcion].respond_to?(:size) && params[:adscripcion][:id]
+        if params[:adscripcion].respond_to?(:size) && params[:adscripcion][:id].size > 0
           @adscripcion = Adscripcion.find(params[:adscripcion][:id])
           @title = "AUDIENCIAS DE #{(@adscripcion)? @adscripcion.descripcion : ''}"
-          @audiencias = Audiencia.find(:all, :conditions => ["adscripcion_id = ?", @adscripcion.id]) if @adscripcion
+          @audiencias = Audiencia.find(:all, :conditions => ["adscripcion_id = ?", @adscripcion.id],  :order => "fechahora_atencion") if @adscripcion
         end
         # Es una busqueda por texto
         @audiencias ||= Audiencia.search(params[:search], current_user)
@@ -79,8 +87,8 @@ class AudienciasController < ApplicationController
       @audiencia = (params[:id])? Audiencia.find(params[:id]) : Audiencia.new
       @audiencia.fecha ||= Time.now.strftime("%Y/%m/%d")
       @materias = Catalogo.materia.all
-      @defensores = Defensor.find(:all, :conditions => ["activo = ?", true])
       @persona = @audiencia.persona
+      select_defensores_adscripciones
   end
 
   # Guarda registro
@@ -93,13 +101,14 @@ class AudienciasController < ApplicationController
         @audiencia.persona ||= (params[:persona][:per_curp] && params[:persona][:per_curp].size > 0) ? Persona.find(:first, :conditions => ["per_curp =  ?", params[:persona][:per_curp]]) : nil
       end
       @audiencia.persona ||= Persona.new(params[:persona])
+      @audiencia.user_id = current_user.id if current_user
       if @audiencia.save && @audiencia.persona.valid?
         save_persona(params, @audiencia)
         flash[:notice] = "Audiencia registrada correctamente"
         redirect_to :controller => "audiencias"
       else
         @materias = Catalogo.materia.all
-        @defensores = Defensor.find(:all, :conditions => ["activo = ?", true])
+        select_defensores_adscripciones
         flash[:error] = "Registro no válido"
         render :action => "new_or_edit"
       end
@@ -202,10 +211,12 @@ class AudienciasController < ApplicationController
 
   # Obtiene el valor de la asignación de defensores al público
   def get_last_attention
-      @adscripcion_id = (params[:user_id] && (@user = User.find(params[:user_id]))) ? @user.adscripcion_id : nil
-      @adscripcion_condition = (@adscripcion_id) ? "AND adscripcion_id = #{@adscripcion_id} " : ''
-      @audiencias = Audiencia.find(:all, :conditions => ["defensor_id IS NOT NULL AND fecha = ? #{@adscripcion_condition}", Time.now.strftime("%Y/%m/%d")])
-      return render(:partial => 'list_turnos', :layout => false) if request.xhr?
+      #@adscripcion_id = (params[:user_id] && (@user = User.find(params[:user_id]))) ? @user.adscripcion_id : nil
+      #@adscripcion_condition = (@adscripcion_id) ? "AND adscripcion_id = #{@adscripcion_id} " : ''
+      #@audiencias = Audiencia.find(:all, :conditions => ["defensor_id IS NOT NULL AND fecha = ? #{@adscripcion_condition}", Time.now.strftime("%Y/%m/%d")])
+      select_defensores_adscripciones
+      @audiencias = Audiencia.find(:all, :conditions => ["(defensor_id IS NOT NULL) AND (atendido IS NULL OR atendido=0) AND fecha = ? AND adscripcion_id in (?)", Time.now.strftime("%Y/%m/%d"), @adscripciones.map{|i| i.id}], :limit => 8)
+     return render(:partial => 'list_turnos', :layout => false) if request.xhr?
   end
 
   
@@ -219,6 +230,20 @@ def select_object
             redirect_to  :action => "index"
         end
 end
+
+def select_defensores_adscripciones
+    if current_user.has_role?(:admin) || current_user.has_role?(:directivo)
+      @defensores = Defensor.find(:all, :conditions => ["persona_id IS NOT NULL AND activo = ?", true])
+      @adscripciones = Adscripcion.find(:all)
+   else
+      @adscripcion = current_user.adscripcion
+      @adscripciones = Adscripcion.find(:all, :conditions => ["id in (?)", @adscripcion.id]) if @adscripcion
+      @defensores = Defensor.find(:all, :joins => "defensors, users u, adscripcions a", :conditions => ["defensors.persona_id IS NOT NULL AND defensors.persona_id=u.persona_id AND u.adscripcion_id=a.id AND a.id = ?", @adscripcion.id])
+    end if current_user
+    @defensores ||= Array.new
+end
+
+
 
   def set_layout
     (action_name == 'print_history_by_person')? 'pdf' : 'content'

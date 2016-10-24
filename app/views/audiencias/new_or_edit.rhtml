@@ -21,7 +21,7 @@
   </fieldset>
       <!-- Datos propios de la orientacion -->
    <fieldset>
-      
+      <legend>DATOS&nbsp;DE&nbsp;LA&nbsp;ORIENTACIÓN</legend>
       <div class="grid-9-12">
         <div class="grid-2-12">
           <label><b>FECHA/HORA: </b><em class="formee-req">*</em></label>
@@ -40,18 +40,16 @@
 
        <div class="grid-12-12">
         <div class="grid-4-12">
-            <label><b>DEFENSOR PÚBLICO: </b><em class="formee-req">*</em></label>
+            <label><b>DEFENSOR PÚBLICO: </b></label>
         </div>
         <div class="grid-8-12">
           <%= f.select(:defensor_id, @defensores.collect {|p| [ p.persona.nombre_completo, p.id ] }, { :include_blank => true })%>
         </div>
       </div>
 
-       
-
       <div class="grid-12-12">
         <div class="grid-2-12">
-          <label><b>PROCEDENCIA: </b><em class="formee-req">*</em></label>
+          <label><b>PROCEDENCIA: </b></label>
         </div>
         <div class="grid-10-12"><%=f.text_field :procedencia%></div>
       </div>
@@ -65,7 +63,7 @@
 
       <div class="grid-12-12">
         <div class="grid-2-12">
-            <label><b>OBSERVACIONES: </b><em class="formee-req">*</em></label>
+            <label><b>OBSERVACIONES: </b></label>
         </div>
         <div class="grid-10-12"><%=f.text_field :observaciones%></div>
       </div>
@@ -83,12 +81,17 @@
 <script type="text/javascript">
   var asunto = new LiveValidation( 'audiencia_asunto', {onlyOnSubmit: true} );
   var materia = new LiveValidation( 'audiencia_materia_id', {onlyOnSubmit: true} );
-  <%#*var fecha = new LiveValidation( 'audiencia_fecha', {onlyOnSubmit: true} );%>
-  var per_curp = new LiveValidation( 'persona_per_curp', {onlyOnSubmit: true} );
   asunto.add( Validate.Presence );
   materia.add( Validate.Presence );
+  <%#*var fecha = new LiveValidation( 'audiencia_fecha', {onlyOnSubmit: true} );%>
+  <%#*var per_curp = new LiveValidation( 'persona_per_curp', {onlyOnSubmit: true} );%>
   <%#*fecha.add( Validate.Presence );%>
-  per_curp.add( Validate.Presence );
+  <%#*per_curp.add( Validate.Presence );%>
+
+  jQuery(function(){
+    jQuery("#persona_per_curp").validate({ expression: "if (isNoEmpty('persona_per_paterno') || isNoEmpty('persona_per_curp')) return true; else return false;", message: "Teclee curp, nombre o apelllidos de la persona!" });
+  });
+
 </script>
 
 

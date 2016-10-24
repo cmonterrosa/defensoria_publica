@@ -1,3 +1,13 @@
+<script type="text/javascript">
+  window.onload = function() {
+     if (document.getElementById('defensor_activo_si').checked) {
+        document.getElementById("datos_usuario").style.display="inline";
+        } else {
+            document.getElementById("datos_usuario").style.display="none";
+        }
+  }
+</script>
+
 <%=render :partial => "home/arbol"%>
 
 <div class="container">
@@ -21,7 +31,7 @@
 
       <div class="grid-6-12">
         <div class="grid-4-12">
-          <label><b>MUNICIPIO: </b><em class="formee-req">*</em></label>
+          <label><b>MUNICIPIO DE ORIGEN: </b><em class="formee-req">*</em></label>
         </div>
         <div class="grid-8-12">
           <%= f.select(:municipio_id, @municipios.collect {|p| [ p.nombre, p.id ] }, { :include_blank => true })%>
@@ -37,19 +47,30 @@
         </div>
        </div>
 
-      <div class="grid-6-12">
+       <div class="grid-6-12">
         <div class="grid-4-12">
-          <label><b>¿ACTIVO?: </b><em class="formee-req">*</em></label>
+          <label><b>¿DEFENSOR ACTIVO?: </b><em class="formee-req">*</em></label>
         </div>
         <div class="grid-8-12">
                   <span class="InputGroup">
-                   <label class="uper">SI <%= f.radio_button :activo, "SI", :checked => @defensor.activo %></label>&nbsp;&nbsp;
-                   <label class="uper">NO <%= f.radio_button :activo, "NO", :checked => @defensor.activo == false %></label>
+                   <label class="uper">SI <%= f.radio_button :activo, "SI", :checked => @defensor.activo, :onclick =>  "$j('#datos_usuario').show();"%></label>&nbsp;&nbsp;
+                   <label class="uper">NO <%= f.radio_button :activo, "NO", :checked => @defensor.activo == false, :onclick => "$j('#datos_usuario').hide();" %></label>
                   </span>
        </div>
       </div>
       
       <div class="grid-12-12 clear"></div>
+
+      <div id="datos_usuario" style="display:none;">
+        <%@user = @user || User.new%>
+          <div class="grid-12-12">
+            <fieldset>
+              <legend>DATOS&nbsp;DE&nbsp;LA&nbsp;CUENTA&nbsp;DE&nbsp;USUARIO</legend>
+                  <%=render :partial => "users/form"%>
+            </fieldset>
+           </div>
+      </div>
+
 
       <div class="grid-form-login">
         <input class="right" type="submit" title="GUARDAR" value="GUARDAR" />
@@ -75,6 +96,7 @@
     :controller => 'home'},
     :update => 'datos_personales',
     :with => "persona_per_curp"%>
+
 
 
 

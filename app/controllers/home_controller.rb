@@ -53,15 +53,15 @@ class HomeController < ApplicationController
           if @personas = Persona.search(params[:persona_per_curp])
             if @personas.empty?
               if current_user.has_role?(:defensorapoyo)
-                return render(:partial => 'datos_personales_compacto', :layout => false) if request.xhr?
+                return render(:partial => 'datos_personales', :layout => 'only_jquery') if request.xhr?
               else                 
-                return render(:partial => 'datos_personales', :layout => false) if request.xhr?
+                return render(:partial => 'datos_personales', :layout => 'only_jquery') if request.xhr?
               end
             else
-              return render(:partial => 'seleccion_persona', :layout => false) if request.xhr?
+              return render(:partial => 'seleccion_persona', :layout => 'only_jquery') if request.xhr?
             end
             else
-              return render(:partial => partial_persona, :layout => false) if request.xhr?
+              return render(:partial => partial_persona, :layout => 'only_jquery') if request.xhr?
             end
         end
         else

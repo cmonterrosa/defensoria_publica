@@ -2,32 +2,48 @@
 
 <!-- Si especificamente tiene un titulo -->
 <%if @title%>
-    <p style="text-align:center"><b><%=h @title%></b>
+    <p style="text-align:center"><b><%=h @title%></b></p>
 <%end%>
  <br />
 
 <!-- contenido -->
 <div id="divlista">
-    <table width="85%" border="0" cellspacing="0" cellpadding="0" class="tablakolaval" style="BORDER-RIGHT: #cccccc 1px solid; BORDER-TOP: #cccccc 1px solid; BORDER-LEFT: #cccccc 1px solid; BORDER-BOTTOM: #cccccc 1px solid">
+    <table width="90%" border="0" cellspacing="0" cellpadding="0" class="tablakolaval" style="BORDER-RIGHT: #cccccc 1px solid; BORDER-TOP: #cccccc 1px solid; BORDER-LEFT: #cccccc 1px solid; BORDER-BOTTOM: #cccccc 1px solid">
     <tr>
+      <td style="vertical-align: middle;">&nbsp;</td>
        <td style="vertical-align: middle;">Fecha</td>
        <td style="vertical-align: middle;">Turno</td>
        <%if current_user.has_role?(:directivo)%>
             <td style="vertical-align: middle; width: 15%">Lugar</td>
        <%end%>
        <td style="vertical-align: middle;">Nombre completo</td>
+       <td style="vertical-align: middle;">Defensor asignado</td>
        <td style="vertical-align: middle;">Asunto</td>
-       <td style="vertical-align: middle;" colspan="5">&nbsp;</td>
+       <td style="vertical-align: middle;" colspan="6">&nbsp;</td>
     </tr>
     <%if @audiencias && !@audiencias.empty?%>
+      <%@audiencias = @audiencias.sort{|k, v| k.fechahora_atencion <=> v.fechahora_atencion}.reverse%>
       <%@audiencias.each do |a|%>
       <tr>
+
+        <td>
+          <%=if a.atendido
+                    h(image_tag("icons/atendido.png", :border =>0, :alt => "ATENTIDO", :title => "ATENDIDO"))
+                  end
+          %>
+        </td>
+
         <td style="vertical-align: middle;"> <%=(a.fechahora_atencion) ? a.fechahora_atencion.strftime("%d de %B de %Y") : ''%></td>
         <td style="vertical-align: middle;"><%=a.turno%></td>
+
         <%if current_user.has_role?(:directivo)%>
             <td style="vertical-align: middle; width: 15%;"><%=(a.adscripcion)? a.adscripcion.descripcion: ''%></td>
         <%end%>
+
         <td style="vertical-align: middle;"><%=(a.persona) ? a.persona.nombre_completo : "--"%></td>
+        
+        <td style="vertical-align: middle;"><%=(a.defensor && a.defensor.persona)? a.defensor.persona.nombre_completo : '--'%></td>
+
         <td style="vertical-align: middle;"><%=(a.asunto) ? a.asunto : "--"%></td>
         <td style="vertical-align: middle;"><%=link_to "ficha", {:action => "print_ficha", :id =>a}, :class => 'boton'  -%></td>
 
@@ -37,12 +53,19 @@
 
         <!-- Corresponde al defensor asignado -->
         <%if (a.defensor && (a.defensor.persona == current_user.persona))%>
-            <td style="vertical-align: middle;"><%=link_to "Atender", {:action => "mark_as_attended", :id =>a.id}, :method => :post, :confirm => "¿Desea atender la orientación?", :class => 'boton'  -%></td>
+            <%unless a.atendido%>
+                <td style="vertical-align: middle;"><%=link_to "Atender", {:action => "mark_as_attended", :id =>a.id}, :method => :post, :confirm => "¿Atendió la orientación?", :class => 'boton'  -%></td>
+            <%end%>
         <%end%>
 
         <td style="vertical-align: middle;"><%=link_to "Detalle", {:action => "show", :id => a}, :class => 'boton'  -%></td>
         <td style="vertical-align: middle;"><%=link_to "Editar", {:action => "new_or_edit", :id => a}, :class => 'boton'  -%></td>
-        <td style="vertical-align: middle;"><%=link_to "Eliminar", {:action => "destroy", :id => a}, :confirm => '¿Desea eliminar el registro?', :class => 'boton'  -%></td>
+        <!-- Corresponde al defensor asignado -->
+
+        <!-- Solo el jefe y la persona que creo el registro puede borrarlo -->
+        <%if (current_user.has_role?(:jefedefensor)) || (a.defensor && (a.defensor.persona == current_user.persona))%>
+            <td style="vertical-align: middle;"><%=link_to "Eliminar", {:action => "destroy", :id => a}, :confirm => '¿Desea eliminar el registro?', :class => 'boton'  -%></td>
+        <%end%>
       </tr>
       <%end%>
     <%end%>

@@ -73,6 +73,7 @@ class UploadController < ApplicationController
    end
 
 
+  # Descarga archivos si existen
   def download
     @uploaded_file  = Adjunto.find(params[:id])
      if File.exists?(@uploaded_file.full_path)
@@ -83,7 +84,7 @@ class UploadController < ApplicationController
     end
   end
 
-  # Previ
+  # Preview
   def preview_image
     @uploaded_file  = Adjunto.find(params[:id])
     render :partial => "preview_image", :layout => "only_jquery"

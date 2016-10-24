@@ -3,8 +3,6 @@
 
 <br />
 
-
-
 <div class="formee-msg-info">
     <h3>Mensajes en bandeja</h3>
     <ul>
@@ -36,7 +34,7 @@
 
         <%clase = (r.leido_at) ? "d0": "noleido"%>
 
-        <tr class="<%=clase%>">
+        <tr class="<%=clase%>" onclick="window.location='/mensajes/show/<%=h r.id%>'" style="cursor:pointer;" title="LEER MENSAJE">
         <td style="vertical-align: middle; text-align: center;"><%=r.created_at.strftime("%d de %b de %Y - %H:%M")%></td>
         <td style="vertical-align: middle;"><%=link_to "#{(r.envia_id && @user = User.find(r.envia_id))? @user.nombre_adscripcion_detalle : ''}", {:action => "show", :id => r}, :style => "text-decoration: none; color: #404040;"%></td>
         <td style="vertical-align: middle;"><%=link_to r.asunto, {:action => "show", :id => r}, :style => "text-decoration: none; color: #404040;"%></td>

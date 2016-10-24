@@ -19,7 +19,11 @@ class Contacto < ActiveRecord::Base
 
   before_create :time_stamping, :make_active
   before_save :time_stamping, :make_active
+  before_save :check_id_integrity
   
+  def check_id_integrity
+    self.id ||= (Contacto.maximum(:id_contacto) > 0) ? Contacto.maximum(:id_contacto) + 1 : 1
+  end
 
   def make_active
     self.con_activo_reg ||= 1

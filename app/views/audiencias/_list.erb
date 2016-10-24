@@ -27,7 +27,7 @@
             <div class="page_info">
               <%= page_entries_info @audiencias %>
             </div>
-            <%= will_paginate @audiencias %>
+            <%= will_paginate @audiencias, :params => {:inicio => @inicio, :fin => @fin, :defensor => @defensor} %>
           </div>
         </td>
       </tr>
@@ -35,7 +35,7 @@
 <%end%>
 
 
-<br /><%=link_to "NUEVA ORIENTACION", {:action => "new_or_edit"}, :class => 'boton'  -%>
+<br /><%=link_to " + NUEVA AUDIENCIA", {:action => "new_or_edit"}, :class => 'boton'  -%>
 
 
 

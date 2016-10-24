@@ -3,7 +3,10 @@
 <div id="monitor" class="container formee">
         
  </div>
-<div class="grid-12-12"><img alt="spinner" id="spinner" src="/images/loading_spinner.gif" style="display:none;" /></div>
+
+<div class="grid-12-12" style="text-align:center;">
+  <img alt="spinner" id="spinner" src="/images/loading_spinner.gif" style="display:none;" />
+</div>
 
 <%=periodically_call_remote(:url => {:controller => "audiencias",
                             :action => "get_last_attention", :user_id => current_user},

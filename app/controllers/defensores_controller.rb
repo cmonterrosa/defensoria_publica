@@ -24,6 +24,7 @@ class DefensoresController < ApplicationController
   def new_or_edit
       @defensor = (params[:id])? Defensor.find(params[:id]) : Defensor.new
       @persona = @defensor.persona
+      @user = User.find_by_persona_id(@persona.id) if @persona
       @municipios = Municipio.chiapas.all
       @materias = Materia.all
   end
@@ -31,12 +32,24 @@ class DefensoresController < ApplicationController
    def save
       @defensor = (params[:id])? Defensor.find(params[:id]) : Defensor.new
       @defensor.update_attributes(params[:defensor])
-      if params[:persona]
+      if params.include?(:persona)
         @defensor.persona = (params[:persona][:id_persona] && params[:persona][:id_persona].size > 0)? Persona.find(params[:persona][:id_persona]) : nil
         @defensor.persona ||= (params[:persona][:per_curp] && params[:persona][:per_curp].size > 0) ? Persona.find(:first, :conditions => ["per_curp =  ?", params[:persona][:per_curp]]) : nil
          ## Guarda datos de contacto personales ##
          save_persona(params, @defensor)
+
+         if params.include?(:user)
+            @user =  (params[:user].include?(:login) && params[:user][:login].size > 2)? User.find_by_login(params[:user][:login]) : nil
+            @user ||= User.new
+            @user.roles << Role.find_by_name("defensor")
+            @user.persona_id = @defensor.persona
+            @success = (@user) ? @user.update_attributes(params[:user]) : nil
+            if @success && @user.save
+              flash[:notice] = "Usuario creado"
+            end
+        end
       end
+    
       @defensor.persona ||= Persona.new(params[:persona])
       @defensor.activo = (params[:defensor] && params[:defensor][:activo] == 'SI') ? true : false
       if @defensor.valid? && @defensor.persona.valid?

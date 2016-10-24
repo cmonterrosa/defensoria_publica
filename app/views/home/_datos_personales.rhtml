@@ -1,4 +1,8 @@
-<!-- Asignacion de variables -->
+<!-- Live Validation -->
+<%= javascript_include_tag "livevalidation/livevalidation_standalone.js" %>
+<%= stylesheet_link_tag "livevalidation/validation.css" %>
+
+
 <!-- Datos de contacto -->
 <%if @persona%>
       <%@telefono_celular = @persona.get_datos_contacto('telefono_celular')%>
@@ -37,7 +41,6 @@
   <div class="grid-8-12"><%=select :persona, :per_tipo,  ["FISICA", "MORAL"], :onBlur=>"javascript:{this.value = this.value.toUpperCase(); }"%></div>
 </div>
 
-
 <div class="grid-4-12">
   <div class="grid-4-12">
     <label><b>CLAVE DE ELECTOR: </b></label>
@@ -50,7 +53,7 @@
   <div class="grid-4-12">
     <label><b>APELLIDO PATERNO: </b><em class="formee-req">*</em></label>
   </div>
-  <div class="grid-8-12"><%=text_field :persona, :per_paterno,  :onBlur=>"javascript:{this.value = this.value.toUpperCase(); }"%></div>
+  <div class="grid-8-12"><%=text_field :persona, :per_paterno,  :onBlur=>"javascript:{this.value = this.value.toUpperCase(); }", :required => true%></div>
 </div>
 
 <div class="grid-6-12">
@@ -62,9 +65,9 @@
 
 <div class="grid-6-12">
   <div class="grid-3-12">
-    <label><b>NOMBRE: </b><em class="formee-req">*</em></label>
+    <label><b>NOMBRE(S): </b><em class="formee-req">*</em></label>
   </div>
-  <div class="grid-9-12"><%=text_field :persona, :per_nombre,  :onBlur=>"javascript:{this.value = this.value.toUpperCase(); }"%>
+  <div class="grid-9-12"><%=text_field :persona, :per_nombre,  :onBlur=>"javascript:{this.value = this.value.toUpperCase(); }", :required => true%>
       <div><%=hidden_field :persona, :id_persona%></div>
   </div>
 </div>
@@ -75,7 +78,7 @@
   </div>
   <div class="grid-7-12">
     <span class="datetime">
-      <%=date_select :persona, :per_nacimiento, :order => [:day, :month, :year], :start_year => 1910%>
+      <%=date_select :persona, :per_nacimiento, :order => [:day, :month, :year], :start_year => Time.now.year - 110, :end_year => Time.now.year%>
     </span>
   </div>
 </div>
@@ -127,12 +130,14 @@
 <%=render :partial => "home/datos_familiares"%>
 
 <!-- Validaciones -->
-<script type="text/javascript">
-  //var paterno = new LiveValidation( 'persona_per_paterno' );
-  //var materno = new LiveValidation( 'persona_per_paterno' );
-  //var nombre = new LiveValidation( 'persona_per_nombre' );
-  //paterno.add( Validate.Presence );
-  //materno.add( Validate.Presence );
-  //nombre.add( Validate.Presence );
-</script>
+<%#*<script type="text/javascript">%>
+  <%#*var paterno = new LiveValidation( 'persona_per_paterno' );%>
+  <%#*var materno = new LiveValidation( 'persona_per_materno' );%>
+  <%#*var nombre = new LiveValidation( 'persona_per_nombre' );%>
+  <%#*var sexo = new LiveValidation( 'extension_sexo_id' );%>
+  <%#*paterno.add( Validate.Presence );%>
+  <%#*materno.add( Validate.Presence );%>
+  <%#*nombre.add( Validate.Presence );%>
+  <%#*sexo.add( Validate.Presence );%>
+<%#*</script>%>
 

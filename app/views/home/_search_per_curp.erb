@@ -10,15 +10,18 @@
                     background: #ededed url(/images/icons/search-icon.png) no-repeat 9px center;
                     border: solid 1px #ccc;
                     padding: 9px 10px 9px 32px;",
-                    :placeholder => "      ESCRIBA PARA BUSCARLO O CREARLO" %>
+                    :onBlur=>"javascript:{this.value = this.value.toUpperCase(); }",
+                    :placeholder => "       ESCRIBA PARA BUSCARLO O CREARLO" %>
                   <%#=text_field :persona, :per_curp, :type => "search", :placeholder => "Escriba para buscarlo", :class => "demo-2"%>
                 </div>
-                <div class="grid-2-12 NuevaPersona">
+               
+               <%accion_siguiente = (params[:controller] == "audiencias")? 'get_datos_personales' : 'get_datos_personales'%>
+               <div class="grid-2-12 NuevaPersona">
                     <%=link_to_remote '+', :update => "datos_personales", 
-                      :url => { :controller => "home",  :action => "get_datos_personales" },
+                      :url => { :controller => "home",  :action => accion_siguiente },
                       :before => "Element.show('spinner')",
                       :complete => "Element.hide('spinner')",
-                      :html => {:title => "Registro en blanco"}%>
+                      :html => {:title => "Registro en blanco", :style=>"font-size:24px; color: green;"}%>
                 </div>
 
           </div>

@@ -16,6 +16,7 @@
         <td style="vertical-align: middle;">Login</td>
         <td style="vertical-align: middle;">Nombre</td>
         <td style="vertical-align: middle;">Adscripción</td>
+        <td style="vertical-align: middle;">Roles</td>
         <td style="vertical-align: center;" colspan="5">&nbsp;</td>
       </tr>
     <%@users.each do |user|%>
@@ -23,7 +24,7 @@
         <td style="vertical-align: middle;"><%=h (user.login)%></td>
         <td style="vertical-align: middle;"><%=h (user.persona)? user.persona.nombre_completo : ''%></td>
         <td style="vertical-align: middle;"><%=h (user.adscripcion)? user.adscripcion.descripcion : '-'%></td>
-        
+        <td style="vertical-align: middle;"><%=h !(user.roles.empty?)? user.roles.map{|r|r.descripcion}.join(", ") : '-'%></td>
         <%if current_user.has_role?(:admin)%>
 
             <td style="vertical-align: middle;">

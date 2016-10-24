@@ -9,7 +9,7 @@
        </div>
        <div class="grid-12-12">
         <span class="datetime">
-          <%=date_select :fecha, :inicio, :order => [:day, :month, :year], :start_year => 1910%>
+          <%=date_select :fecha, :inicio, :order => [:day, :month, :year], :start_year => Time.now.year - 10, :end_year => Time.now.year%>
         </span>
        </div>
     </div>
@@ -20,7 +20,7 @@
        </div>
        <div class="grid-12-12">
         <span class="datetime">
-          <%=date_select :fecha, :fin, :order => [:day, :month, :year], :start_year => 1910%>
+          <%=date_select :fecha, :fin, :order => [:day, :month, :year], :start_year => Time.now.year - 10, :end_year => Time.now.year%>
         </span>
        </div>
     </div>

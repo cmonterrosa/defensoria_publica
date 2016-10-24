@@ -1,18 +1,19 @@
 <!-- contenido -->
+
 <div class="tabla_dp">
-  <p style="text-align: center; font-size: 17px;">Actualizado: <%=Time.now.strftime("%d de %B de %Y / %H:%M:%S %p")%></p>
+  <p style="text-align: center; font-size: 2.6em;">Actualizado: <%=Time.now.strftime("%d de %B de %Y  /  %H:%M:%S %p")%></p>
 </div>
 
 <div id="divlista">
     <table border="0" cellspacing="0" cellpadding="0" class="tabla_dp" style="BORDER-RIGHT: #cccccc 1px solid; BORDER-TOP: #cccccc 1px solid; BORDER-LEFT: #cccccc 1px solid; BORDER-BOTTOM: #cccccc 1px solid; margin: auto; width: 94%;">
       <tr>
-       <td style="width: 15%; text-align: center; font-size: 22px;"><b>TURNO</b></td>
-       <td style="width: 85%; text-align: center; font-size: 22px;"><b>DEFENSOR</b></td>
+       <td style="width: 15%; text-align: center; font-size: 1.9em;"><b>TURNO</b></td>
+       <td style="width: 85%; text-align: center; font-size: 1.9em;"><b>DEFENSOR</b></td>
       </tr>
     <%@audiencias.each do |a|%>
     <tr>
-      <td style="width: 15%; text-align: center; font-size: 22px;"><%=a.turno%></td>
-      <td style="width: 85%; text-align: center; font-size: 22px;"><%=(a.defensor && a.defensor.persona) ? a.defensor.persona.nombre_completo : "--"%></td>
+      <td style="width: 15%; text-align: center; font-size: 1.8em;"><%=a.turno%></td>
+      <td style="width: 85%; text-align: center; font-size: 1.8em;"><%=(a.defensor && a.defensor.persona) ? a.defensor.persona.nombre_completo : "--"%></td>
      </tr>
     <%end%>
   </table>
