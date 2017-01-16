@@ -11,4 +11,11 @@ class Amparo < ActiveRecord::Base
   belongs_to :fase_amparo
   belongs_to :sentido_resolucion_amparo
   has_one :adjunto
+
+  before_destroy :destroy_adjuntos
+
+  def destroy_adjuntos
+      self.adjunto.destroy if self.adjunto
+  end
+
 end

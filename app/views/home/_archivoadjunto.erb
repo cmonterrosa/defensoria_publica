@@ -1,8 +1,12 @@
 <!-- Archivo adjunto -->
+<%unless @adjunto%>
+    <div class="grid-12-12">
+            <div class="grid-form">
+              <label>Archivo adjunto: </label>
+              <%= file_field :adjunto, :inputfile %>
+            </div>
+    </div>
 
-<div class="grid-12-12">
-          <div class="grid-form">
-            <label>Archivo adjunto: </label>
-            <%= file_field :adjunto, :inputfile %>
-          </div>
-</div>
+    <%else%>
+            <%=render :partial => "upload/download_adjunto"%>
+ <%end%>

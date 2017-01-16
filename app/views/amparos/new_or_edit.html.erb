@@ -82,10 +82,8 @@
         </div>
       </div>
 
-
+      <%@adjunto = @amparo.adjunto%>
       <%=render :partial => "home/archivoadjunto"%>
-
-    
 
       <div class="grid-12-12 clear"></div>
 
@@ -95,3 +93,13 @@
  </fieldset>
 <%end%>
 </div>
+
+
+
+<!-- Validaciones -->
+<script type="text/javascript">
+  var fecha = new LiveValidation( 'amparo_fecha', {onlyOnSubmit: true} );
+  var accion = new LiveValidation( 'amparo_accion_amparo_id', {onlyOnSubmit: true} );
+  fecha.add( Validate.Presence );
+  accion.add( Validate.Presence );
+</script>
