@@ -6,7 +6,7 @@ class CreateSentencias < ActiveRecord::Migration
     	t.column :procedimiento_abreviado, :boolean
     	t.column :tipo_sentencia_id, :integer
     	t.column :fecha, :date
-    	t.column :beneficios, :string
+    	t.column :beneficios, :boolean 
     	t.column :organo_id, :integer
     	t.column :instancia_id, :integer
     	t.column :observaciones, :string

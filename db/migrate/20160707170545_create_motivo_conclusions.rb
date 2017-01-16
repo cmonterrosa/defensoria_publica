@@ -22,12 +22,13 @@ class CreateMotivoConclusions < ActiveRecord::Migration
     MotivoConclusion.create(:materia_id => penal.id, :clave => "porapli", :descripcion => "POR APLICACION DE CRITERIOS DE OPORTUNIDAD")
 
     # Familiar
+    MotivoConclusion.create(:materia_id => familiar.id, :clave => "porsen", :descripcion => "POR SENTENCIA")
     MotivoConclusion.create(:materia_id => familiar.id, :clave => "porcon", :descripcion => "POR CONVENIO")
-    MotivoConclusion.create(:materia_id => familiar.id, :clave => "porfal", :descripcion => "POR FALTA DE INTERÉS")
-    MotivoConclusion.create(:materia_id => familiar.id, :clave => "testim", :descripcion => "TESTIMONIALES")
+    MotivoConclusion.create(:materia_id => familiar.id, :clave => "porfal", :descripcion => "POR INACTIVIDAD A FALTA DE INTERÉS")
+    MotivoConclusion.create(:materia_id => familiar.id, :clave => "testim", :descripcion => "POR TESTIMONIALES")
     MotivoConclusion.create(:materia_id => familiar.id, :clave => "porrev", :descripcion => "POR REVOCACION DE PERSONALIDAD Y ACEPTACION DE ABOGADO PARTICULAR")
     MotivoConclusion.create(:materia_id => familiar.id, :clave => "desisf", :descripcion => "POR DESISTIMIENTO")
-    MotivoConclusion.create(:materia_id => familiar.id, :clave => "porcad", :descripcion => "POR CADUCIDAD")
+    MotivoConclusion.create(:materia_id => familiar.id, :clave => "porcad", :descripcion => "POR CADUCIDAD DE LA ACCIÓN")
   end
 
   def self.down
