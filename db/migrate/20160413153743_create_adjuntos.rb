@@ -9,6 +9,8 @@ class CreateAdjuntos < ActiveRecord::Migration
       t.boolean :activo
       t.integer :tramite_id
       t.integer :participante_id
+      t.integer :recurso_id
+      t.integer :amparo_id
       t.integer :user_id
       t.string :md5, :limit => 32
       t.timestamps

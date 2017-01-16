@@ -17,6 +17,9 @@ class CreateUsers < ActiveRecord::Migration
       t.string :last_ip, :limit => "15"
       t.integer :adscripcion_id
       t.boolean :activo
+      # Conexion a litigantes
+      t.string :nombre_usuario_litigantes, :limit => 40
+      t.string :password_litigantes, :limit => 32
 
     end
     add_index :users, :persona_id, :name => "user_persona", :unique => true

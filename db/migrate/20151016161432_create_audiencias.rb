@@ -13,6 +13,7 @@ class CreateAudiencias < ActiveRecord::Migration
       t.boolean :activo
       t.boolean :atendido
       t.integer :user_id
+      t.boolean :es_inicio
       t.timestamps
     end
     add_index :audiencias, :cve_aud, :name => "audiencias_cve_aud"
