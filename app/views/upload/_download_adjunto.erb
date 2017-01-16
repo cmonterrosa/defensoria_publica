@@ -1,11 +1,16 @@
-<fieldset>
-      <legend>ARCHIVOS&nbsp;ADJUNTOS</legend>
-          <div class="grid-12-12">
-              <label><%=(@adjunto)? @adjunto.descripcion : '-'%></label>
-          </div>
-          <% form_for :escuela, @escuela, :url => { :action => "download", :controller => "upload", :id => @adjunto.id }, :html => { :target => "_blank"} do |f| -%>
-            <div class="grid-center">
-              <input type="submit" title="DESCARGAR ADJUNTO" value="DESCARGAR ADJUNTO" size="color: green;" />
-            </div>
-          <%end%>
-</fieldset>
+<%if @adjunto%>
+  <fieldset>
+        <legend>ARCHIVOS&nbsp;ADJUNTOS</legend>
+            
+            <%=link_to 'DESCARGAR ADJUNTO', {:action => "download", :controller => "upload", :id => @adjunto.id},  :method => :post, :class => "arbol titulocalendario"-%>
+
+            <!--
+            < form_for :escuela, @escuela, :url => { :action => "download", :controller => "upload", :id => @adjunto.id }, :html => { :target => "_blank"} do |f| -%>
+              <div class="grid-center">
+                <input type="submit" title="DESCARGAR ADJUNTO" value="DESCARGAR ADJUNTO" />
+              </div>
+            <end%>
+            -->
+
+  </fieldset>
+<%end%>
