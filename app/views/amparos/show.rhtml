@@ -19,15 +19,9 @@
   </fieldset>
 
   <!-- Archivos adjuntos -->
-   <%if @amparo.adjunto%>
-    <fieldset>
-      <legend>ARCHIVOS&nbsp;ADJUNTOS</legend>
-          <% form_for :escuela, @escuela, :url => { :action => "download", :controller => "upload", :id => @amparo.adjunto.id }, :html => { :target => "_blank"} do |f| -%>
-            <div class="grid-center">
-              <input type="submit" title="DESCARGAR ADJUNTO" value="DESCARGAR ADJUNTO" />
-            </div>
-          <%end%>
-    </fieldset>
+  <%@adjunto = @amparo.adjunto%>
+   <%if @adjunto%>
+        <%=render :partial => "upload/download_adjunto"%>
   <%end%>
 
 </div>
