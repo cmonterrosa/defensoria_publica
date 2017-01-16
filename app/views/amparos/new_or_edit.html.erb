@@ -27,21 +27,40 @@
         </div>
       </div>
 
-      <div class="grid-6-12">
+
+     <div class="grid-6-12">
+        <div class="grid-6-12">
+          <label><b>ACCION DEL AMPARO: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-6-12">
+          <%= f.select(:accion_amparo_id, @acciones_amparos.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true })%>
+        </div>
+      </div>
+
+     <div class="grid-6-12">
         <div class="grid-8-12">
           <label><b>TIPO DE AMPARO: </b><em class="formee-req">*</em></label>
         </div>
         <div class="grid-4-12">
-          <%= f.select(:tipo_amparo_id, @tipo_amparos.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true })%>
+          <%= f.select(:tipo_amparo_id, @tipos_amparos.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true })%>
+        </div>
+      </div>
+
+       <div class="grid-6-12">
+        <div class="grid-8-12">
+          <label><b>FASE DE AMPARO: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-4-12">
+          <%= f.select(:fase_amparo_id, @fases_amparos.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true })%>
         </div>
       </div>
 
       <div class="grid-6-12">
         <div class="grid-6-12">
-          <label><b>RESOLUCIÓN DEL AMPARO: </b><em class="formee-req">*</em></label>
+          <label><b>SENTIDO DE LA RESOLUCIÓN DEL AMPARO: </b><em class="formee-req">*</em></label>
         </div>
         <div class="grid-6-12">
-          <%= f.select(:sentido_resolucion_id, @resoluciones_amparos.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true })%>
+          <%= f.select(:sentido_resolucion_amparo_id, @sentidos_resoluciones_amparos.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true })%>
         </div>
       </div>
 
@@ -65,6 +84,8 @@
 
 
       <%=render :partial => "home/archivoadjunto"%>
+
+    
 
       <div class="grid-12-12 clear"></div>
 

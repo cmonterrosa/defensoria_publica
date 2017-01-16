@@ -2,13 +2,21 @@ class CreateAmparos < ActiveRecord::Migration
   def self.up
     create_table :amparos do |t|
       t.column :tramite_id, :integer
+      t.column :num_amparo, :string, :limit => 40
       t.column :fecha, :date
+
+      # Categorización
+      t.column :accion_amparo_id, :integer
       t.column :tipo_amparo_id, :integer
+      t.column :fase_amparo_id, :integer
+      t.column :sentido_resolucion_amparo_id, :integer
+      
+      # Datos Generales
       t.column :descripcion, :string, :limit => 100
       t.column :observaciones, :string, :limit => 120
+
+      # Tracking
       t.column :user_id, :integer
-      t.column :num_amparo, :string, :limit => 40
-      t.column :sentido_resolucion_id, :integer
       t.timestamps
     end
 

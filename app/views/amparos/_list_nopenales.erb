@@ -15,15 +15,20 @@
     <table width="85%" border="0" cellspacing="0" cellpadding="0" class="tablakolaval" style="BORDER-RIGHT: #cccccc 1px solid; BORDER-TOP: #cccccc 1px solid; BORDER-LEFT: #cccccc 1px solid; BORDER-BOTTOM: #cccccc 1px solid">
     <tr>
       <td style="vertical-align: middle;">Fecha</td>
-      <td style="vertical-align: middle;">Tipo de amparo</td>
       <td style="vertical-align: middle;">Número de amparo</td>
+      <td style="vertical-align: middle;">Accion</td>
+      <td style="vertical-align: middle;">Tipo</td>
+      <td style="vertical-align: middle;">Sentido de Resolución</td>
+      
       <td style="vertical-align: middle;" colspan="4">&nbsp;</td>
     </tr>
     <%@amparos.each do |p|%>
     <tr>
       <td style="vertical-align: middle;"><%=(p.tipo_amparo) ? p.fecha : "--"%></td>
-      <td style="vertical-align: middle;"><%=(p.tipo_amparo) ? p.tipo_amparo.descripcion : "--"%></td>
       <td style="vertical-align: middle;"><%=p.num_amparo %></td>
+      <td style="vertical-align: middle;"><%=(p.accion_amparo) ? p.accion_amparo.descripcion : "--"%></td>
+      <td style="vertical-align: middle;"><%=(p.tipo_amparo) ? p.tipo_amparo.descripcion : "--"%></td>
+      <td style="vertical-align: middle;"><%=(p.sentido_resolucion_amparo) ? p.sentido_resolucion_amparo.descripcion : "--"%></td>
       <td style="vertical-align: middle;"><%=link_to "Detalle", {:action => "show", :id => p}, :class => 'boton'  -%></td>
       <td style="vertical-align: middle;"><%=link_to "Editar", {:action => "new_or_edit", :id => p}, :class => 'boton'  -%></td>
       <td style="vertical-align: middle;"><%=link_to "Eliminar", {:action => "destroy", :id => p, :t => @tramite}, :confirm => '¿Desea eliminar el registro?', :class => 'boton'  -%></td>
