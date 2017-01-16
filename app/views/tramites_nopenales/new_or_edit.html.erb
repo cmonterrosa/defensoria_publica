@@ -1,0 +1,94 @@
+
+<%=render :partial => "home/arbol"%>
+
+<div class="container">
+
+   <div class="formee-msg-info">
+    <h3>Información importante</h3>
+    <ul>
+      <li>Los campos marcados con <em class="formee-req">*</em> son obligatorios.</li>
+    </ul>
+    <ul><li>&nbsp;</li></ul>
+  </div>
+
+
+<% form_for :tramite, @tramite, :url => { :action => "save", :controller => "tramites_nopenales", :id => @tramite}, :html => {:class => "formee", :id => "new_tramitenopenal"} do |f| -%>
+  <fieldset>
+    <legend>&nbsp;REGISTRO&nbsp;DE&nbsp;TRAMITE</legend>
+      <div class="grid-12-12">
+          <%= error_messages_for :tramite %>
+      </div>
+
+      <div class="grid-6-12">
+        <div class="grid-4-12">
+          <label><b>NÚMERO DE EXPEDIENTE: </b></label>
+        </div>
+        <div class="grid-8-12"><%=text_field :busqueda, :numero_expediente, :value => @numero_expediente%></div>
+      </div>
+
+     <div class="grid-6-12">
+        <div class="grid-4-12">
+            <label><b>ÓRGANO/JUZGADO: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-8-12">
+          <%= select :tramite, :organo_id, @organos.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true }%>
+        </div>
+    </div>
+
+      
+      <div class="grid-12-12 clear"></div>
+      <div class="grid-12-12"><img alt="spinner" id="spinner" src="/images/loading_spinner.gif" style="display:none;" /></div>
+
+
+      <div id="datos_tramite">
+        <%if @tramite.has_numero_expediente?%>
+            <%=render :partial => "datos_tramite"%>
+        <%end%>
+      </div>
+</fieldset>
+<%end%>
+</div>
+
+
+<!-- Validaciones -->
+<% if @defensores.size > 0 %>
+  <script type="text/javascript">
+    var tramite_defensor_id = new LiveValidation( 'tramite_defensor_id', {onlyOnSubmit: true} );
+    tramite_defensor_id.add( Validate.Presence );
+  </script>
+<%end%>
+
+
+<%= observe_form('new_tramitenopenal', :update => "datos_tramite",
+                          :on => "change",
+                          :loading => "Element.show('spinner')",
+                          :complete => "Element.hide('spinner')",
+                          :url => {:action => :get_datos_tramite})%>
+
+
+<%#= observe_field :tramite_nuc,
+    :on => "change",
+    :before => "Element.show('spinner')",
+    :success => "Element.hide('spinner')",
+    :url => {:controller => 'tramites',
+    :action => 'get_datos_tramite'},
+    :update => 'datos_tramite',
+    :with => "tramite_nuc"%>
+
+<%#= observe_field :tramite_carpeta_investigacion,
+    :on => "change",
+    :before => "Element.show('spinner')",
+    :success => "Element.hide('spinner')",
+    :url => {:controller => 'tramites',
+    :action => 'get_datos_tramite'},
+    :update => 'datos_tramite',
+    :with => "tramite_carpeta_investigacion"
+%>
+
+
+
+
+
+
+
+

@@ -76,16 +76,34 @@ class DefensoresController < ApplicationController
     redirect_to(:back)
   end
 
+  # Muestra actividad semanal de los defensores
   def actividad_semanal
     @defensores = Defensor.find(:all, :conditions => ["activo = ?", true]).sort{|a,b|a.actividad_desde_inicio_semana <=> b.actividad_desde_inicio_semana}
   end
 
+  # selecciona el listado de todos los tramites
   def list_tramites
     begin
       @defensor = Defensor.find(params[:id])
       @tramites =  Tramite.find(:all, :conditions => ["defensor_id = ?", @defensor]).paginate(:page => params[:page], :per_page => 25)
     rescue ActiveRecord::RecordNotFound
         redirect_to  :action => "index", :controller => "defensores"
+    end
+  end
+
+  # Filtra defensores de acuerdo a materia
+  def get_defensor_por_materia
+     case params
+     when respond_to?(:audiencia_materia_id)
+      @materia_id = params[:audiencia_materia_id]
+     else
+      @materia = Materia.find_by_descripcion("MIXTA")
+     end
+     if @materia && @materia.descripcion == "MIXTA"
+       @adscripcion = Adscripcion.find(current_user.adscripcion ) if current_user && current_user.adscripcion
+        @defensores = @adscripcion.find()
+      else
+      @defensores = @materia = Materia.find(@materia_id).defensors
     end
   end
 

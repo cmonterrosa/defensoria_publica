@@ -12,8 +12,13 @@
           <%=link_to "AGENDA DE AUDIENCIAS PENALES", {:controller => "agenda", :action => "index"}, :class => "boton"%>
       </div>
       <div class="grid-4-12">
-          <%=link_to "TRAMITES", {:controller => "tramites", :action => "index"}, :class => "boton"%>
+          <%=link_to "TRAMITES PENALES", {:controller => "tramites", :action => "index"}, :class => "boton"%>
       </div>
+
+      <div class="grid-4-12">
+          <%=link_to "TRAMITES MATERIA FAMILIAR", {:controller => "tramites_nopenales", :action => "index"}, :class => "boton"%>
+      </div>
+    
       <div class="grid-4-12">
           <%=link_to "DOCUMENTOS COMPARTIDOS", {:controller => "upload", :action => "index"}, :class => "boton fancybox fancybox.iframe"-%>
       </div>

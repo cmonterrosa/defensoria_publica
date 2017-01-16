@@ -4,5 +4,9 @@
 ##########################################
 
 class Materia < ActiveRecord::Base
-  belongs_to :tramite
+  has_many :tramites
+  has_many :defensores
+
+  named_scope :penal, :conditions => {:descripcion => "PENAL"}
+  named_scope :nopenal, :conditions => ['descripcion  != ?', "PENAL"]
 end

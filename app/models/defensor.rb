@@ -6,6 +6,13 @@ require 'date'
 class Defensor < ActiveRecord::Base
   belongs_to :persona
   belongs_to :municipio
+  belongs_to :materia
+
+  named_scope :penal, :conditions => {:materia_id => Materia.find_by_descripcion("PENAL").id}
+  named_scope :nopenal, :conditions => ['materia_id  != ?', Materia.find_by_descripcion("PENAL").id]
+  named_scope :familiar, :conditions => {:materia_id => Materia.find_by_descripcion("FAMILIAR").id}
+  named_scope :civil, :conditions => {:materia_id => Materia.find_by_descripcion("CIVIL").id}
+
   validates_presence_of :persona_id, :message => "- Debe vincularse a una persona"
   validates_uniqueness_of :persona_id, :message => "- Ya existe un defensor con esos datos"
 
@@ -38,6 +45,9 @@ class Defensor < ActiveRecord::Base
       fin_semana = DateTime.parse((now + (6-now.wday)).strftime("%Y-%m-%d") + " 23:59:59")
       return num_tramites_periodo(inicio_semana,fin_semana)
   end
+
+
+
 
 
 end

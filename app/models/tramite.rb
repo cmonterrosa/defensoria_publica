@@ -8,6 +8,7 @@
 
 class Tramite < ActiveRecord::Base
   has_many :participantes
+  has_many :partes
   has_many :amparos
   has_many :promocions
   has_many :audiencia_orals
@@ -20,12 +21,18 @@ class Tramite < ActiveRecord::Base
   belongs_to :defensor
   belongs_to :fiscalia
   belongs_to :estatu
+  belongs_to :materia
+  belongs_to :organo
+  belongs_to :tipo_juicio
+
+  named_scope :penal, :conditions => {:materia_id => Materia.find_by_descripcion("PENAL").id}
+  named_scope :nopenal, :conditions => ['materia_id  != ?', Materia.find_by_descripcion("PENAL").id]
 
   attr_reader :current_journal
   
   #validates_uniqueness_of :nuc
 
-  before_save :generar_folio
+  #before_save :generar_folio
   
   after_save :crear_modificaciones
 
@@ -88,19 +95,35 @@ class Tramite < ActiveRecord::Base
     "#{self.anio[2..4]}#{self.folio_expediente.to_s.rjust(5, '0')}" if self.anio && self.folio_expediente
    end
 
+   # Forma el identificador unico de tramite
+   def identificador_unico
+     organo = (self.organo_id)? self.organo_id.to_s.rjust(2, "0") : "00"
+      organo + self.created_at.year.to_s + self.id.to_s.rjust(5, '0') 
+   end
+
+   # Método que verifica si cuenta con un número de expediente válido
+   def has_numero_expediente?
+      self.anio && self.folio_expediente
+   end
+
     # Muestra un string con información del trámite
     def show_info
       "REGISTRO DE ATENCION: #{self.registro_atencion}" + " |  CAUSA PENAL: #{self.causa_penal} |  CARPETA DE INVESTIGACIÓN: #{self.carpeta_investigacion}  |  NUC: #{self.nuc}"
     end
 
-    # Inicia el registro de modificación
+  # Muestra el número de expediente
+   def numero_expediente
+     (self.folio_expediente) ?  "#{self.folio_expediente.to_s.rjust(4, '0')}/#{self.anio}" : nil
+   end
+
+ # Inicia el registro de modificación
     def init_journal(user)
       @current_journal ||= Modificacion.new(:id_objeto => self.id, :user_id => user.id, :clase => self.class.to_s) if user
       @issue_before_change = self.clone
       @current_journal
     end
 
-    # Guarda cambios en bitacora y es llamado despues de guardar un objeto
+ # Guarda cambios en bitacora y es llamado despues de guardar un objeto
     def crear_modificaciones
       if @current_journal
         @current_journal.id_objeto ||= self.id
@@ -126,8 +149,6 @@ class Tramite < ActiveRecord::Base
         end
     end
   end
-
-
 
  # Notificar de nuevo tramite
  def notificar_por_email

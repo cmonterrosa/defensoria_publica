@@ -9,12 +9,18 @@ class UploadController < ApplicationController
 
   def index
     @participante = (params[:token] == "p" || params[:p] )?  Participante.find(params[:p]) : nil
+    @parte = (params[:token] == "pt" || params[:p] )?  Parte.find(params[:p]) : nil
     @tramite = ( params[:t] )?  Tramite.find(params[:t]) : nil
     @title = (@participante) ? "ARCHIVOS ADJUNTOS DEL PARTICIPANTE: #{(@participante.persona) ? @participante.persona.nombre_completo: ''}" : nil
-    @title ||= (@tramite) ? "ARCHIVOS ADJUNTOS DEL TRAMITE: #{@tramite.id}" : nil
+    @title ||= (@parte) ? "ARCHIVOS ADJUNTOS DE PARTE: #{(@parte.persona) ? @parte.persona.nombre_completo: ''}" : nil
+    if @tramite
+      @title ||= (@tramite) ? "ARCHIVOS ADJUNTOS DEL EXPEDIENTE: #{@tramite.numero_expediente}" : nil if Tramite.nopenal.exists?(:id => @tramite.id)
+      @title ||= (@tramite) ? "ARCHIVOS ADJUNTOS DEL TRAMITE: #{@tramite.id}" : nil
+    end
     @title ||= "PORTAL DE DOCUMENTOS COMPARTIDOS"
     @uploaded_files = @tramite.adjuntos.paginate(:page => params[:page], :per_page => 10) if @tramite
     @uploaded_files ||= @participante.adjuntos.paginate(:page => params[:page], :per_page => 10) if @participante
+    @uploaded_files ||= @parte.adjuntos.paginate(:page => params[:page], :per_page => 10) if @parte
     @uploaded_files ||= Adjunto.find(:all, :conditions => ["clave_mensaje IS NULL AND activo = ? AND tramite_id IS NULL and participante_id IS NULL", true]).paginate(:page => params[:page], :per_page => 10) if current_user
     render :partial => "list", :layout => "only_javascript"
   end

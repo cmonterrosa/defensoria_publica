@@ -1,0 +1,18 @@
+<%=render :partial => "home/arbol"%>
+
+<%if @parte = @parte%>
+  <div class="formee container" id="parte_show">
+    <fieldset>
+      <legend>DATOS&nbsp;DE&nbsp;PARTE</legend>
+      <%=render :partial => "home/datos_personales"%>
+
+    </fieldset>
+     <%=render :partial => "new_or_edit"%>
+   </div>
+<%end%>
+
+
+<!-- Bloqueamos para que capturen algo -->
+<script type="text/javascript">
+  $j("#parte_show :input").attr("disabled", true);
+</script>

@@ -1,0 +1,47 @@
+<%=render :partial => "home/arbol"%>
+
+
+<div class="container">
+
+ <% form_for :tipo_juicio, @tipo_juicio, :url => { :action => "create",  :id => @corporacion_policiaca}, :html => {:class => "formee"} do |f| -%>
+  <fieldset>
+    <legend>&nbsp;REGISTRO&nbsp;DE&nbsp;TIPO&nbsp;DE&nbsp;JUICIO</legend>
+
+       <div class="grid-12-12">
+        <div class="grid-2-12">
+          <label><b>MATERIA: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-10-12">
+          <%= f.select(:materia_id, @materias.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true })%>
+        </div>
+       </div>
+
+    
+       <div class="grid-6-12">
+        <div class="grid-4-12">
+          <label><b>DESCRIPCION: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-8-12">
+          <%=f.text_area  :descripcion%>
+        </div>
+       </div>
+
+      <div class="grid-12-12 clear"></div>
+
+      <div class="grid-form-login">
+        <input class="right" type="submit" title="GUARDAR" value="GUARDAR" />
+      </div>
+ </fieldset>
+<%end%>
+</div>
+
+
+<!-- Validaciones -->
+<script type="text/javascript">
+  var materia = new LiveValidation( 'tipo_juicio_materia_id', {onlyOnSubmit: true} );
+  var descripcion = new LiveValidation( 'tipo_juicio_descripcion', {onlyOnSubmit: true} );
+  materia.add( Validate.Presence );
+  descripcion.add( Validate.Presence );
+</script>
+
+

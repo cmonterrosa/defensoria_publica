@@ -1,0 +1,13 @@
+<p>
+  <b>Materia:</b>
+  <%=h @tipo_juicio.materia_id %>
+</p>
+
+<p>
+  <b>Descripcion:</b>
+  <%=h @tipo_juicio.descripcion %>
+</p>
+
+
+<%= link_to 'Edit', edit_tipo_juicio_path(@tipo_juicio) %> |
+<%= link_to 'Back', tipo_juicios_path %>

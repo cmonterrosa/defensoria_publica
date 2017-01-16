@@ -4,7 +4,7 @@
 ################################################
 
 class SentenciasController < ApplicationController
-  require_role [:admin, :defensor, :jefedefensor]
+  require_role [:admin, :defensor, :jefedefensor, :defensorpenal]
   
 	def index
       @tramite = Tramite.find(params[:t]) if params[:t]
@@ -21,8 +21,15 @@ class SentenciasController < ApplicationController
   def new_or_edit
       @sentencia= (params[:id])? Sentencia.find(params[:id]) : Sentencia.new
       @tramite = Tramite.find(params[:t]) if params[:t]      
-      @tiposentencia= TipoSentencia.all
-      @organos = Organo.all
+      if @tramite.materia == Materia.find_by_descripcion("PENAL")
+        @tiposentencia= TipoSentencia.penal.all
+         @organos = Organo.juzgados_control.all
+         render :partial => "new_or_edit_penal", :layout => "content"
+      else
+        @tiposentencia= TipoSentencia.nopenal.all
+        @organos = Organo.juzgados_familiares.all + Organo.salas_familiares.all
+        render :partial => "new_or_edit", :layout => "content"
+      end
   end
 
   def save

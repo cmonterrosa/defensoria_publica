@@ -62,6 +62,23 @@
                         ">> " +  raw(link_to ' PARTICIPANTES ', {:controller => 'participantes', :action => "index", :t => @tramite}, :class => "arbol")
                 end
 
+            when 'partes'
+                case controller.action_name
+                    when 'index', 'new_or_edit', 'search'
+                        raw(link_to ' TRAMITES ', {:controller => 'tramites_nopenales', :action => "index"}, :class => "arbol") <<
+                        ">> " +  raw(link_to ' MENU ', {:controller => 'tramites_nopenales', :action => "menu", :id => @tramite}, :class => "arbol") <<
+                        ">> " +  raw(link_to ' PARTES ', {:controller => 'partes', :action => "index", :t => @tramite}, :class => "arbol")
+                    when 'relationships', 'show'
+                        raw(link_to ' TRAMITES ', {:controller => 'tramites_nopenales', :action => "index"}, :class => "arbol") <<
+                        ">> " +  raw(link_to ' MENU ', {:controller => 'tramites_nopenales', :action => "menu", :id => @tramite}, :class => "arbol") <<
+                        ">> " +  raw(link_to ' PARTES ', {:controller => 'partes', :action => "index", :t => @tramite}, :class => "arbol") <<
+                        ">> " +  raw(link_to  @parte.persona.nombre_completo, {:controller => 'participantes', :action => controller.action_name , :id => @parte}, :class => "arbol")
+                    when 'history'
+                        raw(link_to ' TRAMITES ', {:controller => 'tramites_nopenales', :action => "index"}, :class => "arbol") <<
+                        ">> " +  raw(link_to ' MENU ', {:controller => 'tramites_nopenales', :action => "menu", :id => @tramite}, :class => "arbol") <<
+                        ">> " +  raw(link_to ' PARTES ', {:controller => 'partes', :action => "index", :t => @tramite}, :class => "arbol")
+                end
+
             when 'amparos', 'sentencias', 'recursos', 'promociones', 'mecanismos_alternativos'
                 case controller.action_name
                     when 'index', 'new_or_edit', 'show'
@@ -95,6 +112,11 @@
                 raw(link_to ' ADMINISTRACION ', {:controller => 'admin', :action => "index"}, :class => "arbol") <<
                 ">> " + (link_to title.upcase, {:controller => params[:controller], :action => "index"}, :class => "arbol", :title => title.upcase)
 
+             when 'tipo_juicios'
+                title = 'TIPOS DE JUICIOS'
+                raw(link_to ' ADMINISTRACION ', {:controller => 'admin', :action => "index"}, :class => "arbol") <<
+                ">> " + (link_to title.upcase, {:controller => params[:controller], :action => "index"}, :class => "arbol", :title => title.upcase)
+
             when 'audiencias'
                 title = 'ORIENTACIONES AL PÚBLICO '
                 case controller.action_name
@@ -124,11 +146,11 @@
               " >> " +  raw(link_to ' MENU ', {:controller => 'tramites', :action => "menu", :id => @tramite}, :class => "arbol") <<
               " >> " + (link_to title.upcase, {:controller => "etapas", :action => "index", :id => @tramite}, :class => "arbol", :title => title.upcase)
 
-            when 'tramites'
+            when 'tramites', 'tramites_nopenales'
                 title = 'TRAMITES'
-                raw(link_to ' TRAMITES ', {:controller => 'tramites', :action => "index"}, :class => "arbol") <<
+                raw(link_to ' TRAMITES ', {:controller => params[:controller], :action => "index"}, :class => "arbol") <<
                 case controller.action_name
-                  when 'menu', 'options_concluir'
+                  when 'menu', 'options_concluir', "new_or_edit"
                     ""
                 else
                   ">> " +  raw(link_to ' MENU ', {:controller => 'tramites', :action => "menu", :id => @tramite}, :class => "arbol")

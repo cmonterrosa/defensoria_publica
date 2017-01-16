@@ -13,8 +13,10 @@ class Adjunto < ActiveRecord::Base
    belongs_to :tramite
    belongs_to :participante
    belongs_to :user
+   belongs_to :parte
+   belongs_to :amparo
    
-   validates_uniqueness_of :md5, :scope => [:tramite_id, :user_id, :clave_mensaje], :message => ": El archivo ya fue cargado anteriormente para el mismo trámite", :allow_blank => true
+   validates_uniqueness_of :md5, :scope => [:tramite_id, :user_id, :clave_mensaje, :amparo_id], :message => ": El archivo ya fue cargado anteriormente para el mismo trámite", :allow_blank => true
 
   after_create :write_file
   before_destroy :prepare_file_for_delete
@@ -24,6 +26,10 @@ class Adjunto < ActiveRecord::Base
   STORAGE_DIR = "#{RAILS_ROOT}/adjuntos/"
   URL_PUBLIC_DIR="/adjuntos"
 
+
+  named_scope :amparos, :conditions => ['amparo_id IS NOT NULL']
+  named_scope :recursos, :conditions => ['recurso_id IS NOT NULL']
+  
 
   def make_md5
     if File.exists?(self.full_path)

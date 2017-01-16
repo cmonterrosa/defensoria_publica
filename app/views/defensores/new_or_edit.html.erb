@@ -83,8 +83,10 @@
 <script type="text/javascript">
   var per_curp = new LiveValidation( 'persona_per_curp', {onlyOnSubmit: true} );
   var municipio = new LiveValidation( 'defensor_municipio_id', {onlyOnSubmit: true} );
+  var materia = new LiveValidation( 'defensor_materia_id', {onlyOnSubmit: true} );
   per_curp.add( Validate.Presence );
   municipio.add( Validate.Presence );
+  materia.add( Validate.Presence );
 </script>
 
 
@@ -96,6 +98,7 @@
     :controller => 'home'},
     :update => 'datos_personales',
     :with => "persona_per_curp"%>
+
 
 
 
