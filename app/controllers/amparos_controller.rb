@@ -1,6 +1,6 @@
 ######################################
 # Controlador que administra a los amparos de cada trámite
-#
+# asimismo, carga archivos adjuntos vinculados
 ######################################
 
 class AmparosController < ApplicationController
@@ -23,10 +23,9 @@ class AmparosController < ApplicationController
   end
 
   def new_or_edit
-      @amparo= (params[:id])? Amparo.find(params[:id]) : Amparo.new
-      @tramite = Tramite.find(params[:t]) if params[:t]
-      @tipo_amparos= TipoAmparo.all
-      @resoluciones_amparos = Catalogo.sentido_resolucion_amparo.all 
+    @amparo= (params[:id])? Amparo.find(params[:id]) : Amparo.new
+    @tramite = Tramite.find(params[:t]) if params[:t]
+    fill_combos
   end
 
   def save
@@ -40,11 +39,7 @@ class AmparosController < ApplicationController
         flash[:notice] = "Amparo registrado correctamente"
         redirect_to :controller => "amparos", :t => @tramite
       else
-        @tipo_participantes = TipoParticipante.all
-        @tipo_amparos= TipoAmparo.all
-        @entornos = Entorno.all
-        @calidads= Calidad.all
-        @marginacions = Marginacion.all
+        fill_combos
         render :action => "new_or_edit"
       end
 
@@ -70,6 +65,13 @@ class AmparosController < ApplicationController
         @amparo =  Amparo.find(params[:id])
    rescue ActiveRecord::RecordNotFound
           render_404
+   end
+
+   def fill_combos
+    @acciones_amparos= AccionAmparo.all
+    @tipos_amparos= TipoAmparo.all
+    @fases_amparos = FaseAmparo.all
+    @sentidos_resoluciones_amparos = SentidoResolucionAmparo.all
    end
 
 end
