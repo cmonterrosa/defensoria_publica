@@ -1,0 +1,69 @@
+<%=render :partial => "home/arbol"%>
+<%@label_busqueda = "NUMERO DE EXPEDIENTE"%>
+<%= render :partial => "home/barra_busqueda"%>
+
+<!-- contenido -->
+<div id="divlista">
+    <table width="76%" border="0" cellspacing="0" cellpadding="0" class="tablakolaval" style="BORDER-RIGHT: #cccccc 1px solid; BORDER-TOP: #cccccc 1px solid; BORDER-LEFT: #cccccc 1px solid; BORDER-BOTTOM: #cccccc 1px solid; margin: auto;">
+    <tr>
+       <th style="vertical-align: middle;">Folio</th>
+       <th style="vertical-align: middle;">Fecha/hora atención</th>
+       <th style="vertical-align: middle;">Número de Expediente</th>
+       <th style="vertical-align: middle;">Juzgado/Órgano</th>
+       <th style="vertical-align: middle;">Defensor</th>
+       <th style="vertical-align: middle;" colspan="5">&nbsp;</th>
+    </tr>
+    <%@tramites.each do |t|%>
+    <tr class="<%=h (t.concluido?)? 'concluido' : ''%>">
+      <td style="vertical-align: middle;"><%=h link_to t.identificador_unico, {:action => "menu", :id => t}, :class => "titulocalendario" -%></td>
+      <td style="vertical-align: middle;"> <%=(t.fechahora_atencion) ? t.fechahora_atencion.strftime("%d de %B de %Y / %H:%M %p") : ''%></td>
+      <td style="vertical-align: middle;"><%=t.numero_expediente%></td>
+      <td style="vertical-align: middle;"><%=(t.organo) ? t.organo.descripcion : ''%></td>
+      <%if t.defensor_id.nil? && current_user.has_role?(:jefedefensor)%>
+        <td style="vertical-align: middle;"><%=link_to "ASIGNAR DEFENSOR", {:action => "new_or_edit", :id => t}, :class => 'boton'  -%></td>
+     <%else%>
+        <td><%=h (t.defensor && t.defensor.persona)? t.defensor.persona.nombre_completo : "--"%></td>
+     <%end%>
+
+      <!-- CONCLUIDO -->
+     <%unless t.concluido?%>
+        <td style="vertical-align: middle;"><%=link_to "CONCLUIR", {:action => "options_concluir", :id => t}, :class => "boton", :html => { :blank=> true}  -%></td>
+     <%else%>
+        <%if current_user.has_role?(:admin)%>
+           <td style="vertical-align: middle;"><%=link_to "DESHACER CONCLUSIÓN", {:action => "options_concluir", :id => t}, :class => "boton", :html => { :blank=> true}  -%></td>
+        <%else%>
+          <td style="vertical-align: middle;">&nbsp;</td>
+        <%end%>
+    <%end%>
+
+     <td style="vertical-align: middle;"><%=link_to "EDITAR", {:action => "new_or_edit", :id => t}, :class => 'boton'  -%></td>
+     <td style="vertical-align: middle;"><%=link_to "DETALLE", {:action => "show", :id => t}, :class => 'boton'  -%></td>
+     <td style="vertical-align: middle;"><%=link_to "ELIMINAR", {:action => "destroy", :id => t}, :confirm => '¿Desea eliminar el registro?', :class => 'boton'  -%></td>
+    </tr>
+    <%end%>
+  </table>
+</div>
+
+<br />
+
+<% if @tramites.total_entries > @tramites.per_page.to_i %>
+    <table>
+      <tr align="center" >
+        <td colspan="5" style="padding: 0;">
+          <div class="digg_pagination">
+            <div class="page_info">
+              <%= page_entries_info @tramites %>
+            </div>
+            <%= will_paginate @tramites %>
+          </div>
+        </td>
+      </tr>
+  </table>
+<%end%>
+
+<% accion=(current_user.has_role?(:defensor)? 'new_or_edit' : 'new_or_edit_apoyo') %>
+<br /><%=link_to "+ REGISTRAR NUEVO TRAMITE", {:action => accion}, :class => 'boton'  -%>
+
+
+
+

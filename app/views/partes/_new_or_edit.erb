@@ -1,0 +1,108 @@
+
+  <fieldset>
+      <div id="tipo_participante">
+        <div class="grid-12-12">
+        <div class="grid-4-12">
+          <label><b>TIPO DE PARTE: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-8-12">
+          <%= select(:parte, :tipo_parte_id, @tipos_partes.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true })%>
+        </div>
+       </div>
+      </div>
+
+      <div class="grid-6-12">
+        <div class="grid-6-12">
+          <label><b>ESTADO CIVIL: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-6-12">
+          <%=select(:parte, :estado_civil_id, @edo_civil.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true })%>
+        </div>
+      </div>
+
+      <div class="grid-6-12">
+        <div class="grid-6-12">
+          <label><b>OCUPACIÓN: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-6-12"><%=text_field :parte, :ocupacion%></div>
+      </div>
+
+<div class="grid-6-12">
+  <div class="grid-6-12">
+    <label><b>GRADO DE ESTUDIOS: </b></label>
+  </div>
+  <div class="grid-6-12">
+  <%=select(:parte, :escolaridad_id, @escolaridades.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true })%>
+  </div>
+</div>
+
+
+<div class="grid-6-12">
+  <div class="grid-6-12">
+    <label><b>CUÁNTOS HIJOS TIENE: </b><em class="formee-req">*</em></label>
+  </div>
+  <div class="grid-6-12"><%=select :parte, :num_hijos, (0..30)%></div>
+</div>
+
+<!--
+  <div class="grid-6-12">
+    <div class="grid-8-12">
+      <label><b>¿TIENE ALGÚN PADECIMIENTO?: </b><em class="formee-req">*</em></label>
+    </div>
+    <div class="grid-4-12">
+      <span class="InputGroup" id="tiene_antecedentes">
+        <label class="uper">SI <= radio_button :parte, :tiene_padecimiento, "SI", :checked => @parte.tiene_padecimiento, :onclick => "enable_descripcion_padecimiento();" %></label>&nbsp;&nbsp;
+        <label class="uper">NO <= radio_button :parte, :tiene_padecimiento, "NO", :checked => @parte.tiene_padecimiento == false, :onclick => "enable_descripcion_padecimiento();"%></label>
+      </span>
+    </div>
+  </div>
+-->
+
+<!--
+<div class="grid-6-12" id="descripcion_padecimiento" style="display:none;">
+  <div class="grid-6-12">
+    <label><b>DESCRIPCIÓN DEL PADECIMIENTO: </b><em class="formee-req">*</em></label>
+  </div>
+  <div class="grid-6-12"><=text_field :parte, :padecimiento_detalle%></div>
+</div>
+-->
+
+<!--
+<div class="grid-6-12">
+  <div class="grid-8-12">
+    <label><b>¿TIENE ANTECEDENTES PENALES?: </b><em class="formee-req">*</em></label>
+  </div>
+  <div class="grid-4-12">
+    <span class="InputGroup" id="tiene_antecedentes">
+      <label class="uper">SI <= radio_button :parte, :tiene_antecedentes_penales, "SI", :checked => @parte.tiene_antecedentes_penales, :onclick => "enable_descripcion_delito();" %></label>&nbsp;&nbsp;
+      <label class="uper">NO <= radio_button :parte, :tiene_antecedentes_penales, "NO", :checked => @parte.tiene_antecedentes_penales == false, :onclick => "enable_descripcion_delito();"%></label>
+    </span>
+  </div>
+</div>
+-->
+
+<!--
+  <div class="grid-6-12" id="descripcion_delito" style="display:none;">
+    <div class="grid-6-12">
+        <label><b>DELITO POR EL CUAL TIENE ANTECEDENTES PENALES: </b><em class="formee-req">*</em></label>
+    </div>
+    <div class="grid-6-12"><=text_field :parte, :antecedentes_penales_delito%></div>
+  </div>
+-->
+
+    <div class="grid-12-12">
+      <div class="grid-4-12">
+        <label><b>OBSERVACIONES: </b></label>
+      </div>
+      <div class="grid-8-12">
+        <%= text_area(:parte, :observaciones)%>
+      </div>
+    </div>
+
+    <div class="grid-12-12 clear"></div>
+
+    <div class="grid-form-login">
+      <input class="right" type="submit" title="GUARDAR" value="GUARDAR" />
+    </div>
+
+ </fieldset>

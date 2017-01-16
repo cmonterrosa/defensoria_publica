@@ -1,19 +1,18 @@
-##########################################
+################################################
 # Controlador que hace operaciones basicas, inicia registro y conecta el tramite
-# con todos los demas modelos y elementos
-##########################################
+# con todos los demas modelos y elementos en materias penal (NSJP)
+################################################
  
 class TramitesController < ApplicationController
-  require_role [:defensor, :jefedefensor, :defensorapoyo]
+  require_role [:defensorpenal, :jefedefensor, :defensorapoyo]
   require_role :jefedefensor, :for => [:asignar, :history]
 
-  
+  # Listado general del tramites penales
   def index
-    @defensor = Defensor.find(:first, :conditions => ["persona_id = ?", current_user.persona.id]) if current_user
-    #@tramites = [].paginate(:page => params[:page], :per_page => 25)
-    @tramites = Tramite.find(:all, :order => "created_at DESC", :conditions => ["defensor_id = ?", @defensor.id]).paginate(:page => params[:page], :per_page => 25) if @defensor
-    @tramites = Tramite.find(:all, :order => "created_at DESC").paginate(:page => params[:page], :per_page => 25) if current_user.has_role?(:admin) || current_user.has_role?(:jefedefensor)
-    @tramites ||= Tramite.find(Atencion.find(:all, :conditions => ["user_id = ? AND activa IS NOT NULL", current_user ]).map{|i|i.tramite_id}).paginate(:page => params[:page], :per_page => 25) if current_user.has_role?(:defensorapoyo)
+    @defensor = Defensor.penal.find(:first, :conditions => ["persona_id = ?", current_user.persona.id]) if current_user
+    @tramites = Tramite.penal.find(:all, :order => "created_at DESC", :conditions => ["defensor_id = ?", @defensor.id]).paginate(:page => params[:page], :per_page => 25) if @defensor
+    @tramites = Tramite.penal.find(:all, :order => "created_at DESC").paginate(:page => params[:page], :per_page => 25) if current_user.has_role?(:admin) || current_user.has_role?(:jefedefensor)
+    @tramites ||= Tramite.penal.find(Atencion.find(:all, :conditions => ["user_id = ? AND activa IS NOT NULL", current_user ]).map{|i|i.tramite_id}).paginate(:page => params[:page], :per_page => 25) if current_user.has_role?(:defensorapoyo)
     render :partial => "list", :layout => "content"
   end
 
@@ -47,7 +46,7 @@ class TramitesController < ApplicationController
           @tipo_mecanismo= TipoMecanismo.all
           render :partial => "options_for_mecanismos_alternativos"
         else
-          render :text => "ES CORRECTO"
+          render :text => ""
         end
     end
   end
@@ -72,9 +71,9 @@ class TramitesController < ApplicationController
       end
     end
 
-
+  # Metodo que crea o recupera un registro
   def new_or_edit
-    @tramite = (params[:id])? Tramite.find(params[:id]) : Tramite.new
+    @tramite = (params[:id])? Tramite.penal.find(params[:id]) : Tramite.penal.new
     @tramite.fechahora_atencion ||= Time.now.strftime("%Y/%m/%d")
     @materias = Catalogo.materia.all
     @fiscalias = Fiscalia.find(:all, :conditions => ["activa = ?", true])
@@ -94,6 +93,7 @@ class TramitesController < ApplicationController
     render :partial => "new_or_edit_apoyo", :layout => "content"
   end
 
+  # Metodo que guarda el registro
   def save
     @tramite = (params[:id])? Tramite.find(params[:id]) : Tramite.new
     @tramite.init_journal(current_user) if current_user
@@ -135,7 +135,7 @@ class TramitesController < ApplicationController
      end
    
    def destroy
-      @tramite = Tramite.find(params[:id])
+      @tramite = Tramite.penal.find(params[:id])
       (@tramite && @tramite.destroy) ? flash[:notice] = "Registro eliminado correctamente" : flash[:error] = "Registro no se pudo eliminar, verifique"
       redirect_to :action => "index"
    end
@@ -162,7 +162,7 @@ class TramitesController < ApplicationController
  protected
   
   def select_object
-        @tramite =  Tramite.find(params[:id])
+        @tramite =  Tramite.penal.find(params[:id])
    rescue ActiveRecord::RecordNotFound
           render_404
    end

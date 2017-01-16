@@ -1,0 +1,8 @@
+  <div class="grid-12-12">
+        <div class="grid-4-12">
+            <label><b>DEFENSOR PÚBLICO: </b></label>
+        </div>
+        <div class="grid-8-12">
+          <%= f.select(:defensor_id, @defensores.collect {|p| [ p.persona.nombre_completo, p.id ] }, { :include_blank => true })%>
+        </div>
+  </div>

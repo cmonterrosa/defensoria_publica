@@ -5,8 +5,8 @@
 
 class CreateMigracions < ActiveRecord::Migration
   def self.up
-        migrar_defensores
-        migrar_audiencias
+        #migrar_defensores
+        #migrar_audiencias
   end
 
   def self.migrar_defensores

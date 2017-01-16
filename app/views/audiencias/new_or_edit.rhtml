@@ -38,13 +38,9 @@
         </div>
        </div>
 
-       <div class="grid-12-12">
-        <div class="grid-4-12">
-            <label><b>DEFENSOR PÚBLICO: </b></label>
-        </div>
-        <div class="grid-8-12">
-          <%= f.select(:defensor_id, @defensores.collect {|p| [ p.persona.nombre_completo, p.id ] }, { :include_blank => true })%>
-        </div>
+      <div class="grid-12-12"><img alt="spinner" id="spinner_materia" src="/images/loading_spinner.gif" style="display:none;" /></div>
+      <div id="seleccion_defensor">
+        
       </div>
 
       <div class="grid-12-12">
@@ -59,6 +55,18 @@
           <label><b>ASUNTO: </b><em class="formee-req">*</em></label>
         </div>
         <div class="grid-10-12"><%=f.text_field :asunto%></div>
+      </div>
+
+             <div class="grid-6-12">
+        <div class="grid-4-12">
+          <label><b>¿ES INICIO?: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-8-12">
+                  <span class="InputGroup">
+                   <label class="uper">SI <%= f.radio_button :es_inicio, 'SI', :checked => @audiencia.es_inicio == 1%></label>&nbsp;&nbsp;
+                   <label class="uper">NO <%= f.radio_button :es_inicio, 'NO', :checked => @audiencia.es_inicio == 0%></label>
+                  </span>
+       </div>
       </div>
 
       <div class="grid-12-12">
@@ -103,6 +111,17 @@
     :action => 'get_datos_personales_minimos'},
     :update => 'datos_personales',
     :with => "persona_per_curp"%>
+
+
+<%= observe_field 'audiencia_materia_id',
+    :on => "change",
+    :before => "Element.show('spinner_materia')",
+    :success => "Element.hide('spinner_materia')",
+    :url => {:controller => 'defensores',
+    :action => 'get_defensor_por_materia'},
+    :update => 'seleccion_defensor',
+    :with => "audiencia_materia_id"%>
+
 
     
 

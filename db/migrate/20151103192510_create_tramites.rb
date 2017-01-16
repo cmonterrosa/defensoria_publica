@@ -18,6 +18,10 @@ class CreateTramites < ActiveRecord::Migration
       t.column :es_delito_grave, :boolean
       t.column :concluido, :boolean
       t.column :es_urgente, :boolean
+      # Campos familiar/civil
+      t.column :tipo_juicio_id, :integer
+      t.column :solo_orientacion, :boolean
+      t.column :organo_id, :integer
       t.timestamps
     end
 
@@ -27,7 +31,7 @@ class CreateTramites < ActiveRecord::Migration
     add_index :tramites, :causa_penal, :name => "tramites_causa_penal"
     add_index :tramites, [:defensor_id, :fechahora_atencion], :name => "tramites_defensor_fechahora_atencion"
     add_index :tramites, :defensor_id, :name => "tramites_defensor"
-    #add_index :tramites, :fiscalia_id, :name => "tramites_fiscalia"
+    add_index :tramites, :materia_id, :name => "tramites_materia"
     add_index :tramites, :concluido, :name => "tramites_concluido"
   end
 

@@ -1,0 +1,87 @@
+<!-- Validate Plugin -->
+<%=javascript_include_tag :defaults%>
+
+<%#=render :partial => "home/arbol"%>
+
+<div class="container">
+  <div class="formee-msg-info">
+    <h3>Información importante</h3>
+    <ul>
+      <li>Los campos marcados con <em class="formee-req">*</em> son obligatorios.</li>
+    </ul>
+    <ul><li>&nbsp;</li></ul>
+  </div>
+
+   <%=render :partial => "encabezado"%>
+
+   
+
+<% form_for :concluido, @concluido, :url => { :action => "concluir",  :id => @tramite, :sesion => @sesion}, :html => {:class => "formee", :onsubmit => "return checkSubmit();" } do |f| -%>
+    <fieldset>
+      <legend> CONCLUIR&nbsp;TRAMITE</legend>
+
+
+      <%if current_user.has_role?(:directivo) || current_user.has_role?(:jefedefensor)%>
+          <div class="grid-4-12">
+              <label style=" font-weight: bold;">Fecha/hora : <em class="formee-req">*</em></label>
+              <div class="grid-12-12">
+                  <%=text_field :concluido, :created_at, :value => @fecha%>
+              </div>
+          </div>
+     <%end%>
+
+     <!-- primera linea -->
+     <div class="grid-8-12">
+        <label style=" font-weight: bold;">SELECCIONE UN MOTIVO: <em class="formee-req">*</em></label>
+        
+        <%=hidden_field "tramite", "id", :value =>@tramite.id%>
+        <div class="grid-12-12">
+            <%= f.select(:motivo_conclusion_id, @motivos_conclusion.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true })%>
+         </div>
+      </div>
+
+     <div class="grid-12-12"><img alt="spinner" id="spinner" src="/images/loading_spinner.gif" style="display:none;" /></div>
+
+     <!-- div vacio -->
+     <div class="grid-12-12"><div id="opciones_seleccion"> </div></div>
+
+     <!-- primera linea -->
+     <div class="grid-12-12">
+        <label style=" font-weight: bold;">OBSERVACIONES: <em class="formee-req">*</em></label>
+         <div class="grid-12-12">
+            <%= f.text_area :observaciones_conclusion%>
+         </div>
+      </div>
+
+      <div class="grid-12-12 clear"></div>
+ 
+      <div class="grid-form-login">
+                <input class="right" type="submit" title="GUARDAR" value="GUARDAR" />
+      </div>
+
+  </fieldset>
+
+<%end%>
+
+      
+<%= observe_field 'concluido_motivo_conclusion_id',
+    :on => "change",
+    :before => "Element.show('spinner')",
+    :success => "Element.hide('spinner')",
+    :url => {:controller => 'tramites',
+    :action => 'get_opciones'},
+    :update => 'opciones_seleccion',
+    :with => "Form.serializeElements($('concluido_motivo_conclusion_id', 'tramite_id'))"%>
+
+
+
+<%#*<script type="text/javascript">%>
+  <%#*var motivo = new LiveValidation( 'concluido_motivo_conclusion_id' );%>
+  <%#*motivo.add( Validate.Presence );%>
+<%#*</script>%>
+</div>
+
+
+
+
+

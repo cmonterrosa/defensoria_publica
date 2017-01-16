@@ -14,7 +14,7 @@
 
 <% form_for :tramite, @tramite, :url => { :action => "save", :controller => "tramites", :id => @tramite}, :html => {:class => "formee", :id => "new_tramite"} do |f| -%>
   <fieldset>
-    <legend>&nbsp;REGISTRO&nbsp;DE&nbsp;TRAMITE&nbsp;</legend>
+    <legend>&nbsp;REGISTRO&nbsp;DE&nbsp;TRAMITE&nbsp;PENAL</legend>
       <div class="grid-12-12">
           <%= error_messages_for :tramite %>
       </div>
@@ -61,7 +61,7 @@
           <label><b>MATERIA: </b><em class="formee-req">*</em></label>
         </div>
         <div class="grid-8-12">
-          <%= f.select(:materia_id, @materias.collect {|m| [ m.descripcion, m.id ] }, { :include_blank => true })%>
+          <%= f.select(:materia_id, Materia.penal.all.collect {|m| [ m.descripcion, m.id ] }, { :include_blank => true })%>
         </div>
      </div>
 

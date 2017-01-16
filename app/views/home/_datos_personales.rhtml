@@ -15,7 +15,10 @@
       <%@padre_apellidos = (@persona.get_datos_familiares("padre"))? @persona.get_datos_familiares("padre").apellidos : nil %>
       <%@madre_nombre = (@persona.get_datos_familiares("madre"))? @persona.get_datos_familiares("madre").nombre : nil %>
       <%@madre_apellidos = (@persona.get_datos_familiares("madre"))? @persona.get_datos_familiares("madre").apellidos : nil %>
-      <!-- Datos de extension de persona -->
+      <%@conyuge_nombre = (@persona.get_datos_familiares("conyu"))? @persona.get_datos_familiares("conyu").nombre : nil %>
+      <%@conyuge_apellidos = (@persona.get_datos_familiares("conyu"))? @persona.get_datos_familiares("conyu").apellidos : nil %>
+
+       <!-- Datos de extension de persona -->
       <%@extension = ExtensionPersona.find_by_persona_id(@persona)%>
   <%end%>
 

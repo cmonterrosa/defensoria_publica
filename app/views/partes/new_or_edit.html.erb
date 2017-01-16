@@ -1,0 +1,59 @@
+<!-- Validate Plugin -->
+<%=javascript_include_tag "validations/jquery_validate.js"%>
+<%=javascript_include_tag "jquery-1.11.3.min"%>
+<%= javascript_include_tag :defaults%>
+<%=render :partial =>"home/arbol"%>
+
+<%= error_messages_for :parte %>
+
+<div class="container">
+<% form_for :parte, @parte, :url => { :action => "save", :controller => "partes", :id => @parte, :t => @tramite}, :html => {:class => "formee"} do |f| -%>
+  <fieldset>
+    <legend>&nbsp;REGISTRO&nbsp;DE&nbsp;PARTES&nbsp;</legend>
+      <div class="grid-12-12">
+          <%= error_messages_for :parte %>
+      </div>
+
+       <!-- Barra de busqueda de persona -->
+       <%=render :partial => "home/search_per_curp"%>
+
+      <div class="grid-12-12"><img alt="spinner" id="spinner" src="/images/loading_spinner.gif" style="display:none;" /></div>
+
+
+      <div id="datos_personales">
+        <%if @parte && @parte.persona%>
+          <%= render :partial => "home/datos_personales"%>
+        <%end%>
+      </div>
+  </fieldset>
+
+
+
+<%=render :partial => "new_or_edit"%>
+
+<%end%>
+</div>
+
+<!-- Validaciones -->
+<script type="text/javascript">
+  var per_curp = new LiveValidation( 'persona_per_curp', {onlyOnSubmit: true} );
+  var tipo_parte = new LiveValidation( 'parte_tipo_parte_id', {onlyOnSubmit: true} );
+  per_curp.add( Validate.Presence );
+  tipo_parte.add( Validate.Presence );
+</script>
+
+
+<%= observe_field 'persona_per_curp',
+  :on => "change",
+  :before => "Element.show('spinner')",
+  :success => "Element.hide('spinner')",
+  :url => {:action => 'get_datos_personales',
+  :controller => 'home'},
+  :update => 'datos_personales',
+  :with => "persona_per_curp"%>
+
+
+
+
+
+

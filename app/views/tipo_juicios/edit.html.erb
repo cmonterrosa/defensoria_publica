@@ -1,0 +1,20 @@
+<h1>Editing tipo_juicio</h1>
+
+<% form_for(@tipo_juicio) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :materia_id %><br />
+    <%= f.text_field :materia_id %>
+  </p>
+  <p>
+    <%= f.label :descripcion %><br />
+    <%= f.text_field :descripcion %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @tipo_juicio %> |
+<%= link_to 'Back', tipo_juicios_path %>

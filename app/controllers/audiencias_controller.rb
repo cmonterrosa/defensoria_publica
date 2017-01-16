@@ -102,6 +102,7 @@ class AudienciasController < ApplicationController
       end
       @audiencia.persona ||= Persona.new(params[:persona])
       @audiencia.user_id = current_user.id if current_user
+      @audiencia.es_inicio = (params[:audiencia][:es_inicio] == 'SI')? true : false
       if @audiencia.save && @audiencia.persona.valid?
         save_persona(params, @audiencia)
         flash[:notice] = "Audiencia registrada correctamente"
@@ -170,8 +171,9 @@ class AudienciasController < ApplicationController
          if @audiencia.persona
             param["P_SOLICITANTE"]=(@audiencia.persona) ? {:tipo=>"String", :valor=>@audiencia.persona.nombre_completo} : {:tipo=>"String", :valor=> "------"}
               if @extension = ExtensionPersona.find_by_persona_id(@audiencia.persona)
-                    param["P_SEXO"] = {:tipo=>"String", :valor=>@extension.sexo}
+                    param["P_SEXO"] = {:tipo=>"String", :valor=>(@extension.sexo)? @extension.sexo.descripcion : '--'}
               end
+              param["P_EDAD"] = {:tipo=>"String", :valor=>(@audiencia.persona.edad)? @audiencia.persona.edad : '--'}
               param["P_DOMICILIO"] = {:tipo=>"String", :valor=>@audiencia.persona.get_datos_contacto('direccion')}
               param["P_TELEFONO_CASA"] = {:tipo=>"String", :valor=>@audiencia.persona.get_datos_contacto('telefono_casa')}
               param["P_TELEFONO_TRABAJO"] = {:tipo=>"String", :valor=>@audiencia.persona.get_datos_contacto('telefono_laboral')}

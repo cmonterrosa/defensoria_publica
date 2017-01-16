@@ -1,0 +1,47 @@
+<%= stylesheet_link_tag "encabezados.css"%>
+
+<%if @tramite%>
+  <div class="formee container ">
+    <fieldset>
+      <div class="grid-4-12 encabezado_formee">
+        <b>NUMERO DE EXPEDIENTE:</b>
+        <%=h @tramite.numero_expediente%>
+      </div>
+
+      <div class="grid-4-12 encabezado_formee">
+        <b>JUZGADO/ORGANO:</b>
+        <%=h (@tramite.organo) ? @tramite.organo.descripcion : ''%>
+      </div>
+
+      <div class="grid-4-12 encabezado_formee">
+        <b>TIPO DE JUICIO:</b>
+        <%=h (@tramite.tipo_juicio)? @tramite.tipo_juicio.descripcion : ''%>
+      </div>
+
+      <div class="grid-4-12 encabezado_formee">
+        <b>DEFENSOR PUBLICO:</b>
+        <%=h (@tramite.defensor && @tramite.defensor.persona)? @tramite.defensor.persona.nombre_completo : ''%>
+      </div>
+
+      <div class="grid-4-12 encabezado_formee">
+              <b>IDENTIFICADOR DE TRÁMITE:</b>
+              <%=h @tramite.identificador_unico%>
+      </div>
+
+      <div class="grid-4-12 encabezado_formee">
+              <b>¿CONCLUIDO?:</b>
+              <%=h (@tramite.concluido?)? 'SI' : 'NO'%>
+      </div>
+        
+        <%if @tramite.concluido?%>
+            <div class="grid-12-12 encabezado_formee">
+              <%if @tramite.concluido%>
+                <b>MOTIVO DE CONCLUSION: </b><%=h (@tramite.concluido.motivo_conclusion) ? @tramite.concluido.motivo_conclusion.descripcion : ''%>
+              <%end%>
+            </div>
+        <%end%>
+
+    </fieldset>
+</div>
+  <br />
+<%end%>

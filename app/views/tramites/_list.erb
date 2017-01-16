@@ -16,7 +16,7 @@
     </tr>
     <%@tramites.each do |t|%>
     <tr class="<%=h (t.concluido?)? 'concluido' : ''%>">
-     <td style="vertical-align: middle;"><%=t.numero_tramite%></td>
+     <td style="vertical-align: middle;"><%=h link_to t.identificador_unico, {:action => "menu", :id => t}, :class => "titulocalendario" -%></td>
      <td style="vertical-align: middle;"> <%=(t.fechahora_atencion) ? t.fechahora_atencion.strftime("%d de %B de %Y / %H:%M %p") : ''%></td>
      <td style="vertical-align: middle;"><%=t.nuc%></td>
      <td style="vertical-align: middle;"><%=t.carpeta_investigacion%></td>
@@ -28,7 +28,6 @@
      <%end%>
      <td style="vertical-align: middle;"><%=link_to "CONCLUIR", {:action => "options_concluir", :id => t}, :class => "boton", :html => { :blank=> true}  -%></td>
      <td style="vertical-align: middle;"><%=link_to "EDITAR", {:action => "new_or_edit", :id => t}, :class => 'boton'  -%></td>
-     <td style="vertical-align: middle;"><%=link_to "MENU", {:action => "menu", :id => t}, :class => 'boton'  -%></td>
      <td style="vertical-align: middle;"><%=link_to "DETALLE", {:action => "show", :id => t}, :class => 'boton'  -%></td>
      <td style="vertical-align: middle;"><%=link_to "ELIMINAR", {:action => "destroy", :id => t}, :confirm => '¿Desea eliminar el registro?', :class => 'boton'  -%></td>
     </tr>

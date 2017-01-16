@@ -10,9 +10,12 @@ class CreateSentencias < ActiveRecord::Migration
     	t.column :organo_id, :integer
     	t.column :instancia_id, :integer
     	t.column :observaciones, :string
+      t.column :procedente, :boolean
+      t.column :apelada, :boolean
       t.timestamps
     end
     add_index :sentencias, [:tramite_id], :name => "sentencias_tramite"
+    add_index :sentencias, [:procedente], :name => "sentencias_procedente"
   end
 
   def self.down

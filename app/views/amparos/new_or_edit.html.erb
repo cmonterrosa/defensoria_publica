@@ -1,7 +1,8 @@
 <%=render :partial => "home/arbol"%>
 
 <div class="container">
-<% form_for :amparo, @amparo, :url => { :action => "save", :controller => "amparos", :id => @amparo, :t => @tramite}, :html => {:class => "formee"} do |f| -%>
+
+<% form_for :amparo, @amparo, :url => { :action => "save", :controller => "amparos", :id => @amparo, :t => @tramite}, :html => {:multipart => true, :class => "formee"} do |f| -%>
   <fieldset>
     <legend>&nbsp;REGISTRO&nbsp;DE&nbsp;AMPAROS&nbsp;</legend>
       <div class="grid-12-12">
@@ -62,8 +63,9 @@
         </div>
       </div>
 
-       
-      
+
+      <%=render :partial => "home/archivoadjunto"%>
+
       <div class="grid-12-12 clear"></div>
 
       <div class="grid-form-login">

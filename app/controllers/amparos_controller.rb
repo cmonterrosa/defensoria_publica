@@ -9,7 +9,11 @@ class AmparosController < ApplicationController
 	def index
       @tramite = Tramite.find(params[:t]) if params[:t]
       @amparos = @tramite.amparos.paginate(:page => params[:page], :per_page => 25) if @tramite
-      render :partial => "list", :layout => "content"
+      if Tramite.nopenal.exists?(:id => @tramite.id)
+          render :partial => "list_nopenales", :layout => "content"
+      else
+          render :partial => "list", :layout => "content"
+      end
   end
 
   def search
@@ -26,27 +30,46 @@ class AmparosController < ApplicationController
   end
 
   def save
-    @tramite = (params[:t])? Tramite.find(params[:t]) : nil
-    @amparo = (params[:id])? Amparo.find(params[:id]) : Amparo.new
-    @amparo.update_attributes(params[:amparo])
-    @amparo.tramite = @tramite
-    if @tramite && @amparo.valid? 
-      @amparo.save  
-      flash[:notice] = "Amparo registrado correctamente"
-      redirect_to :controller => "amparos", :t => @tramite
-    else
-      @tipo_participantes = TipoParticipante.all
-      @entornos = Entorno.all
-      @calidads= Calidad.all
-      @marginacions = Marginacion.all
-      render :action => "new_or_edit"
-    end
+    begin
+      @tramite = (params[:t])? Tramite.find(params[:t]) : nil
+      @amparo = (params[:id])? Amparo.find(params[:id]) : Amparo.new
+      @amparo.update_attributes(params[:amparo])
+      @amparo.tramite = @tramite
+      if @tramite && @amparo.valid?
+        @amparo.save && save_adjunto(@amparo)
+        flash[:notice] = "Amparo registrado correctamente"
+        redirect_to :controller => "amparos", :t => @tramite
+      else
+        @tipo_participantes = TipoParticipante.all
+        @tipo_amparos= TipoAmparo.all
+        @entornos = Entorno.all
+        @calidads= Calidad.all
+        @marginacions = Marginacion.all
+        render :action => "new_or_edit"
+      end
+
+      rescue ActiveRecord::RecordInvalid => invalid
+            flash[:error] = invalid.record.errors.full_messages
+      end
   end
 
   def destroy
-    @amparo = Amparo.find(params[:id])
+    select_object
     (@amparo && @amparo.destroy) ? flash[:notice] = "Registro eliminado correctamente" : flash[:error] = "Registro no se pudo eliminar, verifique"
     redirect_to :action => "index", :t => params[:t]
   end
+
+  def show
+    select_object
+  end
+
+
+ protected
+
+  def select_object
+        @amparo =  Amparo.find(params[:id])
+   rescue ActiveRecord::RecordNotFound
+          render_404
+   end
 
 end
