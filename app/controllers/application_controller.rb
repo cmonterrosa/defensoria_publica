@@ -120,7 +120,7 @@ class ApplicationController < ActionController::Base
     begin
       if objeto && objeto.respond_to?(:adjunto)
           objeto.adjunto = Adjunto.new(params[:adjunto]) if params[:adjunto]
-          objeto.save && objeto.adjunto.save
+          objeto.adjunto && objeto.adjunto.save
       end
       rescue ActiveRecord::RecordInvalid => invalid
           flash[:error] = invalid.record.errors.full_messages
