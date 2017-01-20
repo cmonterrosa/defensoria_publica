@@ -5,6 +5,7 @@ class CreateDefensors < ActiveRecord::Migration
        t.integer :municipio_id
        t.integer :materia_id
        t.integer :cve_def
+       t.integer :numero_modulo
        t.boolean :activo
        t.timestamps
     end

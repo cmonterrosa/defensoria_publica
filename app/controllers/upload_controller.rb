@@ -8,8 +8,8 @@ class UploadController < ApplicationController
   require_role [:defensor, :admin, :subdireccion, :defensorapoyo], :for => [:destroy, :download]
 
   def index
-    @participante = (params[:token] == "p" || params[:p] )?  Participante.find(params[:p]) : nil
-    @parte = (params[:token] == "pt" || params[:p] )?  Parte.find(params[:p]) : nil
+    @parte = (params[:token] == "pt" && params[:p] )?  Parte.find(params[:p]) : nil
+    @participante = (params[:token] == "p" && params[:p] )?  Participante.find(params[:p]) : nil
     @tramite = ( params[:t] )?  Tramite.find(params[:t]) : nil
     @title = (@participante) ? "ARCHIVOS ADJUNTOS DEL PARTICIPANTE: #{(@participante.persona) ? @participante.persona.nombre_completo: ''}" : nil
     @title ||= (@parte) ? "ARCHIVOS ADJUNTOS DE PARTE: #{(@parte.persona) ? @parte.persona.nombre_completo: ''}" : nil

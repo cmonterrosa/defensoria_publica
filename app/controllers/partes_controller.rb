@@ -38,7 +38,7 @@ class PartesController < ApplicationController
      @parte = (params[:id])? Parte.find(params[:id]) : Parte.new
      @parte.init_journal(current_user)
      @tramite ||= @parte.tramite if @parte && @parte.tramite
-     @parte.update_attributes(params[:participante])
+     @parte.update_attributes(params[:parte])
      save_persona(params, @parte)
       @parte.persona ||= Persona.new(params[:persona])
       @parte.tramite ||= @tramite

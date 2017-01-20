@@ -47,6 +47,10 @@ class Tramite < ActiveRecord::Base
     (self.solicitante_id)? User.find(self.solicitante_id) : nil
    end
 
+   def es_penal?
+     (self.materia && self.materia ==  Materia.find_by_descripcion("PENAL"))
+   end
+
    # Devuelve el objeto de delito del catalogo
    def delito_norma
      (self.delito_norma_id)? DelitoNorma.find(self.delito_norma_id) : nil
@@ -161,14 +165,16 @@ class Tramite < ActiveRecord::Base
   return success
  end
 
- # Regresa un arreglo de los usuarios que recibirán notificacion
+ # Regresa un arreglo de los usuarios que recibirán notificacion (Solo materia penal)
  def users_allowed_for_notification
-  unless self.participantes.empty?
-    array=[]
-    Role.find_by_name("jefedefensor").active_users.each{ |i| array << i  if i.email_valid? }
-    Role.find_by_name("notificante").active_users.each{ |i| array << i  if i.email_valid? }
-  end
-  return array
+   if self.materia && (self.materia == Materia.find_by_descripcion("PENAL"))
+      unless self.participantes.empty?
+        array=[]
+        Role.find_by_name("jefedefensor").active_users.each{ |i| array << i  if i.email_valid? }
+        Role.find_by_name("notificante").active_users.each{ |i| array << i  if i.email_valid? }
+      end
+   end
+   return array
  end
 
 # Actualización del estatus del trámite y además guarda registro en bitácora

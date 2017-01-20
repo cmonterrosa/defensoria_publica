@@ -80,12 +80,13 @@
                 end
 
             when 'amparos', 'sentencias', 'recursos', 'promociones', 'mecanismos_alternativos'
+                @tramites_controller = (@tramite && @tramite.es_penal?)? 'tramites' : 'tramites_nopenales'
                 case controller.action_name
-                    when 'index', 'new_or_edit', 'show'
-                    title = params[:controller].gsub("_", " ").upcase
-                        raw(link_to ' TRAMITES ', {:controller => 'tramites', :action => "index"}, :class => "arbol") <<
-                        ">> " +  raw(link_to ' MENU ', {:controller => 'tramites', :action => "menu", :id => @tramite}, :class => "arbol") <<
-                        ">> " +  raw(link_to title, {:controller => params[:controller], :action => "index", :t => @tramite}, :class => "arbol")
+                      when 'index', 'new_or_edit', 'show'
+                      title = params[:controller].gsub("_", " ").upcase
+                          raw(link_to ' TRAMITES ', {:controller => @tramites_controller, :action => "index"}, :class => "arbol") <<
+                          ">> " +  raw(link_to ' MENU ', {:controller => @tramites_controller, :action => "menu", :id => @tramite}, :class => "arbol") <<
+                          ">> " +  raw(link_to title, {:controller => params[:controller], :action => "index", :t => @tramite}, :class => "arbol")
                 end
 
             when 'estatus'

@@ -48,7 +48,7 @@ class Parte < ActiveRecord::Base
       if search =~ /^\w+$/
         find(:all, :joins => "a, tramites t, personas p, clave_electors ce",
           :select => "a.* ",
-          :conditions => ['a.tramite_id=t.id AND BINARY a.persona_id= BINARY p.id_persona AND  BINARY p.id_persona=ce.persona_id AND BINARY ce.descripcion like ?', "%#{search}%"],
+          :conditions => ['a.tramite_id=t.id AND BINARY a.persona_id= BINARY p.id_persona AND  BINARY p.id_persona=ce.persona_id OR BINARY ce.descripcion like ?', "%#{search}%"],
           :order => "a.created_at DESC")
 
       else

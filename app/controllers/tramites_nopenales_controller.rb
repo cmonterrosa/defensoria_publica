@@ -27,7 +27,13 @@ class TramitesNopenalesController < ApplicationController
     @defensores ||= Array.new
   end
 
-    def save
+  # Busqueda
+  def search
+    @tramites = Tramite.nopenal.search(params[:search]).paginate(:page => params[:page], :per_page => 25)
+    render :partial => "list", :layout => "content"
+  end
+
+  def save
     @tramite = (params[:id])? Tramite.find(params[:id]) : Tramite.nopenal.new
     @tramite.init_journal(current_user) if current_user
     @tramite.update_attributes(params[:tramite])
@@ -75,14 +81,16 @@ class TramitesNopenalesController < ApplicationController
    def get_datos_tramite
         if params[:tramite]
           @organo = Organo.find(params[:tramite][:organo_id]) if params[:tramite][:organo_id] && params[:tramite][:organo_id] =~ /\d{1,5}/
+          @materia = Materia.find(params[:tramite][:materia_id]) if params[:tramite][:materia_id] && params[:tramite][:materia_id] =~ /\d{1,5}/
+          @defensor = Defensor.find(params[:tramite][:defensor_id]) if params[:tramite][:defensor_id] && params[:tramite][:defensor_id] =~ /\d{1,5}/
           @folio, @anio = (params[:busqueda][:numero_expediente] && params[:busqueda][:numero_expediente] =~ /\d{1,5}\/20\d{2}/ ) ?  params[:busqueda][:numero_expediente].split("/")  : nil
           if  @organo && (@folio && @anio)
-              @tramite = Tramite.find(:first, :conditions => ["anio = ? AND folio_expediente = ? AND organo_id = ?", @anio, @folio_expediente, @organo.id] )
+              @tramite = Tramite.nopenal.find(:first, :conditions => ["(anio = ? AND folio_expediente = ?) AND organo_id = ?", @anio, @folio, @organo.id] )
           end
           @defensores = Defensor.nopenal.all
           @materias = Materia.nopenal.all
           @tipos_juicios = TipoJuicio.all
-          @tramite ||= Tramite.new
+          @tramite ||= Tramite.nopenal.new
           @tramite.anio = @anio if @tramite
           @tramite.folio_expediente = @folio if @tramite
           return render(:partial => 'datos_tramite', :layout => 'only_jquery' ) if request.xhr?

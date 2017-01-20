@@ -7,6 +7,7 @@ class TramitesController < ApplicationController
   require_role [:defensorpenal, :jefedefensor, :defensorapoyo]
   require_role :jefedefensor, :for => [:asignar, :history]
 
+  
   # Listado general del tramites penales
   def index
     @defensor = Defensor.penal.find(:first, :conditions => ["persona_id = ?", current_user.persona.id]) if current_user
@@ -141,13 +142,14 @@ class TramitesController < ApplicationController
    end
 
    def notificar
-     select_object
-     @user = User.find_by_login(Base64.decode64(params[:token])) if params[:token]
-     if (@user && @user == current_user) && (@user.has_role?(:jefedefensor) || @user.has_role?(:defensorapoyo))
-        render :partial => "notificacion_email", :layout => "content"
-     else
-        flash[:error] = "No tiene privilegios de notificar"
-        redirect_to :controller => "home"
+     if select_object
+      @user = User.find_by_login(Base64.decode64(params[:token])) if params[:token]
+      if (@user && @user == current_user) && (@user.has_role?(:jefedefensor) || @user.has_role?(:defensorapoyo))
+          render :partial => "notificacion_email", :layout => "content"
+      else
+          flash[:error] = "No tiene privilegios de notificar (Aplica unicamente para materia penal)"
+          redirect_to :controller => "home"
+      end
      end
    end
 
@@ -162,8 +164,10 @@ class TramitesController < ApplicationController
  protected
   
   def select_object
-        @tramite =  Tramite.penal.find(params[:id])
-   rescue ActiveRecord::RecordNotFound
+    begin
+      @tramite =  Tramite.penal.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
           render_404
-   end
+    end
+  end
 end

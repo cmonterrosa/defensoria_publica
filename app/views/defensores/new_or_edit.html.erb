@@ -58,6 +58,15 @@
                   </span>
        </div>
       </div>
+
+      <div class="grid-6-12">
+        <div class="grid-4-12">
+          <label><b>NÚMERO DE MÓDULO (FAMILIAR): </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-8-12">
+          <%= f.select(:numero_modulo, (1..20), { :include_blank => true })%>
+        </div>
+       </div>
       
       <div class="grid-12-12 clear"></div>
 

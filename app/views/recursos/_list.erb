@@ -1,6 +1,5 @@
 <%=render :partial => "home/arbol"%>
-
-<%=render :partial => "tramites/encabezado"%>
+<%=render :partial => "#{(@tramite && @tramite.es_penal?)? 'tramites' : 'tramites_nopenales' }/encabezado"%>
 
 <% form_tag({:action => "search", :t => @tramite}, {:class => "search"}) do -%>
   <p>
