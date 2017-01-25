@@ -66,6 +66,7 @@ class Tramite < ActiveRecord::Base
      Concluido.count(:id, :conditions => ["tramite_id = ?", self.id], :order => "updated_at") > 0 if self.id
    end
 
+   
    def verificar_registro_atencion(user)
        if user && self.id
          @anteriores = Atencion.find(:all, :conditions => ["tramite_id = ? AND user_id != ?", self.id, user.id])
@@ -115,20 +116,20 @@ class Tramite < ActiveRecord::Base
       "REGISTRO DE ATENCION: #{self.registro_atencion}" + " |  CAUSA PENAL: #{self.causa_penal} |  CARPETA DE INVESTIGACIÓN: #{self.carpeta_investigacion}  |  NUC: #{self.nuc}"
     end
 
-  # Muestra el número de expediente
-   def numero_expediente
+    # Muestra el número de expediente
+    def numero_expediente
      (self.folio_expediente) ?  "#{self.folio_expediente.to_s.rjust(4, '0')}/#{self.anio}" : nil
    end
 
- # Inicia el registro de modificación
-    def init_journal(user)
+   # Inicia el registro de modificación
+   def init_journal(user)
       @current_journal ||= Modificacion.new(:id_objeto => self.id, :user_id => user.id, :clase => self.class.to_s) if user
       @issue_before_change = self.clone
       @current_journal
     end
 
- # Guarda cambios en bitacora y es llamado despues de guardar un objeto
-    def crear_modificaciones
+   # Guarda cambios en bitacora y es llamado despues de guardar un objeto
+   def crear_modificaciones
       if @current_journal
         @current_journal.id_objeto ||= self.id
         @current_journal.is_created = (Modificacion.exists?(['clase = ? AND id_objeto = ? AND is_created = ?', @current_journal.clase, @current_journal.id_objeto, true ])) ? false : true
@@ -154,8 +155,8 @@ class Tramite < ActiveRecord::Base
     end
   end
 
- # Notificar de nuevo tramite
- def notificar_por_email
+  # Notificar de nuevo tramite
+  def notificar_por_email
   # sent a message to users from jefefensor and notificante roles if at least one row is exists
   success=false
   unless self.participantes.empty?
@@ -165,8 +166,8 @@ class Tramite < ActiveRecord::Base
   return success
  end
 
- # Regresa un arreglo de los usuarios que recibirán notificacion (Solo materia penal)
- def users_allowed_for_notification
+  # Regresa un arreglo de los usuarios que recibirán notificacion (Solo materia penal)
+  def users_allowed_for_notification
    if self.materia && (self.materia == Materia.find_by_descripcion("PENAL"))
       unless self.participantes.empty?
         array=[]
@@ -177,7 +178,7 @@ class Tramite < ActiveRecord::Base
    return array
  end
 
-# Actualización del estatus del trámite y además guarda registro en bitácora
+  # Actualización del estatus del trámite y además guarda registro en bitácora
   def update_estatus!(clave,usuario)
     begin
       @estatus = Estatu.find_by_clave(clave) if (!clave.nil? && !usuario.nil?)
@@ -189,6 +190,5 @@ class Tramite < ActiveRecord::Base
         puts exception if usuario
     end
   end
-
 
 end

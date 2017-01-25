@@ -8,16 +8,8 @@ class Organo < ActiveRecord::Base
   named_scope :salas_civiles, :conditions => {:fk_ramo => "C", :tipo_organo => "S"}
   named_scope :juzgados_control, :conditions => {:fk_ramo => "", :tipo_organo => "J"}
 
-
-
   def distrito
       Catalogo.distritos.find_by_clave(self.fk_distrito) if self.fk_distrito
-  end
-
-  def list
-    require 'rest-client'
-    RestClient.get "http://localhost:4567/#{DateTime.now}/#{DateTime.now}"
-    #RestClient.get 'http://example.com/resource', {params: {id: 50, 'foo' => 'bar'}}
   end
 
 end
