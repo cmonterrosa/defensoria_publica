@@ -19,7 +19,7 @@ class CreateMotivoConclusions < ActiveRecord::Migration
     MotivoConclusion.create(:materia_id => penal.id, :clave => "poralt", :descripcion => "POR APLICACION DE LOS MECANISMOS ALTERNATIVOS")
     MotivoConclusion.create(:materia_id => penal.id, :clave => "porrev", :descripcion => "POR REVOCACION DE PERSONALIDAD Y ACEPTACION DE ABOGADO PARTICULAR")
     MotivoConclusion.create(:materia_id => penal.id, :clave => "poramp", :descripcion => "POR AMPLIACION DE UNA SALIDA ALTERNA")
-    MotivoConclusion.create(:materia_id => penal.id, :clave => "porapli", :descripcion => "POR APLICACION DE CRITERIOS DE OPORTUNIDAD")
+    MotivoConclusion.create(:materia_id => penal.id, :clave => "porapl", :descripcion => "POR APLICACION DE CRITERIOS DE OPORTUNIDAD")
 
     # Familiar
     MotivoConclusion.create(:materia_id => familiar.id, :clave => "porsen", :descripcion => "POR SENTENCIA")

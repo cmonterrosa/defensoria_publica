@@ -11,8 +11,7 @@ class CreateTipoRecursos < ActiveRecord::Migration
     TipoRecurso.create(:clave => "revo", :descripcion => "REVOCACIÓN") unless TipoRecurso.exists?(:clave => "revo")
     TipoRecurso.create(:clave => "repo", :descripcion => "REPOSICIÓN") unless TipoRecurso.exists?(:clave => "repo")
     TipoRecurso.create(:clave => "cona", :descripcion => "CONTESTACIÓN DE AGRAVIOS") unless TipoRecurso.exists?(:clave => "cona")
-    TipoRecurso.create(:clave => "expa", :descripcion => "EXPOSICIÓN DE AGRAVIOS") unless TipoRecurso.exists?(:clave => "expa")
-    
+        
   end
 
   def self.down
