@@ -2,6 +2,10 @@
 
 <div class="container">
 
+  <div class="grid-12-12">
+    <%= error_messages_for :amparo %>
+  </div>
+
 <% form_for :amparo, @amparo, :url => { :action => "save", :controller => "amparos", :id => @amparo, :t => @tramite}, :html => {:multipart => true, :class => "formee"} do |f| -%>
   <fieldset>
     <legend>&nbsp;REGISTRO&nbsp;DE&nbsp;AMPAROS&nbsp;</legend>
@@ -84,6 +88,7 @@
 
       <%@adjunto = @amparo.adjunto%>
       <%=render :partial => "home/archivoadjunto"%>
+      
 
       <div class="grid-12-12 clear"></div>
 
