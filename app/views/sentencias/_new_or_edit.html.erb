@@ -27,38 +27,40 @@
       </div>
 
       <div class="grid-6-12">
-        <div class="grid-4-12">
+      <div class="grid-6-12">
+        <label><b>JUZGADO: </b><em class="formee-req">*</em></label>
+      </div>
+      <div class="grid-6-12">
+        <%= f.select(:organo_id, @organos.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true })%>
+      </div>
+    </div>
+
+      <div class="grid-6-12">
+        <div class="grid-5-12">
           <label><b>¿ES PROCEDENTE?: </b><em class="formee-req">*</em></label>
         </div>
-        <div class="grid-8-12">
-                  <span class="InputGroup">
-                    <label class="uper">SI <%= f.radio_button :procedente, "SI", :checked => @sentencia.procedente %></label>&nbsp;&nbsp;
-                    <label class="uper">NO <%= f.radio_button :procedente, "NO", :checked => @sentencia.procedente == false %></label>
-                  </span>
+        <div class="grid-7-12">
+          <span class="InputGroup">
+            <label class="uper">SI <%= f.radio_button :procedente, "SI", :checked => @sentencia.procedente %></label>&nbsp;&nbsp;
+            <label class="uper">NO <%= f.radio_button :procedente, "NO", :checked => @sentencia.procedente == false %></label>
+          </span>
        </div>
       </div>
 
-      <div class="grid-6-12">
+      <div class="grid-5-12">
         <div class="grid-4-12">
           <label><b>¿FUE APELADA?: </b><em class="formee-req">*</em></label>
         </div>
-        <div class="grid-8-12">
-                  <span class="InputGroup">
-                    <label class="uper">SI <%= f.radio_button :apelada, "SI", :checked => @sentencia.apelada %></label>&nbsp;&nbsp;
-                    <label class="uper">NO <%= f.radio_button :apelada, "NO", :checked => @sentencia.apelada == false %></label>
-                  </span>
-       </div>
+        <div class="grid-7-12">
+          <span class="InputGroup">
+            <label class="uper">SI <%= f.radio_button :apelada, "SI", :checked => @sentencia.apelada %></label>&nbsp;&nbsp;
+            <label class="uper">NO <%= f.radio_button :apelada, "NO", :checked => @sentencia.apelada == false %></label>
+          </span>
+        </div>
       </div>
 
 
-    <div class="grid-6-12">
-        <div class="grid-6-12">
-          <label><b>JUZGADO: </b><em class="formee-req">*</em></label>
-        </div>
-        <div class="grid-6-12">
-          <%= f.select(:organo_id, @organos.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true })%>
-        </div>
-    </div>
+    
 
 
       <div class="grid-6-12">
@@ -66,7 +68,10 @@
           <label><b>BENEFICIOS: </b></label>
         </div>
         <div class="grid-8-12">
-          <%= f.text_area(:beneficios)%>
+          <span class="InputGroup">
+            <label class="uper">SI <%= f.radio_button :beneficios, "SI", :checked => @sentencia.apelada %></label>&nbsp;&nbsp;
+            <label class="uper">NO <%= f.radio_button :beneficios, "NO", :checked => @sentencia.apelada == false %></label>
+          </span>
         </div>
       </div>
 

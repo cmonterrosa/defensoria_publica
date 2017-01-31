@@ -1,13 +1,12 @@
 <!-- persona vacia -->
-<div class="grid-6-12">
-        <div class="grid-4-12">
-          <label><b>SELECCIONE UNA PERSONA: </b><em class="formee-req">*</em></label>
-        </div>
-        <div class="grid-8-12">
-          <%= select(:persona, :id, @personas.collect {|p| [ p.show_info, p.id ] }, { :include_blank => true })%>
-        </div>
+<div class="grid-12-12">
+  <div class="grid-3-12">
+    <label><b>SELECCIONE UNA PERSONA: </b><em class="formee-req">*</em></label>
+  </div>
+  <div class="grid-9-12">
+    <%= select(:persona, :id, @personas.collect {|p| [ p.show_info, p.id ] }, { :include_blank => true })%>
+  </div>
  </div>
-
 
 <%@action = (@tipo)? 'get_datos_personales_minimos' : 'get_datos_personales'%>
 <%= observe_field 'persona_id',
@@ -18,6 +17,5 @@
     :action => @action},
     :update => 'datos_personales',
     :with => "persona_id"%>
-
 
 <%=render :partial => "datos_personales"%>

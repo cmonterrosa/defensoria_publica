@@ -6,6 +6,8 @@ class CreateExtensionPersonas < ActiveRecord::Migration
       t.integer :sexo_id
       t.integer :idioma_id
       t.integer :origen_id
+      t.integer :entorno_id
+      t.integer :marginacion_id
       t.timestamps
     end
     execute "ALTER TABLE `extension_personas` modify COLUMN id int(11) NOT NULL AUTO_INCREMENT;"

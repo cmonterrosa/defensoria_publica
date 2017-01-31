@@ -1,7 +1,7 @@
 class CreateFiscalias < ActiveRecord::Migration
   def self.up
     create_table :fiscalias do |t|
-      t.column :clave, :string, :limit => 10
+      t.column :clave, :string, :limit => 11
       t.column :descripcion, :string, :limit => 100
       t.boolean :activa
     end

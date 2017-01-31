@@ -23,33 +23,42 @@
   <%end%>
 
 
-<div class="grid-4-12">
+<div class="grid-6-12">
   <div class="grid-4-12">
     <label><b>RFC: </b></label>
   </div>
   <div class="grid-8-12"><%=text_field :persona, :per_rfc,  :onBlur=>"javascript:{this.value = this.value.toUpperCase(); }"%></div>
 </div>
 
-<div class="grid-4-12">
+<div class="grid-6-12">
   <div class="grid-4-12">
     <label><b>CURP: </b></label>
   </div>
   <div class="grid-8-12"><%=text_field :persona, :per_curp,  :onBlur=>"javascript:{this.value = this.value.toUpperCase(); }"%></div>
 </div>
 
-<div class="grid-4-12">
+<div class="grid-6-12">
   <div class="grid-4-12">
     <label><b>TIPO DE PERSONA: </b></label>
   </div>
   <div class="grid-8-12"><%=select :persona, :per_tipo,  ["FISICA", "MORAL"], :onBlur=>"javascript:{this.value = this.value.toUpperCase(); }"%></div>
 </div>
 
-<div class="grid-4-12">
+<div class="grid-6-12">
   <div class="grid-4-12">
     <label><b>CLAVE DE ELECTOR: </b></label>
   </div>
   <%@clave_elector = (@persona) ? ClaveElector.find_by_persona_id(@persona.id) : nil%>
   <div class="grid-8-12"><%=text_field :clave_elector, :descripcion,  :onBlur=>"javascript:{this.value = this.value.toUpperCase(); }"%></div>
+</div>
+
+<div class="grid-6-12">
+  <div class="grid-5-12">
+    <label><b>SEXO: </b><em class="formee-req">*</em></label>
+  </div>
+  <div class="grid-7-12">
+    <%= select(:extension, :sexo_id, Catalogo.sexos.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true })%>
+  </div>
 </div>
 
 <div class="grid-6-12">
@@ -76,41 +85,51 @@
 </div>
 
 <div class="grid-6-12">
-  <div class="grid-5-12">
+  <div class="grid-4-12">
     <label><b>FECHA DE NACIMIENTO: </b><em class="formee-req">*</em></label>
   </div>
-  <div class="grid-7-12">
+  <div class="grid-8-12">
     <span class="datetime">
       <%=date_select :persona, :per_nacimiento, :order => [:day, :month, :year], :start_year => Time.now.year - 110, :end_year => Time.now.year%>
     </span>
   </div>
 </div>
 
+
 <div class="grid-6-12">
-        <div class="grid-4-12">
-          <label><b>SEXO: </b><em class="formee-req">*</em></label>
-        </div>
-        <div class="grid-8-12">
-          <%= select(:extension, :sexo_id, Catalogo.sexos.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true })%>
-        </div>
+  <div class="grid-4-12">
+    <label><b>ORIGEN: </b></label>
+  </div>
+  <div class="grid-8-12">
+    <%= select(:extension, :origen_id, Origen.all.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true })%>
+  </div>
 </div>
 
 <div class="grid-6-12">
-        <div class="grid-4-12">
-          <label><b>ORIGEN: </b></label>
-        </div>
-        <div class="grid-8-12">
-          <%= select(:extension, :origen_id, Origen.all.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true })%>
-        </div>
+  <div class="grid-4-12">
+    <label><b>MARGINACION: </b></label>
+  </div>
+  <div class="grid-8-12">
+    <%= select(:extension, :marginacion_id, Marginacion.all.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true })%>
+  </div>
 </div>
 
 <div class="grid-6-12">
-        <div class="grid-4-12">
-          <label><b>IDIOMA PRINCIPAL: </b></label>
-        </div>
-        <div class="grid-8-12">
-          <%= select(:extension, :idioma_id, Catalogo.idiomas.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true })%>
-        </div>
+  <div class="grid-4-12">
+    <label><b>ENTORNO: </b></label>
+  </div>
+  <div class="grid-8-12">
+    <%= select(:extension, :entorno_id, Entorno.all.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true })%>
+  </div>
+</div>
+
+<div class="grid-6-12">
+  <div class="grid-4-12">
+    <label><b>IDIOMA PRINCIPAL: </b></label>
+  </div>
+  <div class="grid-8-12">
+    <%= select(:extension, :idioma_id, Catalogo.idiomas.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true })%>
+  </div>
 </div>
 
   <%#unless @persona%>
