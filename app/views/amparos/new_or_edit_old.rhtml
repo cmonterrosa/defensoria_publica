@@ -1,0 +1,64 @@
+<%=render :partial => "home/arbol"%>
+
+<div class="container">
+<% form_for :amparo, @amparo, :url => { :action => "save", :controller => "amparos", :id => @amparo, :t => @tramite}, :html => {:class => "formee"} do |f| -%>
+  <fieldset>
+    <legend>&nbsp;REGISTRO&nbsp;DE&nbsp;AMPAROS&nbsp;</legend>
+      <div class="grid-form">
+          <%= error_messages_for :amparo %>
+      </div>
+
+      <div class="grid-6-12">
+        <div class="grid-6-12">
+          <label><b>FECHA DE LA SOLICITUD: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-6-12"><%=f.text_field :fecha%></div>
+      </div>
+
+      <div class="grid-6-12">
+        <div class="grid-4-12">
+          <label><b>TIPO: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-8-12">
+          <%= f.select(:tipo_amparo_id, @tipos_amparos.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true })%>
+        </div>
+       </div>
+
+       <div class="grid-12-12">
+        <div class="grid-4-12">
+          <label><b>DESCRIPCIÓN: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-8-12"><%=f.text_area :descripcion%></div>
+      </div>
+
+      <div class="grid-12-12">
+        <div class="grid-4-12">
+            <label><b>OBSERVACIONES: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-8-12"><%=f.text_area :observaciones%></div>
+      </div>
+
+      <div class="grid-12-12 clear"></div>
+
+      <div class="grid-form-login">
+        <input class="right" type="submit" title="GUARDAR" value="GUARDAR" />
+      </div>
+ </fieldset>
+<%end%>
+</div>
+
+<!-- Validaciones -->
+<script type="text/javascript">
+  var tipo = new LiveValidation( 'amparo_tipo_amparo_id', {onlyOnSubmit: true} );
+  tipo.add( Validate.Presence );
+  var fecha = new LiveValidation( 'amparo_fecha', {onlyOnSubmit: true} );
+  fecha.add( Validate.Presence );
+</script>
+
+
+
+    
+
+
+
+
