@@ -33,7 +33,7 @@ class Document
 
   # Envía datos mediante conexión jdbc a JasperReports
   def self.generate_report_jdbc(report_design, output_type, report_params)
-       report_design << '.jasper' if !report_design.match(/\.jasper$/)
+      report_design << '.jasper' if !report_design.match(/\.jasper$/)
        if OS.windows?   #=> true or false
           interface_classpath=RAILS_ROOT+"\\app\\jasper\\bin"
           mode = "w+b" #windows requires binary mode
@@ -61,12 +61,19 @@ class Document
         end
 
         jdbc_url= "jdbc:#{config['adapter']}://#{host}:#{port}/#{database}"
-        exec = "java -Djava.awt.headless=true -cp \"#{interface_classpath}\" XmlJasperInterface -Duser.language=es -Duser.region=MX -o#{output_type} -f#{report_url} #{report_params} -d\"#{jdbc_driver}\" -u\"#{jdbc_url}\" -n\"#{username}\" -p\"#{password}\""
-	      puts exec
-       IO.popen(exec, "r") do |pipe|
-	        results = pipe.read
-	        pipe.close
-	      end
+        exec_string = "java -Djava.awt.headless=true -cp \"#{interface_classpath}\" XmlJasperInterface -Duser.language=es -Duser.region=MX -o#{output_type} -f#{report_url} #{report_params} -d\"#{jdbc_driver}\" -u\"#{jdbc_url}\" -n\"#{username}\" -p\"#{password}\""
+	      
+        IO.popen(exec_string, mode) do |pipe|
+          results = pipe.read
+          pipe.close
+        end
+        
+        #puts exec_string
+        #IO.popen(exec_string, "r+") do |pipe|
+	       # results = pipe.read
+	        #pipe.close
+	      #end
+     puts results
     return results
   end
 end

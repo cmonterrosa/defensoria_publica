@@ -195,6 +195,19 @@ class AudienciasController < ApplicationController
       end
  end
 
+
+ def print_ejemplo
+        param=Hash.new {|k, v| k[v] = {:tipo=>"",:valor=>""}}
+                
+         if File.exists?(REPORTS_DIR + "/report1.jasper")
+            send_doc_jdbc("report1", "report1", param, output_type = 'pdf')
+         else
+            flash[:error] = "archivo de reporte no existe"
+            redirect_to :controller => "home"
+         end
+      
+ end
+
  # Elimina registro de audiencia
   def destroy
     select_object

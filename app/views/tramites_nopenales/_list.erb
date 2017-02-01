@@ -8,6 +8,7 @@
     <tr>
        <th style="vertical-align: middle;">Folio</th>
        <th style="vertical-align: middle;">Fecha/hora atención</th>
+       <th style="vertical-align: middle;">Fecha modificación</th>
        <th style="vertical-align: middle;">Número de Expediente</th>
        <th style="vertical-align: middle;">Juzgado/Órgano</th>
        <th style="vertical-align: middle;">Defensor</th>
@@ -17,6 +18,7 @@
     <tr class="<%=h (t.concluido?)? 'concluido' : ''%>">
       <td style="vertical-align: middle;"><%=h link_to t.identificador_unico, {:action => "menu", :id => t}, :class => "titulocalendario" -%></td>
       <td style="vertical-align: middle;"> <%=(t.fechahora_atencion) ? t.fechahora_atencion.strftime("%d de %B de %Y / %H:%M %p") : ''%></td>
+      <td style="vertical-align: middle;"> <%=(t.updated_at) ? t.updated_at.strftime("%d de %B de %Y / %H:%M %p") : ''%></td>
       <td style="vertical-align: middle;"><%=t.numero_expediente%></td>
       <td style="vertical-align: middle;"><%=(t.organo) ? t.organo.descripcion : ''%></td>
       <%if t.defensor_id.nil? && current_user.has_role?(:jefedefensor)%>
