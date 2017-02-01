@@ -39,8 +39,8 @@ class AmparosController < ApplicationController
         flash[:notice] = "Amparo registrado correctamente"
         redirect_to :controller => "amparos", :t => @tramite
       else
-        fill_combos
-        render :action => "new_or_edit"
+          fill_combos
+          render :action => "new_or_edit"
       end
 
       rescue ActiveRecord::RecordInvalid => invalid
