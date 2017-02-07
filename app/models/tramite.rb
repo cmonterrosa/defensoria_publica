@@ -24,6 +24,7 @@ class Tramite < ActiveRecord::Base
   belongs_to :materia
   belongs_to :organo
   belongs_to :tipo_juicio
+   
 
   named_scope :penal, :conditions => {:materia_id => Materia.find_by_descripcion("PENAL").id}
   named_scope :nopenal, :conditions => ['materia_id  != ?', Materia.find_by_descripcion("PENAL").id]

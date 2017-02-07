@@ -47,7 +47,7 @@ class AcuerdosController < ApplicationController
   def reporte_servicio
     server = "172.20.254.18:85"
     url="http://#{server}/retenciones/procedimientoimprimir.asmx?WSDL"
-    method="procedimientoimprimir.asmx?WSDL"
+    method= "" #{}"procedimientoimprimir.asmx?WSDL"
     response = RestClient.post  url+method,  {:enlace => "1183/2010", :ejercicio => 2}
         @acuerdos= JSON.parse(response)
         render :partial => "list", :layout => "content"
