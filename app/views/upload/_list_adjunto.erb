@@ -1,0 +1,62 @@
+<%if flash[:notice]%>
+<div class="formee-msg-success">
+  <h3>Operación realizada exitosamente:</h3>
+  <ul>
+    <li><%=flash[:notice]%></li>
+  </ul>
+</div>
+<%elsif flash[:error]%>
+<div class="formee-msg-error">
+  <h3>Error:</h3>
+  <ul>
+    <li><%=flash[:error]%></li>
+  </ul>
+</div>
+<%else%>
+  <%#*<p></p>%>
+<%end%>
+
+<div class="container">
+  <div class="formee">
+    <table align="center" class="subprincipal" width="90%" cellspacing="5" style="BORDER-RIGHT: #cccccc 1px solid; BORDER-TOP: #cccccc 1px solid; BORDER-LEFT: #cccccc 1px solid; BORDER-BOTTOM: #cccccc 1px solid;">
+      <tr class="tdiagnostico">
+        <td align="center" ><label>ADJUNTO</label></td>
+      </tr>
+    </table>
+    <br />
+    <fieldset>
+      <div class="grid-12-12 clear">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="sample" style="BORDER-RIGHT: #cccccc 1px solid; BORDER-TOP: #cccccc 1px solid; BORDER-LEFT: #cccccc 1px solid; BORDER-BOTTOM: #cccccc 1px solid">
+          
+
+          <tr>
+            <td><%= @adjunto.created_at%></td>
+          </tr>
+          
+          
+
+          
+     
+        </table>
+      </div>
+
+    <div class="grid-12-12 clear"></div>
+
+
+
+    <!-- Cargar otra evidencia -->
+    <% form_for :adjunto, @adjunto, :url => { :action => "save_adjunto", :controller => "upload"} do -%>
+       <div class="grid-center">
+        <p id="pdf_link"><input type="submit" style="vertical-align: middle; font-size: 11px;" title="CARGAR OTRA EVIDENCIA" value="+ CAMBIAR ADJUNTO" /></p>
+      </div>
+    <%end%>
+
+
+
+
+
+
+    </fieldset>
+  </div>
+</div>
+

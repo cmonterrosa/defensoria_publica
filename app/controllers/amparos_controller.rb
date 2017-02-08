@@ -34,7 +34,7 @@ class AmparosController < ApplicationController
       @amparo = (params[:id])? Amparo.find(params[:id]) : Amparo.new
       @amparo.update_attributes(params[:amparo])
       @amparo.tramite = @tramite
-      if @tramite && @amparo.valid?
+      if @tramite  && @amparo.valid?
         @amparo.save && save_adjunto(@amparo)
         flash[:notice] = "Amparo registrado correctamente"
         redirect_to :controller => "amparos", :t => @tramite

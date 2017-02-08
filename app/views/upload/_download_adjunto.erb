@@ -2,7 +2,7 @@
   <fieldset>
         <legend>ARCHIVOS&nbsp;ADJUNTOS</legend>
             
-            <%=link_to 'DESCARGAR ADJUNTO', {:action => "download", :controller => "upload", :id => @adjunto.id},  :method => :post, :class => "arbol titulocalendario"-%>
+            <%=link_to 'DESCARGAR ADJUNTO', {:action => "download", :controller => "upload", :id => @adjunto.id},  :method => :post, :class => "arbol titulocalendario"-%> | <%=link_to 'REEMPLAZARLO', {:action => "update_adjunto", :controller => "upload", :id => @adjunto.id}, :class => "arbol titulo_calendario fancybox fancybox.iframe"%>
 
             <!--
             < form_for :escuela, @escuela, :url => { :action => "download", :controller => "upload", :id => @adjunto.id }, :html => { :target => "_blank"} do |f| -%>

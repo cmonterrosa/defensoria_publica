@@ -24,7 +24,15 @@
       <td style="vertical-align: middle;"><%=(p.tipo_amparo) ? p.fecha : "--"%></td>
       <td style="vertical-align: middle;"><%=(p.tipo_amparo) ? p.tipo_amparo.descripcion : "--"%></td>
       <td style="vertical-align: middle;"><%=p.num_amparo %></td>
-      <td style="vertical-align: middle;"><%=link_to "Editar", {:action => "new_or_edit", :id => p}, :class => 'boton'  -%></td>
+      <td style="vertical-align: middle;"><%=link_to "Editar", {:action => "new_or_edit", :id => p, :t => @tramite}, :class => 'boton'  -%></td>
+
+      <!-- si tiene adjunto -->
+      <%if p.adjunto%>
+         <td style="vertical-align: middle;"><%=link_to 'EDITAR ADJUNTO', :action => "list_adjunto", :controller => "upload", :amparo => p%></td>
+      <%else%>
+           <td style="vertical-align: middle;">&nbsp;</td>
+      <%end%>
+
       <td style="vertical-align: middle;"><%=link_to "Eliminar", {:action => "destroy", :id => p, :t => @tramite}, :confirm => '¿Desea eliminar el registro?', :class => 'boton'  -%></td>
     </tr>
     <%end%>

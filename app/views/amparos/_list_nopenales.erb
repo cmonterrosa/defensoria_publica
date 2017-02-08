@@ -31,6 +31,15 @@
       <td style="vertical-align: middle;"><%=(p.sentido_resolucion_amparo) ? p.sentido_resolucion_amparo.descripcion : "--"%></td>
       <td style="vertical-align: middle;"><%=link_to "Detalle", {:action => "show", :id => p}, :class => 'boton'  -%></td>
       <td style="vertical-align: middle;"><%=link_to "Editar", {:action => "new_or_edit", :id => p}, :class => 'boton'  -%></td>
+
+  <!-- si tiene adjunto -->
+      <%if p.adjunto%>
+         <td style="vertical-align: middle;"><%=link_to 'ADJUNTO', {:action => "list_adjunto", :controller => "upload", :amparo => p}, :class => "fancybox fancybox.iframe boton"%></td>
+      <%else%>
+           <td style="vertical-align: middle;">&nbsp;</td>
+      <%end%>
+
+
       <td style="vertical-align: middle;"><%=link_to "Eliminar", {:action => "destroy", :id => p, :t => @tramite}, :confirm => '¿Desea eliminar el registro?', :class => 'boton'  -%></td>
     </tr>
     <%end%>

@@ -30,6 +30,12 @@ class UploadController < ApplicationController
     render :partial => "list", :layout => "only_javascript"
   end
 
+  def list_adjunto
+    @objeto = Amparo.find(params[:amparo]) if params[:amparo]
+    @adjunto = @objeto.adjunto
+    render :partial => "list_adjunto"
+  end
+
 
   #################################################
   #
