@@ -101,10 +101,12 @@ class DefensoresController < ApplicationController
      end
      if @materia && @materia.descripcion == "MIXTA"
        @adscripcion = Adscripcion.find(current_user.adscripcion ) if current_user && current_user.adscripcion
-        @defensores = @adscripcion.find()
+        @defensores = @adscripcion.defensores
+
       else
       @defensores = @materia = Materia.find(@materia_id).defensors
     end
+    render :partial => "get_defensor_por_materia", :layout => "only_jquery"
   end
 
 end

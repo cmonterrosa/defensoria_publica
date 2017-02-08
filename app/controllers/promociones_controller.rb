@@ -14,7 +14,7 @@ class PromocionesController < ApplicationController
   end
 
   def new_or_edit
-      @amparo= (params[:id])? Amparo.find(params[:id]) : Promocion.new
+      @promocion= (params[:id])? Promocion.find(params[:id]) : Promocion.new
       @tramite = Tramite.find(params[:t]) if params[:t]
       @tipo_promocions= TipoPromocion.all
       @contestacion = Contestacion.all 
