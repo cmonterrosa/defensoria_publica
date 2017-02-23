@@ -28,6 +28,8 @@ class ParticipantesController < ApplicationController
       @tipo_participantes = TipoParticipante.all
       @entornos = Entorno.all
       @marginacions = Marginacion.all
+      @edo_civil = Catalogo.estado_civil.all
+      @escolaridades = Catalogo.escolaridad.all
   end
 
   def save

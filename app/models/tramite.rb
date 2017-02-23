@@ -108,9 +108,9 @@ class Tramite < ActiveRecord::Base
    end
 
    # Método que verifica si cuenta con un número de expediente válido
-   def has_numero_expediente?
-      self.anio && self.folio_expediente
-   end
+   #def has_numero_expediente?
+      #self.anio && self.folio_expediente
+   #end
 
     # Muestra un string con información del trámite
     def show_info
@@ -118,9 +118,9 @@ class Tramite < ActiveRecord::Base
     end
 
     # Muestra el número de expediente
-    def numero_expediente
-     (self.folio_expediente) ?  "#{self.folio_expediente.to_s.rjust(4, '0')}/#{self.anio}" : nil
-   end
+    #def numero_expediente
+     #(self.folio_expediente) ?  "#{self.folio_expediente.to_s.rjust(4, '0')}/#{self.anio}" : nil
+    #end
 
    # Inicia el registro de modificación
    def init_journal(user)
