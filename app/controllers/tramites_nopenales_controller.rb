@@ -17,7 +17,7 @@ class TramitesNopenalesController < ApplicationController
    # Metodo que crea o recupera un registro
   def new_or_edit
     @tramite = (params[:id])? Tramite.find(params[:id]) : Tramite.new
-    @numero_expediente = @tramite.numero_expediente if @tramite
+    #@numero_expediente = @tramite.numero_expediente if @tramite
     @tramite.fechahora_atencion ||= Time.now.strftime("%Y/%m/%d")
     @materias = Materia.nopenal.all
     @organos = Organo.juzgados_familiares + Organo.juzgados_civiles + Organo.salas_civiles + Organo.salas_familiares
@@ -83,7 +83,7 @@ class TramitesNopenalesController < ApplicationController
           @organo = Organo.find(params[:tramite][:organo_id]) if params[:tramite][:organo_id] && params[:tramite][:organo_id] =~ /\d{1,5}/
           @materia = Materia.find(params[:tramite][:materia_id]) if params[:tramite][:materia_id] && params[:tramite][:materia_id] =~ /\d{1,5}/
           @defensor = Defensor.find(params[:tramite][:defensor_id]) if params[:tramite][:defensor_id] && params[:tramite][:defensor_id] =~ /\d{1,5}/
-          @folio, @anio = (params[:busqueda][:numero_expediente] && params[:busqueda][:numero_expediente] =~ /\d{1,5}\/20\d{2}/ ) ?  params[:busqueda][:numero_expediente].split("/")  : nil
+          #@folio, @anio = (params[:busqueda][:numero_expediente] && params[:busqueda][:numero_expediente] =~ /\d{1,5}\/20\d{2}/ ) ?  params[:busqueda][:numero_expediente].split("/")  : nil
           if  @organo && (@folio && @anio)
               @tramite = Tramite.nopenal.find(:first, :conditions => ["(anio = ? AND folio_expediente = ?) AND organo_id = ?", @anio, @folio, @organo.id] )
           end
