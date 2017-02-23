@@ -32,6 +32,16 @@ $j(document).ready(function() {
         </div>
       </div>
 
+
+      <div class="grid-6-12">
+        <div class="grid-4-12">
+          <label><b>DEFENSOR PÚBLICO: </b><em class="formee-req">*</em></label>
+        </div>
+        <div class="grid-8-12">
+        <%= select(:tramite, :defensor_id, Defensor.nopenal.all.collect {|p| [ p.persona.nombre_completo, p.id ] }, { :include_blank => true })%>
+        </div>
+    </div>
+
     <div class="grid-6-12">
         <div class="grid-4-12">
           <label><b>MATERIA: </b><em class="formee-req">*</em></label>

@@ -8,9 +8,9 @@ class Defensor < ActiveRecord::Base
   belongs_to :municipio
   belongs_to :materia
 
-  named_scope :penal, :conditions => {:materia_id => Materia.find_by_descripcion("PENAL").id}
+  named_scope :penal, :conditions => {:materia_id => Materia.find_by_descripcion("PENAL").id, :activo => 1}
   named_scope :nopenal, :conditions => ['materia_id  != ?', Materia.find_by_descripcion("PENAL").id]
-  named_scope :familiar, :conditions => {:materia_id => Materia.find_by_descripcion("FAMILIAR").id}
+  named_scope :familiar, :conditions => {:materia_id => Materia.find_by_descripcion("FAMILIAR").id, :activo => 1}
   named_scope :civil, :conditions => {:materia_id => Materia.find_by_descripcion("CIVIL").id}
 
   validates_presence_of :persona_id, :message => "- Debe vincularse a una persona"

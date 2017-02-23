@@ -11,9 +11,9 @@ class CreateAudiencias < ActiveRecord::Migration
       t.string :persona_id, :limit => 36
       t.integer :adscripcion_id
       t.boolean :activo
-      t.boolean :atendido
+      t.boolean :atendido, :default => false
       t.integer :user_id
-      t.boolean :es_inicio
+      t.boolean :es_inicio, :default => false
       t.timestamps
     end
     add_index :audiencias, :cve_aud, :name => "audiencias_cve_aud"

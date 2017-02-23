@@ -5,6 +5,9 @@
           <label><b>DEFENSOR PUBLICO: </b><em class="formee-req">*</em></label>
         </div>
         <div class="grid-6-12">
-          <%= select(:audiencia, :defensor_id, @defensores.collect {|p| [ p.inspect, p.id ] }, { :include_blank => true })%>
+          <%= select(:audiencia, :defensor_id, @defensores.collect {|p| [ p.persona.nombre_completo, p.id ] }, { :include_blank => true })%>
         </div>
+        
  </div>
+
+

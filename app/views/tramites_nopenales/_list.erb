@@ -19,7 +19,7 @@
       <td style="vertical-align: middle;"><%=h link_to t.identificador_unico, {:action => "menu", :id => t}, :class => "titulocalendario" -%></td>
       <td style="vertical-align: middle;"> <%=(t.fechahora_atencion) ? t.fechahora_atencion.strftime("%d de %B de %Y / %H:%M %p") : ''%></td>
       <td style="vertical-align: middle;"> <%=(t.updated_at) ? t.updated_at.strftime("%d de %B de %Y / %H:%M %p") : ''%></td>
-      <td style="vertical-align: middle;"><%=t.numero_expediente%></td>
+      <td style="vertical-align: middle;"><%=t.num_expediente%></td>
       <td style="vertical-align: middle;"><%=(t.organo) ? t.organo.descripcion : ''%></td>
       <%if t.defensor_id.nil? && current_user.has_role?(:jefedefensor)%>
         <td style="vertical-align: middle;"><%=link_to "ASIGNAR DEFENSOR", {:action => "new_or_edit", :id => t}, :class => 'boton'  -%></td>

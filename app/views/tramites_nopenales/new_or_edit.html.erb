@@ -1,9 +1,21 @@
+<%=javascript_include_tag "livevalidation/livevalidation_standalone.js" %>
+<%= stylesheet_link_tag "livevalidation/validation.css" %>
+
+<script type="text/javascript">
+$j(document).ready(function() {
+        $j('#tramite_fechahora_atencion').datetimepicker({
+          dayOfWeekStart : 1,
+          buttonImage: "/images/icons/calendar.gif",
+          lang:'es'
+        });
+  });
+</script>
+
 
 <%=render :partial => "home/arbol"%>
 
 <div class="container">
-
-   <div class="formee-msg-info">
+  <div class="formee-msg-info">
     <h3>Información importante</h3>
     <ul>
       <li>Los campos marcados con <em class="formee-req">*</em> son obligatorios.</li>
@@ -11,41 +23,104 @@
     <ul><li>&nbsp;</li></ul>
   </div>
 
+<!--
+ <div class="grid-12-12">
+        <div class="grid-12-12">
+            <label><b>NÚMERO DE EXPEDIENTE: <%=@tramite.num_expediente%></b><em class="formee-req">*</em></label>
+        </div>
+       <div><%#=hidden_field :tramite, :anio, :value => @anio%></div>
+       <div><%#=hidden_field :tramite, :folio_expediente, :value => @folio%></div>
+  </div>
+  -->
+
 
 <% form_for :tramite, @tramite, :url => { :action => "save", :controller => "tramites_nopenales", :id => @tramite}, :html => {:class => "formee", :id => "new_tramitenopenal"} do |f| -%>
   <fieldset>
     <legend>&nbsp;REGISTRO&nbsp;DE&nbsp;TRAMITE</legend>
       <div class="grid-12-12">
-          <%= error_messages_for :tramite %>
+        <%= error_messages_for :tramite %>
       </div>
 
-      <div class="grid-6-12">
-        <div class="grid-4-12">
-          <label><b>NÚMERO DE EXPEDIENTE: </b></label>
-        </div>
-        <div class="grid-8-12"><%=text_field :busqueda, :numero_expediente, :value => @numero_expediente%></div>
-      </div>
 
-     <div class="grid-6-12">
-        <div class="grid-4-12">
-            <label><b>ÓRGANO/JUZGADO: </b><em class="formee-req">*</em></label>
-        </div>
-        <div class="grid-8-12">
-          <%= select :tramite, :organo_id, @organos.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true }%>
-        </div>
+  <div class="grid-12-12">
+    <div class="grid-4-12">
+      <label><b>NÚMERO DE EXPEDIENTE: </b></label>
+    </div>
+    <div class="grid-6-12">
+      <%= f.text_field(:num_expediente)%>
+    </div>
+    <div><%=hidden_field :tramite, :anio, :value => @anio%></div>
+    <div><%=hidden_field :tramite, :folio_expediente, :value => @folio%></div>    
+  </div>
+
+  <div class="grid-12-12">
+    <div class="grid-4-12">
+      <label><b>ÓRGANO/JUZGADO: </b><em class="formee-req">*</em></label>
+    </div>
+    <div class="grid-6-12">
+      <%= select :tramite, :organo_id, @organos.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true }%>
+    </div>
+  </div>
+
+  <div class="grid-12-12">
+    <div class="grid-4-12">
+      <label><b>MATERIA: </b><em class="formee-req">*</em></label>
+    </div>
+    <div class="grid-6-12">
+      <%= select(:tramite, :materia_id, @materias.collect {|m| [ m.descripcion, m.id ] }, { :include_blank => true })%>
+    </div>
+  </div>
+
+  <div class="grid-12-12">
+    <div class="grid-4-12">
+      <label><b>DEFENSOR PÚBLICO: </b><em class="formee-req">*</em></label>
+    </div>
+    <div class="grid-6-12">
+      <%= select(:tramite, :defensor_id, Defensor.nopenal.all.collect {|p| [ p.persona.nombre_completo, p.id ] }, { :include_blank => true })%>
+    </div>
+  </div>
+
+  <div class="grid-12-12">
+    <div class="grid-4-12">
+      <label><b>TIPO DE JUICIO: </b><em class="formee-req">*</em></label>
+    </div>
+    <div class="grid-6-12">
+      <%= select(:tramite, :tipo_juicio_id, @tipos_juicios.collect {|m| [ m.descripcion, m.id ] }, { :include_blank => true })%>
+    </div>
+  </div>
+
+  <div class="grid-12-12">
+    <div class="grid-4-12">
+      <label><b>FECHA/HORA DE ATENCIÓN: </b><em class="formee-req">*</em></label>
+    </div>
+    <div class="grid-6-12"><%=text_field  :tramite, :fechahora_atencion%></div>
+  </div>
+
+  <div class="grid-12-12">
+    <div class="grid-4-12">
+      <label><b>OBSERVACIONES: </b></label>
+    </div>
+    <div class="grid-6-12"><%=text_area  :tramite, :observaciones%></div>
+  </div>
+
+    <div id ="boton_guardar" class="grid-form-login">
+      <input class="right" type="submit" title="GUARDAR" value="GUARDAR" />
     </div>
 
       
-      <div class="grid-12-12 clear"></div>
-      <div class="grid-12-12"><img alt="spinner" id="spinner" src="/images/loading_spinner.gif" style="display:none;" /></div>
+  <div class="grid-12-12 clear"></div>
+  <div class="grid-12-12"><img alt="spinner" id="spinner" src="/images/loading_spinner.gif" style="display:none;" /></div>
 
 
-      <div id="datos_tramite">
-        <%if @tramite.has_numero_expediente?%>
-            <%=render :partial => "datos_tramite"%>
-        <%end%>
-      </div>
-</fieldset>
+<!-- Validaciones 
+  <div id="datos_tramite">
+    <%#if @tramite.has_numero_expediente?%>
+      <%#=render :partial => "datos_tramite"%>
+    <%#end%>
+  </div>
+ -->
+
+  </fieldset>
 <%end%>
 </div>
 
@@ -60,10 +135,17 @@
 
 
 <%#= observe_form('new_tramitenopenal', :update => "datos_tramite",
-                          :on => "change",
-                          :loading => "Element.show('spinner')",
-                          :complete => "Element.hide('spinner')",
-                          :url => {:action => :get_datos_tramite})%>
+  :on => "change",
+  :loading => "Element.show('spinner')",
+  :complete => "Element.hide('spinner')",
+  :url => {:action => :get_datos_tramite})%>
+
+<%#= observe_field :numero_tramite, 
+  :on => "change",
+  :loading => "Element.show('spinner')",
+  :complete => "Element.hide('spinner')",
+  :url => {:action => :get_datos_tramite},
+  :update => "datos_tramite" %>
 
 
 <%#= observe_field :tramite_nuc,
@@ -84,11 +166,3 @@
     :update => 'datos_tramite',
     :with => "tramite_carpeta_investigacion"
 %>
-
-
-
-
-
-
-
-

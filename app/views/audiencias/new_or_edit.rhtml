@@ -57,15 +57,15 @@
         <div class="grid-10-12"><%=f.text_field :asunto%></div>
       </div>
 
-             <div class="grid-6-12">
+      <div class="grid-6-12">
         <div class="grid-4-12">
           <label><b>¿ES INICIO?: </b><em class="formee-req">*</em></label>
         </div>
         <div class="grid-8-12">
-                  <span class="InputGroup">
-                   <label class="uper">SI <%= f.radio_button :es_inicio, 'SI', :checked => @audiencia.es_inicio == 1%></label>&nbsp;&nbsp;
-                   <label class="uper">NO <%= f.radio_button :es_inicio, 'NO', :checked => @audiencia.es_inicio == 0%></label>
-                  </span>
+          <span class="InputGroup">
+            <label class="uper">SI <%= f.radio_button :es_inicio, 'SI', :checked => @audiencia.es_inicio == 1%></label>&nbsp;&nbsp;
+            <label class="uper">NO <%= f.radio_button :es_inicio, 'NO', :checked => @audiencia.es_inicio == 0%></label>
+          </span>
        </div>
       </div>
 
@@ -87,10 +87,12 @@
 
 <!-- Validaciones -->
 <script type="text/javascript">
+  var per_curp = new LiveValidation( 'persona_per_curp', {onlyOnSubmit: true} );
   var asunto = new LiveValidation( 'audiencia_asunto', {onlyOnSubmit: true} );
   var materia = new LiveValidation( 'audiencia_materia_id', {onlyOnSubmit: true} );
   asunto.add( Validate.Presence );
   materia.add( Validate.Presence );
+  per_curp.add( Validate.Presence );
   <%#*var fecha = new LiveValidation( 'audiencia_fecha', {onlyOnSubmit: true} );%>
   <%#*var per_curp = new LiveValidation( 'persona_per_curp', {onlyOnSubmit: true} );%>
   <%#*fecha.add( Validate.Presence );%>

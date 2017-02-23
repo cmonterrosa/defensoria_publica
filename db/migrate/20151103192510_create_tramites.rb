@@ -22,6 +22,7 @@ class CreateTramites < ActiveRecord::Migration
       t.column :tipo_juicio_id, :integer
       t.column :solo_orientacion, :boolean
       t.column :organo_id, :integer
+      t.column :num_expediente, :string, :limit => 20
       t.timestamps
     end
 
