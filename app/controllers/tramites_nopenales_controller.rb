@@ -97,6 +97,12 @@ class TramitesNopenalesController < ApplicationController
         end
      end
 
+    def destroy
+      @tramite = Tramite.nopenal.find(params[:id])
+      (@tramite && @tramite.destroy) ? flash[:notice] = "Registro eliminado correctamente" : flash[:error] = "Registro no se pudo eliminar, verifique"
+      redirect_to :action => "index"
+    end
+
   def menu
     select_object
   end
