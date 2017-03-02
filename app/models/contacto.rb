@@ -6,9 +6,10 @@
 class Contacto < ActiveRecord::Base
   establish_connection "persona"
   set_table_name "pr_contacto"
-  belongs_to :persona, :foreign_key => "fk_persona"
-  belongs_to :tipo_contacto, :foreign_key => "fk_tipo"
   set_primary_key "id_contacto"
+  belongs_to :persona, :foreign_key => "fk_persona"
+  belongs_to :tipo_contacto
+  
 
   named_scope :telefono_celular, :conditions => {:fk_tipo => 1}
   named_scope :correo_electronico, :conditions => {:fk_tipo => 2}
