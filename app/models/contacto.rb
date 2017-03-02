@@ -22,7 +22,12 @@ class Contacto < ActiveRecord::Base
   before_save :check_id_integrity
   
   def check_id_integrity
-    self.id ||= (Contacto.maximum(:id_contacto) > 0) ? Contacto.maximum(:id_contacto) + 1 : 1
+    begin
+      self.id = 1 if Contacto.count(:id_contacto) == 0
+      self.id ||= (Contacto.maximum(:id_contacto) > 0) ? Contacto.maximum(:id_contacto) + 1 : 1
+    rescue
+      puts("=> NO SE PUDO CHECAR LA INTEGRIDAD DEL REGISTRO DE CONTACTO")
+    end
   end
 
   def make_active
