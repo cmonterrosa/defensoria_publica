@@ -79,7 +79,7 @@
                         ">> " +  raw(link_to ' PARTES ', {:controller => 'partes', :action => "index", :t => @tramite}, :class => "arbol")
                 end
 
-            when 'amparos', 'sentencias', 'recursos', 'promociones', 'mecanismos_alternativos'
+            when 'amparos', 'sentencias', 'recursos', 'promociones', 'mecanismos_alternativos', 'audiencias_orales'
                 @tramites_controller = (@tramite && @tramite.es_penal?)? 'tramites' : 'tramites_nopenales'
                 case controller.action_name
                       when 'index', 'new_or_edit', 'show'
@@ -107,11 +107,7 @@
                        (link_to title.upcase, {:controller => params[:controller], :action => "index"}, :class => "arbol", :title => title.upcase)
                 end
 
-            when 'audiencias_orales'
-                title = 'AUDIENCIAS'
-                raw(link_to ' TRAMITES ', {:controller => 'tramites', :action => "index"}, :class => "arbol") <<
-                ">> " +  raw(link_to ' MENU ', {:controller => 'tramites', :action => "menu", :id => @tramite}, :class => "arbol") <<
-                ">> " + (link_to title.upcase, {:controller => params[:controller], :action => "index", :t => @tramite}, :class => "arbol", :title => title.upcase)
+           
 
             when 'corporacion_policiacas'
                 title = 'CORPORACIONES POLICIACAS'

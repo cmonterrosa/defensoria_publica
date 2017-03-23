@@ -14,7 +14,7 @@ class UploadController < ApplicationController
     @title = (@participante) ? "ARCHIVOS ADJUNTOS DEL PARTICIPANTE: #{(@participante.persona) ? @participante.persona.nombre_completo: ''}" : nil
     @title ||= (@parte) ? "ARCHIVOS ADJUNTOS DE PARTE: #{(@parte.persona) ? @parte.persona.nombre_completo: ''}" : nil
     if @tramite
-      @title ||= (@tramite) ? "ARCHIVOS ADJUNTOS DEL EXPEDIENTE: #{@tramite.numero_expediente}" : nil if Tramite.nopenal.exists?(:id => @tramite.id)
+      @title ||= (@tramite) ? "ARCHIVOS ADJUNTOS DEL EXPEDIENTE: #{@tramite.num_expediente}" : nil if Tramite.nopenal.exists?(:id => @tramite.id)
       @title ||= (@tramite) ? "ARCHIVOS ADJUNTOS DEL TRAMITE: #{@tramite.id}" : nil
     end
     @title ||= "PORTAL DE DOCUMENTOS COMPARTIDOS"
