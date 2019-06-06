@@ -8,6 +8,7 @@ The main objective of this application is to have an updated information on the 
 
 Additionally, the system will have a specific section of **reports** and statistics in real time.
 
+This is demo application, not in production environment
 
 > **Note:**
 
